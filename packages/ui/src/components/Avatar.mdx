@@ -1,0 +1,39 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
+import * as Stories from './Avatar.stories'
+
+<Meta of={Stories} />
+
+# Avatar
+
+## Overview
+
+Face mark with image or initials fallback — specs/domain/msqdx-ui-feedback-data.md.
+
+## Anatomy
+
+`.ds-avatar` · `.ds-avatar-img` / `.ds-avatar-initials` · sizes `sm`/`md`/`lg`.
+
+## Usage
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Default} />
+
+## Do and Don't
+
+### Do
+
+- Pass `name` for initials and accessible label when no `src`.
+- Use `alt` when the image conveys identity.
+
+### Don't
+
+- Do not use decorative avatars without `aria-hidden` / empty alt when purely ornamental.
+
+## Accessibility
+
+Initials mode uses `role="img"` + `aria-label`. Image mode relies on `alt`.
+
+## Related
+
+Atoms/Chip · Molecules/Toast · specs/domain/msqdx-ui-feedback-data.md

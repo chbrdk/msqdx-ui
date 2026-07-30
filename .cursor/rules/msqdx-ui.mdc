@@ -1,0 +1,12 @@
+---
+description: Central MSQ DX UI spec-driven component workflow
+alwaysApply: true
+---
+
+# Central MSQ DX UI
+
+- Shared UI primitives live in `msqdx-ui`, not in consuming apps.
+- Before adding a new primitive, check `packages/ui/src/storybook/catalog.ts` and `packages/ui/src/index.ts`.
+- If the primitive is missing, update/add a spec under `specs/domain/` first, then run `pnpm ds:add <Name> --layer atoms|molecules|organisms`.
+- Generated primitives must keep the established shape: `Component.tsx`, `*.stories.tsx`, `*.mdx`, `*.test.tsx`, barrel export, catalog entry, token-based CSS classes.
+- Consuming apps may compose or theme primitives, but may not create parallel primitive source-of-truth copies.

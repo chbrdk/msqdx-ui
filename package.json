@@ -1,0 +1,16 @@
+{
+  "name": "msqdx-ui",
+  "private": true,
+  "packageManager": "pnpm@10.16.1",
+  "workspaces": [
+    "packages/ui",
+    "packages/ui-tokens"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test && node --test scripts/ds-add.test.mjs",
+    "storybook": "pnpm --filter @msqdx/ui storybook",
+    "build-storybook": "pnpm --filter @msqdx/ui build-storybook",
+    "ds:add": "node ./scripts/ds-add.mjs"
+  }
+}

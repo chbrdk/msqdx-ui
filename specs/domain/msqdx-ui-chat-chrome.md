@@ -1,0 +1,56 @@
+# MSQ DX v2 — Chat chrome (product UI)
+
+**Status:** Accepted — 2026-07-29 · Open surface promoted 2026-07-29  
+**ADR:** 0028 §19  
+**Implements:** `packages/ui/src/css/chat.css` · consumers (e.g. AUDION v3 `AudionChatPanel`)  
+**Knowledge:** `knowledge/msqdx-ui-chat-chrome.md`  
+**Depends on:** Field/Textarea, Button, Text, Hint, Alert, LoadingText, EmptyState
+
+## Goals
+
+1. Chat overlay / compact sheet / full-page open chat consume DS chrome instead of product one-offs.
+2. Composer = `<Textarea>` (+ send `<Button>`); status/errors = Alert/LoadingText; empty = EmptyState.
+3. Keep chat **turn** typography on type tokens (`--font-display` / `--font-body`).
+4. Spec first; CSS SoT in `@msqdx/ui` — products compose markup + data, not duplicate chrome.
+
+## Surfaces
+
+| Mode | Class | Use |
+|------|-------|-----|
+| Overlay sheet | `.chat-overlay` · `.chat-overlay-sheet` · `.chat-panel-compact` | Modal / drawer chat |
+| Open editorial | `.chat-panel.chat-panel-open` | Full-page conversation (no card) |
+
+## Anatomy
+
+| Part | Treatment |
+|------|-----------|
+| Composer input | `<Textarea size="md" block className="chat-composer">` |
+| Send (sheet) | `<Button variant="primary" size="sm" shape="pill" className="chat-send">` |
+| Send (open) | `<Button variant="ghost" size="sm" className="chat-send chat-send-icon" icon={<IconSend />} aria-label="Send" />` |
+| Empty / loading | `<EmptyState className="chat-empty">` / `<LoadingText>` |
+| Errors | `<Alert tone="error">` |
+| Turns | `.chat-turn-user` (end) · `.chat-turn-assistant` (start) under open |
+| Expand composer | `.chat-form` + `:hover` / `:focus-within` / `.is-expanded` (open only) |
+
+### Open surface tokens (CSS vars)
+
+| Var | Default | Role |
+|-----|---------|------|
+| `--chat-composer-collapsed` | `min(28rem, 100%)` | Idle composer width |
+| `--chat-composer-expanded` | `min(52rem, 100%)` | Hover/focus/draft width |
+| `--chat-panel-open-min-height` | `auto` | Product shell offset (e.g. `calc(100vh - 10.5rem)`) |
+
+## Non-goals (this pass)
+
+- Shipping a shared React `ChatPanel` in `@msqdx/ui` (CSS + primitives only for now).
+- Replace agent tool-trace UX.
+- New toast/modal system.
+- Message bubble rem-audit (later).
+
+## Acceptance
+
+1. Spec + knowledge linked from completeness / ADR. ✅  
+2. `chat.css` includes overlay + `.chat-panel-open` editorial chrome. ✅  
+3. Guard: `packages/ui/src/chatChrome.test.ts`. ✅  
+4. `IconSend` exported from package icons. ✅  
+5. Product chat pages use DS classes; product CSS limited to shell/persona chrome.  

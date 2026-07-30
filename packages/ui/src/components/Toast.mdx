@@ -1,0 +1,40 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
+import * as Stories from './Toast.stories'
+
+<Meta of={Stories} />
+
+# Toast
+
+## Overview
+
+Transient status messages via `ToastProvider` + `useToast().push()` — polite for info/ok, assertive for errors (WCAG 4.1.3).
+
+## Anatomy
+
+Viewport · polite live region · assertive live region · `.ds-toast` chips.
+
+## Usage
+
+<Canvas of={Stories.Default} />
+
+<Controls of={Stories.Default} />
+
+## Do and Don't
+
+### Do
+
+- Mount `ToastProvider` once at app root (product App already does).
+- Prefer `tone: 'error'` only for urgent failures.
+
+### Don't
+
+- Do not move focus into toasts.
+- Do not invent parallel snackbar markup.
+
+## Accessibility
+
+Live regions are pre-mounted empty; messages mutate children later. Errors stay until dismiss (duration 0).
+
+## Related
+
+Alert · Spinner · specs/domain/msqdx-ui-feedback-data.md

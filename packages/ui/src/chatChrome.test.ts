@@ -1,0 +1,24 @@
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { describe, expect, it } from 'vitest'
+
+const cssPath = join(dirname(fileURLToPath(import.meta.url)), 'css/chat.css')
+const chatCss = readFileSync(cssPath, 'utf8')
+
+describe('chat chrome CSS', () => {
+  it('ships overlay + open editorial surface selectors', () => {
+    expect(chatCss).toContain('.chat-overlay')
+    expect(chatCss).toContain('.chat-panel-compact')
+    expect(chatCss).toContain('.chat-composer')
+    expect(chatCss).toContain('.chat-send')
+
+    expect(chatCss).toContain('.chat-panel-open')
+    expect(chatCss).toContain('--chat-composer-collapsed')
+    expect(chatCss).toContain('--chat-composer-expanded')
+    expect(chatCss).toContain('.chat-form.is-expanded')
+    expect(chatCss).toContain('.chat-send-icon')
+    expect(chatCss).toContain('@keyframes chat-turn-in')
+    expect(chatCss).toContain('prefers-reduced-motion')
+  })
+})
