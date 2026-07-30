@@ -63,6 +63,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ConfirmDialog', layer: 'Organisms', title: 'Organisms/ConfirmDialog', stories: 'components/ConfirmDialog.stories.tsx', mdx: 'components/ConfirmDialog.mdx' },
   { id: 'DataTable', layer: 'Organisms', title: 'Organisms/DataTable', stories: 'components/DataTable.stories.tsx', mdx: 'components/DataTable.mdx' },
   { id: 'RankedList', layer: 'Organisms', title: 'Organisms/RankedList', stories: 'components/RankedList.stories.tsx', mdx: 'components/RankedList.mdx', viewportCritical: true },
+  { id: 'Flyout', layer: 'Molecules', title: 'Molecules/Flyout', stories: 'components/Flyout.stories.tsx', mdx: 'components/Flyout.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

@@ -92,6 +92,11 @@ export {
   IconJourneys,
   IconResearch,
   IconSend,
+  IconShare,
+  IconHistory,
+  IconMoodboard,
+  IconMic,
+  IconVideo,
 } from './components/icons'
 export type { IconProps } from './components/icons'
 export { KpiStrip } from './components/KpiStrip'
@@ -117,5 +122,7 @@ export { TopStatus } from './components/TopStatus'
 export type { TopStatusLevel, TopStatusProps } from './components/TopStatus'
 export { SectionChrome } from './SectionChrome'
 export type { PanelRole, SectionChromeProps, SectionTitleKey } from './SectionChrome'
+export { Flyout, useFlyout } from './components/Flyout'
+export type { FlyoutProps } from './components/Flyout'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

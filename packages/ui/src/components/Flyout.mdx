@@ -1,0 +1,24 @@
+# Flyout
+
+Layer: `molecules`
+
+Icon-triggered panel under a ghost button. Panel uses frosted glass (`backdrop-filter`); **no** full-page overlay/scrim.
+
+## Usage
+
+```tsx
+import { Flyout, IconShare } from '@msqdx/ui'
+
+<Flyout label="Share" icon={<IconShare />}>
+  {({ close }) => (
+    <>
+      <p>Panel content</p>
+      <button type="button" onClick={close}>Done</button>
+    </>
+  )}
+</Flyout>
+```
+
+## Spec
+
+`specs/domain/msqdx-ui-flyout.md`

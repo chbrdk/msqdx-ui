@@ -1069,3 +1069,33 @@
 .ds-accordion-footer {
   min-width: 0;
 }
+
+/* Flyout — icon trigger + frosted panel (no page scrim) */
+.ds-flyout {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.ds-flyover {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 0;
+  z-index: 40;
+  min-width: min(22rem, calc(100vw - 4rem));
+  max-width: min(36rem, calc(100vw - 3rem));
+  padding: 0.85rem 1rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0.45rem;
+  background: color-mix(in srgb, var(--surface-1, var(--surface, var(--bg, #fff))) 78%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  backdrop-filter: blur(16px) saturate(1.2);
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--ink) 12%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-flyover {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--surface-1, var(--surface, var(--bg, #fff)));
+  }
+}

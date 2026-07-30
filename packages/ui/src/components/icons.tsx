@@ -2,11 +2,16 @@ import type { LucideProps } from 'lucide-react'
 import type { ComponentType } from 'react'
 import {
   FolderKanban,
+  History,
   LayoutDashboard,
+  LayoutGrid,
   Map,
+  Mic,
   Search,
   Send,
+  Share2,
   Users,
+  Video,
 } from 'lucide-react'
 
 export type IconProps = LucideProps
@@ -35,3 +40,8 @@ export const IconResearch = wrap(Search)
 export const IconProjects = wrap(FolderKanban)
 export const IconJourneys = wrap(Map)
 export const IconSend = wrap(Send)
+export const IconShare = wrap(Share2)
+export const IconHistory = wrap(History)
+export const IconMoodboard = wrap(LayoutGrid)
+export const IconMic = wrap(Mic)
+export const IconVideo = wrap(Video)

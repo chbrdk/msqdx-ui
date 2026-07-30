@@ -27,7 +27,8 @@
 - Chat chrome knowledge: `knowledge/msqdx-ui-chat-chrome.md`
 - Chat CSS: `packages/ui/src/css/chat.css` (`.chat-panel-open`, `.chat-send-icon`)
 - Chat CSS guard: `packages/ui/src/chatChrome.test.ts`
-- IconSend: `packages/ui/src/components/icons.tsx`
+- IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo: `packages/ui/src/components/icons.tsx`
+- Flyout: `packages/ui/src/components/Flyout.tsx` · spec `specs/domain/msqdx-ui-flyout.md` · knowledge `knowledge/components/flyout.md`
 
 - Shared overview surfaces spec: `specs/domain/msqdx-ui-overview-surfaces.md`
 - Shared top status primitive: `packages/ui/src/components/TopStatus.tsx`

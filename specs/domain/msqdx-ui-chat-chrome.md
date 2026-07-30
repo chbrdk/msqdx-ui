@@ -54,3 +54,4 @@
 3. Guard: `packages/ui/src/chatChrome.test.ts`. ✅  
 4. `IconSend` exported from package icons. ✅  
 5. Product chat pages use DS classes; product CSS limited to shell/persona chrome.  
+6. `Flyout` + chat action icons (`IconShare` / `IconHistory` / `IconMoodboard` / `IconMic` / `IconVideo`) — 2026-07-30. ✅ 
