@@ -78,6 +78,14 @@
   --responsive-md-max: 900px;
   --responsive-lg-min: 1200px;
   --responsive-gutter: 1rem;
+
+  /* Scrollbars — hairline, theme-aware via --ink */
+  --scrollbar-size: 4px;
+  --scrollbar-radius: 999px;
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: color-mix(in srgb, var(--ink) 22%, transparent);
+  --scrollbar-thumb-hover: color-mix(in srgb, var(--ink) 38%, transparent);
+  --scrollbar-thumb-active: color-mix(in srgb, var(--ink) 50%, transparent);
 }
 
 /* Reduced motion: keep short fades; collapse choreography/positional timing */

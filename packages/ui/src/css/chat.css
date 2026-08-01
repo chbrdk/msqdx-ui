@@ -380,6 +380,9 @@
   min-height: 2.5rem;
   height: auto;
   resize: none;
+  /* rows=1 + padding often overflows by 1px → native textarea scrollbar */
+  overflow-x: hidden;
+  overflow-y: hidden;
   padding: 0.55rem 0.75rem;
   border-radius: var(--radius-pill);
   font-size: var(--type-md);

@@ -3,6 +3,21 @@
   box-sizing: border-box;
 }
 
+/*
+ * Hairline scrollbars via standard properties only.
+ * Avoid `::-webkit-scrollbar` (and especially `*::-webkit-scrollbar`):
+ * styling those forces classic always-visible gutters on WebKit/Blink,
+ * including on textareas and every overflow:auto panel.
+ */
+html,
+.ds-scroll,
+.chat-turns,
+.audion-journey-timeline-viewport,
+.audion-journey-timeline-steps {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
 html,
 body,
 #root {
