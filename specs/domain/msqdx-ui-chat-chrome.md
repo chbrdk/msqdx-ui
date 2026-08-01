@@ -40,10 +40,14 @@
 | `--chat-composer-expanded` | `min(52rem, 100%)` | Hover/focus/draft width |
 | `--chat-panel-open-min-height` | `auto` | Product shell offset (e.g. `calc(100vh - 10.5rem)`) |
 
+## Related shells (2026-08-01)
+
+Agent inspect chrome (domain-free): `InspectDock` · `StepStrip` · `ChannelStack` · `EventFooter` — see `msqdx-ui-inspect-dock.md` et al. · `css/chat-inspect.css`.
+
 ## Non-goals (this pass)
 
 - Shipping a shared React `ChatPanel` in `@msqdx/ui` (CSS + primitives only for now).
-- Replace agent tool-trace UX.
+- Domain tool-trace / think-aloud field mapping (product-owned; shells above).
 - New toast/modal system.
 - Message bubble rem-audit (later).
 

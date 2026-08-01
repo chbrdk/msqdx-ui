@@ -57,6 +57,16 @@ Chart/status/palette SoT = `design-system/tokens` (`status.ts`, `colors.ts`). `m
 
 `Accordion` · `SectionChrome.metaTone="accent"` — spec `msqdx-ui-accordion.md` · pilot AUDION project knowledge.
 
+## Done — Slider / Meter / ScrollArea (2026-08-01)
+
+`Slider` · `Meter`/`MeterList` · `ScrollArea` — specs `msqdx-ui-slider.md` · `msqdx-ui-meter.md` · `msqdx-ui-scroll-area.md`.  
+Hairline scrollbars via `.ds-scroll` (no universal WebKit pseudos). Pilot: AUDION persona traits / research / journey dimensions.
+
+## Done — Chat inspect shells (2026-08-01)
+
+`InspectDock` · `StepStrip`/`StepStripItem` · `ChannelStack`/`ChannelLane` · `EventFooter` — specs `msqdx-ui-inspect-dock.md` · `msqdx-ui-step-strip.md` · `msqdx-ui-channel-stack.md` · `msqdx-ui-event-footer.md`.  
+CSS: `packages/ui/src/css/chat-inspect.css`. Domain-free chrome for AUDION + future Plexon agent inspect.
+
 ## Explicitly later
 
 - Message-bubble rem-audit in chat
