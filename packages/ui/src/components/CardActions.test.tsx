@@ -28,4 +28,13 @@ describe('CardActions', () => {
     )
     expect(container.querySelector('.ds-card-actions')).not.toHaveClass('ds-card-actions--hairline')
   })
+
+  it('exposes ds-card-actions class for bottom-pinned flex footers', () => {
+    const { container } = render(
+      <CardActions>
+        <Button variant="ghost">Open</Button>
+      </CardActions>,
+    )
+    expect(container.querySelector('.ds-card-actions')).toBeTruthy()
+  })
 })

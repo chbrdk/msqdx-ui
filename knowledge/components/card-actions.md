@@ -11,3 +11,4 @@ Equal-width magazine card action row in `msqdx-ui`.
 
 - Default `hairline` preserves the magazine top rule.
 - Nested Link/span wrappers are supported — children stretch; `.ds-btn` fills width.
+- Parent card must be a column flex container filling equal grid height; `.ds-card-actions` uses `margin-top: auto` so footers align across the row.

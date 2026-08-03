@@ -14,6 +14,8 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 /**
  * Equal-width card action row — specs/domain/msqdx-ui-card-actions.md
  * Children (Button, or Link/span wrapping Button) stretch evenly across the row.
+ * Pin to card bottom: parent must be a column flex container filling equal grid height
+ * (`.ds-card-actions` uses `margin-top: auto`).
  */
 export function CardActions({
   children,
