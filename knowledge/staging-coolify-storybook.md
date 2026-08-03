@@ -20,12 +20,19 @@ Hierarchy context: `plexon-v3/knowledge/coolify-v3-staging-runbook.md`.
 
 ## What the image does
 
-1. `pnpm install --frozen-lockfile` (workspace: `@msqdx/ui-tokens` + `@msqdx/ui`)
+1. `pnpm install --frozen-lockfile` + `pnpm rebuild esbuild` (workspace: `@msqdx/ui-tokens` + `@msqdx/ui`)
 2. `pnpm build` → package dist
-3. `pnpm build-storybook` → `packages/ui/storybook-static`
+3. `pnpm build-storybook` → `packages/ui/storybook-static` (`NODE_OPTIONS=--max-old-space-size=4096`)
 4. nginx serves that folder on port **6006**
 
 Product app Dockerfiles that **clone** this repo for sibling source are unrelated and unchanged.
+
+## Build pitfalls (pnpm 10 + Coolify)
+
+- **esbuild postinstall must run.** pnpm 10 ignores dependency build scripts by default (`Ignored build scripts: esbuild`). Root `package.json` allowlists via `pnpm.onlyBuiltDependencies: ["esbuild"]`; the Dockerfile also runs `pnpm rebuild esbuild` after install. Without the native binary, Vite/Storybook fails during chunk transform/render (often exit **255**, log truncated after “rendering chunks”).
+- **Do not** set `dangerouslyAllowAllBuilds` unless a broader allowlist is impractical — prefer the esbuild allowlist.
+- **Heap:** Storybook build uses `NODE_OPTIONS=--max-old-space-size=4096` (same class of Coolify OOM mitigation as plexon-v3). Raising much higher can trigger cgroup OOM instead.
+- **Docker context size (~0.6–1.5 MB)** is expected: `.dockerignore` drops `node_modules`, `dist`, `knowledge`, `specs`. Storybook config lives under `packages/ui/.storybook` and is copied with `COPY packages` — it is not excluded.
 
 ## Coolify attach checklist
 

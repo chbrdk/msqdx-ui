@@ -10,10 +10,26 @@ test('Dockerfile builds packages then static Storybook and exposes 6006', () => 
   const dockerfile = readFileSync(join(root, 'Dockerfile'), 'utf8')
   assert.match(dockerfile, /pnpm build/)
   assert.match(dockerfile, /pnpm build-storybook/)
+  assert.match(dockerfile, /pnpm rebuild esbuild/)
+  assert.match(dockerfile, /NODE_OPTIONS=--max-old-space-size=4096/)
   assert.match(dockerfile, /storybook-static/)
   assert.match(dockerfile, /EXPOSE 6006/)
   assert.match(dockerfile, /HEALTHCHECK/)
   assert.match(dockerfile, /nginx/)
+})
+
+test('root package.json allowlists esbuild for pnpm 10 install scripts', () => {
+  const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'))
+  assert.deepEqual(pkg.pnpm?.onlyBuiltDependencies, ['esbuild'])
+})
+
+test('.dockerignore keeps packages (incl. .storybook) and drops docs/deps', () => {
+  const ignore = readFileSync(join(root, '.dockerignore'), 'utf8')
+  assert.match(ignore, /^node_modules$/m)
+  assert.match(ignore, /^knowledge$/m)
+  assert.match(ignore, /^specs$/m)
+  assert.doesNotMatch(ignore, /\.storybook/)
+  assert.doesNotMatch(ignore, /^packages$/m)
 })
 
 test('nginx listens on Storybook port 6006 and serves healthz', () => {

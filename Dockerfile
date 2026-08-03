@@ -30,9 +30,15 @@ COPY packages ./packages
 COPY scripts ./scripts
 
 # DevDeps required for tsc + Storybook/Vite build (Coolify may inject NODE_ENV=production).
+# pnpm 10 blocks dependency postinstalls unless allowlisted in package.json
+# (`pnpm.onlyBuiltDependencies`). Without esbuild's install.js, Vite/Storybook
+# dies mid-chunk (Coolify often reports exit 255 with a truncated log).
 ENV NODE_ENV=development
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile \
+    && pnpm rebuild esbuild
 
+# Cap heap for Coolify hosts (~4–8 GB). Higher values invite cgroup OOM (exit 255).
+ENV NODE_OPTIONS=--max-old-space-size=4096
 ENV NODE_ENV=production
 RUN pnpm build \
     && pnpm build-storybook \

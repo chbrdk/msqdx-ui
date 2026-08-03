@@ -12,5 +12,10 @@
     "storybook": "pnpm --filter @msqdx/ui storybook",
     "build-storybook": "pnpm --filter @msqdx/ui build-storybook",
     "ds:add": "node ./scripts/ds-add.mjs"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
