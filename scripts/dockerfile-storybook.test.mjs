@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import test from 'node:test'
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..')
+
+test('Dockerfile builds packages then static Storybook and exposes 6006', () => {
+  const dockerfile = readFileSync(join(root, 'Dockerfile'), 'utf8')
+  assert.match(dockerfile, /pnpm build/)
+  assert.match(dockerfile, /pnpm build-storybook/)
+  assert.match(dockerfile, /storybook-static/)
+  assert.match(dockerfile, /EXPOSE 6006/)
+  assert.match(dockerfile, /HEALTHCHECK/)
+  assert.match(dockerfile, /nginx/)
+})
+
+test('nginx listens on Storybook port 6006 and serves healthz', () => {
+  const conf = readFileSync(join(root, 'docker/nginx-storybook.conf'), 'utf8')
+  assert.match(conf, /listen 6006/)
+  assert.match(conf, /location = \/healthz/)
+})
+
+test('paths.md documents staging Storybook URL placeholder', () => {
+  const paths = readFileSync(join(root, 'knowledge/paths.md'), 'utf8')
+  assert.match(paths, /msqdx-ui\.projects-a\.plygrnd\.tech/)
+  assert.match(paths, /URL_MSQDX_UI_STORYBOOK/)
+  assert.match(paths, /6006/)
+})

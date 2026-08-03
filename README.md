@@ -11,4 +11,10 @@ Commands:
 - `pnpm build`
 - `pnpm test`
 - `pnpm storybook`
+- `pnpm build-storybook`
 - `pnpm ds:add ButtonLike --layer atoms`
+
+Always-on Storybook (static nginx, port **6006**):
+- Local: `docker compose up --build -d` → http://localhost:6006/
+- Coolify: `knowledge/staging-coolify-storybook.md`
+- Staging URL: `https://msqdx-ui.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`)

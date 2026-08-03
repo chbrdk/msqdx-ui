@@ -1,0 +1,22 @@
+# Local always-on Storybook (static nginx image).
+# Usage:
+#   docker compose up --build -d
+#   open http://localhost:6006/
+# Stop:
+#   docker compose down
+
+services:
+  storybook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: msqdx-ui-storybook:local
+    ports:
+      - "6006:6006"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1:6006/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s

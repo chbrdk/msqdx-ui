@@ -8,6 +8,10 @@
 - Storybook focus shim (10.5 Illegal invocation): `packages/ui/.storybook/restoreNativeFocus.ts`
 - Storybook local: `http://localhost:6006/` (dev: `pnpm storybook` from repo root, or `packages/ui` binary)
 - Storybook output: `packages/ui/storybook-static`
+- Storybook container port: **6006** (static nginx; `Dockerfile` + `docker/nginx-storybook.conf`)
+- Storybook staging URL: `https://msqdx-ui.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`)
+- Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
+- Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
 - Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
 - Lede / FilterRow / Panel magazine cutover: `knowledge/components/lede-filter-panel.md`

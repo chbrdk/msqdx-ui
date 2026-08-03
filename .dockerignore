@@ -1,0 +1,28 @@
+# Dependencies & build artifacts (rebuilt in image)
+node_modules
+**/node_modules
+dist
+**/dist
+storybook-static
+**/storybook-static
+coverage
+**/*.tsbuildinfo
+
+# VCS / editor / local
+.git
+.cursor
+.DS_Store
+.idea
+.vscode
+*.log
+
+# Secrets / env (never bake)
+.env
+.env.*
+!.env.example
+
+# Docs not needed for Storybook static build
+knowledge
+specs
+README.md
+AGENTS.md
