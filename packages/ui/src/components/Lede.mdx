@@ -1,0 +1,24 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as Stories from './Lede.stories'
+
+<Meta of={Stories} />
+
+# Lede / LedeStrip
+
+Layer: `Molecules`
+
+Unified magazine band for **metrics** (KPI ledes) and **steps** (numbered wizard). Same hairline + uppercase label language.
+
+Aliases: `StatLede` / `StatLedeGroup` · `WizardSteps`.
+
+## Metrics
+
+<Canvas of={Stories.Metrics} />
+
+## Steps
+
+<Canvas of={Stories.Steps} />
+
+## Spec
+
+`specs/domain/msqdx-ui-lede.md`

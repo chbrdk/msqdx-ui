@@ -1,0 +1,27 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as Stories from './BrandCorner.stories'
+
+<Meta of={Stories} />
+
+# BrandCorner
+
+Layer: `Molecules`
+
+Top-right MSQDX cutdown brand lockup for product shells.
+
+## Usage
+
+<Canvas of={Stories.Default} />
+
+## Do
+
+- Pass the product name as `label`.
+- Slot into `AppFrame` via `brandCorner`.
+
+## Don't
+
+- Rebuild corner geometry per app — use `corners` only for deliberate cutdown overrides.
+
+## Related
+
+Spec: `specs/domain/msqdx-ui-app-shell.md`

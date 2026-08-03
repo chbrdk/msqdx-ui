@@ -4,8 +4,8 @@ Full Atomic Design catalog for ECHON product UI.
 
 **Spec:** `specs/domain/msqdx-ui-storybook-atomic.md`  
 **Map:** `specs/domain/msqdx-ui-catalog-map.md`  
-**Runtime inventory:** `apps/web-ui/src/storybook/catalog.ts`  
-**Run:** `pnpm storybook` in `apps/web-ui` · URL `web.storybook_base_url`
+**Runtime inventory:** `packages/ui/src/storybook/catalog.ts`  
+**Run:** `pnpm storybook` in `msqdx-ui` · URL http://localhost:6006/
 
 ## Layers
 
@@ -15,10 +15,8 @@ Each entry: co-located `*.stories.tsx` + `*.mdx` (Usage / Do–Don’t).
 
 ## Guards
 
-- `src/storybook/catalogCompleteness.test.ts`
-- `src/storybook/storySmoke.test.tsx`
-- `src/storybook/viewports.ts` (responsiveSm/Md/desktop/ultraWide from paths)
-- `pnpm build-storybook`
+- `packages/ui/src/storybook/catalogCompleteness.test.ts`
+- Coverage audit: `knowledge/storybook-coverage-audit-2026-08-03.md`
 
 ## Related
 

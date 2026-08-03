@@ -20,7 +20,7 @@
 
 | Component | Legacy alias | Notes |
 |-----------|--------------|-------|
-| `Panel` | `.module-panel` | section shell |
+| `Panel` | `.module-panel` | Magazine chapter band by default (`editorial`); wash via `variant="default"` |
 | `MetricChip` | `.metric-chip` | OpsStrip KPI |
 | `PageTitle` | `.page-title` | topbar h1 |
 | `Textarea` | — | Field family; native textarea |

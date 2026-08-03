@@ -1,29 +1,28 @@
-import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
 import * as Stories from './Panel.stories'
 
 <Meta of={Stories} />
 
 # Panel
 
-## Overview
-Panel is a reusable ECHON interface building block.
+Layer: `Molecules`
 
-## Anatomy
-- Primary content and supporting state are exposed through its public props.
+Module shell. Default = bordered surface wash. Magazine stages use `variant="flush"` (no chrome) or `variant="editorial"` (top hairline, fill-free).
 
-## Usage
+## Default
+
 <Canvas of={Stories.Default} />
-<Controls of={Stories.Default} />
 
-## Do and Don't
-### Do
-- Provide clear, meaningful content and labels.
+## Flush / Editorial
 
-### Don't
-- Use it without its required context or accessible labels.
+<Canvas of={Stories.Flush} />
+<Canvas of={Stories.Editorial} />
 
-## Accessibility
-Use semantic controls and expose meaningful labels for interactive content.
+## Do
 
-## Related
-See the Atomic Storybook catalog for adjacent components.
+- Prefer `editorial` / `flush` on AUDION/CHECKION magazine covers and launch stages.
+- Keep default Panel for ECHON ops / workstation modules.
+
+## Don't
+
+- Soft-wash a magazine cover with default Panel.

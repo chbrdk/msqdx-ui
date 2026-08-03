@@ -51,7 +51,7 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 
 export function PipelinePanel({ title, lanes, focusSlot, operations = [], className, ...rest }: PipelinePanelProps) {
   return (
-    <Panel className={cx('pipeline-panel', className)} {...rest}>
+    <Panel variant="default" className={cx('pipeline-panel', className)} {...rest}>
       <SectionChrome quiet title={title} />
       <div className="pipeline-lanes">
         {lanes.map((lane) => {

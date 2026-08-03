@@ -276,7 +276,6 @@
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
-  border-radius: var(--radius-pill);
   background: color-mix(in srgb, var(--ink) 10%, var(--field, var(--bg1)));
   color: var(--ink);
   font-family: var(--font-body);
@@ -284,6 +283,16 @@
   letter-spacing: var(--track-meta);
   line-height: 1;
   vertical-align: middle;
+}
+
+/* Magazine portraits (default) — sharp corners */
+.ds-avatar--square {
+  border-radius: var(--radius);
+}
+
+/* Dense list / table marks */
+.ds-avatar--round {
+  border-radius: var(--radius-pill);
 }
 
 .ds-avatar--sm {

@@ -1,44 +1,50 @@
-# MSQ DX v2 — Button (product UI)
+# MSQ DX — Button (magazine)
 
-**Status:** Accepted — 2026-07-28  
-**ADR:** 0028  
+**Status:** Accepted — 2026-08-03 (magazine defaults)  
 **Implements:** `packages/ui/src/components/Button.tsx` · `css/button.css`  
-**Knowledge:** `knowledge/msqdx-ui-motion-buttons.md`  
-**Catalog:** Storybook → Atoms/Button · Button.mdx
+**Knowledge:** `knowledge/components/button-magazine.md`  
+**Catalog:** Storybook → Atoms/Button
 
 ## Goals
 
-1. One button primitive for actions (primary / ghost / subtle / danger / link).
-2. Sizes bind to `--type-sm|md|lg`; weight `--weight-regular`; motion `--motion-hover|press`.
-3. Default size **`sm`** (compact product chrome).
-
-## Non-goals
-
-- Replace every legacy `.ghost-btn` in one pass (aliases remain; migrate when touching pages).
-- Icon-only toolbar buttons as a separate primitive (use `icon` + children or aria-label).
+1. One button primitive — magazine **square** corners + readable type scale.
+2. Default size **`md`** (collection / CardActions scale); `sm` dense chrome; `lg` launch CTAs.
+3. Prefer `<Button>` (or `buttonClassName` on `NextLink`) over raw `.ds-btn` / `.ghost-btn` class soup.
 
 ## API
 
 ```tsx
-<Button variant="ghost" size="sm">Filter</Button>
-<Button variant="primary" icon={<IconResearch />}>Ask</Button>
+<Button variant="ghost">Filter</Button>
+<Button variant="primary" size="lg">Start scan</Button>
+<Button href="/projects" variant="ghost">Open</Button>
+<a className={buttonClassName({ variant: 'primary' })} href="…">…</a>
 ```
 
 | Prop | Values | Default |
 |------|--------|---------|
 | `variant` | `primary` \| `ghost` \| `subtle` \| `danger` \| `link` | `primary` |
-| `size` | `sm` \| `md` \| `lg` | `sm` |
-| `shape` | `default` \| `pill` | `default` |
+| `size` | `sm` \| `md` \| `lg` | **`md`** |
+| `shape` | `square` \| `pill` \| `rounded` (`default` → square) | **`square`** |
+| `href` | string | renders `<a>` with button classes |
 | `icon` | ReactNode | — |
 | `block` | boolean | false |
 
-## CSS
+## Sizes (magazine)
 
-- Public: `.ds-btn`, `.ds-btn--*`
-- Legacy alias: `.ghost-btn` → ghost styles
+| Size | Use | Approx |
+|------|-----|--------|
+| `sm` | Dialogs, icon chrome, dense toolbars | min-height 2rem |
+| `md` | Default CTAs, CardActions | min-height 2.5rem |
+| `lg` | Launch / cover CTAs | min-height 3.25rem |
+
+## Shapes
+
+- **square** (default) — product magazine language
+- **pill** — chat send only
+- **rounded** — rare soft ops chrome
 
 ## Acceptance
 
-1. Spec linked from ADR / completeness / Storybook.
-2. Unit tests cover variants/sizes.
-3. New actions use `<Button>` only.
+1. Unit tests cover defaults (md + square), shapes, `href`, `buttonClassName`.
+2. New actions use `<Button>` / `buttonClassName` only.
+3. CardActions no longer re-declare button padding/radius (inherits md square).

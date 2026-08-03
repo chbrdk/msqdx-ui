@@ -28,7 +28,7 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 
 export function StatusMeterPanel({ title, meta, level = 'ok', banner, meters, className, ...rest }: StatusMeterPanelProps) {
   return (
-    <Panel className={cx('system-load', className)} data-level={level} {...rest}>
+    <Panel variant="default" className={cx('system-load', className)} data-level={level} {...rest}>
       <SectionChrome quiet title={title} meta={meta} />
       <div className={`system-banner level-${level}`} role="status">
         <strong>{banner}</strong>

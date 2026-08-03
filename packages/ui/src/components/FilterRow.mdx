@@ -1,29 +1,22 @@
-import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks'
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
 import * as Stories from './FilterRow.stories'
 
 <Meta of={Stories} />
 
 # FilterRow
 
-## Overview
-FilterRow is a reusable ECHON interface building block.
+Layer: `Molecules`
 
-## Anatomy
-- Primary content and supporting state are exposed through its public props.
+Magazine filter / chip band. Default `variant="magazine"` — bottom hairline + roomy Chip row. Prefer selected Chips over filled toggle strips.
 
 ## Usage
+
 <Canvas of={Stories.Default} />
-<Controls of={Stories.Default} />
 
-## Do and Don't
-### Do
-- Provide clear, meaningful content and labels.
+## With label
 
-### Don't
-- Use it without its required context or accessible labels.
+<Canvas of={Stories.WithLabel} />
 
-## Accessibility
-Use semantic controls and expose meaningful labels for interactive content.
+## Spec
 
-## Related
-See the Atomic Storybook catalog for adjacent components.
+`specs/domain/msqdx-ui-filter-row.md`

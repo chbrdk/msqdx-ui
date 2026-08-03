@@ -1,6 +1,6 @@
 # MSQ DX v2 — Toast / DataTable / Avatar
 
-**Status:** Accepted — 2026-07-28 · Implemented 2026-07-28  
+**Status:** Accepted — 2026-07-28 · Implemented 2026-07-28 · Avatar square default 2026-08-03  
 **ADR:** 0028 §20 (amended)  
 **Knowledge:** `knowledge/msqdx-ui-feedback-data.md`  
 **Implements:** `Avatar`, `Toast` (+ `ToastProvider` / `useToast`), `DataTable` under `design-system/components/` · CSS `css/extended.css`
@@ -20,7 +20,7 @@
 
 | Component | Layer | Notes |
 |-----------|-------|--------|
-| `Avatar` | Atom | Image or initials; sizes `sm`/`md`/`lg` |
+| `Avatar` | Atom | Image or initials; sizes `sm`/`md`/`lg`; **shape** `square` (default, magazine) \| `round` (lists) |
 | `Toast` + `ToastProvider` / `useToast` | Molecule | Pre-mounted polite + assertive live regions; no focus steal |
 | `DataTable` | Organism | Columns + rows; optional sort; empty slot |
 

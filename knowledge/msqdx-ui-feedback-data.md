@@ -5,7 +5,7 @@
 
 | Primitive | Use |
 |-----------|-----|
-| `Avatar` | Face / initials chip |
+| `Avatar` | Face / initials — default **square** (magazine); `shape="round"` for lists |
 | `ToastProvider` + `useToast().push()` | Transient status (polite) / errors (assertive) |
 | `DataTable` | Compact tabular lists with optional column sort |
 

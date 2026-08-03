@@ -1,0 +1,27 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as Stories from './NavRail.stories'
+
+<Meta of={Stories} />
+
+# NavRail
+
+Layer: `Organisms`
+
+Primary product navigation rail with logo, items, optional footer, and optional dockable snap edges.
+
+## Usage
+
+<Canvas of={Stories.Default} />
+
+## Do
+
+- Pass Lucide wrappers from `@msqdx/ui` icons as `item.icon`.
+- Use `dockable={false}` in Storybook and most app shells unless SnapDock is wired.
+
+## Don't
+
+- Encode product-specific route trees inside the primitive — pass `items` from the app.
+
+## Related
+
+Spec: `specs/domain/msqdx-ui-app-shell.md`

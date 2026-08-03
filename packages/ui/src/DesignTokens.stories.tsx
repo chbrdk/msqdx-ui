@@ -139,7 +139,7 @@ function DesignTokensShowcase() {
             className="module-panel"
             style={{ flex: '1 1 12rem', marginTop: 0 }}
           >
-            Module panel
+            Magazine panel (alias)
           </div>
         </div>
       </section>

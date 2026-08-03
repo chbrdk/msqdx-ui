@@ -1,6 +1,8 @@
 import type { HTMLAttributes, ImgHTMLAttributes } from 'react'
 
 export type AvatarSize = 'sm' | 'md' | 'lg'
+/** `square` = magazine portraits (AUDION/CHECKION). `round` = dense list/table marks. */
+export type AvatarShape = 'square' | 'round'
 
 export type AvatarProps = {
   /** Visible name — used for initials + default aria-label */
@@ -8,6 +10,8 @@ export type AvatarProps = {
   src?: string
   alt?: string
   size?: AvatarSize
+  /** Magazine portraits default to square. */
+  shape?: AvatarShape
   className?: string
 } & Omit<HTMLAttributes<HTMLSpanElement>, 'className' | 'children'>
 
@@ -31,6 +35,7 @@ export function Avatar({
   src,
   alt,
   size = 'sm',
+  shape = 'square',
   className,
   ...rest
 }: AvatarProps) {
@@ -41,7 +46,13 @@ export function Avatar({
 
   return (
     <span
-      className={cx('ds-avatar', `ds-avatar--${size}`, className)}
+      className={cx(
+        'ds-avatar',
+        `ds-avatar--${size}`,
+        shape === 'round' ? 'ds-avatar--round' : 'ds-avatar--square',
+        className,
+      )}
+      data-shape={shape}
       role={src ? undefined : 'img'}
       aria-label={src ? undefined : label}
       {...rest}

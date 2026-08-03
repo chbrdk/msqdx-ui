@@ -41,9 +41,13 @@ export function useFlyout(resetKey?: string | null) {
   return { open, setOpen, rootRef, toggle: () => setOpen((v) => !v) }
 }
 
+export type FlyoutSurface = 'solid' | 'glass'
+
 export type FlyoutProps = {
   label: string
   icon: ReactNode
+  /** Magazine default is solid (hairline + opaque). Glass is legacy opt-in. */
+  surface?: FlyoutSurface
   resetKey?: string | null
   triggerClassName?: string
   panelClassName?: string
@@ -52,12 +56,13 @@ export type FlyoutProps = {
 }
 
 /**
- * Ghost icon trigger + frosted panel. No page-level overlay/scrim.
+ * Ghost icon trigger + anchored panel. No page-level overlay/scrim.
  * Spec: specs/domain/msqdx-ui-flyout.md
  */
 export function Flyout({
   label,
   icon,
+  surface = 'solid',
   resetKey,
   triggerClassName,
   panelClassName,
@@ -84,7 +89,13 @@ export function Flyout({
       {open ? (
         <div
           id={panelId}
-          className={cx('ds-flyover', 'ds-motion-reveal', panelClassName)}
+          className={cx(
+            'ds-flyover',
+            'ds-motion-reveal',
+            surface === 'glass' && 'ds-flyover--glass',
+            panelClassName,
+          )}
+          data-surface={surface}
           role="dialog"
           aria-label={label}
         >

@@ -14,15 +14,9 @@ export const Default: Story = {
   render: () => (
     <div style={{ width: '22rem', border: '1px solid var(--line)', padding: '1rem' }}>
       <CardActions>
-        <Button variant="ghost" size="md">
-          Open
-        </Button>
-        <Button variant="ghost" size="md">
-          Edit
-        </Button>
-        <Button variant="ghost" size="md">
-          Delete
-        </Button>
+        <Button variant="ghost">Open</Button>
+        <Button variant="ghost">Edit</Button>
+        <Button variant="ghost">Delete</Button>
       </CardActions>
     </div>
   ),

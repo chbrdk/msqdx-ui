@@ -1,7 +1,58 @@
 /* design-system: foundation primitives — specs/domain/msqdx-v2-foundation.md */
 
-.ds-panel.module-panel,
-.ds-panel {
+/*
+ * Panel — magazine chapter band (same language as FilterRow / SectionChrome / Lede).
+ * Specificity: always `.ds-panel.ds-panel--*` so variants beat the dual `.module-panel` alias.
+ * Square + fill-free by default; soft wash only on `--default` (ops).
+ */
+
+.ds-panel,
+.ds-panel.module-panel {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem) 0 clamp(1.25rem, 3vw, 1.85rem);
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  min-width: 0;
+}
+
+.ds-panel.ds-panel--editorial {
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem) 0 clamp(1.25rem, 3vw, 1.85rem);
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Magazine / fill-free stage — no chrome */
+.ds-panel.ds-panel--flush {
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Collection / index tile — square hairline, no wash */
+.ds-panel.ds-panel--card {
+  margin-top: 0;
+  padding: 1rem 1.05rem 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Ops / workstation wash — PipelinePanel, StatusMeterPanel */
+.ds-panel.ds-panel--default {
   margin-top: var(--space-4);
   padding: 1.1rem 1.15rem 1.25rem;
   border: 1px solid var(--line);
@@ -57,10 +108,58 @@
 .ds-filter-row.filter-row,
 .ds-filter-row {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.ds-filter-row-label {
+  font-family: var(--font-body);
+  font-size: var(--type-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ds-filter-row-chips,
+.ds-filter-row .ds-chip-row {
+  display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) var(--space-2);
+  gap: var(--space-2) var(--space-3);
   align-items: center;
   min-width: 0;
+}
+
+/* Magazine band — bottom hairline, roomy chips (CHECKION/AUDION filters) */
+.ds-filter-row--magazine {
+  padding: 0 0 var(--space-3);
+  border-bottom: 1px solid var(--line);
+  margin: 0 0 var(--space-3);
+}
+
+.ds-filter-row--magazine .ds-filter-row-chips {
+  gap: var(--space-2) var(--space-4);
+}
+
+/* Dense ops toolbar */
+.ds-filter-row--toolbar {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  margin: 0.65rem 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-filter-row--toolbar .ds-filter-row-label {
+  margin-right: var(--space-2);
+}
+
+.ds-filter-row--toolbar .ds-filter-row-chips {
+  gap: var(--space-1) var(--space-2);
 }
 
 .ds-status-dot.status-dot,

@@ -5,35 +5,26 @@ import * as Stories from './Avatar.stories'
 
 # Avatar
 
-## Overview
-
-Face mark with image or initials fallback — specs/domain/msqdx-ui-feedback-data.md.
-
-## Anatomy
-
-`.ds-avatar` · `.ds-avatar-img` / `.ds-avatar-initials` · sizes `sm`/`md`/`lg`.
+Face mark with image or initials. **Default shape is `square`** (magazine portraits). Use `shape="round"` for dense list/table marks.
 
 ## Usage
 
 <Canvas of={Stories.Default} />
-
 <Controls of={Stories.Default} />
 
-## Do and Don't
+## Round (workstation)
 
-### Do
+<Canvas of={Stories.Round} />
+
+## Do
 
 - Pass `name` for initials and accessible label when no `src`.
-- Use `alt` when the image conveys identity.
+- Prefer square for AUDION/CHECKION portrait grids and heroes.
 
-### Don't
+## Don't
 
-- Do not use decorative avatars without `aria-hidden` / empty alt when purely ornamental.
+- Use round on magazine cover / persona index tiles.
 
-## Accessibility
+## Spec
 
-Initials mode uses `role="img"` + `aria-label`. Image mode relies on `alt`.
-
-## Related
-
-Atoms/Chip · Molecules/Toast · specs/domain/msqdx-ui-feedback-data.md
+`specs/domain/msqdx-ui-feedback-data.md`

@@ -4,7 +4,16 @@
 - UI package: `packages/ui`
 - Token package: `packages/ui-tokens`
 - Storybook config: `packages/ui/.storybook`
+- Storybook preview (loads `src/styles.css` + theme toolbar): `packages/ui/.storybook/preview.tsx`
+- Storybook focus shim (10.5 Illegal invocation): `packages/ui/.storybook/restoreNativeFocus.ts`
+- Storybook local: `http://localhost:6006/` (dev: `pnpm storybook` from repo root, or `packages/ui` binary)
 - Storybook output: `packages/ui/storybook-static`
+- Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
+- Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
+- Lede / FilterRow / Panel magazine cutover: `knowledge/components/lede-filter-panel.md`
+- Button magazine defaults: `knowledge/components/button-magazine.md` · spec `specs/domain/msqdx-ui-button.md`
+- Lede spec: `specs/domain/msqdx-ui-lede.md` · FilterRow: `specs/domain/msqdx-ui-filter-row.md`
+- Lede primitive: `packages/ui/src/components/Lede.tsx` · FilterRow: `packages/ui/src/components/FilterRow.tsx`
 - Component generator: `scripts/ds-add.mjs`
 - Generator test: `scripts/ds-add.test.mjs`
 - Cursor rule: `.cursor/rules/msqdx-ui.mdc`

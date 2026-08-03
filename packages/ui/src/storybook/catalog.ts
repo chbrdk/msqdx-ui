@@ -9,6 +9,7 @@ export type CatalogLayer =
   | 'Atoms'
   | 'Molecules'
   | 'Organisms'
+  | 'Templates'
 
 export type CatalogEntry = {
   id: string
@@ -25,6 +26,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'tokens', layer: 'Foundation', title: 'Foundation/Tokens', stories: 'DesignTokens.stories.tsx', mdx: 'DesignTokens.mdx' },
   { id: 'typography', layer: 'Foundation', title: 'Foundation/Typography', stories: 'Typography.stories.tsx', mdx: 'Typography.mdx' },
   { id: 'motion', layer: 'Foundation', title: 'Foundation/Motion', stories: 'Motion.stories.tsx', mdx: 'Motion.mdx' },
+  { id: 'Icons', layer: 'Foundation', title: 'Foundation/Icons', stories: 'components/Icons.stories.tsx', mdx: 'components/Icons.mdx' },
   // Atoms
   { id: 'Text', layer: 'Atoms', title: 'Atoms/Text', stories: 'components/Text.stories.tsx', mdx: 'components/Text.mdx' },
   { id: 'Button', layer: 'Atoms', title: 'Atoms/Button', stories: 'components/Button.stories.tsx', mdx: 'components/Button.mdx' },
@@ -63,15 +65,24 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ChannelStack', layer: 'Molecules', title: 'Molecules/ChannelStack', stories: 'components/ChannelStack.stories.tsx', mdx: 'components/ChannelStack.mdx' },
   { id: 'EventFooter', layer: 'Molecules', title: 'Molecules/EventFooter', stories: 'components/EventFooter.stories.tsx', mdx: 'components/EventFooter.mdx' },
   { id: 'CardActions', layer: 'Molecules', title: 'Molecules/CardActions', stories: 'components/CardActions.stories.tsx', mdx: 'components/CardActions.mdx' },
-  { id: 'StatLede', layer: 'Molecules', title: 'Molecules/StatLede', stories: 'components/StatLede.stories.tsx', mdx: 'components/StatLede.mdx' },
+  { id: 'Lede', layer: 'Molecules', title: 'Molecules/Lede', stories: 'components/Lede.stories.tsx', mdx: 'components/Lede.mdx' },
   { id: 'SectionChrome', layer: 'Molecules', title: 'Molecules/SectionChrome', stories: 'SectionChrome.stories.tsx', mdx: 'SectionChrome.mdx' },
   { id: 'RankedRow', layer: 'Molecules', title: 'Molecules/RankedRow', stories: 'components/RankedRow.stories.tsx', mdx: 'components/RankedRow.mdx' },
+  { id: 'BrandCorner', layer: 'Molecules', title: 'Molecules/BrandCorner', stories: 'components/BrandCorner.stories.tsx', mdx: 'components/BrandCorner.mdx' },
+  { id: 'TopStatus', layer: 'Molecules', title: 'Molecules/TopStatus', stories: 'components/TopStatus.stories.tsx', mdx: 'components/TopStatus.mdx' },
+  { id: 'DivergingBar', layer: 'Molecules', title: 'Molecules/DivergingBar', stories: 'components/DivergingBar.stories.tsx', mdx: 'components/DivergingBar.mdx' },
+  { id: 'Flyout', layer: 'Molecules', title: 'Molecules/Flyout', stories: 'components/Flyout.stories.tsx', mdx: 'components/Flyout.mdx' },
   // Organisms
   { id: 'Dialog', layer: 'Organisms', title: 'Organisms/Dialog', stories: 'components/Dialog.stories.tsx', mdx: 'components/Dialog.mdx', viewportCritical: true },
   { id: 'ConfirmDialog', layer: 'Organisms', title: 'Organisms/ConfirmDialog', stories: 'components/ConfirmDialog.stories.tsx', mdx: 'components/ConfirmDialog.mdx' },
   { id: 'DataTable', layer: 'Organisms', title: 'Organisms/DataTable', stories: 'components/DataTable.stories.tsx', mdx: 'components/DataTable.mdx' },
   { id: 'RankedList', layer: 'Organisms', title: 'Organisms/RankedList', stories: 'components/RankedList.stories.tsx', mdx: 'components/RankedList.mdx', viewportCritical: true },
-  { id: 'Flyout', layer: 'Molecules', title: 'Molecules/Flyout', stories: 'components/Flyout.stories.tsx', mdx: 'components/Flyout.mdx' },
+  { id: 'NavRail', layer: 'Organisms', title: 'Organisms/NavRail', stories: 'components/NavRail.stories.tsx', mdx: 'components/NavRail.mdx' },
+  { id: 'KpiStrip', layer: 'Organisms', title: 'Organisms/KpiStrip', stories: 'components/KpiStrip.stories.tsx', mdx: 'components/KpiStrip.mdx' },
+  { id: 'PipelinePanel', layer: 'Organisms', title: 'Organisms/PipelinePanel', stories: 'components/PipelinePanel.stories.tsx', mdx: 'components/PipelinePanel.mdx' },
+  { id: 'StatusMeterPanel', layer: 'Organisms', title: 'Organisms/StatusMeterPanel', stories: 'components/StatusMeterPanel.stories.tsx', mdx: 'components/StatusMeterPanel.mdx' },
+  // Templates
+  { id: 'AppFrame', layer: 'Templates', title: 'Templates/AppFrame', stories: 'components/AppFrame.stories.tsx', mdx: 'components/AppFrame.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

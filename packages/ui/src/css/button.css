@@ -1,5 +1,5 @@
-/* design-system: button — uses motion + radius + space tokens */
-/* Knowledge: knowledge/msqdx-v2-motion-buttons.md */
+/* design-system: button — magazine-first (square + type-bound sizes) */
+/* Spec: specs/domain/msqdx-ui-button.md · Knowledge: knowledge/components/button-magazine.md */
 
 .ds-btn {
   display: inline-flex;
@@ -9,12 +9,15 @@
   margin: 0;
   font: inherit;
   font-family: var(--font-body);
-  font-weight: var(--weight-regular);
+  font-weight: var(--weight-medium, 500);
   line-height: 1.2;
+  letter-spacing: 0.02em;
   text-decoration: none;
   cursor: pointer;
-  border-radius: var(--radius-md);
+  /* Magazine default: sharp corners (products already override to square) */
+  border-radius: 0;
   border: 1px solid transparent;
+  box-sizing: border-box;
   transition:
     background var(--motion-hover),
     border-color var(--motion-hover),
@@ -50,25 +53,41 @@
   min-width: 0;
 }
 
-/* Sizes — coupled to type steps (spec) */
+/* Sizes — magazine scale (CardActions / collection CTAs) */
 .ds-btn--sm {
-  padding: 0.2rem 0.5rem;
+  min-height: 2rem;
+  padding: 0.35rem 0.75rem;
   font-size: var(--type-sm);
   gap: var(--space-1);
+  letter-spacing: 0.03em;
 }
 
 .ds-btn--md {
-  padding: 0.28rem 0.65rem;
-  font-size: var(--type-md);
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  font-size: var(--type-sm, 0.88rem);
+  letter-spacing: 0.04em;
 }
 
 .ds-btn--lg {
-  padding: 0.5rem 0.9rem;
-  font-size: var(--type-lg);
+  min-height: 3.25rem;
+  padding: 0.85rem 1.45rem;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-weight: var(--weight-medium, 500);
+  letter-spacing: -0.01em;
+}
+
+/* Shapes — square is the default (no extra class required; --square kept for explicit markup) */
+.ds-btn--square {
+  border-radius: 0;
 }
 
 .ds-btn--pill {
   border-radius: var(--radius-pill);
+}
+
+.ds-btn--rounded {
+  border-radius: var(--radius-md);
 }
 
 .ds-btn--block {
@@ -123,7 +142,10 @@
   color: var(--accent);
   border-color: transparent;
   font-weight: var(--weight-regular);
+  min-height: 0;
+  padding-block: 0.15rem;
   padding-inline: 0.15rem;
+  letter-spacing: 0;
 }
 
 .ds-btn--link:not(:disabled):hover {

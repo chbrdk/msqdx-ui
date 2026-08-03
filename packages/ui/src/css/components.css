@@ -542,17 +542,23 @@
 
 /* Research Briefing magazine page — signal-detail parity */
 
+/*
+ * Legacy `.module-panel` alias — magazine-neutral (type + top hairline).
+ * Soft ops wash lives on `.ds-panel.ds-panel--default` only.
+ */
 .module-panel {
-  margin-top: 1rem;
-  padding: 1.1rem 1.15rem 1.25rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-panel);
-  background: var(--surface-2);
+  margin-top: clamp(1.25rem, 3vw, 2rem);
+  padding: clamp(1rem, 2.5vw, 1.5rem) 0 clamp(1.25rem, 3vw, 1.85rem);
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .module-panel + .module-panel,
 .overview-main > .module-panel + .module-panel {
-  margin-top: 1rem;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
 }
 
 .section-chrome-quiet {
@@ -1070,7 +1076,8 @@
   min-width: 0;
 }
 
-/* Flyout — icon trigger + frosted panel (no page scrim) */
+/* Flyout — icon trigger + magazine panel (no page scrim).
+   Default = solid/hairline/sharp. Glass is opt-in via .ds-flyover--glass. */
 .ds-flyout {
   position: relative;
   flex: 0 0 auto;
@@ -1085,6 +1092,13 @@
   max-width: min(36rem, calc(100vw - 3rem));
   padding: 0.85rem 1rem 1rem;
   border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface, var(--bg1, var(--bg0)));
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.ds-flyover--glass {
   border-radius: 0.45rem;
   background: color-mix(in srgb, var(--surface-1, var(--surface, var(--bg, #fff))) 78%, transparent);
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
@@ -1093,10 +1107,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-flyover {
+  .ds-flyover--glass {
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     background: var(--surface-1, var(--surface, var(--bg, #fff)));
+    box-shadow: none;
   }
 }
 
@@ -1128,9 +1143,4 @@
   flex: 1 1 auto;
   width: 100%;
   justify-content: center;
-  border-radius: 0;
-  min-height: 2.5rem;
-  padding: 0.55rem 1rem;
-  font-size: var(--type-sm, 0.88rem);
-  letter-spacing: 0.04em;
 }
