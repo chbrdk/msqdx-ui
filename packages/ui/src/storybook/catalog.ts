@@ -62,6 +62,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'StepStrip', layer: 'Molecules', title: 'Molecules/StepStrip', stories: 'components/StepStrip.stories.tsx', mdx: 'components/StepStrip.mdx' },
   { id: 'ChannelStack', layer: 'Molecules', title: 'Molecules/ChannelStack', stories: 'components/ChannelStack.stories.tsx', mdx: 'components/ChannelStack.mdx' },
   { id: 'EventFooter', layer: 'Molecules', title: 'Molecules/EventFooter', stories: 'components/EventFooter.stories.tsx', mdx: 'components/EventFooter.mdx' },
+  { id: 'CardActions', layer: 'Molecules', title: 'Molecules/CardActions', stories: 'components/CardActions.stories.tsx', mdx: 'components/CardActions.mdx' },
   { id: 'StatLede', layer: 'Molecules', title: 'Molecules/StatLede', stories: 'components/StatLede.stories.tsx', mdx: 'components/StatLede.mdx' },
   { id: 'SectionChrome', layer: 'Molecules', title: 'Molecules/SectionChrome', stories: 'SectionChrome.stories.tsx', mdx: 'SectionChrome.mdx' },
   { id: 'RankedRow', layer: 'Molecules', title: 'Molecules/RankedRow', stories: 'components/RankedRow.stories.tsx', mdx: 'components/RankedRow.mdx' },

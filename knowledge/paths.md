@@ -30,6 +30,8 @@
 - IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo: `packages/ui/src/components/icons.tsx`
 - Flyout: `packages/ui/src/components/Flyout.tsx` · spec `specs/domain/msqdx-ui-flyout.md` · knowledge `knowledge/components/flyout.md`
 
+- CardActions (equal-width magazine card footers): `packages/ui/src/components/CardActions.tsx` · CSS `.ds-card-actions` in `packages/ui/src/css/components.css` · spec `specs/domain/msqdx-ui-card-actions.md` · knowledge `knowledge/components/card-actions.md`
+
 - Shared overview surfaces spec: `specs/domain/msqdx-ui-overview-surfaces.md`
 - Shared top status primitive: `packages/ui/src/components/TopStatus.tsx`
 - Shared KPI strip primitive: `packages/ui/src/components/KpiStrip.tsx`

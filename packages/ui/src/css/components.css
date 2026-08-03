@@ -1099,3 +1099,36 @@
     background: var(--surface-1, var(--surface, var(--bg, #fff)));
   }
 }
+
+/* CardActions — equal-width magazine action row (specs/domain/msqdx-ui-card-actions.md) */
+.ds-card-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.65rem;
+  width: 100%;
+  margin-top: auto;
+}
+
+.ds-card-actions--hairline {
+  padding-top: 1.05rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+}
+
+.ds-card-actions > * {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  text-decoration: none;
+}
+
+.ds-card-actions .ds-btn {
+  flex: 1 1 auto;
+  width: 100%;
+  justify-content: center;
+  border-radius: 0;
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  font-size: var(--type-sm, 0.88rem);
+  letter-spacing: 0.04em;
+}
