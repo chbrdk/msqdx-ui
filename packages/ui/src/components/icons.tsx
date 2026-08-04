@@ -1,6 +1,7 @@
 import type { LucideProps } from 'lucide-react'
 import type { ComponentType } from 'react'
 import {
+  CircleHelp,
   FolderKanban,
   History,
   LayoutDashboard,
@@ -45,3 +46,4 @@ export const IconHistory = wrap(History)
 export const IconMoodboard = wrap(LayoutGrid)
 export const IconMic = wrap(Mic)
 export const IconVideo = wrap(Video)
+export const IconInfo = wrap(CircleHelp)

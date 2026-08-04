@@ -83,6 +83,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'StatusMeterPanel', layer: 'Organisms', title: 'Organisms/StatusMeterPanel', stories: 'components/StatusMeterPanel.stories.tsx', mdx: 'components/StatusMeterPanel.mdx' },
   // Templates
   { id: 'AppFrame', layer: 'Templates', title: 'Templates/AppFrame', stories: 'components/AppFrame.stories.tsx', mdx: 'components/AppFrame.mdx' },
+  { id: 'InfoTip', layer: 'Molecules', title: 'Molecules/InfoTip', stories: 'components/InfoTip.stories.tsx', mdx: 'components/InfoTip.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

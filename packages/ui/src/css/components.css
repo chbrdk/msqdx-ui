@@ -1144,3 +1144,15 @@
   width: 100%;
   justify-content: center;
 }
+
+/* InfoTip — ghost IconInfo + Tooltip (specs/domain/msqdx-ui-infotip.md) */
+.ds-infotip {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  flex: 0 0 auto;
+}
+
+.ds-infotip__trigger {
+  min-width: 0;
+}

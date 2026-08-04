@@ -105,6 +105,7 @@ export {
   IconMoodboard,
   IconMic,
   IconVideo,
+  IconInfo,
 } from './components/icons'
 export type { IconProps } from './components/icons'
 export { KpiStrip } from './components/KpiStrip'
@@ -148,5 +149,7 @@ export { EventFooter } from './components/EventFooter'
 export type { EventFooterProps } from './components/EventFooter'
 export { CardActions } from './components/CardActions'
 export type { CardActionsProps } from './components/CardActions'
+export { InfoTip } from './components/InfoTip'
+export type { InfoTipProps } from './components/InfoTip'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

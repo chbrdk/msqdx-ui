@@ -43,6 +43,8 @@
 - IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo: `packages/ui/src/components/icons.tsx`
 - Flyout: `packages/ui/src/components/Flyout.tsx` · spec `specs/domain/msqdx-ui-flyout.md` · knowledge `knowledge/components/flyout.md`
 
+- InfoTip (ghost IconInfo + Tooltip): `packages/ui/src/components/InfoTip.tsx` · CSS `.ds-infotip` · spec `specs/domain/msqdx-ui-infotip.md` · knowledge `knowledge/components/infotip.md` · `IconInfo` in `packages/ui/src/components/icons.tsx`
+
 - CardActions (equal-width magazine card footers): `packages/ui/src/components/CardActions.tsx` · CSS `.ds-card-actions` in `packages/ui/src/css/components.css` · spec `specs/domain/msqdx-ui-card-actions.md` · knowledge `knowledge/components/card-actions.md`
 
 - Shared overview surfaces spec: `specs/domain/msqdx-ui-overview-surfaces.md`
