@@ -1,8 +1,23 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { Tooltip } from './Tooltip'
 
 describe('Tooltip', () => {
+  beforeEach(() => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.getAttribute('role') === 'tooltip' ? 240 : 24
+      },
+    })
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.getAttribute('role') === 'tooltip' ? 40 : 24
+      },
+    })
+  })
+
   afterEach(() => {
     cleanup()
   })
@@ -18,36 +33,28 @@ describe('Tooltip', () => {
     expect(tip).toHaveTextContent('Sentence case tip about discoverability.')
     expect(tip.style.position).toBe('fixed')
     expect(tip.style.transform).toBe('none')
+    expect(tip.style.bottom).toBe('auto')
   })
 
   it('clamps horizontally near the left viewport edge', () => {
+    const original = HTMLElement.prototype.getBoundingClientRect
     Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
       configurable: true,
-      value() {
-        if ((this as HTMLElement).getAttribute('role') === 'tooltip') {
+      value(this: HTMLElement) {
+        if (this.classList.contains('ds-tooltip-anchor')) {
           return {
-            width: 320,
-            height: 48,
-            top: 0,
-            left: 0,
-            right: 320,
-            bottom: 48,
-            x: 0,
-            y: 0,
+            width: 20,
+            height: 20,
+            top: 100,
+            left: 4,
+            right: 24,
+            bottom: 120,
+            x: 4,
+            y: 100,
             toJSON() {},
           }
         }
-        return {
-          width: 20,
-          height: 20,
-          top: 100,
-          left: 4,
-          right: 24,
-          bottom: 120,
-          x: 4,
-          y: 100,
-          toJSON() {},
-        }
+        return original.call(this)
       },
     })
 

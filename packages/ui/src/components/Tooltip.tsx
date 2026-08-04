@@ -22,13 +22,20 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 }
 
 const VIEWPORT_PAD = 8
-const ANCHOR_GAP = 4
+const ANCHOR_GAP = 2
+
+const fixedBase: CSSProperties = {
+  position: 'fixed',
+  right: 'auto',
+  bottom: 'auto',
+  transform: 'none',
+}
 
 /** Hover/focus tooltip — specs/domain/msqdx-ui-extended.md */
 export function Tooltip({ content, children, className, ...rest }: TooltipProps) {
   const tipId = useId()
   const [open, setOpen] = useState(false)
-  const rootRef = useRef<HTMLSpanElement>(null)
+  const anchorRef = useRef<HTMLSpanElement>(null)
   const bubbleRef = useRef<HTMLSpanElement>(null)
   const [coords, setCoords] = useState<{ top: number; left: number } | null>(null)
 
@@ -41,16 +48,18 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
   }
 
   function place() {
-    const root = rootRef.current
+    const anchorEl = anchorRef.current
     const bubble = bubbleRef.current
-    if (!root || !bubble || typeof window === 'undefined') return
+    if (!anchorEl || !bubble || typeof window === 'undefined') return
 
-    const anchor = root.getBoundingClientRect()
-    const tip = bubble.getBoundingClientRect()
+    const anchor = anchorEl.getBoundingClientRect()
+    const tipRect = bubble.getBoundingClientRect()
+    const tipW = tipRect.width || bubble.offsetWidth || bubble.scrollWidth
+    const tipH = tipRect.height || bubble.offsetHeight || bubble.scrollHeight
+    if (tipW <= 0 || tipH <= 0) return
+
     const vw = window.innerWidth
     const vh = window.innerHeight
-    const tipW = tip.width || bubble.offsetWidth
-    const tipH = tip.height || bubble.offsetHeight
 
     let left = anchor.left + anchor.width / 2 - tipW / 2
     let top = anchor.top - tipH - ANCHOR_GAP
@@ -68,10 +77,12 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
   useLayoutEffect(() => {
     if (!open) return
     place()
+    const raf = requestAnimationFrame(() => place())
     const onReposition = () => place()
     window.addEventListener('scroll', onReposition, true)
     window.addEventListener('resize', onReposition)
     return () => {
+      cancelAnimationFrame(raf)
       window.removeEventListener('scroll', onReposition, true)
       window.removeEventListener('resize', onReposition)
     }
@@ -79,16 +90,13 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
 
   const bubbleStyle: CSSProperties = coords
     ? {
-        position: 'fixed',
+        ...fixedBase,
         top: coords.top,
         left: coords.left,
-        right: 'auto',
-        bottom: 'auto',
-        transform: 'none',
         visibility: 'visible',
       }
     : {
-        position: 'fixed',
+        ...fixedBase,
         top: 0,
         left: 0,
         visibility: 'hidden',
@@ -97,7 +105,6 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
 
   return (
     <span
-      ref={rootRef}
       className={cx('ds-tooltip', open && 'ds-tooltip--open', className)}
       {...rest}
       onMouseEnter={show}
@@ -111,7 +118,11 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
         rest.onBlur?.(e)
       }}
     >
-      <span className="ds-tooltip-anchor" aria-describedby={open ? tipId : undefined}>
+      <span
+        ref={anchorRef}
+        className="ds-tooltip-anchor"
+        aria-describedby={open ? tipId : undefined}
+      >
         {children}
       </span>
       {open ? (

@@ -1,8 +1,23 @@
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { InfoTip } from './InfoTip'
 
 describe('InfoTip', () => {
+  beforeEach(() => {
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.getAttribute('role') === 'tooltip' ? 240 : 24
+      },
+    })
+    Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.getAttribute('role') === 'tooltip' ? 40 : 24
+      },
+    })
+  })
+
   afterEach(() => {
     cleanup()
   })
