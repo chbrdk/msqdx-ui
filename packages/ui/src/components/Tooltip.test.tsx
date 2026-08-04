@@ -16,13 +16,55 @@ describe('Tooltip', () => {
         return this.getAttribute('role') === 'tooltip' ? 40 : 24
       },
     })
+    Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
+      configurable: true,
+      value(this: HTMLElement) {
+        if (this.classList.contains('ds-tooltip-anchor')) {
+          return {
+            width: 20,
+            height: 20,
+            top: 200,
+            left: 200,
+            right: 220,
+            bottom: 220,
+            x: 200,
+            y: 200,
+            toJSON() {},
+          }
+        }
+        if (this.getAttribute('role') === 'tooltip') {
+          return {
+            width: 240,
+            height: 40,
+            top: 0,
+            left: 0,
+            right: 240,
+            bottom: 40,
+            x: 0,
+            y: 0,
+            toJSON() {},
+          }
+        }
+        return {
+          width: 0,
+          height: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          x: 0,
+          y: 0,
+          toJSON() {},
+        }
+      },
+    })
   })
 
   afterEach(() => {
     cleanup()
   })
 
-  it('shows content on focus and uses fixed viewport placement', () => {
+  it('places the bubble tightly above the anchor', () => {
     render(
       <Tooltip content="Sentence case tip about discoverability.">
         <button type="button">Trigger</button>
@@ -32,12 +74,11 @@ describe('Tooltip', () => {
     const tip = screen.getByRole('tooltip')
     expect(tip).toHaveTextContent('Sentence case tip about discoverability.')
     expect(tip.style.position).toBe('fixed')
-    expect(tip.style.transform).toBe('none')
-    expect(tip.style.bottom).toBe('auto')
+    // anchor.top(200) - height(40) - gap(4) = 156
+    expect(Number.parseFloat(tip.style.top)).toBe(156)
   })
 
   it('clamps horizontally near the left viewport edge', () => {
-    const original = HTMLElement.prototype.getBoundingClientRect
     Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
       configurable: true,
       value(this: HTMLElement) {
@@ -45,16 +86,45 @@ describe('Tooltip', () => {
           return {
             width: 20,
             height: 20,
-            top: 100,
+            top: 200,
             left: 4,
             right: 24,
-            bottom: 120,
+            bottom: 220,
             x: 4,
-            y: 100,
+            y: 200,
             toJSON() {},
           }
         }
-        return original.call(this)
+        if (this.getAttribute('role') === 'tooltip') {
+          return {
+            width: 320,
+            height: 40,
+            top: 0,
+            left: 0,
+            right: 320,
+            bottom: 40,
+            x: 0,
+            y: 0,
+            toJSON() {},
+          }
+        }
+        return {
+          width: 0,
+          height: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          x: 0,
+          y: 0,
+          toJSON() {},
+        }
+      },
+    })
+    Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.getAttribute('role') === 'tooltip' ? 320 : 20
       },
     })
 
@@ -65,7 +135,61 @@ describe('Tooltip', () => {
     )
     fireEvent.focus(screen.getByRole('button', { name: 'Edge' }))
     const tip = screen.getByRole('tooltip')
-    const left = Number.parseFloat(tip.style.left || '0')
-    expect(left).toBeGreaterThanOrEqual(8)
+    expect(Number.parseFloat(tip.style.left)).toBeGreaterThanOrEqual(8)
+  })
+
+  it('flips below when there is no room above', () => {
+    Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
+      configurable: true,
+      value(this: HTMLElement) {
+        if (this.classList.contains('ds-tooltip-anchor')) {
+          return {
+            width: 20,
+            height: 20,
+            top: 10,
+            left: 200,
+            right: 220,
+            bottom: 30,
+            x: 200,
+            y: 10,
+            toJSON() {},
+          }
+        }
+        if (this.getAttribute('role') === 'tooltip') {
+          return {
+            width: 240,
+            height: 40,
+            top: 0,
+            left: 0,
+            right: 240,
+            bottom: 40,
+            x: 0,
+            y: 0,
+            toJSON() {},
+          }
+        }
+        return {
+          width: 0,
+          height: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          x: 0,
+          y: 0,
+          toJSON() {},
+        }
+      },
+    })
+
+    render(
+      <Tooltip content="Near the top edge.">
+        <button type="button">Top</button>
+      </Tooltip>,
+    )
+    fireEvent.focus(screen.getByRole('button', { name: 'Top' }))
+    const tip = screen.getByRole('tooltip')
+    // anchor.bottom(30) + gap(4) = 34
+    expect(Number.parseFloat(tip.style.top)).toBe(34)
   })
 })

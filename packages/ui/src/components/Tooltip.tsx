@@ -10,6 +10,7 @@ import {
   type HTMLAttributes,
   type ReactNode,
 } from 'react'
+import { createPortal } from 'react-dom'
 
 export type TooltipProps = {
   content: ReactNode
@@ -22,29 +23,70 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 }
 
 const VIEWPORT_PAD = 8
-const ANCHOR_GAP = 2
+const ANCHOR_GAP = 4
 
-const fixedBase: CSSProperties = {
-  position: 'fixed',
-  right: 'auto',
-  bottom: 'auto',
-  transform: 'none',
+type Placement = {
+  top: number
+  left: number
+  width: number
+}
+
+function measureSize(el: HTMLElement): { width: number; height: number } {
+  const rect = el.getBoundingClientRect()
+  const width = rect.width || el.offsetWidth || el.scrollWidth
+  const height = rect.height || el.offsetHeight || el.scrollHeight
+  return { width, height }
+}
+
+function computePlacement(
+  anchor: DOMRect,
+  tipW: number,
+  tipH: number,
+  vw: number,
+  vh: number,
+): Placement {
+  const maxW = Math.max(0, vw - VIEWPORT_PAD * 2)
+  const width = Math.min(tipW, maxW)
+  // Re-wrap may change height; callers remeasure after applying width when needed.
+  const height = tipH
+
+  let left = anchor.left + anchor.width / 2 - width / 2
+  left = Math.min(Math.max(VIEWPORT_PAD, left), Math.max(VIEWPORT_PAD, vw - width - VIEWPORT_PAD))
+
+  const spaceAbove = anchor.top - VIEWPORT_PAD
+  const spaceBelow = vh - anchor.bottom - VIEWPORT_PAD
+  const need = height + ANCHOR_GAP
+
+  let top: number
+  if (spaceAbove >= need) {
+    top = anchor.top - height - ANCHOR_GAP
+  } else if (spaceBelow >= need) {
+    top = anchor.bottom + ANCHOR_GAP
+  } else if (spaceAbove >= spaceBelow) {
+    // Prefer above, pin into viewport without jumping away from the anchor.
+    top = Math.max(VIEWPORT_PAD, anchor.top - height - ANCHOR_GAP)
+  } else {
+    top = Math.min(vh - height - VIEWPORT_PAD, anchor.bottom + ANCHOR_GAP)
+  }
+
+  return { top, left, width }
 }
 
 /** Hover/focus tooltip — specs/domain/msqdx-ui-extended.md */
 export function Tooltip({ content, children, className, ...rest }: TooltipProps) {
   const tipId = useId()
   const [open, setOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const anchorRef = useRef<HTMLSpanElement>(null)
   const bubbleRef = useRef<HTMLSpanElement>(null)
-  const [coords, setCoords] = useState<{ top: number; left: number } | null>(null)
+  const [placement, setPlacement] = useState<Placement | null>(null)
 
   function show() {
     setOpen(true)
   }
   function hide() {
     setOpen(false)
-    setCoords(null)
+    setPlacement(null)
   }
 
   function place() {
@@ -53,26 +95,26 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
     if (!anchorEl || !bubble || typeof window === 'undefined') return
 
     const anchor = anchorEl.getBoundingClientRect()
-    const tipRect = bubble.getBoundingClientRect()
-    const tipW = tipRect.width || bubble.offsetWidth || bubble.scrollWidth
-    const tipH = tipRect.height || bubble.offsetHeight || bubble.scrollHeight
-    if (tipW <= 0 || tipH <= 0) return
-
     const vw = window.innerWidth
     const vh = window.innerHeight
 
-    let left = anchor.left + anchor.width / 2 - tipW / 2
-    let top = anchor.top - tipH - ANCHOR_GAP
+    // First pass: natural size at a safe off-screen measure point.
+    const first = measureSize(bubble)
+    if (first.width <= 0 || first.height <= 0) return
 
-    left = Math.min(Math.max(VIEWPORT_PAD, left), Math.max(VIEWPORT_PAD, vw - tipW - VIEWPORT_PAD))
+    let next = computePlacement(anchor, first.width, first.height, vw, vh)
 
-    if (top < VIEWPORT_PAD) {
-      top = anchor.bottom + ANCHOR_GAP
-    }
-    top = Math.min(Math.max(VIEWPORT_PAD, top), Math.max(VIEWPORT_PAD, vh - tipH - VIEWPORT_PAD))
+    // Second pass: apply clamped width so wrapping height is accurate, then recompute.
+    bubble.style.width = `${next.width}px`
+    const second = measureSize(bubble)
+    next = computePlacement(anchor, second.width || next.width, second.height || first.height, vw, vh)
 
-    setCoords({ top, left })
+    setPlacement(next)
   }
+
+  useLayoutEffect(() => {
+    setMounted(true)
+  }, [])
 
   useLayoutEffect(() => {
     if (!open) return
@@ -88,20 +130,45 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
     }
   }, [open, content])
 
-  const bubbleStyle: CSSProperties = coords
+  const bubbleStyle: CSSProperties = placement
     ? {
-        ...fixedBase,
-        top: coords.top,
-        left: coords.left,
+        position: 'fixed',
+        top: placement.top,
+        left: placement.left,
+        width: placement.width,
+        right: 'auto',
+        bottom: 'auto',
+        transform: 'none',
         visibility: 'visible',
+        zIndex: 1000,
       }
     : {
-        ...fixedBase,
+        position: 'fixed',
         top: 0,
         left: 0,
+        right: 'auto',
+        bottom: 'auto',
+        transform: 'none',
         visibility: 'hidden',
         pointerEvents: 'none',
+        zIndex: 1000,
       }
+
+  const bubble =
+    open && mounted ? (
+      createPortal(
+        <span
+          ref={bubbleRef}
+          id={tipId}
+          role="tooltip"
+          className="ds-tooltip-bubble ds-tooltip-bubble--portal"
+          style={bubbleStyle}
+        >
+          {content}
+        </span>,
+        document.body,
+      )
+    ) : null
 
   return (
     <span
@@ -125,17 +192,7 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
       >
         {children}
       </span>
-      {open ? (
-        <span
-          ref={bubbleRef}
-          id={tipId}
-          role="tooltip"
-          className="ds-tooltip-bubble"
-          style={bubbleStyle}
-        >
-          {content}
-        </span>
-      ) : null}
+      {bubble}
     </span>
   )
 }

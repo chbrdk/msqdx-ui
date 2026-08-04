@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { InfoTip } from './InfoTip'
 
@@ -16,6 +16,48 @@ describe('InfoTip', () => {
         return this.getAttribute('role') === 'tooltip' ? 40 : 24
       },
     })
+    Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
+      configurable: true,
+      value(this: HTMLElement) {
+        if (this.classList.contains('ds-tooltip-anchor')) {
+          return {
+            width: 20,
+            height: 20,
+            top: 200,
+            left: 200,
+            right: 220,
+            bottom: 220,
+            x: 200,
+            y: 200,
+            toJSON() {},
+          }
+        }
+        if (this.getAttribute('role') === 'tooltip') {
+          return {
+            width: 240,
+            height: 40,
+            top: 0,
+            left: 0,
+            right: 240,
+            bottom: 40,
+            x: 0,
+            y: 0,
+            toJSON() {},
+          }
+        }
+        return {
+          width: 0,
+          height: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          x: 0,
+          y: 0,
+          toJSON() {},
+        }
+      },
+    })
   })
 
   afterEach(() => {
@@ -31,13 +73,9 @@ describe('InfoTip', () => {
   })
 
   it('shows tip content on focus', () => {
-    const { container } = render(
-      <InfoTip label="About SEO" content="Search visibility and crawl signals." />,
-    )
+    render(<InfoTip label="About SEO" content="Search visibility and crawl signals." />)
     fireEvent.focus(screen.getByRole('button', { name: 'About SEO' }))
-    expect(within(container).getByRole('tooltip')).toHaveTextContent(
-      'Search visibility and crawl signals.',
-    )
+    expect(screen.getByRole('tooltip')).toHaveTextContent('Search visibility and crawl signals.')
   })
 
   it('shows tip content on hover', () => {
@@ -47,8 +85,6 @@ describe('InfoTip', () => {
     const tipRoot = container.querySelector('.ds-tooltip')
     expect(tipRoot).toBeTruthy()
     fireEvent.mouseEnter(tipRoot!)
-    expect(within(container).getByRole('tooltip')).toHaveTextContent(
-      'Task ease and interaction quality.',
-    )
+    expect(screen.getByRole('tooltip')).toHaveTextContent('Task ease and interaction quality.')
   })
 })
