@@ -6,6 +6,7 @@ Molecule: borderless compact `IconInfo` trigger + hover/focus `Tooltip`. Spec: `
 
 - Pass short tip `content` and a required `label` (aria-label).
 - Trigger is borderless with a 12px icon (`.ds-infotip__trigger`).
+- Bubble is wider (~22rem) with smaller type than default Tooltip.
 - Apps own bilingual glossaries; DS stays language-agnostic.
 - Pair beside metric/jargon labels — not every control.
 

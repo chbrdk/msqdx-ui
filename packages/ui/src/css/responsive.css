@@ -45,6 +45,10 @@
   max-width: min(14rem, calc(100vw - 2 * var(--responsive-gutter)));
 }
 
+.ds-infotip .ds-tooltip-bubble {
+  max-width: min(22rem, calc(100vw - 2 * var(--responsive-gutter)));
+}
+
 .ds-dialog {
   max-width: min(28rem, calc(100vw - 2 * var(--responsive-gutter)));
   width: min(28rem, calc(100vw - 2 * var(--responsive-gutter)));

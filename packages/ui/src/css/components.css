@@ -1182,3 +1182,12 @@
   width: 0.75rem;
   height: 0.75rem;
 }
+
+.ds-infotip .ds-tooltip-bubble {
+  max-width: min(22rem, calc(100vw - 2rem));
+  width: max-content;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+}
