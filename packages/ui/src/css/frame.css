@@ -318,11 +318,13 @@
   box-sizing: border-box;
 }
 
+/* Top-right brand plaque — flush to viewport (cutdown via MsqdxCornerBox) */
 .brand-corner {
-  position: absolute;
-  top: 1.25rem;
-  right: 2.5rem;
-  z-index: 10;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  pointer-events: none;
 }
 
 .brand-corner-box {
@@ -330,10 +332,11 @@
   align-items: center;
   gap: 0.65rem;
   padding: 0.75rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 1.15rem;
-  background: color-mix(in srgb, var(--surface-2) 92%, transparent);
-  box-shadow: 0 10px 32px color-mix(in srgb, var(--ink) 10%, transparent);
+  /* No border/shadow — a 1px stroke reads as a gap at the viewport edge */
+  border: 0;
+  box-shadow: none;
+  background: var(--ink);
+  color: var(--bg0);
 }
 
 .brand-corner-mark {

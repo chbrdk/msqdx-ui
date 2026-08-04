@@ -47,6 +47,8 @@
 .brand-corner-box {
   background: var(--ink);
   color: var(--bg0);
+  border: 0;
+  box-shadow: none;
   padding: var(--brand-corner-pad-y) var(--brand-corner-pad-x)
     calc(var(--brand-corner-pad-y) + 0.15rem) var(--brand-corner-pad-x);
 }
