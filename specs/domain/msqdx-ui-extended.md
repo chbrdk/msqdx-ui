@@ -27,7 +27,7 @@
 | `Tabs` | tablist + panels (controlled) |
 | `Skeleton` | pulse placeholder (honors reduced-motion) |
 | `Spinner` | compact busy indicator |
-| `Tooltip` | hover/focus tip (no portal lib) |
+| `Tooltip` | hover/focus tip; fixed placement clamped to viewport; sentence case (`text-transform: none`) |
 | `Dialog` | native `<dialog>` modal shell |
 | `ConfirmDialog` | Dialog + cancel/confirm actions · `msqdx-ui-forms.md` |
 | `Avatar` / `Toast` / `DataTable` | Wave E — `msqdx-ui-feedback-data.md` |

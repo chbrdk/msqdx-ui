@@ -37,7 +37,7 @@ Use for jargon/metric labels. Not a click Flyout, Dialog, or long-form help pane
 |------|-----------|
 | Root | `.ds-infotip` inline-flex align with adjacent label |
 | Trigger | Borderless compact ghost `Button` + smaller `IconInfo` (12px) |
-| Bubble | `.ds-tooltip-bubble` — InfoTip: wider (~22rem), smaller type (0.7rem) |
+| Bubble | `.ds-tooltip-bubble` — InfoTip: wider (~22rem), smaller type (0.7rem), sentence case; viewport-clamped via Tooltip |
 
 ## Non-goals
 

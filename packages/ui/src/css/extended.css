@@ -211,8 +211,10 @@
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--type-xs);
-  letter-spacing: var(--track-meta);
+  font-weight: var(--weight-regular, 400);
+  letter-spacing: 0.01em;
   line-height: 1.3;
+  text-transform: none;
   white-space: normal;
   box-shadow: 0 6px 18px color-mix(in srgb, var(--ink) 12%, transparent);
   pointer-events: none;
