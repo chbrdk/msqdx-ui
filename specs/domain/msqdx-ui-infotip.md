@@ -36,7 +36,7 @@ Use for jargon/metric labels. Not a click Flyout, Dialog, or long-form help pane
 | Part | Treatment |
 |------|-----------|
 | Root | `.ds-infotip` inline-flex align with adjacent label |
-| Trigger | Ghost `Button` `shape="square"` + `IconInfo` |
+| Trigger | Borderless compact ghost `Button` + smaller `IconInfo` (12px) |
 | Bubble | Existing `.ds-tooltip-bubble` |
 
 ## Non-goals

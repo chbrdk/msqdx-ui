@@ -31,7 +31,7 @@ export function InfoTip({ content, label, size = 'sm', className }: InfoTipProps
           variant="ghost"
           size={size}
           shape="square"
-          icon={<IconInfo />}
+          icon={<IconInfo size={12} strokeWidth={2} />}
           aria-label={label}
           className="ds-infotip__trigger"
         />

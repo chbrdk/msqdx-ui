@@ -1155,4 +1155,30 @@
 
 .ds-infotip__trigger {
   min-width: 0;
+  min-height: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  padding: 0;
+  border-color: transparent;
+  border-width: 0;
+  color: var(--muted);
+  transform: none;
+}
+
+.ds-infotip__trigger:not(:disabled):hover,
+.ds-infotip__trigger:not(:disabled):active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink);
+  transform: none;
+}
+
+.ds-infotip__trigger .ds-btn__icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.ds-infotip__trigger .ds-btn__icon svg {
+  width: 0.75rem;
+  height: 0.75rem;
 }
