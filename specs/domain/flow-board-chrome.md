@@ -20,14 +20,15 @@ Domain (graph model, agent poll, Soft-Q, Checkion gates, Collection verdict) sta
 
 Apps **must not** ship parallel `.audion-flow-*` / `.plexon-flow-*` board chrome once adopted. Thin app wrappers may add product-only class hooks, not a second node/dock visual language.
 
-Magazine defaults (same as FloatingPanel Phase 8):
+Magazine board float chrome (toolbar / inspector / strip / FAB):
 
 | Rule | Value |
 |------|-------|
-| Radius | `0` / square |
+| Float radius | `12px` on `.ds-floating-panel-inner` (rounded outer shell) |
+| Palette FAB | pill (`999px`), ~3.5rem |
 | Surface | solid `--paper` / `--surface`, hairline `--line` |
-| Blur / glass | off |
-| Shadow | none |
+| Shadow | soft lift on floats (not flat magazine zero) |
+| Stage | `position: fixed; inset: 0` full `100vw` / `100dvh` while `body.msqdx-flow-board-active` |
 
 ## Primitives
 

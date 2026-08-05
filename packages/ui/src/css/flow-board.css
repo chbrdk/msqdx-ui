@@ -41,13 +41,20 @@
 .msqdx-flow-detail-client--immersive{
   margin:0;
   min-height:0;
-  position:fixed;
-  inset:0;
-  z-index:2;
+  /* Stage itself is fixed full-bleed; wrapper only clears layout. */
+  position:relative;
+  inset:auto;
+  z-index:auto;
   pointer-events:none;
+  width:100%;
+  min-height:0;
 }
 
-body.msqdx-flow-board-active .topbar{display:none}
+/* Immersive board: escape app gutters — full viewport under rail/topbar. */
+body.msqdx-flow-board-active .topbar,
+body.msqdx-flow-board-active .plexon-page-lead,
+body.msqdx-flow-board-active .audion-page-lead,
+body.msqdx-flow-board-active .msqdx-flow-lede{display:none}
 
 body.msqdx-flow-board-active .page-body{
   gap:0;
@@ -58,15 +65,30 @@ body.msqdx-flow-board-active .page-body{
 
 body.msqdx-flow-board-active .app-main{
   min-height:0;
+  padding:0;
+  max-width:none;
+  width:100%;
 }
 
-.msqdx-flow-canvas-shell--immersive{
-  position:absolute;
-  inset:0;
+body.msqdx-flow-board-active .plexon-stage,
+body.msqdx-flow-board-active .msqdx-flow-detail-client{
+  min-height:0;
   width:100%;
-  height:100%;
+}
+
+body.msqdx-flow-board-active .app-frame{
+  padding:0 !important;
   min-height:100dvh;
-  z-index:1;
+}
+
+
+.msqdx-flow-canvas-shell--immersive{
+  position:fixed;
+  inset:0;
+  width:100vw;
+  height:100dvh;
+  min-height:100dvh;
+  z-index:20;
   pointer-events:none;
 }
 
@@ -75,8 +97,17 @@ body.msqdx-flow-board-active .app-main{
   inset:0;
   width:100%;
   height:100%;
-  min-height:100dvh;
+  min-height:100%;
   pointer-events:none;
+}
+
+.msqdx-flow-board-stage > .snap-dock,
+.msqdx-flow-board-stage > .msqdx-flow-float-panel,
+.msqdx-flow-board-stage > .ds-floating-panel,
+.msqdx-flow-board-stage > .msqdx-flow-canvas-viewport--fullscreen,
+.msqdx-flow-board-stage > .msqdx-flow-board-alert,
+.msqdx-flow-board-empty{
+  pointer-events:auto;
 }
 
 .msqdx-flow-board-empty{
@@ -92,12 +123,12 @@ body.msqdx-flow-board-active .app-main{
   max-width:min(92vw,40rem);
   margin:0;
   padding:.55rem .75rem;
-  border-radius:0;
+  border-radius:12px;
   border:1px solid color-mix(in srgb,var(--danger) 45%,var(--line));
   background:color-mix(in srgb,var(--surface-2) 92%,transparent);
   color:var(--danger,var(--color-danger,#b00020));
   font-size:.85rem;
-  box-shadow:none;
+  box-shadow:0 10px 32px color-mix(in srgb,var(--ink) 16%,transparent);
 }
 
 .msqdx-flow-board-empty{
@@ -111,7 +142,7 @@ body.msqdx-flow-board-active .app-main{
 .msqdx-flow-float-panel{
   max-width:min(96vw,44rem);
   border:none;
-  border-radius:0;
+  border-radius:12px;
   background:transparent;
   box-shadow:none;
   backdrop-filter:none;
@@ -121,13 +152,18 @@ body.msqdx-flow-board-active .app-main{
 .msqdx-flow-float-panel .ds-floating-panel-inner{
   max-height:min(72vh,680px);
   overflow:auto;
-  border-radius:0;
+  border-radius:12px;
+  box-shadow:
+    0 1px 0 color-mix(in srgb,var(--ink) 6%,transparent),
+    0 12px 40px color-mix(in srgb,var(--ink) 14%,transparent);
 }
 
 .msqdx-flow-float-panel--palette{max-width:min(92vw,17rem)}
 
 .msqdx-flow-float-panel--palette-collapsed{
   max-width:none;
+  border-radius:999px;
+  z-index:36;
 }
 
 .msqdx-flow-float-panel--palette-collapsed .ds-floating-panel-inner{
@@ -136,18 +172,31 @@ body.msqdx-flow-board-active .app-main{
   overflow:visible;
   border:none;
   background:transparent;
+  box-shadow:none;
+  border-radius:999px;
 }
 
 .msqdx-flow-float-panel--palette-open .ds-floating-panel-inner{
   padding:.45rem .55rem .55rem;
 }
 
-.msqdx-flow-palette-fab{
-  width:2.75rem;
-  min-width:2.75rem;
-  height:2.75rem;
+.msqdx-flow-palette-fab,
+.msqdx-flow-palette-fab.ds-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:3.5rem;
+  min-width:3.5rem;
+  height:3.5rem;
   padding:0;
-  border-radius:0;
+  border:1px solid var(--line);
+  border-radius:999px;
+  font-size:1.5rem;
+  line-height:1;
+  font-weight:500;
+  box-shadow:
+    0 1px 0 color-mix(in srgb,var(--ink) 6%,transparent),
+    0 12px 36px color-mix(in srgb,var(--ink) 16%,transparent);
 }
 
 .msqdx-flow-palette-head{
@@ -173,14 +222,14 @@ body.msqdx-flow-board-active .app-main{
 
 .msqdx-flow-float-panel--toolbar{
   max-width:min(96vw,100%);
-  border-radius:0;
+  border-radius:12px;
 }
 
 .msqdx-flow-float-panel--toolbar .ds-floating-panel-inner{
   max-height:none;
   overflow:visible;
   padding:.3rem .4rem;
-  border-radius:0;
+  border-radius:12px;
 }
 
 .msqdx-flow-canvas-toolbar--compact{
@@ -241,7 +290,7 @@ body.msqdx-flow-board-active .app-main{
   inset:0;
   width:100%;
   height:100%;
-  min-height:100dvh;
+  min-height:100%;
   max-height:none;
   border:none;
   border-radius:0;

@@ -30,7 +30,8 @@ export function FlowBoardPalette({
         <Button
           type="button"
           variant="primary"
-          size="md"
+          size="lg"
+          shape="pill"
           className="msqdx-flow-palette-fab"
           aria-label={fabLabel}
           title={fabLabel}
