@@ -49,6 +49,7 @@
 | Flyout | Mismatch → **remediated** | Default solid; glass opt-in `surface="glass"` (2026-08-03) |
 | KpiStrip / PipelinePanel / StatusMeterPanel / TopStatus | Tension | ECHON overview workstation — deliberately not magazine essay; don’t drop onto AUDION/CHECKION covers |
 | InspectDock / StepStrip / ChannelStack | Ok-compose | Inspect shells; product fills tile bodies |
+| FloatingPanel | Fit | Dockable workspace overlay — solid/hairline/square default; `surface="glass"` opt-in; `variant` panel/toolbar/strip (2026-08-05) |
 | Icons | Ok-compose | Neutral |
 
 \*Slider magazine OK if composed as Meter; Flyout glass is the strongest primitive conflict.
@@ -69,8 +70,7 @@
 4. ~~Avatar: `shape="square"|"round"`; square default for product portraits.~~ **Done 2026-08-03**.
 5. ~~Storybook: magazine vs workstation story tags~~ **Started 2026-08-03** — Avatar uses `tags: ['magazine']` / Round story `['workstation']`; expand across catalog next.
 6. ~~FilterRow magazine overhaul + Lede unify (StatLede + WizardSteps).~~ **Done 2026-08-03** — products cut over to `Lede`/`LedeStrip`/`FilterRow`+`Chip`.
-
-## Related
+7. ~~FloatingPanel missing for immersive boards.~~ **Done 2026-08-05** — organism with magazine-solid default; Audion flow board consumes it.
 
 - Completeness: `msqdx-ui-completeness.md`
 - Product SoT: `msqdx-ui-product-sot.md`

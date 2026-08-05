@@ -151,5 +151,11 @@ export { CardActions } from './components/CardActions'
 export type { CardActionsProps } from './components/CardActions'
 export { InfoTip } from './components/InfoTip'
 export type { InfoTipProps } from './components/InfoTip'
+export { FloatingPanel } from './components/FloatingPanel'
+export type {
+  FloatingPanelProps,
+  FloatingPanelSurface,
+  FloatingPanelVariant,
+} from './components/FloatingPanel'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'
