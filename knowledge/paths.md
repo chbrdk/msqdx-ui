@@ -52,3 +52,14 @@
 - Shared KPI strip primitive: `packages/ui/src/components/KpiStrip.tsx`
 - Shared pipeline panel primitive: `packages/ui/src/components/PipelinePanel.tsx`
 - Shared status meter panel primitive: `packages/ui/src/components/StatusMeterPanel.tsx`
+
+- Flow board chrome spec: `specs/domain/flow-board-chrome.md`
+- Flow board CSS: `packages/ui/src/css/flow-board.css` (`.msqdx-flow-*`)
+- FlowBoardStage · FlowBoardToolbar · FlowBoardPalette · FlowNodeCard · FlowInspectorShell · FlowRunStrip: `packages/ui/src/components/Flow*.tsx`
+- Storybook smoke: `Organisms/FlowBoardStage` → **MagazineBoard** (fixture chrome, no agent)
+- Storybook staging: `https://msqdx-ui.projects-a.plygrnd.tech/?path=/story/organisms-flowboardstage--magazine-board` (`URL_MSQDX_UI_STORYBOOK`)
+- Side-by-side parity (same `.msqdx-flow-*` family):
+  - Audion board: `https://audion-v3.projects-a.plygrnd.tech/studies/flows/{flowId}` (`URL_AUDION_V3`)
+  - Plexon board: `https://plexon-v3.projects-a.plygrnd.tech/projects/{id}/flows/{flowId}` (`URL_PLEXON_V3`)
+- Consumers: Audion UX Test Flow board · Plexon Collection Test Flow board
+- Parity checklist: node cards, FloatingPanel docks, inspector sections, run strip — one magazine family; domain (Testen / journey / Soft-Q / Checkion) stays in apps

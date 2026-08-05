@@ -1,0 +1,21 @@
+# MSQDX UI — FlowRunStrip
+
+**Status:** Draft  
+**Layer:** Organisms
+
+## Purpose
+
+Describe the shared problem solved by `FlowRunStrip`.
+
+## API
+
+- Props:
+- States:
+- Accessibility:
+- Token dependencies:
+
+## Acceptance
+
+1. Storybook stories cover the intended states.
+2. Unit tests cover the key behavior.
+3. Consuming apps import `FlowRunStrip` from `@msqdx/ui`.

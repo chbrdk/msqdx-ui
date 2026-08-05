@@ -85,6 +85,12 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'AppFrame', layer: 'Templates', title: 'Templates/AppFrame', stories: 'components/AppFrame.stories.tsx', mdx: 'components/AppFrame.mdx' },
   { id: 'InfoTip', layer: 'Molecules', title: 'Molecules/InfoTip', stories: 'components/InfoTip.stories.tsx', mdx: 'components/InfoTip.mdx' },
   { id: 'FloatingPanel', layer: 'Organisms', title: 'Organisms/FloatingPanel', stories: 'components/FloatingPanel.stories.tsx', mdx: 'components/FloatingPanel.mdx' },
+  { id: 'FlowBoardStage', layer: 'Organisms', title: 'Organisms/FlowBoardStage', stories: 'components/FlowBoardStage.stories.tsx', mdx: 'components/FlowBoardStage.mdx' },
+  { id: 'FlowBoardToolbar', layer: 'Organisms', title: 'Organisms/FlowBoardToolbar', stories: 'components/FlowBoardToolbar.stories.tsx', mdx: 'components/FlowBoardToolbar.mdx' },
+  { id: 'FlowBoardPalette', layer: 'Organisms', title: 'Organisms/FlowBoardPalette', stories: 'components/FlowBoardPalette.stories.tsx', mdx: 'components/FlowBoardPalette.mdx' },
+  { id: 'FlowNodeCard', layer: 'Organisms', title: 'Organisms/FlowNodeCard', stories: 'components/FlowNodeCard.stories.tsx', mdx: 'components/FlowNodeCard.mdx' },
+  { id: 'FlowInspectorShell', layer: 'Organisms', title: 'Organisms/FlowInspectorShell', stories: 'components/FlowInspectorShell.stories.tsx', mdx: 'components/FlowInspectorShell.mdx' },
+  { id: 'FlowRunStrip', layer: 'Organisms', title: 'Organisms/FlowRunStrip', stories: 'components/FlowRunStrip.stories.tsx', mdx: 'components/FlowRunStrip.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

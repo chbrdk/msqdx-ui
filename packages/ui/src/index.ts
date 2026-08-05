@@ -157,5 +157,20 @@ export type {
   FloatingPanelSurface,
   FloatingPanelVariant,
 } from './components/FloatingPanel'
+export { FlowBoardStage } from './components/FlowBoardStage'
+export type { FlowBoardStageProps } from './components/FlowBoardStage'
+export { FlowBoardToolbar } from './components/FlowBoardToolbar'
+export type { FlowBoardToolbarProps } from './components/FlowBoardToolbar'
+export { FlowBoardPalette } from './components/FlowBoardPalette'
+export type { FlowBoardPaletteProps } from './components/FlowBoardPalette'
+export { FlowNodeCard } from './components/FlowNodeCard'
+export type { FlowNodeCardProps, FlowNodeRunState } from './components/FlowNodeCard'
+export { FlowInspectorShell } from './components/FlowInspectorShell'
+export type {
+  FlowInspectorShellProps,
+  FlowInspectorSection,
+} from './components/FlowInspectorShell'
+export { FlowRunStrip } from './components/FlowRunStrip'
+export type { FlowRunStripProps } from './components/FlowRunStrip'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'
