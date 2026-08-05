@@ -9,7 +9,7 @@
 
 Shared **magazine immersive board chrome** for UX / Collection flow workspaces. Visual SoT for Audion `/studies/flows/[flowId]` and Plexon `/projects/[id]/flows/[flowId]` so both boards share one look.
 
-Domain (graph model, agent poll, Soft-Q, Checkion gates, Collection verdict) stays in consuming apps. This package is chrome + slots only.
+Domain (graph model, agent poll, Soft-Q, Checkion gates, Collection verdict) stays in consuming apps. This package is chrome + slots only. Authoring right-click uses the shared molecule `ContextMenu` (`msqdx-ui-context-menu.md`) — boards supply items/handlers only.
 
 ## Class / token contract
 

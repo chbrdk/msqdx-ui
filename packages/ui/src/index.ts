@@ -172,5 +172,7 @@ export type {
 } from './components/FlowInspectorShell'
 export { FlowRunStrip } from './components/FlowRunStrip'
 export type { FlowRunStripProps } from './components/FlowRunStrip'
+export { ContextMenu } from './components/ContextMenu'
+export type { ContextMenuProps, ContextMenuItem } from './components/ContextMenu'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'
