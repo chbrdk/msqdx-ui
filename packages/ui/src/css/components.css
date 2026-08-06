@@ -1389,20 +1389,77 @@
   font-weight: 600;
   opacity: 0.8;
 }
-.ds-expression-field-input {
+.ds-expression-field-input-wrap {
+  position: relative;
   width: 100%;
   box-sizing: border-box;
-  padding: 0.4rem 0.55rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface, var(--bg1, var(--bg0)));
+  min-height: 2rem;
+}
+.ds-expression-field-input-wrap:focus-within {
+  outline: 2px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  outline-offset: 1px;
+}
+.ds-expression-field-input-wrap--has-expr {
+  background: color-mix(in srgb, var(--accent, #e8a23a) 4%, var(--surface, var(--bg1)));
+}
+.ds-expression-field-mirror {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.35rem 0.55rem;
+  pointer-events: none;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: hidden;
+}
+.ds-expression-field-mirror-text {
+  color: var(--ink);
+}
+.ds-expression-chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  padding: 0.08rem 0.4rem;
+  border-radius: var(--radius, 0);
+  border: 1px solid color-mix(in srgb, var(--accent, #5b8def) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent, #5b8def) 18%, var(--surface-2, var(--bg1)));
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ds-expression-field-input {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.35rem 0.55rem;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
   color: var(--ink);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.8rem;
+  line-height: 1.35;
+}
+.ds-expression-field-input--chip-overlay {
+  color: transparent;
+  caret-color: var(--ink);
 }
 .ds-expression-field-input:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--ink) 25%, transparent);
-  outline-offset: 1px;
+  outline: none;
 }
 .ds-expression-field-hint {
   margin: 0;

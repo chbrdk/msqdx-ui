@@ -1,6 +1,6 @@
 'use client'
 
-import type { InputHTMLAttributes } from 'react'
+import { useMemo, type InputHTMLAttributes } from 'react'
 
 export type ExpressionFieldProps = {
   label?: string
@@ -16,12 +16,65 @@ export type ExpressionFieldProps = {
   'className' | 'value' | 'onChange' | 'disabled' | 'placeholder'
 >
 
+export type ExpressionSegment =
+  | { type: 'text'; value: string }
+  | { type: 'expression'; value: string; raw: string }
+
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
+/** Split value into literal text and complete `{{ … }}` expressions. */
+export function parseExpressionSegments(value: string): ExpressionSegment[] {
+  if (!value) return []
+  const segments: ExpressionSegment[] = []
+  const re = /\{\{\s*([\s\S]*?)\s*\}\}/g
+  let last = 0
+  let match: RegExpExecArray | null
+  while ((match = re.exec(value)) !== null) {
+    if (match.index > last) {
+      segments.push({ type: 'text', value: value.slice(last, match.index) })
+    }
+    segments.push({
+      type: 'expression',
+      value: match[1]!.trim(),
+      raw: match[0]!,
+    })
+    last = match.index + match[0]!.length
+  }
+  if (last < value.length) {
+    segments.push({ type: 'text', value: value.slice(last) })
+  }
+  return segments
+}
+
+function ExpressionMirror({ value }: { value: string }) {
+  const segments = useMemo(() => parseExpressionSegments(value), [value])
+  const hasExpressions = segments.some((s) => s.type === 'expression')
+
+  if (!value) return null
+
+  return (
+    <div className="ds-expression-field-mirror" aria-hidden>
+      {hasExpressions
+        ? segments.map((seg, i) =>
+            seg.type === 'expression' ? (
+              <span key={`${seg.raw}-${i}`} className="ds-expression-chip">
+                {seg.value || '…'}
+              </span>
+            ) : (
+              <span key={`t-${i}`} className="ds-expression-field-mirror-text">
+                {seg.value}
+              </span>
+            )
+          )
+        : value}
+    </div>
+  )
+}
+
 /**
- * Path / {{ expression }} parameter field.
+ * Path / {{ expression }} parameter field with inline expression chips.
  * Spec: specs/domain/msqdx-ui-expression-field.md
  */
 export function ExpressionField({
@@ -37,6 +90,11 @@ export function ExpressionField({
   ...rest
 }: ExpressionFieldProps) {
   const inputId = id ?? (label ? `expr-${label.replace(/\s+/g, '-').toLowerCase()}` : undefined)
+  const hasExpressions = useMemo(
+    () => parseExpressionSegments(value).some((s) => s.type === 'expression'),
+    [value]
+  )
+
   return (
     <div className={cx('ds-expression-field', className)}>
       {label ? (
@@ -44,22 +102,33 @@ export function ExpressionField({
           {label}
         </label>
       ) : null}
-      <input
-        id={inputId}
-        type="text"
-        className="ds-expression-field-input"
-        value={value}
-        disabled={disabled}
-        placeholder={placeholder}
-        spellCheck={false}
-        autoComplete="off"
-        onChange={(e) => onChange(e.target.value)}
-        {...rest}
-        onFocus={(e) => {
-          rest.onFocus?.(e)
-          onFocusField?.()
-        }}
-      />
+      <div
+        className={cx(
+          'ds-expression-field-input-wrap',
+          hasExpressions && 'ds-expression-field-input-wrap--has-expr'
+        )}
+      >
+        <ExpressionMirror value={value} />
+        <input
+          id={inputId}
+          type="text"
+          className={cx(
+            'ds-expression-field-input',
+            hasExpressions && 'ds-expression-field-input--chip-overlay'
+          )}
+          value={value}
+          disabled={disabled}
+          placeholder={placeholder}
+          spellCheck={false}
+          autoComplete="off"
+          onChange={(e) => onChange(e.target.value)}
+          {...rest}
+          onFocus={(e) => {
+            rest.onFocus?.(e)
+            onFocusField?.()
+          }}
+        />
+      </div>
       {hint ? <p className="ds-expression-field-hint">{hint}</p> : null}
     </div>
   )

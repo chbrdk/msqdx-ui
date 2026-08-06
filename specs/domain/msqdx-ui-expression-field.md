@@ -34,9 +34,11 @@ type ExpressionFieldProps = {
 ## Visual
 
 - `.ds-expression-field`, `.ds-expression-field-label`, `.ds-expression-field-input`, `.ds-expression-field-hint`
+- Complete `{{ … }}` segments render as inline **chips** in a mirror layer; input text is transparent over chips with visible caret
+- Field background gets a light accent tint when expressions are present
 - Reuse Field/Input spacing tokens
 
 ## Non-goals
 
-- Expression evaluation / syntax highlighting
+- Expression evaluation
 - Autocomplete dropdown (apps may add later)
