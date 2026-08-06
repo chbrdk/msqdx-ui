@@ -58,7 +58,7 @@
 
 - Flow board chrome spec: `specs/domain/flow-board-chrome.md`
 - Flow board CSS: `packages/ui/src/css/flow-board.css` (`.msqdx-flow-*`)
-- FlowBoardStage · FlowBoardToolbar · FlowBoardPalette · FlowNodeCard · FlowInspectorShell · FlowRunStrip: `packages/ui/src/components/Flow*.tsx`
+- FlowBoardStage · FlowBoardToolbar · FlowBoardPalette · FlowNodeCard · FlowInspectorShell · FlowNodeEditorShell · FlowRunStrip: `packages/ui/src/components/Flow*.tsx`
 - Storybook smoke: `Organisms/FlowBoardStage` → **MagazineBoard** (fixture chrome, no agent)
 - Storybook staging: `https://msqdx-ui.projects-a.plygrnd.tech/?path=/story/organisms-flowboardstage--magazine-board` (`URL_MSQDX_UI_STORYBOOK`)
 - Side-by-side parity (same `.msqdx-flow-*` family):
