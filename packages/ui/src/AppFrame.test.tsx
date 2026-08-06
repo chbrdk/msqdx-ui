@@ -49,13 +49,13 @@ describe('shared app shell primitives', () => {
     expect(container.querySelector('[data-testid="shell-corners"]')).toBeNull()
   })
 
-  it('keeps top-right for brand plaque; shell corners use one inner rounding each', () => {
+  it('keeps top-right for brand plaque; shell corners use one cutdown each', () => {
     expect(TOP_RIGHT_BRAND_CORNERS.topRight).toBe('square')
     expect(TOP_LEFT_SHELL_CORNERS.topLeft).toBe('square')
-    expect(TOP_LEFT_SHELL_CORNERS.bottomRight).toBe('rounded')
+    expect(TOP_LEFT_SHELL_CORNERS.bottomRight).toBe('cutdown-a')
     expect(BOTTOM_LEFT_SHELL_CORNERS.bottomLeft).toBe('square')
-    expect(BOTTOM_LEFT_SHELL_CORNERS.topRight).toBe('rounded')
+    expect(BOTTOM_LEFT_SHELL_CORNERS.topRight).toBe('cutdown-a')
     expect(BOTTOM_RIGHT_SHELL_CORNERS.bottomRight).toBe('square')
-    expect(BOTTOM_RIGHT_SHELL_CORNERS.topLeft).toBe('rounded')
+    expect(BOTTOM_RIGHT_SHELL_CORNERS.topLeft).toBe('cutdown-a')
   })
 })

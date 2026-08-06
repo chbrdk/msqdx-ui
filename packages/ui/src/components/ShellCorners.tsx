@@ -16,7 +16,7 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 }
 
 /**
- * Viewport corner ornaments at TL / BL / BR — one inner rounding each.
+ * Viewport corner ornaments at TL / BL / BR — one concave cutdown each.
  * Top-right is reserved for `BrandCorner`.
  */
 export function ShellCorners({

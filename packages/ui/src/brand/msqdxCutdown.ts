@@ -61,25 +61,25 @@ export const TOP_RIGHT_BRAND_CORNERS = {
   bottomRight: 'cutdown-b',
 } as const satisfies Record<CornerKey, CornerStyle>
 
-/** Flush top-left — one inner rounding into the page. */
+/** Flush top-left — one concave cutdown into the page. */
 export const TOP_LEFT_SHELL_CORNERS = {
   topLeft: 'square',
   topRight: 'square',
   bottomLeft: 'square',
-  bottomRight: 'rounded',
+  bottomRight: 'cutdown-a',
 } as const satisfies Record<CornerKey, CornerStyle>
 
-/** Flush bottom-left — one inner rounding into the page. */
+/** Flush bottom-left — one concave cutdown into the page. */
 export const BOTTOM_LEFT_SHELL_CORNERS = {
   topLeft: 'square',
-  topRight: 'rounded',
+  topRight: 'cutdown-a',
   bottomLeft: 'square',
   bottomRight: 'square',
 } as const satisfies Record<CornerKey, CornerStyle>
 
-/** Flush bottom-right — one inner rounding into the page. */
+/** Flush bottom-right — one concave cutdown into the page. */
 export const BOTTOM_RIGHT_SHELL_CORNERS = {
-  topLeft: 'rounded',
+  topLeft: 'cutdown-a',
   topRight: 'square',
   bottomLeft: 'square',
   bottomRight: 'square',

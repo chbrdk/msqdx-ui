@@ -16,7 +16,7 @@ Shared workstation shell primitives for products that follow the ECHON V3 compos
 - Visual system follows the existing `frame.css` shell language.
 - Routing stays app-owned: rail items receive active state from the consumer.
 - No product-specific copy or route definitions inside shared UI.
-- Shell cutouts reuse `MsqdxCornerBox` (same radius as brand corner, default 32px). Each free corner gets **one** inner `rounded` only — no dual cutdowns. Top-right stays open for the brand plaque.
+- Shell cutouts reuse `MsqdxCornerBox` (same radius as brand corner, default 32px). Each free corner gets **one** concave `cutdown-a` (not convex `rounded`). Top-right stays open for the brand plaque.
 
 ## Acceptance
 
