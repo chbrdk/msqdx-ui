@@ -788,6 +788,19 @@ body.msqdx-flow-board-active .app-frame{
   display:grid;gap:.55rem;align-content:start;
 }
 
+.msqdx-flow-node-editor-col--output .msqdx-flow-node-editor-col-body{
+  display:flex;
+  flex-direction:column;
+  align-content:stretch;
+}
+
+.msqdx-flow-node-editor-col--output .ds-schema-tree{
+  flex:1 1 auto;
+  min-height:0;
+  height:100%;
+  max-height:none;
+}
+
 .msqdx-flow-node-editor-upstream{
   display:grid;gap:.45rem;padding:.45rem;
   border:1px solid color-mix(in srgb,var(--line) 70%,transparent);
