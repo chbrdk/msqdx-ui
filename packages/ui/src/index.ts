@@ -170,6 +170,8 @@ export type {
   FlowInspectorShellProps,
   FlowInspectorSection,
 } from './components/FlowInspectorShell'
+export { FlowNodeEditorShell } from './components/FlowNodeEditorShell'
+export type { FlowNodeEditorShellProps } from './components/FlowNodeEditorShell'
 export { FlowRunStrip } from './components/FlowRunStrip'
 export type { FlowRunStripProps } from './components/FlowRunStrip'
 export { ContextMenu } from './components/ContextMenu'
