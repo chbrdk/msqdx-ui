@@ -719,7 +719,9 @@ body.msqdx-flow-board-active .app-frame{
 
 .msqdx-flow-node-editor-backdrop{
   position:absolute;inset:0;border:0;padding:0;margin:0;
-  background:var(--overlay-scrim,color-mix(in srgb,var(--ink,#111) 52%,transparent));
+  background:color-mix(in srgb,var(--ink,#0a0a0a) 92%,#000);
+  backdrop-filter:blur(24px) saturate(1.2);
+  -webkit-backdrop-filter:blur(24px) saturate(1.2);
   cursor:pointer;pointer-events:auto;
 }
 
@@ -728,9 +730,9 @@ body.msqdx-flow-board-active .app-frame{
   display:flex;flex-direction:column;
   width:min(96vw,1400px);height:min(92vh,920px);
   border:1px solid var(--line);
-  background:var(--surface-2,color-mix(in srgb,var(--bg0,#141414) 92%,var(--surface-2)));
+  background:var(--bg0,#121212);
   color:var(--fg,var(--ink));
-  box-shadow:0 24px 64px color-mix(in srgb,var(--ink) 28%,transparent);
+  box-shadow:0 24px 64px color-mix(in srgb,#000 55%,transparent);
   pointer-events:auto;overflow:hidden;
 }
 
@@ -769,9 +771,9 @@ body.msqdx-flow-board-active .app-frame{
 
 .msqdx-flow-node-editor-col:last-child{border-right:0}
 
-.msqdx-flow-node-editor-col--input{background:color-mix(in srgb,var(--surface-2) 88%,#3d6ea8 8%)}
-.msqdx-flow-node-editor-col--params{background:transparent}
-.msqdx-flow-node-editor-col--output{background:color-mix(in srgb,var(--surface-2) 88%,#3d9a6a 8%)}
+.msqdx-flow-node-editor-col--input{background:var(--bg1,#181818)}
+.msqdx-flow-node-editor-col--params{background:var(--bg0,#121212)}
+.msqdx-flow-node-editor-col--output{background:var(--bg1,#181818)}
 
 .msqdx-flow-node-editor-col-title{
   margin:0;padding:.45rem .65rem;
@@ -799,6 +801,11 @@ body.msqdx-flow-board-active .app-frame{
 
 .msqdx-flow-node-editor-upstream-kind{
   font-size:.58rem;text-transform:uppercase;letter-spacing:.04em;opacity:.65;
+}
+
+.msqdx-flow-inspector-pill--schema{
+  opacity:.75;
+  background:color-mix(in srgb,var(--muted,#888) 16%,var(--surface-2));
 }
 
 .msqdx-flow-canvas-main--full{width:100%}
