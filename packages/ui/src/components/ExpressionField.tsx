@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, type InputHTMLAttributes } from 'react'
+import { useMemo, useState, type DragEvent, type InputHTMLAttributes } from 'react'
+import { SCHEMA_TREE_PATH_MIME } from './SchemaTree'
 
 export type ExpressionFieldProps = {
   label?: string
@@ -11,6 +12,8 @@ export type ExpressionFieldProps = {
   disabled?: boolean
   className?: string
   onFocusField?: () => void
+  /** Insert a path dragged from SchemaTree (defaults to `{{ path }}`). */
+  onDropPath?: (path: string) => void
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'className' | 'value' | 'onChange' | 'disabled' | 'placeholder'
@@ -86,14 +89,54 @@ export function ExpressionField({
   disabled,
   className,
   onFocusField,
+  onDropPath,
   id,
   ...rest
 }: ExpressionFieldProps) {
   const inputId = id ?? (label ? `expr-${label.replace(/\s+/g, '-').toLowerCase()}` : undefined)
+  const [dropActive, setDropActive] = useState(false)
   const hasExpressions = useMemo(
     () => parseExpressionSegments(value).some((s) => s.type === 'expression'),
     [value]
   )
+
+  const readDroppedPath = (event: DragEvent): string | null => {
+    const path =
+      event.dataTransfer.getData(SCHEMA_TREE_PATH_MIME) ||
+      event.dataTransfer.getData('text/plain')
+    return path.trim() || null
+  }
+
+  const acceptsPathDrop = (event: DragEvent): boolean => {
+    if (disabled) return false
+    const types = Array.from(event.dataTransfer.types)
+    return types.includes(SCHEMA_TREE_PATH_MIME) || types.includes('text/plain')
+  }
+
+  const handleDragOver = (event: DragEvent) => {
+    if (!acceptsPathDrop(event)) return
+    event.preventDefault()
+    event.dataTransfer.dropEffect = 'copy'
+    setDropActive(true)
+  }
+
+  const handleDragLeave = () => {
+    setDropActive(false)
+  }
+
+  const handleDrop = (event: DragEvent) => {
+    if (!acceptsPathDrop(event)) return
+    event.preventDefault()
+    setDropActive(false)
+    const path = readDroppedPath(event)
+    if (!path) return
+    onFocusField?.()
+    if (onDropPath) {
+      onDropPath(path)
+      return
+    }
+    onChange(path.startsWith('{{') ? path : `{{ ${path} }}`)
+  }
 
   return (
     <div className={cx('ds-expression-field', className)}>
@@ -105,8 +148,12 @@ export function ExpressionField({
       <div
         className={cx(
           'ds-expression-field-input-wrap',
-          hasExpressions && 'ds-expression-field-input-wrap--has-expr'
+          hasExpressions && 'ds-expression-field-input-wrap--has-expr',
+          dropActive && 'ds-expression-field-input-wrap--drop-target'
         )}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
       >
         <ExpressionMirror value={value} />
         <input

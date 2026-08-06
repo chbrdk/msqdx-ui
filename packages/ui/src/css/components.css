@@ -1386,8 +1386,10 @@
 .ds-schema-tree-list,
 .ds-schema-tree-children {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 0.35rem;
   list-style: none;
+  border-left: 1px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  margin-left: 0.55rem;
 }
 .ds-schema-tree-row-wrap {
   display: flex;
@@ -1439,8 +1441,15 @@
 .ds-schema-tree-row--object {
   font-weight: 600;
 }
-.ds-schema-tree-row--schema {
+.ds-schema-tree-row--schema,
+.ds-schema-tree-row--predicted {
   opacity: 0.88;
+}
+.ds-schema-tree-row--draggable {
+  cursor: grab;
+}
+.ds-schema-tree-row--draggable:active {
+  cursor: grabbing;
 }
 .ds-schema-tree-key {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -1480,12 +1489,7 @@
   white-space: nowrap;
 }
 .ds-schema-tree-schema-tag {
-  flex-shrink: 0;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  opacity: 0.55;
+  display: none;
 }
 .ds-schema-tree-empty {
   margin: 0;
@@ -1520,6 +1524,10 @@
 }
 .ds-expression-field-input-wrap--has-expr {
   background: color-mix(in srgb, var(--accent, #e8a23a) 4%, var(--surface, var(--bg1)));
+}
+.ds-expression-field-input-wrap--drop-target {
+  outline: 2px solid color-mix(in srgb, var(--accent, #2563eb) 45%, transparent);
+  outline-offset: 1px;
 }
 .ds-expression-field-mirror {
   position: absolute;

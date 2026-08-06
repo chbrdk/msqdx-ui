@@ -36,7 +36,8 @@ type SchemaTreeProps = {
 
 - Objects/arrays collapsible; leaves and objects clickable when `onSelectPath` set
 - Type badge per node; run `value` when present (schema-only nodes show type only)
-- `schema: true` → muted “Schema” styling until a run value arrives
+- `schema: true` → muted styling until a run value arrives
+- Rows are draggable; drop into ExpressionField via `SCHEMA_TREE_PATH_MIME`
 
 ## Non-goals
 

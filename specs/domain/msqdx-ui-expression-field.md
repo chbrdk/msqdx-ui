@@ -30,6 +30,7 @@ type ExpressionFieldProps = {
 - Controlled `value` / `onChange`
 - Monospace-friendly input class for expressions
 - `onFocusField` when focused
+- Accepts SchemaTree drag-drop (`onDropPath` or default `{{ path }}`)
 
 ## Visual
 

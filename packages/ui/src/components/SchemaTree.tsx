@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type HTMLAttributes, type ReactNode } from 'react'
+import { useState, type DragEvent, type HTMLAttributes, type ReactNode } from 'react'
 
 export type SchemaFieldType = 'string' | 'number' | 'boolean' | 'object' | 'array' | 'any'
 
@@ -15,12 +15,24 @@ export type SchemaTreeNode = {
   children?: SchemaTreeNode[]
 }
 
+/** MIME type for drag-and-drop into ExpressionField. */
+export const SCHEMA_TREE_PATH_MIME = 'application/x-msqdx-expression-path'
+
 export type SchemaTreeProps = {
   root: SchemaTreeNode | SchemaTreeNode[]
   onSelectPath?: (path: string) => void
   emptyLabel?: string
   className?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'>
+
+const INDENT_REM = 1.25
+const DEFAULT_OPEN_DEPTH = 3
+
+function startPathDrag(event: DragEvent, path: string) {
+  event.dataTransfer.setData(SCHEMA_TREE_PATH_MIME, path)
+  event.dataTransfer.setData('text/plain', path)
+  event.dataTransfer.effectAllowed = 'copy'
+}
 
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
@@ -40,9 +52,10 @@ function SchemaTreeRow({
   onSelectPath?: (path: string) => void
 }) {
   const hasChildren = Boolean(node.children?.length)
-  const [open, setOpen] = useState(depth < 2)
+  const [open, setOpen] = useState(depth < DEFAULT_OPEN_DEPTH)
   const interactive = typeof onSelectPath === 'function'
   const hasValue = node.value != null && node.value !== '' && !node.schema
+  const draggable = Boolean(node.path)
 
   const typeBadge = (
     <span className={cx('ds-schema-tree-type', `ds-schema-tree-type--${node.type}`)}>
@@ -55,15 +68,19 @@ function SchemaTreeRow({
       <span className="ds-schema-tree-key">{node.key}</span>
       {typeBadge}
       {hasValue ? <span className="ds-schema-tree-value">{node.value}</span> : null}
-      {node.schema && !hasValue ? (
-        <span className="ds-schema-tree-schema-tag">Schema</span>
-      ) : null}
     </>
+  )
+
+  const rowClass = cx(
+    'ds-schema-tree-row',
+    hasChildren && 'ds-schema-tree-row--object',
+    node.schema && !hasValue && 'ds-schema-tree-row--predicted',
+    draggable && 'ds-schema-tree-row--draggable'
   )
 
   return (
     <li className={cx('ds-schema-tree-item', hasChildren && 'ds-schema-tree-item--branch')}>
-      <div className="ds-schema-tree-row-wrap" style={{ paddingLeft: `${depth * 0.65}rem` }}>
+      <div className="ds-schema-tree-row-wrap" style={{ paddingLeft: `${depth * INDENT_REM}rem` }}>
         {hasChildren ? (
           <button
             type="button"
@@ -79,23 +96,18 @@ function SchemaTreeRow({
         {interactive ? (
           <button
             type="button"
-            className={cx(
-              'ds-schema-tree-row',
-              hasChildren && 'ds-schema-tree-row--object',
-              node.schema && !hasValue && 'ds-schema-tree-row--schema'
-            )}
+            className={rowClass}
+            draggable={draggable}
+            onDragStart={draggable ? (e) => startPathDrag(e, node.path) : undefined}
             onClick={() => onSelectPath(node.path)}
           >
             {body}
           </button>
         ) : (
           <div
-            className={cx(
-              'ds-schema-tree-row',
-              'ds-schema-tree-row--static',
-              hasChildren && 'ds-schema-tree-row--object',
-              node.schema && !hasValue && 'ds-schema-tree-row--schema'
-            )}
+            className={cx(rowClass, 'ds-schema-tree-row--static')}
+            draggable={draggable}
+            onDragStart={draggable ? (e) => startPathDrag(e, node.path) : undefined}
           >
             {body}
           </div>

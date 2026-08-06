@@ -59,7 +59,18 @@ describe('SchemaTree', () => {
     expect(screen.getByText('overallScore')).toBeInTheDocument()
     expect(screen.getByText('issues')).toBeInTheDocument()
     expect(screen.getAllByText('number').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('Schema').length).toBeGreaterThan(0)
+  })
+
+  it('starts path drag with custom mime type', () => {
+    render(<SchemaTree root={scanSchema} />)
+    const row = screen.getAllByText('overallScore')[0]!.closest('[draggable="true"]')
+    expect(row).toBeTruthy()
+    const dt = { setData: vi.fn(), effectAllowed: '' }
+    fireEvent.dragStart(row!, { dataTransfer: dt })
+    expect(dt.setData).toHaveBeenCalledWith(
+      'application/x-msqdx-expression-path',
+      "$('n-scan').json.overallScore"
+    )
   })
 
   it('calls onSelectPath for leaf nodes', () => {

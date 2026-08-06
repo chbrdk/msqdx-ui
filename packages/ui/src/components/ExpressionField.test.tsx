@@ -38,4 +38,23 @@ describe('ExpressionField', () => {
     )
     expect(screen.getByText('use {{ }}')).toBeInTheDocument()
   })
+
+  it('accepts dropped schema paths', () => {
+    const onDropPath = vi.fn()
+    const { container } = render(
+      <ExpressionField label="Path" value="" onChange={() => {}} onDropPath={onDropPath} />
+    )
+    const wrap = container.querySelector('.ds-expression-field-input-wrap')!
+    fireEvent.dragOver(wrap, {
+      dataTransfer: { types: ['application/x-msqdx-expression-path'], dropEffect: '' },
+    })
+    fireEvent.drop(wrap, {
+      dataTransfer: {
+        types: ['application/x-msqdx-expression-path'],
+        getData: (type: string) =>
+          type === 'application/x-msqdx-expression-path' ? 'scan.scores.accessibility' : '',
+      },
+    })
+    expect(onDropPath).toHaveBeenCalledWith('scan.scores.accessibility')
+  })
 })
