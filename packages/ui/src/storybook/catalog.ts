@@ -94,6 +94,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'FlowRunStrip', layer: 'Organisms', title: 'Organisms/FlowRunStrip', stories: 'components/FlowRunStrip.stories.tsx', mdx: 'components/FlowRunStrip.mdx' },
   { id: 'ContextMenu', layer: 'Molecules', title: 'Molecules/ContextMenu', stories: 'components/ContextMenu.stories.tsx', mdx: 'components/ContextMenu.mdx' },
   { id: 'JsonTree', layer: 'Molecules', title: 'Molecules/JsonTree', stories: 'components/JsonTree.stories.tsx', mdx: 'components/JsonTree.mdx' },
+  { id: 'SchemaTree', layer: 'Molecules', title: 'Molecules/SchemaTree', stories: 'components/SchemaTree.stories.tsx', mdx: 'components/SchemaTree.mdx' },
   { id: 'ExpressionField', layer: 'Molecules', title: 'Molecules/ExpressionField', stories: 'components/ExpressionField.stories.tsx', mdx: 'components/ExpressionField.mdx' },
 ]
 

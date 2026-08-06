@@ -1378,6 +1378,122 @@
   opacity: 0.7;
 }
 
+/* SchemaTree — nested schema browser (schema-tree.md) */
+.ds-schema-tree {
+  max-height: min(40vh, 18rem);
+  overflow: auto;
+}
+.ds-schema-tree-list,
+.ds-schema-tree-children {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ds-schema-tree-row-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 0.15rem;
+}
+.ds-schema-tree-chevron {
+  flex-shrink: 0;
+  width: 1.1rem;
+  margin: 0;
+  padding: 0.35rem 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.65rem;
+  line-height: 1;
+  opacity: 0.65;
+  cursor: pointer;
+}
+.ds-schema-tree-chevron--spacer {
+  display: inline-block;
+  cursor: default;
+}
+.ds-schema-tree-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0.35rem 0.45rem;
+  border: 0;
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.ds-schema-tree-row:hover,
+.ds-schema-tree-row:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.ds-schema-tree-row--static {
+  cursor: default;
+}
+.ds-schema-tree-row--object {
+  font-weight: 600;
+}
+.ds-schema-tree-row--schema {
+  opacity: 0.88;
+}
+.ds-schema-tree-key {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  word-break: break-word;
+}
+.ds-schema-tree-type {
+  flex-shrink: 0;
+  padding: 0.05rem 0.35rem;
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  opacity: 0.85;
+}
+.ds-schema-tree-type--number {
+  background: color-mix(in srgb, var(--accent, #2563eb) 14%, transparent);
+}
+.ds-schema-tree-type--boolean {
+  background: color-mix(in srgb, var(--success, #16a34a) 14%, transparent);
+}
+.ds-schema-tree-type--object {
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+}
+.ds-schema-tree-type--array {
+  background: color-mix(in srgb, var(--warning, #d97706) 14%, transparent);
+}
+.ds-schema-tree-value {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  opacity: 0.72;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ds-schema-tree-schema-tag {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+.ds-schema-tree-empty {
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
 /* ExpressionField — path / {{ }} param (msqdx-ui-expression-field.md) */
 .ds-expression-field {
   display: flex;
