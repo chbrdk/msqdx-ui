@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, type DragEvent, type InputHTMLAttributes } from 'react'
+import { useMemo, useRef, useState, type DragEvent, type InputHTMLAttributes } from 'react'
 import { SCHEMA_TREE_PATH_MIME } from './SchemaTree'
 
 export type ExpressionFieldProps = {
@@ -44,6 +44,18 @@ export function wrapExpressionValue(value: string): string {
   if (/^\{\{[\s\S]*\}\}$/.test(t)) return t
   if (isBarePathExpression(t)) return `{{ ${t} }}`
   return value
+}
+
+function insertExpressionAtSelection(
+  value: string,
+  rawPath: string,
+  selectionStart?: number | null,
+  selectionEnd?: number | null
+): string {
+  const expr = wrapExpressionValue(rawPath)
+  const start = selectionStart ?? value.length
+  const end = selectionEnd ?? start
+  return `${value.slice(0, start)}${expr}${value.slice(end)}`
 }
 
 export function parseExpressionSegments(value: string): ExpressionSegment[] {
@@ -117,6 +129,7 @@ export function ExpressionField({
   ...rest
 }: ExpressionFieldProps) {
   const inputId = id ?? (label ? `expr-${label.replace(/\s+/g, '-').toLowerCase()}` : undefined)
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const [dropActive, setDropActive] = useState(false)
   const hasExpressions = useMemo(
     () => parseExpressionSegments(value).some((s) => s.type === 'expression'),
@@ -158,7 +171,13 @@ export function ExpressionField({
       onDropPath(path)
       return
     }
-    onChange(wrapExpressionValue(path))
+    const next = insertExpressionAtSelection(
+      value,
+      path,
+      inputRef.current?.selectionStart,
+      inputRef.current?.selectionEnd
+    )
+    onChange(next)
   }
 
   return (
@@ -180,6 +199,7 @@ export function ExpressionField({
       >
         <ExpressionMirror value={value} />
         <input
+          ref={inputRef}
           id={inputId}
           type="text"
           className={cx(
