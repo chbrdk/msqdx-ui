@@ -84,6 +84,7 @@ describe('ExpressionField', () => {
     const input = screen.getByLabelText('Text') as HTMLInputElement
     input.focus()
     input.setSelectionRange(6, 6)
+    fireEvent.mouseUp(input)
     const wrap = container.querySelector('.ds-expression-field-input-wrap')!
     fireEvent.dragOver(wrap, {
       dataTransfer: { types: ['application/x-msqdx-expression-path'], dropEffect: '' },
@@ -96,5 +97,27 @@ describe('ExpressionField', () => {
       },
     })
     expect(onChange).toHaveBeenCalledWith("Hello {{ $('n-start').json.label }}")
+  })
+
+  it('appends dropped schema paths when the field lost focus during drag', () => {
+    const onChange = vi.fn()
+    const { container } = render(<ExpressionField label="Text" value="A B" onChange={onChange} />)
+    const input = screen.getByLabelText('Text') as HTMLInputElement
+    input.focus()
+    input.setSelectionRange(2, 2)
+    fireEvent.mouseUp(input)
+    fireEvent.blur(input)
+    const wrap = container.querySelector('.ds-expression-field-input-wrap')!
+    fireEvent.dragOver(wrap, {
+      dataTransfer: { types: ['application/x-msqdx-expression-path'], dropEffect: '' },
+    })
+    fireEvent.drop(wrap, {
+      dataTransfer: {
+        types: ['application/x-msqdx-expression-path'],
+        getData: (type: string) =>
+          type === 'application/x-msqdx-expression-path' ? 'scan.scores.accessibility' : '',
+      },
+    })
+    expect(onChange).toHaveBeenCalledWith('A B{{ scan.scores.accessibility }}')
   })
 })

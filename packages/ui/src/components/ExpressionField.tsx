@@ -130,6 +130,7 @@ export function ExpressionField({
 }: ExpressionFieldProps) {
   const inputId = id ?? (label ? `expr-${label.replace(/\s+/g, '-').toLowerCase()}` : undefined)
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const selectionRef = useRef<{ start: number; end: number } | null>(null)
   const [dropActive, setDropActive] = useState(false)
   const hasExpressions = useMemo(
     () => parseExpressionSegments(value).some((s) => s.type === 'expression'),
@@ -160,6 +161,15 @@ export function ExpressionField({
     setDropActive(false)
   }
 
+  const rememberSelection = () => {
+    const el = inputRef.current
+    if (!el) return
+    selectionRef.current = {
+      start: el.selectionStart ?? el.value.length,
+      end: el.selectionEnd ?? el.selectionStart ?? el.value.length,
+    }
+  }
+
   const handleDrop = (event: DragEvent) => {
     if (!acceptsPathDrop(event)) return
     event.preventDefault()
@@ -171,11 +181,12 @@ export function ExpressionField({
       onDropPath(path)
       return
     }
+    const saved = selectionRef.current
     const next = insertExpressionAtSelection(
       value,
       path,
-      inputRef.current?.selectionStart,
-      inputRef.current?.selectionEnd
+      inputRef.current?.selectionStart ?? saved?.start,
+      inputRef.current?.selectionEnd ?? saved?.end
     )
     onChange(next)
   }
@@ -212,9 +223,14 @@ export function ExpressionField({
           spellCheck={false}
           autoComplete="off"
           onChange={(e) => onChange(e.target.value)}
+          onClick={() => rememberSelection()}
+          onMouseUp={() => rememberSelection()}
+          onKeyUp={() => rememberSelection()}
+          onSelect={() => rememberSelection()}
           {...rest}
           onFocus={(e) => {
             rest.onFocus?.(e)
+            rememberSelection()
             onFocusField?.()
           }}
           onBlur={(e) => {
