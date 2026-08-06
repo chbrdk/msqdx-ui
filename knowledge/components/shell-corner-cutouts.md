@@ -5,7 +5,7 @@
 
 ## What
 
-Viewport ink cutdowns at **top-left**, **bottom-left**, and **bottom-right**, using the same `MsqdxCornerBox` geometry as `BrandCorner`. Top-right stays free for the brand plaque.
+Viewport ink corners at **top-left**, **bottom-left**, and **bottom-right**, using `MsqdxCornerBox` with **one** inner `rounded` each (outer edges flush/square). Top-right stays free for the brand plaque.
 
 ## Defaults
 
