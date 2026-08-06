@@ -28,6 +28,7 @@ Magazine board float chrome (toolbar / inspector / strip / FAB):
 | Palette FAB | pill (`999px`), ~3.5rem |
 | Surface | solid `--paper` / `--surface`, hairline `--line` |
 | Shadow | soft lift on floats (not flat magazine zero) |
+| RF nodes | translucent `--surface-2` + `backdrop-filter: blur(16px)` (disabled under `prefers-reduced-transparency` / `prefers-reduced-motion`) |
 | Stage | `position: fixed; inset: 0` full `100vw` / `100dvh` while `body.msqdx-flow-board-active` |
 
 ## Primitives
