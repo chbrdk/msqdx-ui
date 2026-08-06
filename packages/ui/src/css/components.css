@@ -1323,6 +1323,94 @@
   color: var(--danger, #b42318);
 }
 
+/* JsonTree — flat path browser (msqdx-ui-json-tree.md) */
+.ds-json-tree {
+  max-height: min(40vh, 18rem);
+  overflow: auto;
+}
+.ds-json-tree-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ds-json-tree-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.35rem 0.45rem;
+  border: 0;
+  border-radius: calc(var(--radius) - 2px);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.ds-json-tree-row:hover,
+.ds-json-tree-row:focus-visible {
+  outline: none;
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.ds-json-tree-row--static {
+  cursor: default;
+}
+.ds-json-tree-path {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  word-break: break-all;
+}
+.ds-json-tree-value {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  opacity: 0.72;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ds-json-tree-empty {
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+/* ExpressionField — path / {{ }} param (msqdx-ui-expression-field.md) */
+.ds-expression-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.ds-expression-field-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.8;
+}
+.ds-expression-field-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface, var(--bg1, var(--bg0)));
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+}
+.ds-expression-field-input:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  outline-offset: 1px;
+}
+.ds-expression-field-hint {
+  margin: 0;
+  font-size: 0.7rem;
+  opacity: 0.65;
+}
+
+
 .ds-context-menu-item:disabled,
 .ds-context-menu-item--disabled {
   opacity: 0.45;
@@ -1333,4 +1421,12 @@
   font-size: 0.75rem;
   opacity: 0.55;
   white-space: nowrap;
+}
+
+/* JsonTree scaffold */
+.ds-json-tree {
+}
+
+/* ExpressionField scaffold */
+.ds-expression-field {
 }

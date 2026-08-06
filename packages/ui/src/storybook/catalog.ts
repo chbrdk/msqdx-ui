@@ -92,6 +92,8 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'FlowInspectorShell', layer: 'Organisms', title: 'Organisms/FlowInspectorShell', stories: 'components/FlowInspectorShell.stories.tsx', mdx: 'components/FlowInspectorShell.mdx' },
   { id: 'FlowRunStrip', layer: 'Organisms', title: 'Organisms/FlowRunStrip', stories: 'components/FlowRunStrip.stories.tsx', mdx: 'components/FlowRunStrip.mdx' },
   { id: 'ContextMenu', layer: 'Molecules', title: 'Molecules/ContextMenu', stories: 'components/ContextMenu.stories.tsx', mdx: 'components/ContextMenu.mdx' },
+  { id: 'JsonTree', layer: 'Molecules', title: 'Molecules/JsonTree', stories: 'components/JsonTree.stories.tsx', mdx: 'components/JsonTree.mdx' },
+  { id: 'ExpressionField', layer: 'Molecules', title: 'Molecules/ExpressionField', stories: 'components/ExpressionField.stories.tsx', mdx: 'components/ExpressionField.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

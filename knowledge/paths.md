@@ -43,6 +43,8 @@
 - IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo: `packages/ui/src/components/icons.tsx`
 - Flyout: `packages/ui/src/components/Flyout.tsx` · spec `specs/domain/msqdx-ui-flyout.md` · knowledge `knowledge/components/flyout.md`
 - ContextMenu: `packages/ui/src/components/ContextMenu.tsx` · spec `specs/domain/msqdx-ui-context-menu.md` · knowledge `knowledge/components/context-menu.md`
+- JsonTree: `packages/ui/src/components/JsonTree.tsx` · spec `specs/domain/msqdx-ui-json-tree.md` · knowledge `knowledge/components/json-tree.md`
+- ExpressionField: `packages/ui/src/components/ExpressionField.tsx` · spec `specs/domain/msqdx-ui-expression-field.md` · knowledge `knowledge/components/expression-field.md`
 
 - InfoTip (ghost IconInfo + Tooltip): `packages/ui/src/components/InfoTip.tsx` · CSS `.ds-infotip` · spec `specs/domain/msqdx-ui-infotip.md` · knowledge `knowledge/components/infotip.md` · `IconInfo` in `packages/ui/src/components/icons.tsx`
 
