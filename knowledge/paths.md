@@ -29,6 +29,7 @@
 - Shared app frame primitive: `packages/ui/src/components/AppFrame.tsx`
 - Shared nav rail primitive: `packages/ui/src/components/NavRail.tsx`
 - Shared brand corner primitive: `packages/ui/src/components/BrandCorner.tsx`
+- Shared shell cutouts: `packages/ui/src/components/ShellCorners.tsx` · `knowledge/components/shell-corner-cutouts.md`
 
 - Field / forms specs: `specs/domain/msqdx-ui-field.md` · `specs/domain/msqdx-ui-forms.md`
 - Extended (Dialog / ConfirmDialog): `specs/domain/msqdx-ui-extended.md`

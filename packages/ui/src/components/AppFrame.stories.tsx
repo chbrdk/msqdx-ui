@@ -40,7 +40,8 @@ export const Default: Story = {
         Page body
       </Text>
       <Text role="body" as="p">
-        AppFrame composes atmosphere, brand corner, nav rail, optional topbar, and page content.
+        AppFrame composes atmosphere, shell cutout corners (TL/BL/BR), brand corner,
+        nav rail, optional topbar, and page content.
       </Text>
     </AppFrame>
   ),

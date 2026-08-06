@@ -318,6 +318,39 @@
   box-sizing: border-box;
 }
 
+/* Viewport cutdowns at TL / BL / BR — TR reserved for brand corner */
+.shell-corners {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  pointer-events: none;
+}
+
+.shell-corner {
+  position: absolute;
+}
+
+.shell-corner--top-left {
+  top: 0;
+  left: 0;
+}
+
+.shell-corner--bottom-left {
+  bottom: 0;
+  left: 0;
+}
+
+.shell-corner--bottom-right {
+  bottom: 0;
+  right: 0;
+}
+
+.shell-corner-box {
+  background: var(--ink);
+  border: 0;
+  box-shadow: none;
+}
+
 /* Top-right brand plaque — flush to viewport (cutdown via MsqdxCornerBox) */
 .brand-corner {
   position: fixed;

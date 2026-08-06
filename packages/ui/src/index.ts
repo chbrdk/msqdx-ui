@@ -77,11 +77,16 @@ export { Avatar } from './components/Avatar'
 export type { AvatarProps, AvatarSize, AvatarShape } from './components/Avatar'
 export { AppFrame } from './components/AppFrame'
 export type { AppFrameProps, AppFrameRailEdge } from './components/AppFrame'
+export { ShellCorners } from './components/ShellCorners'
+export type { ShellCornersProps } from './components/ShellCorners'
 export { MsqdxCornerBox } from './brand/MsqdxCornerBox'
 export type { MsqdxCornerBoxProps } from './brand/MsqdxCornerBox'
 export { MsqdxLogoMark } from './brand/MsqdxLogoMark'
 export {
   TOP_RIGHT_BRAND_CORNERS,
+  TOP_LEFT_SHELL_CORNERS,
+  BOTTOM_LEFT_SHELL_CORNERS,
+  BOTTOM_RIGHT_SHELL_CORNERS,
   type CornerKey,
   type CornerStyle,
 } from './brand/msqdxCutdown'

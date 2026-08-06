@@ -60,3 +60,27 @@ export const TOP_RIGHT_BRAND_CORNERS = {
   bottomLeft: 'rounded',
   bottomRight: 'cutdown-b',
 } as const satisfies Record<CornerKey, CornerStyle>
+
+/** Flush top-left viewport cutout — scoops along top + left edges into the page. */
+export const TOP_LEFT_SHELL_CORNERS = {
+  topLeft: 'square',
+  topRight: 'cutdown-a',
+  bottomLeft: 'cutdown-b',
+  bottomRight: 'square',
+} as const satisfies Record<CornerKey, CornerStyle>
+
+/** Flush bottom-left viewport cutout — scoops along left + bottom edges into the page. */
+export const BOTTOM_LEFT_SHELL_CORNERS = {
+  topLeft: 'cutdown-b',
+  topRight: 'square',
+  bottomLeft: 'square',
+  bottomRight: 'cutdown-a',
+} as const satisfies Record<CornerKey, CornerStyle>
+
+/** Flush bottom-right viewport cutout — scoops along right + bottom edges into the page. */
+export const BOTTOM_RIGHT_SHELL_CORNERS = {
+  topLeft: 'square',
+  topRight: 'cutdown-b',
+  bottomLeft: 'cutdown-a',
+  bottomRight: 'square',
+} as const satisfies Record<CornerKey, CornerStyle>
