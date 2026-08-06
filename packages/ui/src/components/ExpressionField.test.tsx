@@ -13,6 +13,12 @@ describe('parseExpressionSegments', () => {
       { type: 'text', value: ' y' },
     ])
   })
+
+  it('treats bare node json paths as expressions', () => {
+    expect(parseExpressionSegments("$('n-start').json.label")).toEqual([
+      { type: 'expression', value: "$('n-start').json.label", raw: "$('n-start').json.label" },
+    ])
+  })
 })
 
 describe('ExpressionField', () => {
@@ -30,6 +36,20 @@ describe('ExpressionField', () => {
     )
     expect(container.querySelector('.ds-expression-chip')?.textContent).toBe('scan.scores.seo')
     expect(screen.getByLabelText('Note')).toHaveClass('ds-expression-field-input--chip-overlay')
+  })
+
+  it('shows chips for bare node json paths', () => {
+    const { container } = render(
+      <ExpressionField
+        label="Text"
+        value="$('n-start').json.label"
+        onChange={() => {}}
+      />
+    )
+    expect(container.querySelector('.ds-expression-chip')?.textContent).toBe(
+      "$('n-start').json.label"
+    )
+    expect(screen.getByLabelText('Text')).toHaveClass('ds-expression-field-input--chip-overlay')
   })
 
   it('shows hint', () => {

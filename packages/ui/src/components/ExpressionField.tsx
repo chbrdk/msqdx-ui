@@ -28,6 +28,24 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 }
 
 /** Split value into literal text and complete `{{ … }}` expressions. */
+export function isBarePathExpression(value: string): boolean {
+  const t = value.trim()
+  if (!t) return false
+  if (/^\$\(\s*['"][^'"]+['"]\s*\)(?:\.json)?(?:[.[\]]|$)/.test(t)) return true
+  if (/^\$json(?:[.[\]]|$)/.test(t)) return true
+  if (/^(scan|domain|geo|journey|run)\./.test(t)) return true
+  return false
+}
+
+/** Wrap a catalog / node path for runtime expression resolution. */
+export function wrapExpressionValue(value: string): string {
+  const t = value.trim()
+  if (!t) return value
+  if (/^\{\{[\s\S]*\}\}$/.test(t)) return t
+  if (isBarePathExpression(t)) return `{{ ${t} }}`
+  return value
+}
+
 export function parseExpressionSegments(value: string): ExpressionSegment[] {
   if (!value) return []
   const segments: ExpressionSegment[] = []
@@ -47,6 +65,11 @@ export function parseExpressionSegments(value: string): ExpressionSegment[] {
   }
   if (last < value.length) {
     segments.push({ type: 'text', value: value.slice(last) })
+  }
+  if (segments.some((s) => s.type === 'expression')) return segments
+  if (isBarePathExpression(value)) {
+    const t = value.trim()
+    return [{ type: 'expression', value: t, raw: t }]
   }
   return segments
 }
@@ -135,7 +158,7 @@ export function ExpressionField({
       onDropPath(path)
       return
     }
-    onChange(path.startsWith('{{') ? path : `{{ ${path} }}`)
+    onChange(wrapExpressionValue(path))
   }
 
   return (
@@ -173,6 +196,12 @@ export function ExpressionField({
           onFocus={(e) => {
             rest.onFocus?.(e)
             onFocusField?.()
+          }}
+          onBlur={(e) => {
+            rest.onBlur?.(e)
+            if (isBarePathExpression(value)) {
+              onChange(wrapExpressionValue(value))
+            }
           }}
         />
       </div>

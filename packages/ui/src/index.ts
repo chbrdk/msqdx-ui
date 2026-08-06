@@ -180,7 +180,12 @@ export { JsonTree } from './components/JsonTree'
 export type { JsonTreeProps, JsonTreeItem } from './components/JsonTree'
 export { SchemaTree, SCHEMA_TREE_PATH_MIME } from './components/SchemaTree'
 export type { SchemaTreeProps, SchemaTreeNode, SchemaFieldType } from './components/SchemaTree'
-export { ExpressionField } from './components/ExpressionField'
 export type { ExpressionFieldProps } from './components/ExpressionField'
+export {
+  ExpressionField,
+  isBarePathExpression,
+  parseExpressionSegments,
+  wrapExpressionValue,
+} from './components/ExpressionField'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'
