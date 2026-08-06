@@ -24,8 +24,6 @@ export function ShellCorners({
   className,
   ...rest
 }: ShellCornersProps) {
-  const size = borderRadius
-
   return (
     <div
       className={cx('shell-corners', className)}
@@ -41,7 +39,7 @@ export function ShellCorners({
           topRight={TOP_LEFT_SHELL_CORNERS.topRight}
           bottomLeft={TOP_LEFT_SHELL_CORNERS.bottomLeft}
           bottomRight={TOP_LEFT_SHELL_CORNERS.bottomRight}
-          style={{ width: size, height: size }}
+          style={{ width: 0, height: borderRadius }}
         />
       </div>
       <div className="shell-corner shell-corner--bottom-left">
@@ -52,7 +50,7 @@ export function ShellCorners({
           topRight={BOTTOM_LEFT_SHELL_CORNERS.topRight}
           bottomLeft={BOTTOM_LEFT_SHELL_CORNERS.bottomLeft}
           bottomRight={BOTTOM_LEFT_SHELL_CORNERS.bottomRight}
-          style={{ width: size, height: size }}
+          style={{ width: 0, height: borderRadius }}
         />
       </div>
       <div className="shell-corner shell-corner--bottom-right">
@@ -63,7 +61,7 @@ export function ShellCorners({
           topRight={BOTTOM_RIGHT_SHELL_CORNERS.topRight}
           bottomLeft={BOTTOM_RIGHT_SHELL_CORNERS.bottomLeft}
           bottomRight={BOTTOM_RIGHT_SHELL_CORNERS.bottomRight}
-          style={{ width: size, height: size }}
+          style={{ width: 0, height: borderRadius }}
         />
       </div>
     </div>

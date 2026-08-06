@@ -33,6 +33,9 @@ describe('shared app shell primitives', () => {
     expect(screen.getByTestId('brand-corner')).toBeInTheDocument()
     expect(screen.getByTestId('shell-corners')).toBeInTheDocument()
     expect(document.querySelectorAll('.shell-corner')).toHaveLength(3)
+    for (const box of document.querySelectorAll('.shell-corner-box')) {
+      expect((box as HTMLElement).style.width).toBe('0px')
+    }
     expect(rail).toBeInTheDocument()
     expect(rail).toHaveClass('nav-rail--static-dock')
     expect(rail).toHaveAttribute('data-orientation', 'vertical')
