@@ -194,5 +194,17 @@ export {
   parseExpressionSegments,
   wrapExpressionValue,
 } from './components/ExpressionField'
+export { MagazineContentsNav } from './components/MagazineContentsNav'
+export type {
+  MagazineContentsItem,
+  MagazineContentsItemRenderState,
+  MagazineContentsNavProps,
+} from './components/MagazineContentsNav'
+export { MarkerCanvas } from './components/MarkerCanvas'
+export type {
+  MarkerCanvasProps,
+  MarkerCanvasRect,
+  MarkerCanvasTone,
+} from './components/MarkerCanvas'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

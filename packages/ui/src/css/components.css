@@ -1611,3 +1611,276 @@
 /* ExpressionField scaffold */
 .ds-expression-field {
 }
+
+/* MagazineContentsNav — Brandion / Checkion magazine Contents */
+.ds-magazine-contents-sentinel {
+  height: 1px;
+  margin: 0;
+  pointer-events: none;
+}
+
+.ds-magazine-contents {
+  --ds-magazine-contents-columns: 3;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 1rem 0 0;
+  background: var(--bg0, var(--bg, #fff));
+  border-bottom: 1px solid var(--line);
+  isolation: isolate;
+  transition:
+    padding 0.18s ease,
+    gap 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.ds-magazine-contents--compact {
+  gap: 0.2rem;
+  padding: 0.45rem 0 0;
+  border-top: 1px solid var(--line);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--bg0, #fff) 70%, transparent);
+}
+
+.ds-magazine-contents__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ds-magazine-contents__label {
+  margin: 0;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent, var(--muted));
+  font-weight: var(--weight-regular, 400);
+}
+
+.ds-magazine-contents__exit a,
+.ds-magazine-contents__exit button {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.ds-magazine-contents__exit a:hover,
+.ds-magazine-contents__exit button:hover {
+  color: var(--ink, var(--fg));
+}
+
+.ds-magazine-contents--compact .ds-magazine-contents__label {
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  opacity: 0.85;
+}
+
+.ds-magazine-contents--compact .ds-magazine-contents__link {
+  gap: 0;
+  padding: 0.4rem 0.75rem 0.5rem 0;
+  border-bottom-width: 2px;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  column-gap: 0.55rem;
+}
+
+.ds-magazine-contents--compact .ds-magazine-contents__item:not(:first-child) .ds-magazine-contents__link {
+  padding-left: 0.75rem;
+}
+
+.ds-magazine-contents--compact .ds-magazine-contents__index {
+  font-size: 0.65rem;
+}
+
+.ds-magazine-contents--compact .ds-magazine-contents__name {
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  letter-spacing: -0.02em;
+}
+
+.ds-magazine-contents__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0.15rem;
+  display: grid;
+  grid-template-columns: repeat(var(--ds-magazine-contents-columns), minmax(0, 1fr));
+  gap: 0;
+}
+
+.ds-magazine-contents__item {
+  min-width: 0;
+  border-right: 1px solid var(--line);
+}
+
+.ds-magazine-contents__item:last-child {
+  border-right: 0;
+}
+
+.ds-magazine-contents__link {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem 1rem 1.05rem 0;
+  text-decoration: none;
+  color: color-mix(in srgb, var(--ink, var(--fg)) 55%, var(--muted));
+  border-bottom: 3px solid transparent;
+  transition:
+    color 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.ds-magazine-contents__item:first-child .ds-magazine-contents__link {
+  padding-left: 0;
+}
+
+.ds-magazine-contents__item:not(:first-child) .ds-magazine-contents__link {
+  padding-left: 1rem;
+}
+
+.ds-magazine-contents__link:hover {
+  color: var(--ink, var(--fg));
+  background: color-mix(in srgb, var(--line) 35%, transparent);
+}
+
+.ds-magazine-contents__index {
+  font-family: var(--font-display, var(--font-body));
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-magazine-contents__name {
+  font-family: var(--font-display, var(--font-body));
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: var(--weight-light, 300);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.ds-magazine-contents__link--active {
+  color: var(--ink, var(--fg));
+  border-bottom-color: var(--accent, var(--ink));
+}
+
+.ds-magazine-contents__link--active .ds-magazine-contents__index {
+  color: var(--accent, var(--ink));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-magazine-contents,
+  .ds-magazine-contents__link {
+    transition: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .ds-magazine-contents__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-magazine-contents__item {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .ds-magazine-contents__item:last-child {
+    border-bottom: 0;
+  }
+
+  .ds-magazine-contents__item:not(:first-child) .ds-magazine-contents__link {
+    padding-left: 0;
+  }
+}
+
+/* MarkerCanvas — Brandion findings / lab evidence frame */
+.ds-marker-canvas {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ds-marker-canvas--empty {
+  min-height: 8rem;
+  place-items: center;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md, 0.5rem);
+  color: var(--muted);
+}
+
+.ds-marker-canvas__empty {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.ds-marker-canvas__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 0.5rem);
+  background: var(--bg1, var(--bg0, #f5f5f5));
+  aspect-ratio: 4 / 3;
+}
+
+.ds-marker-canvas__img,
+.ds-marker-canvas__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ds-marker-canvas__media {
+  position: absolute;
+  inset: 0;
+}
+
+.ds-marker-canvas__marker {
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px solid var(--accent, #3366ff);
+  background: color-mix(in srgb, var(--accent, #3366ff) 18%, transparent);
+  padding: 0;
+  margin: 0;
+  cursor: default;
+}
+
+button.ds-marker-canvas__marker {
+  cursor: pointer;
+}
+
+button.ds-marker-canvas__marker:focus-visible {
+  outline: 2px solid var(--ink, #111);
+  outline-offset: 2px;
+}
+
+.ds-marker-canvas__marker--pass {
+  border-color: var(--success, #1a7f37);
+  background: color-mix(in srgb, var(--success, #1a7f37) 18%, transparent);
+}
+
+.ds-marker-canvas__marker--fail {
+  border-color: var(--danger, #b00020);
+  background: color-mix(in srgb, var(--danger, #b00020) 18%, transparent);
+}
+
+.ds-marker-canvas__marker--warn {
+  border-color: var(--warn, #b36b00);
+  background: color-mix(in srgb, var(--warn, #b36b00) 18%, transparent);
+}
+
+.ds-marker-canvas__marker--neutral {
+  border-color: var(--accent, #3366ff);
+}
+
+.ds-marker-canvas__marker--selected {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ink, #111) 35%, transparent);
+  z-index: 2;
+}
+

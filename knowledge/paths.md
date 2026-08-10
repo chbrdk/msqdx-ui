@@ -16,6 +16,9 @@
 - ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`
 
 - Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
+- Brandion UI promotion (2026-08-10): `knowledge/brandion-ui-promotion.md`
+- MagazineContentsNav: `packages/ui/src/components/MagazineContentsNav.tsx` · spec `specs/domain/msqdx-ui-magazine-contents-nav.md` · Storybook `Molecules/MagazineContentsNav`
+- MarkerCanvas: `packages/ui/src/components/MarkerCanvas.tsx` · spec `specs/domain/msqdx-ui-marker-canvas.md` · Storybook `Organisms/MarkerCanvas`
 - Lede / FilterRow / Panel magazine cutover: `knowledge/components/lede-filter-panel.md`
 - Button magazine defaults: `knowledge/components/button-magazine.md` · spec `specs/domain/msqdx-ui-button.md`
 - Lede spec: `specs/domain/msqdx-ui-lede.md` · FilterRow: `specs/domain/msqdx-ui-filter-row.md`
