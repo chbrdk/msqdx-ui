@@ -6,7 +6,7 @@
 # Multi-stage: pnpm workspace builds @msqdx/ui-tokens + @msqdx/ui, then
 # `build-storybook`, then nginx serves `packages/ui/storybook-static`.
 # Coolify: Dockerfile path `Dockerfile`, container port **6006**,
-# domain https://msqdx-ui.projects-a.plygrnd.tech
+# domain https://ds.projects-a.plygrnd.tech
 # (see knowledge/staging-coolify-storybook.md).
 #
 # This image is for Storybook hosting only. Product app Dockerfiles that

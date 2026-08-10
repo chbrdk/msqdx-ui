@@ -17,4 +17,4 @@ Commands:
 Always-on Storybook (static nginx, port **6006**):
 - Local: `docker compose up --build -d` → http://localhost:6006/
 - Coolify: `knowledge/staging-coolify-storybook.md`
-- Staging URL: `https://msqdx-ui.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`)
+- Staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`)

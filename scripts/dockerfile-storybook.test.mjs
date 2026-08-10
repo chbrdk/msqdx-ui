@@ -40,7 +40,8 @@ test('nginx listens on Storybook port 6006 and serves healthz', () => {
 
 test('paths.md documents staging Storybook URL placeholder', () => {
   const paths = readFileSync(join(root, 'knowledge/paths.md'), 'utf8')
-  assert.match(paths, /msqdx-ui\.projects-a\.plygrnd\.tech/)
+  assert.match(paths, /ds\.projects-a\.plygrnd\.tech/)
   assert.match(paths, /URL_MSQDX_UI_STORYBOOK/)
   assert.match(paths, /6006/)
+  assert.match(paths, /organisms-chatoverlay--dock-end/)
 })

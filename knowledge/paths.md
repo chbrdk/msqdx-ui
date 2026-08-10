@@ -9,10 +9,12 @@
 - Storybook local: `http://localhost:6006/` (dev: `pnpm storybook` from repo root, or `packages/ui` binary)
 - Storybook output: `packages/ui/storybook-static`
 - Storybook container port: **6006** (static nginx; `Dockerfile` + `docker/nginx-storybook.conf`)
-- Storybook staging URL: `https://msqdx-ui.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`)
+- Storybook staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`; Coolify app `msqdx-ui:main-rapp`)
 - Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
 - Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
+- ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`
+
 - Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
 - Lede / FilterRow / Panel magazine cutover: `knowledge/components/lede-filter-panel.md`
 - Button magazine defaults: `knowledge/components/button-magazine.md` · spec `specs/domain/msqdx-ui-button.md`
@@ -63,7 +65,7 @@
 - Flow board CSS: `packages/ui/src/css/flow-board.css` (`.msqdx-flow-*`)
 - FlowBoardStage · FlowBoardToolbar · FlowBoardPalette · FlowNodeCard · FlowInspectorShell · FlowNodeEditorShell · FlowRunStrip: `packages/ui/src/components/Flow*.tsx`
 - Storybook smoke: `Organisms/FlowBoardStage` → **MagazineBoard** (fixture chrome, no agent)
-- Storybook staging: `https://msqdx-ui.projects-a.plygrnd.tech/?path=/story/organisms-flowboardstage--magazine-board` (`URL_MSQDX_UI_STORYBOOK`)
+- Storybook staging: `https://ds.projects-a.plygrnd.tech/?path=/story/organisms-flowboardstage--magazine-board` (`URL_MSQDX_UI_STORYBOOK`)
 - Side-by-side parity (same `.msqdx-flow-*` family):
   - Audion board: `https://audion-v3.projects-a.plygrnd.tech/studies/flows/{flowId}` (`URL_AUDION_V3`)
   - Plexon board: `https://plexon-v3.projects-a.plygrnd.tech/projects/{id}/flows/{flowId}` (`URL_PLEXON_V3`)

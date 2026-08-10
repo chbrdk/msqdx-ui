@@ -11,6 +11,7 @@ describe('chat chrome CSS', () => {
     expect(chatCss).toContain('.chat-overlay')
     expect(chatCss).toContain('.chat-overlay-sheet-dock-end')
     expect(chatCss).toContain('.chat-overlay-dock-end')
+    expect(chatCss).toContain('min(32rem, 100%)')
     expect(chatCss).toContain('.chat-panel-compact')
     expect(chatCss).toContain('.chat-composer')
     expect(chatCss).toContain('.chat-send')

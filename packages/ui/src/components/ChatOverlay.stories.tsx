@@ -73,3 +73,36 @@ export const IframeSlot: Story = {
     )
   },
 }
+
+export const ComposedPanel: Story = {
+  args: {
+    open: true,
+    onOpenChange: () => {},
+    children: null,
+  },
+  render: () => {
+    const [open, setOpen] = useState(true)
+    return (
+      <div style={{ minHeight: '100vh', padding: '1.5rem' }}>
+        <Button type="button" onClick={() => setOpen(true)}>
+          Open composed panel
+        </Button>
+        <ChatOverlay
+          open={open}
+          onOpenChange={setOpen}
+          title="Assistant"
+          placement="dock-end"
+          headerActions={
+            <Button type="button" variant="subtle" size="sm">
+              Expand
+            </Button>
+          }
+        >
+          <div className="chat-panel chat-panel-compact">
+            <p className="ds-text">Native composed chat body (no iframe).</p>
+          </div>
+        </ChatOverlay>
+      </div>
+    )
+  },
+}

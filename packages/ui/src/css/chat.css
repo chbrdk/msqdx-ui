@@ -29,7 +29,8 @@
   display: flex;
   flex-direction: column;
   border-radius: var(--radius-sheet);
-  background: var(--bg1);
+  background: var(--panel, var(--bg1));
+  color: var(--ink);
   border: 1px solid var(--line);
   box-shadow: none;
   animation: chat-sheet-in 220ms ease;
@@ -43,7 +44,7 @@
 }
 
 .chat-overlay-sheet-dock-end {
-  width: min(26rem, 100%);
+  width: min(32rem, 100%);
   max-width: 100%;
   height: 100%;
   max-height: 100vh;
@@ -51,6 +52,7 @@
   border-inline-start: 1px solid var(--line);
   border-inline-end: none;
   border-block: none;
+  background: var(--panel, var(--bg1));
   animation: chat-sheet-dock-in 220ms ease;
 }
 

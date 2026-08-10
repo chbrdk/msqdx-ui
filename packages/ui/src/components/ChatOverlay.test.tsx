@@ -27,6 +27,27 @@ describe('ChatOverlay', () => {
     expect(screen.getByText('Body')).toBeInTheDocument()
   })
 
+  it('documents dock-end width as 32rem in stylesheet contract', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { fileURLToPath } = await import('node:url')
+    const { dirname, join } = await import('node:path')
+    const here = dirname(fileURLToPath(import.meta.url))
+    const css = readFileSync(join(here, '../css/chat.css'), 'utf8')
+    expect(css).toMatch(/\.chat-overlay-sheet-dock-end\s*\{[^}]*width:\s*min\(32rem,\s*100%\)/s)
+    expect(css).toMatch(/background:\s*var\(--panel,\s*var\(--bg1\)\)/)
+  })
+
+  it('docs MDX binds Meta to stories (Organisms sidebar, not components/)', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { fileURLToPath } = await import('node:url')
+    const { dirname, join } = await import('node:path')
+    const here = dirname(fileURLToPath(import.meta.url))
+    const mdx = readFileSync(join(here, 'ChatOverlay.mdx'), 'utf8')
+    expect(mdx).toContain("<Meta of={Stories} />")
+    expect(mdx).toContain("from './ChatOverlay.stories'")
+    expect(mdx).toContain('ComposedPanel')
+  })
+
   it('uses center placement without dock-end class', () => {
     render(
       <ChatOverlay open onOpenChange={() => {}} title="Assistant" placement="center">
