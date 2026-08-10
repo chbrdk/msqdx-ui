@@ -19,6 +19,11 @@
 - Brandion UI promotion (2026-08-10): `knowledge/brandion-ui-promotion.md`
 - MagazineContentsNav: `packages/ui/src/components/MagazineContentsNav.tsx` · spec `specs/domain/msqdx-ui-magazine-contents-nav.md` · Storybook `Molecules/MagazineContentsNav`
 - MarkerCanvas: `packages/ui/src/components/MarkerCanvas.tsx` · spec `specs/domain/msqdx-ui-marker-canvas.md` · Storybook `Organisms/MarkerCanvas`
+- FormSection: `packages/ui/src/components/FormSection.tsx` · spec `specs/domain/msqdx-ui-form-section.md` · Storybook `Molecules/FormSection`
+- EntityCard: `packages/ui/src/components/EntityCard.tsx` · spec `specs/domain/msqdx-ui-entity-card.md` · Storybook `Molecules/EntityCard`
+- AddTile: `packages/ui/src/components/AddTile.tsx` · spec `specs/domain/msqdx-ui-add-tile.md` · Storybook `Atoms/AddTile`
+- SwatchStrip: `packages/ui/src/components/SwatchStrip.tsx` · spec `specs/domain/msqdx-ui-swatch-strip.md` · Storybook `Atoms/SwatchStrip`
+- Brandion Token Studio composition: Storybook `Templates/BrandionTokenStudio` · `?path=/story/templates-brandiontokenstudio--board-and-dialog`
 - Lede / FilterRow / Panel magazine cutover: `knowledge/components/lede-filter-panel.md`
 - Button magazine defaults: `knowledge/components/button-magazine.md` · spec `specs/domain/msqdx-ui-button.md`
 - Lede spec: `specs/domain/msqdx-ui-lede.md` · FilterRow: `specs/domain/msqdx-ui-filter-row.md`
@@ -47,7 +52,7 @@
 - Chat chrome knowledge: `knowledge/msqdx-ui-chat-chrome.md`
 - Chat CSS: `packages/ui/src/css/chat.css` (`.chat-overlay`, `.chat-panel-compact`, `.chat-panel-open`, `.chat-send-icon`)
 - Chat CSS guard: `packages/ui/src/chatChrome.test.ts`
-- IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo: `packages/ui/src/components/icons.tsx`
+- IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo · IconInfo · IconEdit · IconTrash · IconCheck · IconClose: `packages/ui/src/components/icons.tsx`
 - Flyout: `packages/ui/src/components/Flyout.tsx` · spec `specs/domain/msqdx-ui-flyout.md` · knowledge `knowledge/components/flyout.md`
 - ContextMenu: `packages/ui/src/components/ContextMenu.tsx` · spec `specs/domain/msqdx-ui-context-menu.md` · knowledge `knowledge/components/context-menu.md`
 - SchemaTree: `packages/ui/src/components/SchemaTree.tsx` · spec `specs/domain/schema-tree.md`

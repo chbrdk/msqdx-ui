@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import {
+  IconCheck,
+  IconClose,
+  IconEdit,
   IconHistory,
+  IconInfo,
   IconJourneys,
   IconMic,
   IconMoodboard,
@@ -10,6 +14,7 @@ import {
   IconResearch,
   IconSend,
   IconShare,
+  IconTrash,
   IconVideo,
 } from './icons'
 import { Text } from './Text'
@@ -26,6 +31,11 @@ const ICONS = [
   { name: 'IconMoodboard', Node: IconMoodboard },
   { name: 'IconMic', Node: IconMic },
   { name: 'IconVideo', Node: IconVideo },
+  { name: 'IconInfo', Node: IconInfo },
+  { name: 'IconEdit', Node: IconEdit },
+  { name: 'IconTrash', Node: IconTrash },
+  { name: 'IconCheck', Node: IconCheck },
+  { name: 'IconClose', Node: IconClose },
 ] as const
 
 const meta = {

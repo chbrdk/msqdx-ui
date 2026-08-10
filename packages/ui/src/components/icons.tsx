@@ -1,6 +1,7 @@
 import type { LucideProps } from 'lucide-react'
 import type { ComponentType } from 'react'
 import {
+  Check,
   CircleHelp,
   FolderKanban,
   History,
@@ -8,11 +9,14 @@ import {
   LayoutGrid,
   Map,
   Mic,
+  Pencil,
   Search,
   Send,
   Share2,
+  Trash2,
   Users,
   Video,
+  X,
 } from 'lucide-react'
 
 export type IconProps = LucideProps
@@ -47,3 +51,7 @@ export const IconMoodboard = wrap(LayoutGrid)
 export const IconMic = wrap(Mic)
 export const IconVideo = wrap(Video)
 export const IconInfo = wrap(CircleHelp)
+export const IconEdit = wrap(Pencil)
+export const IconTrash = wrap(Trash2)
+export const IconCheck = wrap(Check)
+export const IconClose = wrap(X)

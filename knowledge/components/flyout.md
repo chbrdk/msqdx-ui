@@ -11,7 +11,7 @@ Ghost icon button (`shape="square"`) + `.ds-flyover` panel. Default surface is *
 
 ## Related icons
 
-`IconShare` · `IconHistory` · `IconMoodboard` · `IconMic` · `IconVideo` in `packages/ui/src/components/icons.tsx`
+`IconShare` · `IconHistory` · `IconMoodboard` · `IconMic` · `IconVideo` · `IconEdit` · `IconTrash` · `IconCheck` · `IconClose` in `packages/ui/src/components/icons.tsx`
 
 ## Magazine challenge
 

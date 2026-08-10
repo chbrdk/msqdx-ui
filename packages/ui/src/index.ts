@@ -111,6 +111,10 @@ export {
   IconMic,
   IconVideo,
   IconInfo,
+  IconEdit,
+  IconTrash,
+  IconCheck,
+  IconClose,
 } from './components/icons'
 export type { IconProps } from './components/icons'
 export { KpiStrip } from './components/KpiStrip'
@@ -206,5 +210,13 @@ export type {
   MarkerCanvasRect,
   MarkerCanvasTone,
 } from './components/MarkerCanvas'
+export { FormSection } from './components/FormSection'
+export type { FormSectionProps } from './components/FormSection'
+export { EntityCard } from './components/EntityCard'
+export type { EntityCardProps } from './components/EntityCard'
+export { AddTile } from './components/AddTile'
+export type { AddTileProps } from './components/AddTile'
+export { SwatchStrip } from './components/SwatchStrip'
+export type { SwatchStripProps } from './components/SwatchStrip'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

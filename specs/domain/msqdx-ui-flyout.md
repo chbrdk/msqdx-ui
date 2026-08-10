@@ -61,3 +61,4 @@ Hook: `useFlyout(resetKey?)` → `{ open, setOpen, rootRef, toggle }`.
 2. Vitest: open solid, glass class, Escape, resetKey. ✅  
 3. Consuming apps import `Flyout` / `useFlyout` from `@msqdx/ui`. ✅  
 4. Icons for common chat actions: `IconShare`, `IconHistory`, `IconMoodboard`, `IconMic`, `IconVideo`. ✅  
+5. Row actions: `IconEdit`, `IconTrash`, `IconCheck`, `IconClose`. ✅  
