@@ -99,6 +99,10 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ExpressionField', layer: 'Molecules', title: 'Molecules/ExpressionField', stories: 'components/ExpressionField.stories.tsx', mdx: 'components/ExpressionField.mdx' },
   { id: 'MagazineContentsNav', layer: 'Molecules', title: 'Molecules/MagazineContentsNav', stories: 'components/MagazineContentsNav.stories.tsx', mdx: 'components/MagazineContentsNav.mdx' },
   { id: 'MarkerCanvas', layer: 'Organisms', title: 'Organisms/MarkerCanvas', stories: 'components/MarkerCanvas.stories.tsx', mdx: 'components/MarkerCanvas.mdx' },
+  { id: 'FormSection', layer: 'Molecules', title: 'Molecules/FormSection', stories: 'components/FormSection.stories.tsx', mdx: 'components/FormSection.mdx' },
+  { id: 'EntityCard', layer: 'Molecules', title: 'Molecules/EntityCard', stories: 'components/EntityCard.stories.tsx', mdx: 'components/EntityCard.mdx' },
+  { id: 'AddTile', layer: 'Atoms', title: 'Atoms/AddTile', stories: 'components/AddTile.stories.tsx', mdx: 'components/AddTile.mdx' },
+  { id: 'SwatchStrip', layer: 'Atoms', title: 'Atoms/SwatchStrip', stories: 'components/SwatchStrip.stories.tsx', mdx: 'components/SwatchStrip.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)
