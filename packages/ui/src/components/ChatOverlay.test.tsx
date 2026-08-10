@@ -27,14 +27,81 @@ describe('ChatOverlay', () => {
     expect(screen.getByText('Body')).toBeInTheDocument()
   })
 
-  it('documents dock-end width as 32rem in stylesheet contract', async () => {
+  it('documents dock-end default width token in stylesheet contract', async () => {
     const { readFileSync } = await import('node:fs')
     const { fileURLToPath } = await import('node:url')
     const { dirname, join } = await import('node:path')
     const here = dirname(fileURLToPath(import.meta.url))
     const css = readFileSync(join(here, '../css/chat.css'), 'utf8')
-    expect(css).toMatch(/\.chat-overlay-sheet-dock-end\s*\{[^}]*width:\s*min\(32rem,\s*100%\)/s)
+    expect(css).toMatch(
+      /\.chat-overlay-sheet-dock-end\s*\{[^}]*width:\s*var\(--chat-overlay-sheet-width,\s*min\(32rem,\s*100%\)\)/s,
+    )
+    expect(css).toContain('.chat-overlay-resize')
     expect(css).toMatch(/background:\s*var\(--panel,\s*var\(--bg1\)\)/)
+  })
+
+  it('renders a dock-end resize handle by default', () => {
+    render(
+      <ChatOverlay open onOpenChange={() => {}} title="Assistant" placement="dock-end">
+        Body
+      </ChatOverlay>,
+    )
+    expect(screen.getByRole('slider', { name: 'Resize chat panel' })).toBeInTheDocument()
+  })
+
+  it('widens the sheet when dragging the resize handle', () => {
+    render(
+      <ChatOverlay
+        open
+        onOpenChange={() => {}}
+        title="Assistant"
+        placement="dock-end"
+        defaultWidth={400}
+        widthStorageKey={null}
+      >
+        Body
+      </ChatOverlay>,
+    )
+    const dialog = screen.getByRole('dialog')
+    const handle = screen.getByRole('slider', { name: 'Resize chat panel' })
+    fireEvent.pointerDown(handle, { button: 0, clientX: 800, pointerId: 1 })
+    fireEvent.pointerMove(handle, { clientX: 700, pointerId: 1 })
+    fireEvent.pointerUp(handle, { clientX: 700, pointerId: 1 })
+    expect(dialog).toHaveStyle({ '--chat-overlay-sheet-width': '500px' })
+  })
+
+  it('widens the sheet with keyboard arrows on the resize handle', () => {
+    render(
+      <ChatOverlay
+        open
+        onOpenChange={() => {}}
+        title="Assistant"
+        placement="dock-end"
+        defaultWidth={400}
+        widthStorageKey={null}
+      >
+        Body
+      </ChatOverlay>,
+    )
+    const dialog = screen.getByRole('dialog')
+    const handle = screen.getByRole('slider', { name: 'Resize chat panel' })
+    fireEvent.keyDown(handle, { key: 'ArrowLeft' })
+    expect(dialog).toHaveStyle({ '--chat-overlay-sheet-width': '416px' })
+  })
+
+  it('omits resize handle when resizable is false', () => {
+    render(
+      <ChatOverlay
+        open
+        onOpenChange={() => {}}
+        title="Assistant"
+        placement="dock-end"
+        resizable={false}
+      >
+        Body
+      </ChatOverlay>,
+    )
+    expect(screen.queryByRole('slider', { name: 'Resize chat panel' })).not.toBeInTheDocument()
   })
 
   it('docs MDX binds Meta to stories (Organisms sidebar, not components/)', async () => {

@@ -8,7 +8,7 @@ Organism for domain-free chat flyout / overlay shells.
 
 ## Notes
 
-- Default placement is **dock-end** (classical side flyout), width `min(32rem, 100%)`.
+- Default placement is **dock-end** (classical side flyout), default width `min(32rem, 100%)`, drag-resizable up to ~92vw / 64rem (persisted).
 - Surfaces use tokens (`--panel` / `--bg1`, `--line`, `--ink`, `--overlay-scrim`) so light/dark follow host `data-theme`.
 - Body is a slot — composed compact chat panel **or** iframe to Plexon `/assistant/embed`.
 - Do not put assistant/domain logic in this package.

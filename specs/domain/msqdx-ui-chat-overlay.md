@@ -1,6 +1,6 @@
 # MSQDX UI — ChatOverlay
 
-**Status:** Accepted — 2026-08-10 (dock-end 32rem)  
+**Status:** Accepted — 2026-08-10 (dock-end resizable)  
 **Layer:** Organisms  
 **Implements:** `packages/ui/src/components/ChatOverlay.tsx` · `packages/ui/src/css/chat.css`  
 **Related:** `specs/domain/msqdx-ui-chat-chrome.md` · Plexon `central-assistant-flyout.md`  
@@ -14,7 +14,7 @@ Domain-free **chat flyout / overlay shell** for product hosts (central platform 
 
 | `placement` | Behavior | Classes |
 |-------------|----------|---------|
-| `dock-end` (default) | Side sheet anchored to inline-end; width `min(32rem, 100%)` | `.chat-overlay` + `.chat-overlay-sheet` + `.chat-overlay-sheet-dock-end` |
+| `dock-end` (default) | Side sheet anchored to inline-end; default width `min(32rem, 100%)`, drag-resizable | `.chat-overlay` + `.chat-overlay-sheet` + `.chat-overlay-sheet-dock-end` |
 | `center` | Centered modal sheet | `.chat-overlay` + `.chat-overlay-sheet` (existing) |
 
 ## Surfaces (tokens)
@@ -46,6 +46,14 @@ type ChatOverlayProps = {
   className?: string
   /** Called after Esc / backdrop / close control */
   onClose?: () => void
+  /** Dock-end only; default true */
+  resizable?: boolean
+  defaultWidth?: number // px, default 512 (32rem)
+  width?: number // controlled px
+  onWidthChange?: (width: number) => void
+  minWidth?: number // default 320
+  maxWidth?: number // default 1024, also capped to ~92vw
+  widthStorageKey?: string | null // default 'msqdx-chat-overlay-width'; null disables
 }
 ```
 
@@ -57,6 +65,7 @@ type ChatOverlayProps = {
 4. Focus moves into the sheet on open; restore focus to previously focused element on close.
 5. `role="dialog"` + `aria-modal="true"` on the sheet.
 6. Body children may be an in-process chat panel **or** a full-height iframe; `.chat-overlay-body > iframe` fills remaining height.
+7. Dock-end sheets expose an inline-start resize handle (`.chat-overlay-resize`, `role="slider"`). Dragging (or arrow keys) updates `--chat-overlay-sheet-width`; width persists to `localStorage` unless `widthStorageKey` is `null`.
 
 ## Non-goals
 
@@ -69,6 +78,6 @@ type ChatOverlayProps = {
 
 1. Spec + knowledge + catalog entry.
 2. Stories: dock-end, center, with iframe slot stub **and** composed panel stub.
-3. Unit tests: open/close, Esc, backdrop, placement class, dock-end width class present.
+3. Unit tests: open/close, Esc, backdrop, placement class, dock-end width class present, resize handle + drag width.
 4. Exported from `@msqdx/ui` package index.
 5. Consumers (Plexon `PlatformAssistantHost`, product shells) import `ChatOverlay` — no parallel overlay chrome.
