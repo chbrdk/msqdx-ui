@@ -25,3 +25,4 @@ SoT product rules: `msqdx-ui-product-sot.md` (Wave B + open surface).
 ## Related
 
 - Field · Button · foundation · ADR 0028 §19 · `msqdx-ui-completeness.md` · guard `chatChrome.test.ts`
+- **ChatOverlay** organism: `specs/domain/msqdx-ui-chat-overlay.md` · `knowledge/components/chat-overlay.md`

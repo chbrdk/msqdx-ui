@@ -85,6 +85,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'AppFrame', layer: 'Templates', title: 'Templates/AppFrame', stories: 'components/AppFrame.stories.tsx', mdx: 'components/AppFrame.mdx' },
   { id: 'InfoTip', layer: 'Molecules', title: 'Molecules/InfoTip', stories: 'components/InfoTip.stories.tsx', mdx: 'components/InfoTip.mdx' },
   { id: 'FloatingPanel', layer: 'Organisms', title: 'Organisms/FloatingPanel', stories: 'components/FloatingPanel.stories.tsx', mdx: 'components/FloatingPanel.mdx' },
+  { id: 'ChatOverlay', layer: 'Organisms', title: 'Organisms/ChatOverlay', stories: 'components/ChatOverlay.stories.tsx', mdx: 'components/ChatOverlay.mdx' },
   { id: 'FlowBoardStage', layer: 'Organisms', title: 'Organisms/FlowBoardStage', stories: 'components/FlowBoardStage.stories.tsx', mdx: 'components/FlowBoardStage.mdx' },
   { id: 'FlowBoardToolbar', layer: 'Organisms', title: 'Organisms/FlowBoardToolbar', stories: 'components/FlowBoardToolbar.stories.tsx', mdx: 'components/FlowBoardToolbar.mdx' },
   { id: 'FlowBoardPalette', layer: 'Organisms', title: 'Organisms/FlowBoardPalette', stories: 'components/FlowBoardPalette.stories.tsx', mdx: 'components/FlowBoardPalette.mdx' },

@@ -38,8 +38,9 @@
 - AUDION pilot: `/Users/christoph.bordeck/Desktop/GITHUB/audion-v3`
 
 - Chat chrome spec: `specs/domain/msqdx-ui-chat-chrome.md`
+- Chat Overlay organism: `specs/domain/msqdx-ui-chat-overlay.md` · `packages/ui/src/components/ChatOverlay.tsx` · `knowledge/components/chat-overlay.md`
 - Chat chrome knowledge: `knowledge/msqdx-ui-chat-chrome.md`
-- Chat CSS: `packages/ui/src/css/chat.css` (`.chat-panel-open`, `.chat-send-icon`)
+- Chat CSS: `packages/ui/src/css/chat.css` (`.chat-overlay`, `.chat-panel-compact`, `.chat-panel-open`, `.chat-send-icon`)
 - Chat CSS guard: `packages/ui/src/chatChrome.test.ts`
 - IconSend · IconShare · IconHistory · IconMoodboard · IconMic · IconVideo: `packages/ui/src/components/icons.tsx`
 - Flyout: `packages/ui/src/components/Flyout.tsx` · spec `specs/domain/msqdx-ui-flyout.md` · knowledge `knowledge/components/flyout.md`

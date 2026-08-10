@@ -44,9 +44,14 @@
 
 Agent inspect chrome (domain-free): `InspectDock` · `StepStrip` · `ChannelStack` · `EventFooter` — see `msqdx-ui-inspect-dock.md` et al. · `css/chat-inspect.css`.
 
+## React overlay shell (2026-08-10)
+
+Shared organism **`ChatOverlay`** — see `specs/domain/msqdx-ui-chat-overlay.md`.  
+Domain-free backdrop + sheet (`dock-end` | `center`) for host mounts (e.g. central platform Assistant). Turn/composer **domain** remains product-owned.
+
 ## Non-goals (this pass)
 
-- Shipping a shared React `ChatPanel` in `@msqdx/ui` (CSS + primitives only for now).
+- Shipping a shared React **message domain** `ChatPanel` / MessageList / stream client in `@msqdx/ui` (CSS + `ChatOverlay` shell only).
 - Domain tool-trace / think-aloud field mapping (product-owned; shells above).
 - New toast/modal system.
 - Message bubble rem-audit (later).
@@ -58,4 +63,5 @@ Agent inspect chrome (domain-free): `InspectDock` · `StepStrip` · `ChannelStac
 3. Guard: `packages/ui/src/chatChrome.test.ts`. ✅  
 4. `IconSend` exported from package icons. ✅  
 5. Product chat pages use DS classes; product CSS limited to shell/persona chrome.  
-6. `Flyout` + chat action icons (`IconShare` / `IconHistory` / `IconMoodboard` / `IconMic` / `IconVideo`) — 2026-07-30. ✅ 
+6. `Flyout` + chat action icons (`IconShare` / `IconHistory` / `IconMoodboard` / `IconMic` / `IconVideo`) — 2026-07-30. ✅  
+7. `ChatOverlay` organism shipped for flyout hosts — 2026-08-10.

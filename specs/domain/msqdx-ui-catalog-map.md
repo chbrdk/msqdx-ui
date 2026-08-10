@@ -110,14 +110,19 @@ Paths are relative to `apps/web-ui/src/`.
 | ResearchAnswer | Organisms/ResearchAnswer | viz/ResearchAnswer.stories.tsx | viz/ResearchAnswer.mdx |
 | ChatPanel | Organisms/ChatPanel | chat/ChatPanel.stories.tsx | chat/ChatPanel.mdx |
 
-> Chat visual SoT is CSS-only today: `.chat-panel` / `.chat-panel-open` in `packages/ui/src/css/chat.css`. React `ChatPanel` remains product-owned until a shared component ships.
+> Chat **message domain** panel remains product-owned. Shared **flyout shell** is React `ChatOverlay` (`components/ChatOverlay.tsx`) — see `msqdx-ui-chat-overlay.md`. CSS SoT: `.chat-overlay` / `.chat-panel-compact` / `.chat-panel-open` in `packages/ui/src/css/chat.css`.
+
+| Name | Story title | stories | mdx |
+|------|-------------|---------|-----|
+| ChatOverlay | Organisms/ChatOverlay | components/ChatOverlay.stories.tsx | components/ChatOverlay.mdx |
 
 ## Templates
 
 | Id | Story title | stories | mdx |
 |----|-------------|---------|-----|
 | AppShell | Templates/AppShell | storybook/templates/AppShell.stories.tsx | storybook/templates/AppShell.mdx |
-| ChatOverlay | Templates/ChatOverlay | chat/ChatOverlay.stories.tsx | chat/ChatOverlay.mdx |
+
+> Former template placeholder `ChatOverlay` promoted to Organisms `ChatOverlay` (`components/ChatOverlay.tsx`) — 2026-08-10.
 
 ## Pages
 
