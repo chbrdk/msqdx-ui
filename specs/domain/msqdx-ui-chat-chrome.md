@@ -24,9 +24,9 @@
 
 | Part | Treatment |
 |------|-----------|
-| Composer input | `<Textarea size="md" block className="chat-composer">` |
-| Send (sheet) | `<Button variant="primary" size="sm" shape="pill" className="chat-send">` |
-| Send (open) | `<Button variant="ghost" size="sm" className="chat-send chat-send-icon" icon={<IconSend />} aria-label="Send" />` |
+| Composer input | `<Textarea size="md" block className="chat-composer">` (DS field face: light frame + bottom rule) |
+| Send (sheet / open) | `<Button variant="ghost" size="sm" className="chat-send chat-send-icon" icon={<IconSend />} aria-label="Send" />` |
+| Send (text pill, optional) | `<Button variant="primary" size="sm" shape="pill" className="chat-send">` |
 | Empty / loading | `<EmptyState className="chat-empty">` / `<LoadingText>` |
 | Errors | `<Alert tone="error">` |
 | Turns | `.chat-turn-user` (end) · `.chat-turn-assistant` (start) under open |

@@ -222,23 +222,39 @@
   flex-shrink: 0;
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
+  gap: 0.55rem;
   width: 100%;
   max-width: none;
   margin-top: 0.25rem;
-  padding-top: 0.65rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
 }
 
 .chat-panel-compact .chat-form > .ds-field {
   flex: 1 1 auto;
   min-width: 0;
   margin: 0;
+  position: relative;
+}
+
+.chat-panel-compact .chat-form > .ds-field > .ds-field-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .chat-panel-compact .chat-form .chat-composer.ds-textarea,
 .chat-panel-compact .chat-form .chat-composer {
   width: 100%;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.15rem 0.65rem;
+  font-size: var(--type-md);
 }
 
 .chat-panel-compact .chat-form .chat-send.ds-btn,
@@ -247,11 +263,28 @@
 .chat-panel-compact .chat-form .chat-send-icon {
   align-self: flex-end;
   flex: 0 0 auto;
-  min-width: 2.75rem;
-  width: 2.75rem;
-  min-height: 2.75rem;
-  height: 2.75rem;
+  min-width: 2.5rem;
+  width: 2.5rem;
+  min-height: 2.5rem;
+  height: 2.5rem;
   padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--accent, var(--ink));
+  box-shadow: none;
+  text-transform: none;
+}
+
+.chat-panel-compact .chat-form .chat-send-icon:hover:not(:disabled),
+.chat-panel-compact .chat-form .chat-send-icon:focus-visible:not(:disabled) {
+  color: var(--ink);
+  background: transparent;
+  opacity: 1;
+}
+
+.chat-panel-compact .chat-form .chat-send-icon:disabled {
+  opacity: 0.35;
 }
 
 .chat-panel-compact > .meta,
@@ -520,11 +553,11 @@
   padding-top: 0.85rem;
   border-top: 1px solid var(--line);
   display: flex;
-  align-items: stretch;
-  gap: 0.5rem;
+  align-items: flex-end;
+  gap: 0.55rem;
 }
 
-/* Composer — DS Textarea; layout chrome stays chat-form */
+/* Composer — DS Textarea face (light frame + bottom rule); layout chrome stays chat-form */
 .chat-form .chat-composer.ds-textarea,
 .chat-form .chat-composer {
   flex: 1 1 auto;
@@ -535,19 +568,20 @@
   /* rows=1 + padding often overflows by 1px → native textarea scrollbar */
   overflow-x: hidden;
   overflow-y: hidden;
-  padding: 0.55rem 0.75rem;
-  border-radius: var(--radius-pill);
+  padding: 0.55rem 0.15rem 0.65rem;
+  border-radius: 0;
+  background: transparent;
   font-size: var(--type-md);
-  line-height: 1.3;
+  line-height: 1.35;
 }
 
 .chat-form .chat-composer:disabled {
   opacity: 0.55;
 }
 
-/* Send — DS Button + chat-send theme ink fill */
-.chat-form .chat-send.ds-btn,
-.chat-form .chat-send {
+/* Text send — filled pill (legacy / explicit label) */
+.chat-form .chat-send.ds-btn:not(.chat-send-icon),
+.chat-form .chat-send:not(.chat-send-icon) {
   flex: 0 0 auto;
   align-self: stretch;
   min-height: 2.5rem;
@@ -564,8 +598,8 @@
   text-transform: uppercase;
 }
 
-.chat-form .chat-send.ds-btn:hover:not(:disabled),
-.chat-form .chat-send:hover:not(:disabled) {
+.chat-form .chat-send.ds-btn:not(.chat-send-icon):hover:not(:disabled),
+.chat-form .chat-send:not(.chat-send-icon):hover:not(:disabled) {
   opacity: 0.88;
 }
 
@@ -575,13 +609,38 @@
   cursor: not-allowed;
 }
 
-[data-theme='msqdx'] .chat-form .chat-send {
+/* Icon send — default for compact + open surfaces */
+.chat-form .chat-send-icon.ds-btn,
+.chat-form .chat-send-icon {
+  flex: 0 0 auto;
+  align-self: flex-end;
+  min-width: 2.5rem;
+  width: 2.5rem;
+  min-height: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--accent, var(--ink));
+  box-shadow: none;
+  text-transform: none;
+}
+
+.chat-form .chat-send-icon:hover:not(:disabled),
+.chat-form .chat-send-icon:focus-visible:not(:disabled) {
+  color: var(--ink);
+  background: transparent;
+  opacity: 1;
+}
+
+[data-theme='msqdx'] .chat-form .chat-send:not(.chat-send-icon) {
   background: #0f0f0f;
   border-color: #0f0f0f;
   color: #ffffff;
 }
 
-[data-theme='msqdx-dark'] .chat-form .chat-send {
+[data-theme='msqdx-dark'] .chat-form .chat-send:not(.chat-send-icon) {
   background: #ffffff;
   border-color: #ffffff;
   color: #0f0f0f;

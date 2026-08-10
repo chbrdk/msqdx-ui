@@ -6,7 +6,7 @@
 
 | Part | DS |
 |------|-----|
-| Sheet composer | `<Textarea className="chat-composer">` + pill `<Button className="chat-send">` |
+| Sheet composer | `<Textarea className="chat-composer">` (DS field underline face) + icon `<Button className="chat-send chat-send-icon">` |
 | Open surface | `.chat-panel.chat-panel-open` — no card; left/right turns; underline composer |
 | Open send | `<Button className="chat-send chat-send-icon" icon={<IconSend />}>` |
 | Expand | `.chat-form.is-expanded` / hover / focus-within |
@@ -15,7 +15,7 @@
 
 ## Product split
 
-- **DS owns:** turn typography, composer underline + expand, icon send chrome, turn-in motion.
+- **DS owns:** turn typography, composer field face + expand, icon send chrome, turn-in motion.
 - **Product owns:** persona picker, history link, shell min-height offset (`--chat-panel-open-min-height`), streaming/data.
 
 Reference consumer: AUDION v3 `AudionChatPanel` · `knowledge/chat-surface.md` (audion-v3).
