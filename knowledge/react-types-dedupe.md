@@ -17,4 +17,6 @@ Apps (Brandion / Checkion / …) import `@msqdx/ui` **source** from a sibling `m
 ## Refs
 
 - Brandion Coolify fail 2026-08-11 (`platform-assistant-host.tsx` × `ChatOverlay`)
+- Audion Coolify fail 2026-08-11 (same JSX break; floating `main` clone) — `audion-v3/knowledge/coolify-build-fix-2026-08-11-chatoverlay.md`
+- Checkion Coolify fail 2026-08-11 (`MSQDX_UI_REF` pre-ChatOverlay → Module not found)
 - Spec: `specs/domain/msqdx-ui-chat-overlay.md`
