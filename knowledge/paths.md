@@ -15,6 +15,9 @@
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
 - ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`
 - Chat catalog (blocks + turns): `Organisms/ChatCatalog` · `?path=/story/organisms-chatcatalog--inventory`
+  - Correct story id is `organisms-chatcatalog--inventory` (not `organisms-chat-catalog--inventory`)
+  - Molecules: `?path=/story/molecules-chatblockpanel--findings` · `?path=/story/molecules-chatblocklist--findings`
+
 - ChatBlockPanel: `Molecules/ChatBlockPanel` · `?path=/story/molecules-chatblockpanel--findings`
 - ChatBlockList: `Molecules/ChatBlockList` · `?path=/story/molecules-chatblocklist--findings`
 
