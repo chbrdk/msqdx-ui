@@ -6,8 +6,9 @@
 # Multi-stage: pnpm workspace builds @msqdx/ui-tokens + @msqdx/ui, then
 # `build-storybook`, then nginx serves `packages/ui/storybook-static`.
 # Coolify: Dockerfile path `Dockerfile`, container port **6006**,
-# domain https://ds.projects-a.plygrnd.tech
+# Domain https://ds.projects-a.plygrnd.tech
 # (see knowledge/staging-coolify-storybook.md).
+# Rebuild bump: 2026-08-11 chat catalog stories.
 #
 # This image is for Storybook hosting only. Product app Dockerfiles that
 # `git clone` this repo for source (audion-v3 / checkion-v3 / …) are unchanged.
@@ -55,6 +56,6 @@ ENV PORT=6006
 EXPOSE 6006
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD wget -q --spider http://127.0.0.1:6006/ || exit 1
+  CMD wget -q --spider http://127.0.0.1:6006/healthz || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]
