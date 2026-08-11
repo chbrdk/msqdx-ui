@@ -10,16 +10,24 @@ import { Textarea } from './Textarea'
 /**
  * Discovery catalog — browse chat chrome + message blocks in one place.
  * Spec: specs/domain/msqdx-ui-chat-chrome.md · chat-block-*.md
+ *
+ * Story id: organisms-chatcatalog--inventory
  */
 const meta = {
-  title: 'Organisms/Chat/Catalog',
+  title: 'Organisms/ChatCatalog',
+  component: ChatBlockPanel,
   parameters: { layout: 'padded' },
-} satisfies Meta
+} satisfies Meta<typeof ChatBlockPanel>
 
 export default meta
-type Story = StoryObj
+type Story = StoryObj<typeof meta>
 
 export const Inventory: Story = {
+  args: {
+    title: 'Chat inventory',
+    eyebrow: 'catalog',
+    children: null,
+  },
   render: () => (
     <div style={{ display: 'grid', gap: '1.5rem', maxWidth: '40rem' }}>
       <header style={{ display: 'grid', gap: '0.35rem' }}>
@@ -28,7 +36,7 @@ export const Inventory: Story = {
         </Text>
         <Text role="meta" as="p">
           Shell: ChatOverlay · CSS: chat-panel / turns / composer · Blocks: ChatBlockPanel +
-          ChatBlockList. Storybook paths also under Molecules/ChatBlock* and Organisms/ChatOverlay.
+          ChatBlockList. Also under Molecules/ChatBlock* and Organisms/ChatOverlay.
         </Text>
       </header>
 
@@ -71,7 +79,10 @@ export const Inventory: Story = {
         />
       </ChatBlockPanel>
 
-      <div className="chat-panel chat-panel-compact" style={{ minHeight: '12rem', border: '1px solid var(--line)', padding: '0.75rem' }}>
+      <div
+        className="chat-panel chat-panel-compact"
+        style={{ minHeight: '12rem', border: '1px solid var(--line)', padding: '0.75rem' }}
+      >
         <div className="chat-turns">
           <div className="chat-turn chat-turn-user">
             <span className="chat-role">Du</span>
@@ -88,7 +99,11 @@ export const Inventory: Story = {
             </div>
           </div>
         </div>
-        <form className="chat-form" onSubmit={(e) => e.preventDefault()} style={{ marginTop: '0.75rem' }}>
+        <form
+          className="chat-form"
+          onSubmit={(e) => e.preventDefault()}
+          style={{ marginTop: '0.75rem' }}
+        >
           <Textarea className="chat-composer" size="md" block placeholder="Nachricht…" rows={2} />
           <Button type="submit" variant="ghost" size="sm" className="chat-send">
             Senden
@@ -100,6 +115,12 @@ export const Inventory: Story = {
 }
 
 export const InOverlay: Story = {
+  args: {
+    title: 'Assistant',
+    eyebrow: 'overlay',
+    children: null,
+  },
+  parameters: { layout: 'fullscreen' },
   render: () => {
     const [open, setOpen] = useState(true)
     return (
@@ -108,7 +129,10 @@ export const InOverlay: Story = {
           Open catalog overlay
         </Button>
         <ChatOverlay open={open} onOpenChange={setOpen} title="Assistant" placement="dock-end">
-          <div className="chat-panel chat-panel-compact" style={{ padding: '0.75rem', overflow: 'auto' }}>
+          <div
+            className="chat-panel chat-panel-compact"
+            style={{ padding: '0.75rem', overflow: 'auto' }}
+          >
             <div className="chat-turns" style={{ display: 'grid', gap: '1rem' }}>
               <div className="chat-turn chat-turn-assistant">
                 <span className="chat-role">Assistent</span>

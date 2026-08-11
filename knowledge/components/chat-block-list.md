@@ -3,7 +3,7 @@
 Compact title + prose rows for assistant findings / recommendations.
 
 **Spec:** `specs/domain/msqdx-ui-chat-block-list.md`  
-**Storybook:** `Molecules/ChatBlockList` · `Organisms/Chat/Catalog`
+**Storybook:** `Molecules/ChatBlockList` · `Organisms/ChatCatalog`
 
 ## Density
 

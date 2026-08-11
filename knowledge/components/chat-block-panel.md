@@ -3,7 +3,7 @@
 Domain-free assistant **message block shell** (eyebrow + compact title + body).
 
 **Spec:** `specs/domain/msqdx-ui-chat-block-panel.md`  
-**Storybook:** `Molecules/ChatBlockPanel` · composed catalog `Organisms/Chat/Catalog`
+**Storybook:** `Molecules/ChatBlockPanel` · composed catalog `Organisms/ChatCatalog`
 
 ## Usage
 

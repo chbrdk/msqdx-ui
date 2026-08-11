@@ -14,7 +14,7 @@
 - Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
 - ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`
-- Chat catalog (blocks + turns): `Organisms/Chat/Catalog` · `?path=/story/organisms-chat-catalog--inventory`
+- Chat catalog (blocks + turns): `Organisms/ChatCatalog` · `?path=/story/organisms-chatcatalog--inventory`
 - ChatBlockPanel: `Molecules/ChatBlockPanel` · `?path=/story/molecules-chatblockpanel--findings`
 - ChatBlockList: `Molecules/ChatBlockList` · `?path=/story/molecules-chatblocklist--findings`
 

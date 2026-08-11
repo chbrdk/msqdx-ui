@@ -57,7 +57,7 @@ Presentational generative UI chrome (browseable in Storybook):
 |-----------|-----------|
 | `ChatBlockPanel` | `Molecules/ChatBlockPanel` |
 | `ChatBlockList` | `Molecules/ChatBlockList` |
-| Catalog (overlay + turns + blocks) | `Organisms/Chat/Catalog` |
+| Catalog (overlay + turns + blocks) | `Organisms/ChatCatalog` |
 
 Streaming / conversation client remains product-owned.
 
