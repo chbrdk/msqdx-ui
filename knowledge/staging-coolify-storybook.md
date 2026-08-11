@@ -8,7 +8,8 @@ Deploy an **always-on static Storybook** for the central design system into Cool
 |------|--------|
 | Coolify project | `msqdx-ecosystem-v3` |
 | Environment | `staging` |
-| App name | `msqdx-ui-storybook` |
+| App name | `msqdx-ui-storybook` / Coolify `msqdx-ui:main-rapp` |
+| Coolify UUID | `rtxcfh4gtxi6yba5l70fu177` |
 | GitHub source | `chbrdk/msqdx-ui`, branch `main` |
 | Dockerfile | repo root `Dockerfile` |
 | Base directory | `/` |
