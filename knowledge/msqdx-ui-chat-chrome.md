@@ -12,11 +12,12 @@
 | Expand | `.chat-form.is-expanded` / hover / focus-within |
 | Empty / loading / error | `EmptyState.chat-empty` / `LoadingText` / `Alert` |
 | Close (overlay) | `<Button variant="ghost" className="chat-close">` |
+| Message blocks | `ChatBlockPanel` + `ChatBlockList` — Storybook `Organisms/Chat/Catalog` |
 
 ## Product split
 
-- **DS owns:** turn typography, composer field face + expand, icon send chrome, turn-in motion.
-- **Product owns:** persona picker, history link, shell min-height offset (`--chat-panel-open-min-height`), streaming/data.
+- **DS owns:** turn typography, composer field face + expand, icon send chrome, turn-in motion, presentational message blocks.
+- **Product owns:** persona picker, history link, shell min-height offset (`--chat-panel-open-min-height`), streaming/data, report schema mapping.
 
 Reference consumer: AUDION v3 `AudionChatPanel` · `knowledge/chat-surface.md` (audion-v3).
 
@@ -26,3 +27,4 @@ SoT product rules: `msqdx-ui-product-sot.md` (Wave B + open surface).
 
 - Field · Button · foundation · ADR 0028 §19 · `msqdx-ui-completeness.md` · guard `chatChrome.test.ts`
 - **ChatOverlay** organism: `specs/domain/msqdx-ui-chat-overlay.md` · `knowledge/components/chat-overlay.md`
+- **Chat blocks:** `msqdx-ui-chat-block-panel.md` · `msqdx-ui-chat-block-list.md`

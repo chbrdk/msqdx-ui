@@ -218,5 +218,13 @@ export { AddTile } from './components/AddTile'
 export type { AddTileProps } from './components/AddTile'
 export { SwatchStrip } from './components/SwatchStrip'
 export type { SwatchStripProps } from './components/SwatchStrip'
+export { ChatBlockPanel } from './components/ChatBlockPanel'
+export type { ChatBlockPanelProps } from './components/ChatBlockPanel'
+export { ChatBlockList } from './components/ChatBlockList'
+export type {
+  ChatBlockListItem,
+  ChatBlockListProps,
+  ChatBlockListTone,
+} from './components/ChatBlockList'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

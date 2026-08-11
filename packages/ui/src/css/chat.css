@@ -1017,3 +1017,90 @@
   font-size: 0.78rem;
 }
 
+
+/* ——— Chat message blocks (generative UI chrome) ——— */
+.ds-chat-block-panel {
+  width: 100%;
+}
+
+.ds-chat-block-panel__surface {
+  border-radius: 0;
+}
+
+.ds-chat-block-panel__surface.is-flush .ds-chat-block-panel__body {
+  padding: 0;
+}
+
+.ds-chat-block-panel__header {
+  display: grid;
+  gap: 0.2rem;
+  margin-bottom: 0.65rem;
+}
+
+.ds-chat-block-panel__eyebrow {
+  text-transform: none;
+}
+
+.ds-chat-block-panel__title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ds-chat-block-panel__title {
+  margin: 0;
+  font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-block-panel__info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.7rem;
+  color: var(--muted);
+  cursor: help;
+}
+
+.ds-chat-block-panel__body {
+  min-width: 0;
+}
+
+.ds-chat-block-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ds-chat-block-list__item {
+  padding: 0.55rem 0.65rem;
+  border-radius: var(--radius-control, 8px);
+  display: grid;
+  gap: 0.35rem;
+}
+
+.ds-chat-block-list__item.is-alt {
+  background: color-mix(in srgb, var(--line) 45%, transparent);
+}
+
+.ds-chat-block-list__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ds-chat-block-list__title {
+  margin: 0;
+  font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-block-list__body {
+  margin: 0;
+  max-width: 62ch;
+}

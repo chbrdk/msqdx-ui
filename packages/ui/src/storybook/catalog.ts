@@ -103,6 +103,9 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'EntityCard', layer: 'Molecules', title: 'Molecules/EntityCard', stories: 'components/EntityCard.stories.tsx', mdx: 'components/EntityCard.mdx' },
   { id: 'AddTile', layer: 'Atoms', title: 'Atoms/AddTile', stories: 'components/AddTile.stories.tsx', mdx: 'components/AddTile.mdx' },
   { id: 'SwatchStrip', layer: 'Atoms', title: 'Atoms/SwatchStrip', stories: 'components/SwatchStrip.stories.tsx', mdx: 'components/SwatchStrip.mdx' },
+  { id: 'ChatBlockPanel', layer: 'Molecules', title: 'Molecules/ChatBlockPanel', stories: 'components/ChatBlockPanel.stories.tsx', mdx: 'components/ChatBlockPanel.mdx' },
+  { id: 'ChatBlockList', layer: 'Molecules', title: 'Molecules/ChatBlockList', stories: 'components/ChatBlockList.stories.tsx', mdx: 'components/ChatBlockList.mdx' },
+  { id: 'ChatCatalog', layer: 'Organisms', title: 'Organisms/Chat/Catalog', stories: 'components/ChatCatalog.stories.tsx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

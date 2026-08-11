@@ -14,6 +14,9 @@
 - Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
 - ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`
+- Chat catalog (blocks + turns): `Organisms/Chat/Catalog` · `?path=/story/organisms-chat-catalog--inventory`
+- ChatBlockPanel: `Molecules/ChatBlockPanel` · `?path=/story/molecules-chatblockpanel--findings`
+- ChatBlockList: `Molecules/ChatBlockList` · `?path=/story/molecules-chatblocklist--findings`
 
 - Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
 - Brandion UI promotion (2026-08-10): `knowledge/brandion-ui-promotion.md`
@@ -49,6 +52,7 @@
 
 - Chat chrome spec: `specs/domain/msqdx-ui-chat-chrome.md`
 - Chat Overlay organism: `specs/domain/msqdx-ui-chat-overlay.md` · `packages/ui/src/components/ChatOverlay.tsx` · `knowledge/components/chat-overlay.md`
+- Chat message blocks: `specs/domain/msqdx-ui-chat-block-panel.md` · `msqdx-ui-chat-block-list.md` · `ChatBlockPanel` / `ChatBlockList` · Storybook `Organisms/Chat/Catalog`
 - Chat chrome knowledge: `knowledge/msqdx-ui-chat-chrome.md`
 - Chat CSS: `packages/ui/src/css/chat.css` (`.chat-overlay`, `.chat-panel-compact`, `.chat-panel-open`, `.chat-send-icon`)
 - Chat CSS guard: `packages/ui/src/chatChrome.test.ts`

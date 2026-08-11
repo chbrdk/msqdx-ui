@@ -26,5 +26,7 @@ describe('chat chrome CSS', () => {
     expect(chatCss).toContain('.chat-send-icon')
     expect(chatCss).toContain('@keyframes chat-turn-in')
     expect(chatCss).toContain('prefers-reduced-motion')
+    expect(chatCss).toContain('.ds-chat-block-panel')
+    expect(chatCss).toContain('.ds-chat-block-list__title')
   })
 })
