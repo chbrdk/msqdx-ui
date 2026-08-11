@@ -117,6 +117,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ChatMomentList', layer: 'Molecules', title: 'Molecules/ChatMomentList', stories: 'components/ChatMomentList.stories.tsx', mdx: 'components/ChatMomentList.mdx' },
   { id: 'ChatQuoteList', layer: 'Molecules', title: 'Molecules/ChatQuoteList', stories: 'components/ChatQuoteList.stories.tsx', mdx: 'components/ChatQuoteList.mdx' },
   { id: 'ChatCatalog', layer: 'Organisms', title: 'Organisms/ChatCatalog', stories: 'components/ChatCatalog.stories.tsx', mdx: 'components/ChatCatalog.mdx' },
+  { id: 'BrandionTokenStudio', layer: 'Templates', title: 'Templates/BrandionTokenStudio', stories: 'components/BrandionTokenStudio.stories.tsx', mdx: 'components/BrandionTokenStudio.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)
