@@ -11,7 +11,7 @@ Apps (Brandion / Checkion / …) import `@msqdx/ui` **source** from a sibling `m
 ## Mitigations
 
 1. **DS:** `ChatOverlay` declares return type `ReactNode` (not inferred portal).
-2. **App Docker:** after `pnpm build` in the `ds` stage, **delete all `node_modules`** before `COPY --from=ds` (full trees OOM Coolify — exit 255). After app `npm ci`, `ln -s $APP/node_modules $DS/node_modules` for one `@types/react` tree during `next build`, then remove the symlink before the runner copy.
+2. **App Docker:** after `pnpm build` in the `ds` stage, **delete all `node_modules`** before `COPY --from=ds` (full trees OOM Coolify — exit 255). After app `npm ci`, `ln -s $APP/node_modules $DS/node_modules` for one `@types/react` tree during `next build`, then remove the symlink before the runner copy. Apps must also declare runtime peers used by DS source (`react-driftkit` for `NavRail` / `FloatingPanel`) and prefer app `node_modules` via webpack `resolve.modules`.
 3. **Align** app `@types/react` with the DS pin when practical.
 
 ## Refs
