@@ -49,6 +49,7 @@ RUN pnpm build \
 
 # ---- Runner: static nginx (cheap always-on) ----
 FROM ${NGINX_IMAGE} AS runner
+RUN apk add --no-cache wget
 COPY docker/nginx-storybook.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /workspace/packages/ui/storybook-static /usr/share/nginx/html
 
