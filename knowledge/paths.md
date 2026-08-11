@@ -18,6 +18,8 @@
   - Correct story id is `organisms-chatcatalog--inventory` (not `organisms-chat-catalog--inventory`)
   - Molecules: `?path=/story/molecules-chatblockpanel--findings` · `?path=/story/molecules-chatblocklist--findings`
   - Metrics / KV / Steps: `?path=/story/molecules-chatmetricgrid--with-tones` · `molecules-chatkeyvaluelist--in-panel` · `molecules-chatsteplist--running`
+  - Links / Alert / Table / Collapsible / Entity: `molecules-chatlinklist--in-panel` · `molecules-chatalertblock--warning` · `molecules-chatdatatable--in-panel-flush` · `molecules-chatcollapsible--open` · `molecules-chatentitygrid--personas`
+  - Backlog (open blocks + Audion/Brandion): `knowledge/chat-blocks-backlog.md`
 
 - ChatBlockPanel: `Molecules/ChatBlockPanel` · `?path=/story/molecules-chatblockpanel--findings`
 - ChatBlockList: `Molecules/ChatBlockList` · `?path=/story/molecules-chatblocklist--findings`

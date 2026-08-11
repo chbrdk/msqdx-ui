@@ -4,10 +4,17 @@ import { Text } from './Text'
 
 export type ChatBlockListTone = 'success' | 'warning' | 'error' | 'info' | 'neutral'
 
+export type ChatBlockListChip = {
+  label: string
+  tone?: ChatBlockListTone
+}
+
 export type ChatBlockListItem = {
   title: string
   description?: string
   badge?: string
+  /** Extra chips (e.g. recommendation category). */
+  chips?: ChatBlockListChip[]
   tone?: ChatBlockListTone
 }
 
@@ -54,6 +61,19 @@ export function ChatBlockList({
                   {item.badge}
                 </Chip>
               ) : null}
+              {item.chips?.map((chip) => (
+                <Chip
+                  key={chip.label}
+                  static
+                  size="sm"
+                  className={cx(
+                    'ds-chat-block-list__badge',
+                    chip.tone && chip.tone !== 'neutral' && `is-${chip.tone}`,
+                  )}
+                >
+                  {chip.label}
+                </Chip>
+              ))}
             </div>
             {item.description?.trim() ? (
               <Text role="meta" as="p" className="ds-chat-block-list__body">

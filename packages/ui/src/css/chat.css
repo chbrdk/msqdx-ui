@@ -1250,3 +1250,120 @@
   margin: 0;
   color: var(--muted);
 }
+
+/* ——— ChatLinkList ——— */
+.ds-chat-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ds-chat-links__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.ds-chat-links__marker {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.ds-chat-links__anchor {
+  text-decoration: none;
+  color: inherit;
+  min-width: 0;
+}
+
+.ds-chat-links__label {
+  color: var(--accent, #00ca55);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ds-chat-links__anchor:hover .ds-chat-links__label {
+  color: var(--ink);
+}
+
+/* ——— ChatAlertBlock ——— */
+.ds-chat-alert__body {
+  margin: 0;
+}
+
+/* ——— ChatDataTable ——— */
+.ds-chat-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ds-chat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--type-sm, 0.875rem);
+}
+
+.ds-chat-table th,
+.ds-chat-table td {
+  text-align: left;
+  padding: 0.45rem 0.55rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.ds-chat-table th {
+  color: var(--muted);
+  font-weight: var(--weight-medium, 500);
+}
+
+/* ——— ChatCollapsible ——— */
+.ds-chat-collapsible {
+  width: 100%;
+}
+
+.ds-chat-collapsible__trigger {
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-inline: 0;
+}
+
+.ds-chat-collapsible__title {
+  font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-collapsible__body {
+  margin-top: 0.65rem;
+  min-width: 0;
+}
+
+/* ——— ChatEntityGrid ——— */
+.ds-chat-entity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+}
+
+.ds-chat-entity-grid.is-full {
+  grid-template-columns: 1fr;
+}
+
+.ds-chat-entity-grid__card.is-interactive {
+  cursor: pointer;
+}
+
+.ds-chat-entity-grid__title {
+  margin: 0;
+  font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-entity-grid__description {
+  margin: 0;
+}
+
+.ds-chat-entity-grid__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}

@@ -108,6 +108,11 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ChatMetricGrid', layer: 'Molecules', title: 'Molecules/ChatMetricGrid', stories: 'components/ChatMetricGrid.stories.tsx', mdx: 'components/ChatMetricGrid.mdx' },
   { id: 'ChatKeyValueList', layer: 'Molecules', title: 'Molecules/ChatKeyValueList', stories: 'components/ChatKeyValueList.stories.tsx', mdx: 'components/ChatKeyValueList.mdx' },
   { id: 'ChatStepList', layer: 'Molecules', title: 'Molecules/ChatStepList', stories: 'components/ChatStepList.stories.tsx', mdx: 'components/ChatStepList.mdx' },
+  { id: 'ChatLinkList', layer: 'Molecules', title: 'Molecules/ChatLinkList', stories: 'components/ChatLinkList.stories.tsx', mdx: 'components/ChatLinkList.mdx' },
+  { id: 'ChatAlertBlock', layer: 'Molecules', title: 'Molecules/ChatAlertBlock', stories: 'components/ChatAlertBlock.stories.tsx', mdx: 'components/ChatAlertBlock.mdx' },
+  { id: 'ChatDataTable', layer: 'Molecules', title: 'Molecules/ChatDataTable', stories: 'components/ChatDataTable.stories.tsx', mdx: 'components/ChatDataTable.mdx' },
+  { id: 'ChatCollapsible', layer: 'Molecules', title: 'Molecules/ChatCollapsible', stories: 'components/ChatCollapsible.stories.tsx', mdx: 'components/ChatCollapsible.mdx' },
+  { id: 'ChatEntityGrid', layer: 'Molecules', title: 'Molecules/ChatEntityGrid', stories: 'components/ChatEntityGrid.stories.tsx', mdx: 'components/ChatEntityGrid.mdx' },
   { id: 'ChatCatalog', layer: 'Organisms', title: 'Organisms/ChatCatalog', stories: 'components/ChatCatalog.stories.tsx', mdx: 'components/ChatCatalog.mdx' },
 ]
 

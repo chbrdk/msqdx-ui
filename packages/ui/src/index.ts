@@ -222,6 +222,7 @@ export { ChatBlockPanel } from './components/ChatBlockPanel'
 export type { ChatBlockPanelProps } from './components/ChatBlockPanel'
 export { ChatBlockList } from './components/ChatBlockList'
 export type {
+  ChatBlockListChip,
   ChatBlockListItem,
   ChatBlockListProps,
   ChatBlockListTone,
@@ -243,5 +244,19 @@ export type {
   ChatStepListProps,
   ChatStepStatus,
 } from './components/ChatStepList'
+export { ChatLinkList } from './components/ChatLinkList'
+export type { ChatLinkItem, ChatLinkListProps } from './components/ChatLinkList'
+export { ChatAlertBlock } from './components/ChatAlertBlock'
+export type { ChatAlertBlockProps, ChatAlertTone } from './components/ChatAlertBlock'
+export { ChatDataTable } from './components/ChatDataTable'
+export type { ChatDataTableProps } from './components/ChatDataTable'
+export { ChatCollapsible } from './components/ChatCollapsible'
+export type { ChatCollapsibleProps } from './components/ChatCollapsible'
+export { ChatEntityGrid } from './components/ChatEntityGrid'
+export type {
+  ChatEntityAccent,
+  ChatEntityGridProps,
+  ChatEntityItem,
+} from './components/ChatEntityGrid'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'
