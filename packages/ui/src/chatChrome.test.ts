@@ -37,5 +37,6 @@ describe('chat chrome CSS', () => {
     expect(chatCss).toContain('.ds-chat-entity-grid')
     expect(chatCss).toContain('.ds-chat-phases')
     expect(chatCss).toContain('.ds-chat-moments')
+    expect(chatCss).toContain('.ds-chat-quotes')
   })
 })

@@ -1471,3 +1471,56 @@
   flex: 1 1 12rem;
   min-width: 0;
 }
+
+/* ——— ChatQuoteList ——— */
+.ds-chat-quotes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.ds-chat-quotes__item {
+  padding: 0.65rem 0.75rem;
+  border-radius: var(--radius-control, 8px);
+  border-left: 2px solid var(--line);
+  background: color-mix(in srgb, var(--line) 28%, transparent);
+}
+
+.ds-chat-quotes__item.is-warning {
+  border-left-color: color-mix(in srgb, var(--warn, #d97706) 65%, transparent);
+}
+
+.ds-chat-quotes__item.is-error {
+  border-left-color: color-mix(in srgb, var(--danger, #e11d48) 65%, transparent);
+}
+
+.ds-chat-quotes__item.is-info {
+  border-left-color: color-mix(in srgb, var(--info, #2563eb) 55%, transparent);
+}
+
+.ds-chat-quotes__item.is-success {
+  border-left-color: color-mix(in srgb, var(--ok, #16a34a) 55%, transparent);
+}
+
+.ds-chat-quotes__quote {
+  margin: 0;
+  max-width: 62ch;
+  font-style: italic;
+}
+
+.ds-chat-quotes__meta {
+  display: grid;
+  gap: 0.15rem;
+  margin-top: 0.4rem;
+}
+
+.ds-chat-quotes__attribution {
+  font-style: normal;
+  font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-quotes__context {
+  margin: 0;
+}

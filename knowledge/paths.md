@@ -19,7 +19,7 @@
   - Molecules: `?path=/story/molecules-chatblockpanel--findings` · `?path=/story/molecules-chatblocklist--findings`
   - Metrics / KV / Steps: `?path=/story/molecules-chatmetricgrid--with-tones` · `molecules-chatkeyvaluelist--in-panel` · `molecules-chatsteplist--running`
   - Links / Alert / Table / Collapsible / Entity: `molecules-chatlinklist--in-panel` · `molecules-chatalertblock--warning` · `molecules-chatdatatable--in-panel-flush` · `molecules-chatcollapsible--open` · `molecules-chatentitygrid--personas`
-  - Journey outline: `molecules-chatphasestrip--in-panel` · `molecules-chatmomentlist--in-panel`
+  - Journey outline: `molecules-chatphasestrip--in-panel` · `molecules-chatmomentlist--in-panel` · `molecules-chatquotelist--in-panel`
   - Backlog (open blocks + Audion/Brandion): `knowledge/chat-blocks-backlog.md`
   - Journey ↔ chat gaps (Audion phases/moments): `knowledge/chat-journey-gaps.md`
 

@@ -13,6 +13,7 @@ import { ChatMetricGrid } from './ChatMetricGrid'
 import { ChatMomentList } from './ChatMomentList'
 import { ChatOverlay } from './ChatOverlay'
 import { ChatPhaseStrip } from './ChatPhaseStrip'
+import { ChatQuoteList } from './ChatQuoteList'
 import { ChatStepList } from './ChatStepList'
 import { Text } from './Text'
 import { Textarea } from './Textarea'
@@ -44,7 +45,7 @@ export const Inventory: Story = {
         </Text>
         <Text role="meta" as="p">
           Overlay · Panel · List · Metric · KV · Steps · Links · Alert · Table · Collapsible ·
-          EntityGrid · PhaseStrip · MomentList (Audion journey outline).
+          EntityGrid · PhaseStrip · MomentList · QuoteList (Audion journey outline).
         </Text>
       </header>
 
@@ -160,6 +161,19 @@ export const Inventory: Story = {
             { id: 'm1', kind: 'thought', label: 'Passt das zu unserem Stack?' },
             { id: 'm2', kind: 'pain', label: 'Zu viele Formularfelder' },
             { id: 'm3', kind: 'opportunity', label: 'FAQ mit Citations' },
+          ]}
+        />
+      </ChatBlockPanel>
+
+      <ChatBlockPanel title="Persona-Stimmen" eyebrow="validate">
+        <ChatQuoteList
+          items={[
+            {
+              quote: 'Ich brauche Citations, sonst vertraue ich dem Anbieter nicht.',
+              attribution: 'Alex · Consideration',
+              context: 'Friction: fehlende Quellen',
+              tone: 'warning',
+            },
           ]}
         />
       </ChatBlockPanel>

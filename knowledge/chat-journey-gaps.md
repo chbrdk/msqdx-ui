@@ -5,23 +5,27 @@
 
 ## Verdict
 
-**Phase strip + moment list shipped in DS.** Personas/audiences remain on `ChatEntityGrid`. Workflow progress stays on `ChatStepList`.
+**Phase strip, moment list, and quote list shipped.** Compose validate frictions/recs via existing `ChatBlockList` / generative finding + recommendation blocks.
 
 ## Mapping
 
-| Journey concern | Chat chrome |
-|-----------------|-------------|
-| Phase outline | `ChatPhaseStrip` · Storybook `molecules-chatphasestrip--in-panel` |
-| Typed moments | `ChatMomentList` · `molecules-chatmomentlist--in-panel` |
+| Journey concern | Chat chrome / block |
+|-----------------|---------------------|
+| Phase outline | `ChatPhaseStrip` / `phase_strip` |
+| Typed moments | `ChatMomentList` / `moment_list` |
+| Validate quotes | `ChatQuoteList` / `quote_list` |
+| Validate frictions / recs | `finding_list` / `recommendation_list` |
+| Deep link | `link_list` → Audion journey URL |
 | Persona / Zielgruppe | `ChatEntityGrid` |
-| Validate frictions / recs | `ChatBlockList` |
 | Tool run progress | `ChatStepList` |
 
-## Plexon generative types
+## Plexon builders
 
-- `phase_strip` → `UiPhaseStrip` → `ChatPhaseStrip`
-- `moment_list` → `UiMomentList` → `ChatMomentList`
+- `buildJourneyOutlineBlocks` — phases + moments  
+- `buildJourneyDetailLayout` — outline + quotes + findings + recs + link  
+
+Wire from Audion journey fetch / validate tools when handlers land (no dedicated journey intent handler yet).
 
 ## Still product-owned
 
-Audion phase slider, UX agent canvas, moments merge HITL, validate scorer, quote deep-links.
+Audion phase slider, UX agent canvas, moments merge HITL, validate scorer, quote deep-links into Audion Chat.

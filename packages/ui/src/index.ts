@@ -270,5 +270,11 @@ export type {
   ChatMomentKind,
   ChatMomentListProps,
 } from './components/ChatMomentList'
+export { ChatQuoteList } from './components/ChatQuoteList'
+export type {
+  ChatQuoteItem,
+  ChatQuoteListProps,
+  ChatQuoteTone,
+} from './components/ChatQuoteList'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'
