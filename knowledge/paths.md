@@ -31,6 +31,7 @@
 
 - Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
 - Brandion UI promotion (2026-08-10): `knowledge/brandion-ui-promotion.md`
+- Sibling app `@types/react` dedupe (ChatOverlay JSX): `knowledge/react-types-dedupe.md`
 - MagazineContentsNav: `packages/ui/src/components/MagazineContentsNav.tsx` · spec `specs/domain/msqdx-ui-magazine-contents-nav.md` · Storybook `Molecules/MagazineContentsNav`
 - MarkerCanvas: `packages/ui/src/components/MarkerCanvas.tsx` · spec `specs/domain/msqdx-ui-marker-canvas.md` · Storybook `Organisms/MarkerCanvas`
 - FormSection: `packages/ui/src/components/FormSection.tsx` · spec `specs/domain/msqdx-ui-form-section.md` · Storybook `Molecules/FormSection`

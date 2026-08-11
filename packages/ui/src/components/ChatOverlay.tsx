@@ -84,7 +84,10 @@ function resolveMaxWidth(maxWidth: number): number {
 
 /**
  * Domain-free chat flyout / overlay shell.
+ * Return type is `ReactNode` (not inferred `ReactPortal`) so consumers with a
+ * separate `@types/react` tree can still use this as a JSX component.
  * @see specs/domain/msqdx-ui-chat-overlay.md
+ * @see knowledge/react-types-dedupe.md
  */
 export function ChatOverlay({
   open,
@@ -103,7 +106,7 @@ export function ChatOverlay({
   minWidth = DEFAULT_MIN_WIDTH_PX,
   maxWidth = DEFAULT_MAX_WIDTH_PX,
   widthStorageKey = DEFAULT_WIDTH_STORAGE_KEY,
-}: ChatOverlayProps) {
+}: ChatOverlayProps): ReactNode {
   const titleId = useId()
   const sheetRef = useRef<HTMLDivElement>(null)
   const previousFocusRef = useRef<HTMLElement | null>(null)

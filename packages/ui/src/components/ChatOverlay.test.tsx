@@ -40,6 +40,15 @@ describe('ChatOverlay', () => {
     expect(css).toMatch(/background:\s*var\(--panel,\s*var\(--bg1\)\)/)
   })
 
+  it('declares ReactNode return type for cross-package @types/react consumers', async () => {
+    const { readFileSync } = await import('node:fs')
+    const { fileURLToPath } = await import('node:url')
+    const { dirname, join } = await import('node:path')
+    const here = dirname(fileURLToPath(import.meta.url))
+    const src = readFileSync(join(here, 'ChatOverlay.tsx'), 'utf8')
+    expect(src).toMatch(/\}: ChatOverlayProps\): ReactNode \{/)
+  })
+
   it('renders a dock-end resize handle by default', () => {
     render(
       <ChatOverlay open onOpenChange={() => {}} title="Assistant" placement="dock-end">
