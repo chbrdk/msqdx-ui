@@ -28,5 +28,8 @@ describe('chat chrome CSS', () => {
     expect(chatCss).toContain('prefers-reduced-motion')
     expect(chatCss).toContain('.ds-chat-block-panel')
     expect(chatCss).toContain('.ds-chat-block-list__title')
+    expect(chatCss).toContain('.ds-chat-metric-grid')
+    expect(chatCss).toContain('.ds-chat-kv__row')
+    expect(chatCss).toContain('.ds-chat-steps__item')
   })
 })

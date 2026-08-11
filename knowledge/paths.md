@@ -17,9 +17,13 @@
 - Chat catalog (blocks + turns): `Organisms/ChatCatalog` · `?path=/story/organisms-chatcatalog--inventory`
   - Correct story id is `organisms-chatcatalog--inventory` (not `organisms-chat-catalog--inventory`)
   - Molecules: `?path=/story/molecules-chatblockpanel--findings` · `?path=/story/molecules-chatblocklist--findings`
+  - Metrics / KV / Steps: `?path=/story/molecules-chatmetricgrid--with-tones` · `molecules-chatkeyvaluelist--in-panel` · `molecules-chatsteplist--running`
 
 - ChatBlockPanel: `Molecules/ChatBlockPanel` · `?path=/story/molecules-chatblockpanel--findings`
 - ChatBlockList: `Molecules/ChatBlockList` · `?path=/story/molecules-chatblocklist--findings`
+- ChatMetricGrid: `Molecules/ChatMetricGrid` · `?path=/story/molecules-chatmetricgrid--with-tones`
+- ChatKeyValueList: `Molecules/ChatKeyValueList` · `?path=/story/molecules-chatkeyvaluelist--in-panel`
+- ChatStepList: `Molecules/ChatStepList` · `?path=/story/molecules-chatsteplist--running`
 
 - Magazine character challenge (DS vs AUDION/CHECKION): `knowledge/magazine-character-challenge-2026-08-03.md`
 - Brandion UI promotion (2026-08-10): `knowledge/brandion-ui-promotion.md`
@@ -55,7 +59,7 @@
 
 - Chat chrome spec: `specs/domain/msqdx-ui-chat-chrome.md`
 - Chat Overlay organism: `specs/domain/msqdx-ui-chat-overlay.md` · `packages/ui/src/components/ChatOverlay.tsx` · `knowledge/components/chat-overlay.md`
-- Chat message blocks: `specs/domain/msqdx-ui-chat-block-panel.md` · `msqdx-ui-chat-block-list.md` · `ChatBlockPanel` / `ChatBlockList` · Storybook `Organisms/Chat/Catalog`
+- Chat message blocks: `specs/domain/msqdx-ui-chat-block-panel.md` · `msqdx-ui-chat-block-list.md` · `msqdx-ui-chat-metric-grid.md` · `msqdx-ui-chat-key-value-list.md` · `msqdx-ui-chat-step-list.md` · Storybook `Organisms/ChatCatalog`
 - Chat chrome knowledge: `knowledge/msqdx-ui-chat-chrome.md`
 - Chat CSS: `packages/ui/src/css/chat.css` (`.chat-overlay`, `.chat-panel-compact`, `.chat-panel-open`, `.chat-send-icon`)
 - Chat CSS guard: `packages/ui/src/chatChrome.test.ts`

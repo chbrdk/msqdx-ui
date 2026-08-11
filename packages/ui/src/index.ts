@@ -226,5 +226,22 @@ export type {
   ChatBlockListProps,
   ChatBlockListTone,
 } from './components/ChatBlockList'
+export { ChatMetricGrid } from './components/ChatMetricGrid'
+export type {
+  ChatMetricGridProps,
+  ChatMetricItem,
+  ChatMetricTone,
+} from './components/ChatMetricGrid'
+export { ChatKeyValueList } from './components/ChatKeyValueList'
+export type {
+  ChatKeyValueItem,
+  ChatKeyValueListProps,
+} from './components/ChatKeyValueList'
+export { ChatStepList } from './components/ChatStepList'
+export type {
+  ChatStepItem,
+  ChatStepListProps,
+  ChatStepStatus,
+} from './components/ChatStepList'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

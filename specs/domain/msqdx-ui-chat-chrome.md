@@ -57,6 +57,9 @@ Presentational generative UI chrome (browseable in Storybook):
 |-----------|-----------|
 | `ChatBlockPanel` | `Molecules/ChatBlockPanel` |
 | `ChatBlockList` | `Molecules/ChatBlockList` |
+| `ChatMetricGrid` | `Molecules/ChatMetricGrid` |
+| `ChatKeyValueList` | `Molecules/ChatKeyValueList` |
+| `ChatStepList` | `Molecules/ChatStepList` |
 | Catalog (overlay + turns + blocks) | `Organisms/ChatCatalog` |
 
 Streaming / conversation client remains product-owned.
@@ -77,3 +80,4 @@ Streaming / conversation client remains product-owned.
 6. `Flyout` + chat action icons (`IconShare` / `IconHistory` / `IconMoodboard` / `IconMic` / `IconVideo`) — 2026-07-30. ✅  
 7. `ChatOverlay` organism shipped for flyout hosts — 2026-08-10. ✅  
 8. `ChatBlockPanel` + `ChatBlockList` + Storybook catalog — 2026-08-11. ✅  
+9. `ChatMetricGrid` + `ChatKeyValueList` + `ChatStepList` — 2026-08-11. ✅  

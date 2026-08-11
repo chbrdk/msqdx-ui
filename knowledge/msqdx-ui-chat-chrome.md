@@ -12,7 +12,7 @@
 | Expand | `.chat-form.is-expanded` / hover / focus-within |
 | Empty / loading / error | `EmptyState.chat-empty` / `LoadingText` / `Alert` |
 | Close (overlay) | `<Button variant="ghost" className="chat-close">` |
-| Message blocks | `ChatBlockPanel` + `ChatBlockList` — Storybook `Organisms/Chat/Catalog` |
+| Message blocks | `ChatBlockPanel` + `ChatBlockList` + `ChatMetricGrid` + `ChatKeyValueList` + `ChatStepList` — Storybook `Organisms/ChatCatalog` |
 
 ## Product split
 
@@ -27,4 +27,4 @@ SoT product rules: `msqdx-ui-product-sot.md` (Wave B + open surface).
 
 - Field · Button · foundation · ADR 0028 §19 · `msqdx-ui-completeness.md` · guard `chatChrome.test.ts`
 - **ChatOverlay** organism: `specs/domain/msqdx-ui-chat-overlay.md` · `knowledge/components/chat-overlay.md`
-- **Chat blocks:** `msqdx-ui-chat-block-panel.md` · `msqdx-ui-chat-block-list.md`
+- **Chat blocks:** `msqdx-ui-chat-block-panel.md` · `msqdx-ui-chat-block-list.md` · `msqdx-ui-chat-metric-grid.md` · `msqdx-ui-chat-key-value-list.md` · `msqdx-ui-chat-step-list.md`

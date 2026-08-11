@@ -3,13 +3,16 @@ import { useState } from 'react'
 import { Button } from './Button'
 import { ChatBlockList } from './ChatBlockList'
 import { ChatBlockPanel } from './ChatBlockPanel'
+import { ChatKeyValueList } from './ChatKeyValueList'
+import { ChatMetricGrid } from './ChatMetricGrid'
 import { ChatOverlay } from './ChatOverlay'
+import { ChatStepList } from './ChatStepList'
 import { Text } from './Text'
 import { Textarea } from './Textarea'
 
 /**
  * Discovery catalog — browse chat chrome + message blocks in one place.
- * Spec: specs/domain/msqdx-ui-chat-chrome.md · chat-block-*.md
+ * Spec: specs/domain/msqdx-ui-chat-chrome.md · chat-block-*.md · chat-metric/kv/step
  *
  * Story id: organisms-chatcatalog--inventory
  */
@@ -35,8 +38,8 @@ export const Inventory: Story = {
           Chat inventory
         </Text>
         <Text role="meta" as="p">
-          Shell: ChatOverlay · CSS: chat-panel / turns / composer · Blocks: ChatBlockPanel +
-          ChatBlockList. Also under Molecules/ChatBlock* and Organisms/ChatOverlay.
+          Shell: ChatOverlay · Blocks: ChatBlockPanel / List / MetricGrid / KeyValueList /
+          StepList. Also under Molecules/Chat* and Organisms/ChatOverlay.
         </Text>
       </header>
 
@@ -56,6 +59,36 @@ export const Inventory: Story = {
               badge: 'Hinweis',
               tone: 'info',
             },
+          ]}
+        />
+      </ChatBlockPanel>
+
+      <ChatBlockPanel title="GEO Kennzahlen" eyebrow="metrics">
+        <ChatMetricGrid
+          items={[
+            { label: 'GEO Score', value: 62, unit: '/100', tone: 'warning' },
+            { label: 'Citations', value: 3, tone: 'error', hint: 'unter Ziel' },
+            { label: 'Coverage', value: '78%', tone: 'info' },
+          ]}
+        />
+      </ChatBlockPanel>
+
+      <ChatBlockPanel title="Details" eyebrow="details">
+        <ChatKeyValueList
+          items={[
+            { label: 'Projekt', value: 'Demo Website' },
+            { label: 'Domain', value: 'example.com' },
+            { label: 'Status', value: 'Aktiv' },
+          ]}
+        />
+      </ChatBlockPanel>
+
+      <ChatBlockPanel title="Workflow" eyebrow="steps">
+        <ChatStepList
+          steps={[
+            { id: 's1', label: 'Research', status: 'done' },
+            { id: 's2', label: 'Personas', status: 'running', progress: 60, detail: 'AUDION' },
+            { id: 's3', label: 'Journey', status: 'pending' },
           ]}
         />
       </ChatBlockPanel>
@@ -137,6 +170,22 @@ export const InOverlay: Story = {
               <div className="chat-turn chat-turn-assistant">
                 <span className="chat-role">Assistent</span>
                 <div className="chat-answer" style={{ display: 'grid', gap: '0.85rem' }}>
+                  <ChatBlockPanel title="GEO Kennzahlen" eyebrow="metrics">
+                    <ChatMetricGrid
+                      items={[
+                        { label: 'GEO Score', value: 62, unit: '/100', tone: 'warning' },
+                        { label: 'Citations', value: 3, tone: 'error' },
+                      ]}
+                    />
+                  </ChatBlockPanel>
+                  <ChatBlockPanel title="Workflow" eyebrow="steps">
+                    <ChatStepList
+                      steps={[
+                        { id: 'a', label: 'Crawl', status: 'done' },
+                        { id: 'b', label: 'Score', status: 'running', progress: 40 },
+                      ]}
+                    />
+                  </ChatBlockPanel>
                   <ChatBlockPanel title="Erkenntnisse" eyebrow="findings">
                     <ChatBlockList
                       items={[
@@ -146,18 +195,6 @@ export const InOverlay: Story = {
                             'Der Score liegt deutlich unter dem Wettbewerbs-Schnitt.',
                           badge: 'Warnung',
                           tone: 'warning',
-                        },
-                      ]}
-                    />
-                  </ChatBlockPanel>
-                  <ChatBlockPanel title="GEO-Empfehlungen" eyebrow="actions">
-                    <ChatBlockList
-                      items={[
-                        {
-                          title: 'FAQ-Block für Top-Prompts',
-                          description: 'Deckt die häufigsten GEO-Fragen ab.',
-                          badge: 'P1',
-                          tone: 'error',
                         },
                       ]}
                     />
