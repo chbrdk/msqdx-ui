@@ -65,6 +65,8 @@ Presentational generative UI chrome (browseable in Storybook):
 | `ChatDataTable` | `Molecules/ChatDataTable` |
 | `ChatCollapsible` | `Molecules/ChatCollapsible` |
 | `ChatEntityGrid` | `Molecules/ChatEntityGrid` |
+| `ChatPhaseStrip` | `Molecules/ChatPhaseStrip` |
+| `ChatMomentList` | `Molecules/ChatMomentList` |
 | Catalog (overlay + turns + blocks) | `Organisms/ChatCatalog` |
 
 Streaming / conversation client remains product-owned.
@@ -87,3 +89,4 @@ Streaming / conversation client remains product-owned.
 8. `ChatBlockPanel` + `ChatBlockList` + Storybook catalog — 2026-08-11. ✅  
 9. `ChatMetricGrid` + `ChatKeyValueList` + `ChatStepList` — 2026-08-11. ✅  
 10. `ChatLinkList` + `ChatAlertBlock` + `ChatDataTable` + `ChatCollapsible` + `ChatEntityGrid` — 2026-08-11. ✅  
+11. `ChatPhaseStrip` + `ChatMomentList` (Audion journey outline) — 2026-08-11. ✅  

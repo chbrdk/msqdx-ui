@@ -10,7 +10,9 @@ import { ChatEntityGrid } from './ChatEntityGrid'
 import { ChatKeyValueList } from './ChatKeyValueList'
 import { ChatLinkList } from './ChatLinkList'
 import { ChatMetricGrid } from './ChatMetricGrid'
+import { ChatMomentList } from './ChatMomentList'
 import { ChatOverlay } from './ChatOverlay'
+import { ChatPhaseStrip } from './ChatPhaseStrip'
 import { ChatStepList } from './ChatStepList'
 import { Text } from './Text'
 import { Textarea } from './Textarea'
@@ -42,7 +44,7 @@ export const Inventory: Story = {
         </Text>
         <Text role="meta" as="p">
           Overlay · Panel · List · Metric · KV · Steps · Links · Alert · Table · Collapsible ·
-          EntityGrid (Audion/Brandion teasers).
+          EntityGrid · PhaseStrip · MomentList (Audion journey outline).
         </Text>
       </header>
 
@@ -132,6 +134,32 @@ export const Inventory: Story = {
               tags: ['Persona'],
               accent: 'pink',
             },
+          ]}
+        />
+      </ChatBlockPanel>
+
+      <ChatBlockPanel title="Journey outline" eyebrow="phases">
+        <ChatPhaseStrip
+          phases={[
+            { id: 'ph1', label: 'Awareness', summary: 'Erste Berührung', status: 'done' },
+            {
+              id: 'ph2',
+              label: 'Consideration',
+              summary: 'Vergleicht Anbieter',
+              active: true,
+              status: 'current',
+            },
+            { id: 'ph3', label: 'Decision', status: 'upcoming' },
+          ]}
+        />
+      </ChatBlockPanel>
+
+      <ChatBlockPanel title="Consideration · Moments" eyebrow="moments">
+        <ChatMomentList
+          items={[
+            { id: 'm1', kind: 'thought', label: 'Passt das zu unserem Stack?' },
+            { id: 'm2', kind: 'pain', label: 'Zu viele Formularfelder' },
+            { id: 'm3', kind: 'opportunity', label: 'FAQ mit Citations' },
           ]}
         />
       </ChatBlockPanel>

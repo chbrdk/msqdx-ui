@@ -19,6 +19,8 @@ describe('chat Storybook CSF titles', () => {
       'ChatDataTable',
       'ChatCollapsible',
       'ChatEntityGrid',
+      'ChatPhaseStrip',
+      'ChatMomentList',
     ]
     expect(catalog).toContain("title: 'Organisms/ChatCatalog'")
     expect(catalog).toContain('export const Inventory')

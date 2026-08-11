@@ -258,5 +258,17 @@ export type {
   ChatEntityGridProps,
   ChatEntityItem,
 } from './components/ChatEntityGrid'
+export { ChatPhaseStrip } from './components/ChatPhaseStrip'
+export type {
+  ChatPhaseItem,
+  ChatPhaseStatus,
+  ChatPhaseStripProps,
+} from './components/ChatPhaseStrip'
+export { ChatMomentList } from './components/ChatMomentList'
+export type {
+  ChatMomentItem,
+  ChatMomentKind,
+  ChatMomentListProps,
+} from './components/ChatMomentList'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

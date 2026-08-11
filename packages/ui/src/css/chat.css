@@ -1367,3 +1367,107 @@
   flex-wrap: wrap;
   gap: 0.35rem;
 }
+
+/* ——— ChatPhaseStrip (journey map, not workflow) ——— */
+.ds-chat-phases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ds-chat-phases__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: flex-start;
+  padding: 0.55rem 0.65rem;
+  border-radius: var(--radius-control, 8px);
+  border: 1px solid transparent;
+}
+
+.ds-chat-phases__item.is-done {
+  opacity: 0.85;
+}
+
+.ds-chat-phases__item.is-current,
+.ds-chat-phases__item.is-active {
+  border-color: color-mix(in srgb, var(--accent, #00ca55) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent, #00ca55) 8%, transparent);
+}
+
+.ds-chat-phases__item.is-interactive {
+  cursor: pointer;
+}
+
+.ds-chat-phases__index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  height: 1.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+
+.ds-chat-phases__item.is-current .ds-chat-phases__index,
+.ds-chat-phases__item.is-active .ds-chat-phases__index {
+  border-color: var(--accent, #00ca55);
+  color: var(--ink);
+}
+
+.ds-chat-phases__copy {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.ds-chat-phases__label {
+  margin: 0;
+  font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-phases__summary {
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* ——— ChatMomentList ——— */
+.ds-chat-moments {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.ds-chat-moments__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 0.55rem 0.65rem;
+  border-radius: var(--radius-control, 8px);
+}
+
+.ds-chat-moments__item.is-alt {
+  background: color-mix(in srgb, var(--line) 45%, transparent);
+}
+
+.ds-chat-moments__item.is-pain {
+  border-left: 2px solid color-mix(in srgb, var(--danger, #e11d48) 55%, transparent);
+}
+
+.ds-chat-moments__item.is-opportunity {
+  border-left: 2px solid color-mix(in srgb, var(--ok, #16a34a) 55%, transparent);
+}
+
+.ds-chat-moments__label {
+  margin: 0;
+  flex: 1 1 12rem;
+  min-width: 0;
+}
