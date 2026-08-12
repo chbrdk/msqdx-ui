@@ -79,3 +79,15 @@
   gap: var(--space-1) 0.28rem;
   min-width: 0;
 }
+
+.ds-toggle-group--icon {
+  flex-wrap: nowrap;
+  gap: 0.12rem;
+}
+
+.ds-toggle-group--icon .ds-chip--icon {
+  width: 1.65rem;
+  height: 1.65rem;
+  min-width: 1.65rem;
+  padding: 0;
+}

@@ -16,6 +16,8 @@ import {
   IconShare,
   IconTrash,
   IconVideo,
+  IconUndo,
+  IconAlignLeft,
 } from './icons'
 import { Text } from './Text'
 
@@ -36,6 +38,8 @@ const ICONS = [
   { name: 'IconTrash', Node: IconTrash },
   { name: 'IconCheck', Node: IconCheck },
   { name: 'IconClose', Node: IconClose },
+  { name: 'IconUndo', Node: IconUndo },
+  { name: 'IconAlignLeft', Node: IconAlignLeft },
 ] as const
 
 const meta = {

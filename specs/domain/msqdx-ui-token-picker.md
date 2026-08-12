@@ -30,6 +30,7 @@ Compact control to **bind a property to a token path**. Values are **token paths
 | `prevLabel` | Accessible label for previous cycle (default `Previous token`) |
 | `nextLabel` | Accessible label for next cycle (default `Next token`) |
 | `label` | Field label above the control |
+| `icon` | Optional 16px glyph beside the label |
 | `variant` | `compact` (default): option list is a popover. `list`: always-open dense list. |
 | `aria-label` | Default `Token picker` |
 

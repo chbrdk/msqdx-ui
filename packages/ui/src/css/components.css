@@ -2490,7 +2490,7 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-component-palette__btn.ds-btn {
   width: 100%;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 .ds-component-palette__btn .ds-btn__label {
   display: flex;
@@ -2520,8 +2520,18 @@ button.ds-marker-canvas__marker:focus-visible {
   gap: 0.25rem;
 }
 .ds-token-picker__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
   font-size: 0.6875rem;
   color: var(--muted, #666);
+}
+.ds-token-picker__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: currentColor;
 }
 .ds-token-picker__current {
   display: flex;
@@ -2703,7 +2713,7 @@ button.ds-marker-canvas__marker:focus-visible {
   flex: 1;
   min-width: 0;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 0.35rem;
   border: 0;
   background: transparent;
@@ -2719,6 +2729,11 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-layers-panel__btn--selected {
   background: color-mix(in srgb, var(--accent, #245) 12%, transparent);
+}
+.ds-layers-panel__glyph {
+  display: inline-flex;
+  flex-shrink: 0;
+  color: var(--muted, #666);
 }
 .ds-layers-panel__type {
   font-size: 0.625rem;

@@ -93,6 +93,7 @@ export function Button({
         rel={rel}
         download={download}
         aria-disabled={disabled || undefined}
+        {...rest}
         {...(disabled ? { tabIndex: -1, onClick: (e) => e.preventDefault() } : {})}
       >
         {content}

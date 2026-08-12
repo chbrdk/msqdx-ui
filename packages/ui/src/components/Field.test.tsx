@@ -41,6 +41,17 @@ describe('Field', () => {
     expect(container.querySelector('.ds-select--md')).toBeTruthy()
   })
 
+  it('renders an optional leading icon in the label', () => {
+    render(
+      <Field label="Width" icon={<span data-testid="field-icon">W</span>}>
+        <Input />
+      </Field>,
+    )
+    expect(screen.getByTestId('field-icon')).toBeTruthy()
+    expect(screen.getByText('Width')).toBeTruthy()
+    expect(screen.getByRole('textbox')).toHaveAttribute('id')
+  })
+
   it('renders hint text', () => {
     render(
       <Field label="Q" hint="Helper">

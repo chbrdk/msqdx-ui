@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   Alert,
   EmptyState,
@@ -14,6 +14,10 @@ import {
   ToggleGroup,
   Chip,
 } from './index'
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('Foundation primitives', () => {
   it('Panel dual-classes module-panel', () => {
@@ -68,6 +72,27 @@ describe('Foundation primitives', () => {
     )
     fireEvent.click(screen.getByRole('button', { name: 'EN' }))
     expect(onChange).toHaveBeenCalledWith('en')
+  })
+
+  it('ToggleGroup icon variant uses option label as accessible name', () => {
+    const onChange = vi.fn()
+    render(
+      <ToggleGroup
+        aria-label="Align"
+        variant="icon"
+        value="start"
+        onChange={onChange}
+        options={[
+          { value: 'start', label: 'start', icon: <span data-testid="align-start">S</span> },
+          { value: 'center', label: 'center', icon: <span>C</span> },
+        ]}
+      />,
+    )
+    const group = screen.getByRole('group', { name: 'Align' })
+    expect(group.className).toContain('ds-toggle-group--icon')
+    expect(screen.getByTestId('align-start')).toBeTruthy()
+    fireEvent.click(screen.getByRole('button', { name: 'center' }))
+    expect(onChange).toHaveBeenCalledWith('center')
   })
 
   it('Hint / FilterRow / StatusDot / Alert / Loading / Empty', () => {

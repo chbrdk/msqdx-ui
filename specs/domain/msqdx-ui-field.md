@@ -69,6 +69,7 @@
 | Prop | Notes |
 |------|--------|
 | `Field.label` | string or node; wires `htmlFor` → control `id` |
+| `Field.icon` | Optional 16px leading icon in the label row (inspect density) |
 | `Field.layout` | `stack` \| `inline` |
 | `Select.options` | `{ value, label, disabled? }[]` |
 | `Select.value` / `onChange(value)` | controlled string |

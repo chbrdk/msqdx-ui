@@ -52,6 +52,18 @@ describe('TokenPicker', () => {
     expect(onClear).toHaveBeenCalledTimes(1)
   })
 
+  it('renders an optional label icon', () => {
+    render(
+      <TokenPicker
+        label="Fill"
+        icon={<span data-testid="token-icon">F</span>}
+        options={[{ path: 'color.accent' }]}
+      />,
+    )
+    expect(screen.getByTestId('token-icon')).toBeInTheDocument()
+    expect(screen.getByText('Fill')).toBeInTheDocument()
+  })
+
   it('does not render a free-text CSS input', () => {
     const { container } = render(
       <TokenPicker options={[{ path: 'color.accent' }]} value="color.accent" />,

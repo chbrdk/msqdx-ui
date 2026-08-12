@@ -43,6 +43,8 @@ type LayersPanelItem = {
   label: string
   /** Optional type meta (e.g. Stack, Text) shown beside the label. */
   type?: string
+  /** Optional leading glyph (type icon). */
+  icon?: ReactNode
   /** Visual: dimmed / struck when true (canvas hide). */
   hidden?: boolean
   /** Visual: lock affordance pressed; row not draggable when true. */

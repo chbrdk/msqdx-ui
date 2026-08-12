@@ -12,6 +12,8 @@ export type FieldSize = 'sm' | 'md'
 
 export type FieldProps = {
   label?: ReactNode
+  /** Optional 16px leading glyph in the label row (inspect density). */
+  icon?: ReactNode
   hint?: ReactNode
   /** Validation message — sets invalid chrome + aria when present */
   error?: ReactNode
@@ -44,6 +46,7 @@ type ControlChildProps = {
  */
 export function Field({
   label,
+  icon,
   hint,
   error,
   invalid,
@@ -86,8 +89,13 @@ export function Field({
         className,
       )}
     >
-      {label != null ? (
+      {label != null || icon != null ? (
         <label className="ds-field-label" htmlFor={id}>
+          {icon != null ? (
+            <span className="ds-field-icon" aria-hidden>
+              {icon}
+            </span>
+          ) : null}
           {typeof label === 'string' || typeof label === 'number' ? (
             <Text role="label" as="span">
               {label}

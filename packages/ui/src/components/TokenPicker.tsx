@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type HTMLAttributes } from 'react'
+import { useEffect, useRef, useState, type HTMLAttributes, type ReactNode } from 'react'
 
 export type TokenPickerOption = {
   path: string
@@ -27,6 +27,8 @@ export type TokenPickerProps = {
   prevLabel?: string
   nextLabel?: string
   label?: string
+  /** Optional 16px glyph beside the label. */
+  icon?: ReactNode
   /**
    * `compact` (default): Penpot strip; option list is a popover.
    * `list`: always-open dense list (Storybook / debug).
@@ -58,6 +60,7 @@ export function TokenPicker({
   prevLabel = 'Previous token',
   nextLabel = 'Next token',
   label = 'Token',
+  icon,
   variant = 'compact',
   'aria-label': ariaLabel = 'Token picker',
   ...rest
@@ -168,7 +171,14 @@ export function TokenPicker({
       aria-label={ariaLabel}
       {...rest}
     >
-      <div className="ds-token-picker__label">{label}</div>
+      <div className="ds-token-picker__label">
+        {icon != null ? (
+          <span className="ds-token-picker__icon" aria-hidden>
+            {icon}
+          </span>
+        ) : null}
+        {label}
+      </div>
 
       <div className="ds-token-picker__current">
         <button

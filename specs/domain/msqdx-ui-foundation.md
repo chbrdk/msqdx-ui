@@ -24,7 +24,7 @@
 | `MetricChip` | `.metric-chip` | OpsStrip KPI |
 | `PageTitle` | `.page-title` | topbar h1 |
 | `Textarea` | — | Field family; native textarea |
-| `ToggleGroup` | `.locale-toggle` | Chip-based exclusive select |
+| `ToggleGroup` | `.locale-toggle` | Chip-based exclusive select; `variant="icon"` for square icon chips |
 | `Hint` | `.hint` / `.panel-hint` | mono click-path |
 | `FilterRow` | `.filter-row` | wrap chips/fields |
 | `StatusDot` | `.status-dot` | ok/warn/critical |

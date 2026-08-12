@@ -57,6 +57,16 @@ describe('Button', () => {
     expect(link.className).toContain('ds-btn--square')
   })
 
+  it('forwards aria-label and data-testid onto href anchors', () => {
+    render(
+      <Button href="/compositions" variant="ghost" size="sm" aria-label="Back" data-testid="editor-back" />,
+    )
+    const link = screen.getByTestId('editor-back')
+    expect(link.tagName).toBe('A')
+    expect(link).toHaveAttribute('href', '/compositions')
+    expect(link).toHaveAttribute('aria-label', 'Back')
+  })
+
   it('buttonClassName matches Button defaults', () => {
     expect(buttonClassName()).toContain('ds-btn--primary')
     expect(buttonClassName()).toContain('ds-btn--md')

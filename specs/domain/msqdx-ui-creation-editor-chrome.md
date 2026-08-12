@@ -23,7 +23,9 @@
 - Inspector body stacks `InspectSection` blocks (Penpot-like section chrome). Hide the organism title row (`.ds-property-inspector__head`) — tabs + sections are enough.
 - Inspect Field labels inside the rail are sentence-case muted (not magazine all-caps orange).
 - Token fields: compact strip (swatch + path + optional `onClear` / `allowNone` / `allowCycle`); option list is a **popover** (`variant="compact"`, default). `variant="list"` is Storybook/debug only.
-- Palette buttons stack label + description (`flex-direction: column`) so names do not concatenate (`Stack` + `Top-N` ≠ `StackTop-N`).
+- Palette buttons stack label + description (`flex-direction: column`) so names do not concatenate (`Stack` + `Top-N` ≠ `StackTop-N`). Optional `icon` on palette / layers items.
+- `ToggleGroup` `variant="icon"`: square chips; `option.icon` visible, `option.label` is the accessible name.
+- `Field.icon` / `TokenPicker` `icon`: leading 16px prop glyph. Apps own the name→icon map.
 - Apps own field catalogs; UI never invents free `#hex` / `px` inputs.
 
 ## Rules

@@ -5,6 +5,8 @@ export type ComponentPaletteItem = {
   id: string
   label: string
   description?: string
+  /** Optional leading type glyph. */
+  icon?: ReactNode
 }
 
 export type ComponentPaletteProps = {
@@ -42,6 +44,7 @@ export function ComponentPalette({
               type="button"
               variant="ghost"
               size="sm"
+              icon={item.icon}
               className="ds-component-palette__btn"
               onClick={() => onAdd?.(item.id)}
             >

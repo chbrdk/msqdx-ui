@@ -1,12 +1,23 @@
 'use client'
 
-import { useState, type DragEvent, type HTMLAttributes } from 'react'
+import { useState, type DragEvent, type HTMLAttributes, type ReactNode } from 'react'
+import {
+  IconChevronDown,
+  IconChevronRight,
+  IconChevronUp,
+  IconEye,
+  IconEyeOff,
+  IconLock,
+  IconUnlock,
+} from './icons'
 
 export type LayersPanelItem = {
   id: string
   label: string
   /** Optional type meta shown beside the label (e.g. Stack, Text). */
   type?: string
+  /** Optional leading glyph (type icon). */
+  icon?: ReactNode
   /** Visual: dimmed when true (canvas hide). */
   hidden?: boolean
   /** Visual: lock pressed; row not draggable when true. */
@@ -189,7 +200,7 @@ function LayerRow({
             aria-label={open ? 'Collapse' : 'Expand'}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? '▾' : '▸'}
+            {open ? <IconChevronDown size={12} /> : <IconChevronRight size={12} />}
           </button>
         ) : (
           <span className="ds-layers-panel__chevron ds-layers-panel__chevron--spacer" aria-hidden />
@@ -204,6 +215,11 @@ function LayerRow({
           aria-current={selected ? 'true' : undefined}
           onClick={() => onSelect?.(item.id)}
         >
+          {item.icon ? (
+            <span className="ds-layers-panel__glyph" aria-hidden>
+              {item.icon}
+            </span>
+          ) : null}
           {item.type ? <span className="ds-layers-panel__type">{item.type}</span> : null}
           <span className="ds-layers-panel__label">{item.label}</span>
         </button>
@@ -221,7 +237,7 @@ function LayerRow({
                 aria-pressed={item.hidden === true}
                 onClick={() => onToggleHidden?.(item.id)}
               >
-                {item.hidden ? '◌' : '◉'}
+                {item.hidden ? <IconEyeOff size={12} /> : <IconEye size={12} />}
               </button>
             ) : null}
             {showLocked ? (
@@ -236,7 +252,7 @@ function LayerRow({
                 aria-pressed={item.locked === true}
                 onClick={() => onToggleLocked?.(item.id)}
               >
-                {item.locked ? '▣' : '□'}
+                {item.locked ? <IconLock size={12} /> : <IconUnlock size={12} />}
               </button>
             ) : null}
             {showReorder ? (
@@ -249,7 +265,7 @@ function LayerRow({
                   disabled={!canUp}
                   onClick={() => move('up')}
                 >
-                  ▲
+                  <IconChevronUp size={12} />
                 </button>
                 <button
                   type="button"
@@ -259,7 +275,7 @@ function LayerRow({
                   disabled={!canDown}
                   onClick={() => move('down')}
                 >
-                  ▼
+                  <IconChevronDown size={12} />
                 </button>
               </span>
             ) : null}

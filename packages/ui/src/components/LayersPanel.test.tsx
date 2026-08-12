@@ -56,6 +56,15 @@ describe('LayersPanel', () => {
     expect(screen.getByTestId('layers-panel-item-root')).not.toHaveAttribute('aria-current')
   })
 
+  it('renders an optional row icon', () => {
+    render(
+      <LayersPanel
+        items={[{ id: 'root', label: 'Root', icon: <span data-testid="layer-icon">S</span> }]}
+      />,
+    )
+    expect(screen.getByTestId('layer-icon')).toBeInTheDocument()
+  })
+
   it('shows empty label when items is empty', () => {
     render(<LayersPanel items={[]} emptyLabel="No layers yet" />)
     expect(screen.getByText('No layers yet')).toBeInTheDocument()
