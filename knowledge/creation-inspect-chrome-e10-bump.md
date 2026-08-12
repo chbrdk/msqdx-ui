@@ -24,8 +24,13 @@ Apps own name → icon maps. Values stay token/enum.
 
 ## Pin after push
 
+E10 icon chrome is **committed** on `msqdx-ui` `main`.
+
 ```dockerfile
-ARG MSQDX_UI_REF=<this-commit-sha>
+ARG MSQDX_UI_REF=64e855871ea3313d4b26262576235336d86b4966
 ```
+
+**Wave commit (full):** `64e855871ea3313d4b26262576235336d86b4966`  
+**Short:** `64e8558`
 
 Grep in creation-v3 Dockerfile: `ds-toggle-group--icon` · `IconUndo`.
