@@ -23,23 +23,19 @@
 5. Pin Dockerfile after this work is **committed & pushed** on `msqdx-ui`:
 
 ```dockerfile
-ARG MSQDX_UI_REF=<sha-below>
+ARG MSQDX_UI_REF=7e771cedfaecdf741a6b72e97b160e849409a253
 ```
 
 ## Suggested `MSQDX_UI_REF`
 
-Inspect chrome changes are **local / uncommitted** in msqdx-ui (do not pin until committed + pushed).
-
-1. Commit only inspect-chrome files (leave `chat-blocks-backlog`, `ChatCatalog`, `msqdx-brand-colors` out).
-2. `git rev-parse HEAD` → full sha.
-3. Push, then set creation-v3 `Dockerfile`:
+Inspect chrome wave is **committed & pushed** on `msqdx-ui` `main`.
 
 ```dockerfile
-ARG MSQDX_UI_REF=<that-full-sha>
+ARG MSQDX_UI_REF=7e771cedfaecdf741a6b72e97b160e849409a253
 ```
 
-**Current HEAD (pre-density commit):** `f5b6c97f62e9833aa079505f93f9f4fefa4158ca`  
-**Post-commit target:** replace with the new HEAD sha once this wave is on the remote creation fetches.
+**Wave commit (full):** `7e771cedfaecdf741a6b72e97b160e849409a253`  
+**Short:** `7e771ce`
 
 ## Paths
 
