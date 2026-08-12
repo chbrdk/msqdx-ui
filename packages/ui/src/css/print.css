@@ -2,30 +2,30 @@
 
 .msqdx-print-page {
   --print-ink: #111111;
-  --print-ink-soft: #3a3a3a;
-  --print-muted: #6b6b6b;
-  --print-line: #d8d8d8;
+  --print-ink-soft: #3d3d3d;
+  --print-muted: #737373;
+  --print-line: #e2e2e0;
   --print-paper: #ffffff;
-  --print-wash: #f6f6f5;
+  --print-wash: #f4f4f2;
   --print-accent: #00ca55;
   --print-accent-ink: #007a33;
   --print-neg: #c23b2a;
   --print-warn: #b45309;
-  --print-track: #e8e8e6;
+  --print-track: #ecece9;
   box-sizing: border-box;
-  width: min(100%, 42rem);
+  width: min(100%, 36rem);
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2.75rem 3rem 3.25rem;
   background: var(--print-paper);
   color: var(--print-ink);
-  font-family: system-ui, sans-serif;
+  font-family: 'Noto Sans', 'Noto Sans JP', system-ui, sans-serif;
   font-size: 0.95rem;
-  line-height: 1.35;
+  line-height: 1.45;
   border: 1px solid var(--print-line);
 }
 
 .msqdx-print-eyebrow {
-  margin: 0 0 0.25rem;
+  margin: 0 0 0.55rem;
   font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.12em;
@@ -34,33 +34,36 @@
 }
 
 .msqdx-print-headline {
-  margin: 0 0 0.35rem;
-  font-size: 1.35rem;
+  margin: 0 0 0.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1.15;
+  max-width: 28ch;
 }
 
 .msqdx-print-cover-headline {
-  margin: 0 0 0.35rem;
-  font-size: 2rem;
+  margin: 0 0 0.65rem;
+  font-size: 1.85rem;
   font-weight: 700;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
   line-height: 1.12;
+  max-width: 16ch;
 }
 
 .msqdx-print-accent-rule {
-  width: 2.25rem;
-  height: 2px;
-  margin: 0 0 0.75rem;
+  width: 2.5rem;
+  height: 2.5px;
+  margin: 0 0 1rem;
   background: var(--print-accent);
 }
 
 .msqdx-print-lede {
-  margin: 0 0 0.85rem;
+  margin: 0 0 1.15rem;
   color: var(--print-ink-soft);
   font-size: 1.02rem;
-  line-height: 1.3;
+  line-height: 1.45;
+  max-width: 38ch;
 }
 
 .msqdx-print-body {
