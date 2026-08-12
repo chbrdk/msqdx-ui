@@ -281,3 +281,177 @@
   text-transform: uppercase;
   color: var(--print-muted);
 }
+
+.msqdx-print-chapter-index {
+  margin: 0 0 0.35rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--print-accent-ink);
+}
+
+.msqdx-print-sub-eyebrow {
+  margin: 0 0 0.55rem;
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--print-muted);
+}
+
+.msqdx-print-cover-meta {
+  margin-bottom: 1.25rem;
+}
+
+/* 50% + padding gutters — never % width + flex gap overflow twin */
+.msqdx-print-two-col {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.msqdx-print-two-col__cell {
+  width: 50%;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding-right: 0.75rem;
+}
+
+.msqdx-print-two-col__cell + .msqdx-print-two-col__cell {
+  padding-right: 0;
+  padding-left: 0.75rem;
+}
+
+.msqdx-print-ranked__text {
+  min-width: 0;
+}
+
+.msqdx-print-ranked--compact {
+  gap: 0.35rem;
+}
+
+.msqdx-print-ranked--compact .msqdx-print-ranked__row {
+  padding-bottom: 0.3rem;
+}
+
+.msqdx-print-ranked--compact .msqdx-print-ranked__label {
+  font-size: 0.72rem;
+}
+
+.msqdx-print-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.25rem 0 0.55rem;
+}
+
+.msqdx-print-chip {
+  display: inline-block;
+  max-width: 100%;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--print-line);
+  font-size: 0.6rem;
+  color: var(--print-ink);
+}
+
+.msqdx-print-traits {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+  width: 100%;
+}
+
+.msqdx-print-traits__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--print-muted);
+}
+
+.msqdx-print-traits__meta span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.msqdx-print-traits__track {
+  height: 2px;
+  width: 100%;
+  background: var(--print-track);
+}
+
+.msqdx-print-traits__fill {
+  height: 2px;
+  background: var(--print-accent);
+}
+
+.msqdx-print-persona {
+  width: 100%;
+  padding-top: 0.75rem;
+  border-top: 1.5px solid var(--print-ink);
+}
+
+.msqdx-print-persona--spread {
+  padding-top: 0.5rem;
+}
+
+.msqdx-print-persona__name {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.msqdx-print-persona__bio {
+  margin: 0.55rem 0 0.35rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--print-ink-soft);
+}
+
+.msqdx-print-persona-grid {
+  width: 100%;
+}
+
+.msqdx-print-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.msqdx-print-table th {
+  text-align: left;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--print-muted);
+  border-bottom: 1px solid var(--print-ink);
+  padding: 0.35rem 0.4rem 0.45rem 0;
+}
+
+.msqdx-print-table td {
+  border-bottom: 1px solid var(--print-line);
+  padding: 0.4rem 0.4rem 0.4rem 0;
+  color: var(--print-ink-soft);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.msqdx-print-dist-grid {
+  display: flex;
+  width: 100%;
+  margin-top: 0.65rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--print-line);
+}
+
+.msqdx-print-dist-grid > * {
+  width: 33.333%;
+  max-width: 33.333%;
+  min-width: 0;
+  padding-right: 0.65rem;
+  box-sizing: border-box;
+}
+

@@ -5,8 +5,12 @@ import {
   PrintDonut,
   PrintLedger,
   PrintPage,
+  PrintPersonaGrid,
+  PrintPullQuote,
   PrintRankedList,
   PrintScoreRing,
+  PrintTable,
+  PrintTwoColumn,
 } from './PrintPrimitives'
 
 const meta = {
@@ -21,7 +25,7 @@ type Story = StoryObj<typeof meta>
 /** Full Quick Check print template twin — chapter rhythm for design review. */
 export const MagazineDeck: Story = {
   render: () => (
-    <PrintPage>
+    <PrintPage folioTitle="beispiel.de" folioPage="1 — 6">
       <PrintCover
         eyebrow="MSQDX · Quick Check"
         title="beispiel.de — Quick Check"
@@ -35,29 +39,38 @@ export const MagazineDeck: Story = {
         ]}
       />
 
-      <PrintChapter eyebrow="Domain-Scan" title="Domain & Barrierefreiheit" lede="beispiel.de">
-        <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1rem' }}>
-          <PrintScoreRing value={57} label="Score" />
-          <div>
-            <div className="msqdx-print-kpi__value">50</div>
-            <div className="msqdx-print-kpi__label">Seiten</div>
-            <p className="msqdx-print-meta">Fehler 213 · Warnungen 0</p>
-          </div>
-        </div>
-        <PrintRankedList
-          items={[
-            { label: 'Form without submit button', meta: '50×' },
-            { label: 'Img with empty alt', meta: '49×' },
-          ]}
+      <PrintChapter index="01" eyebrow="Domain-Scan" title="Domain & Barrierefreiheit" lede="beispiel.de">
+        <PrintTwoColumn
+          left={
+            <div style={{ display: 'flex', marginBottom: '0.75rem' }}>
+              <div style={{ marginRight: '1rem' }}>
+                <PrintScoreRing value={57} label="Score" />
+              </div>
+              <div>
+                <div className="msqdx-print-kpi__value">50</div>
+                <div className="msqdx-print-kpi__label">Seiten</div>
+                <p className="msqdx-print-meta">Fehler 213 · Warnungen 0</p>
+              </div>
+            </div>
+          }
+          right={
+            <div>
+              <p className="msqdx-print-sub-eyebrow">Top Issues</p>
+              <PrintRankedList
+                compact
+                items={[
+                  { label: 'Form without submit button', meta: '50×' },
+                  { label: 'Img with empty alt', meta: '49×' },
+                  { label: 'Link without discernible name', meta: '31×' },
+                ]}
+              />
+            </div>
+          }
         />
       </PrintChapter>
 
-      <PrintChapter
-        eyebrow="Verteilungen"
-        title="Anteil am Corpus"
-        lede="Donuts zeigen die Zusammensetzung."
-      >
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem' }}>
+      <PrintChapter index="02" eyebrow="Verteilungen" title="Anteil am Corpus" lede="Donuts in einer Zeile.">
+        <div className="msqdx-print-dist-grid">
           <div>
             <p className="msqdx-print-eyebrow">Lesbarkeit</p>
             <PrintDonut
@@ -94,10 +107,38 @@ export const MagazineDeck: Story = {
         </div>
       </PrintChapter>
 
-      <PrintChapter eyebrow="E-E-A-T" title="E-E-A-T" lede="Schwächste Signale zuerst.">
+      <PrintChapter index="03" eyebrow="Personas" title="Personas">
+        <PrintPersonaGrid
+          personas={[
+            {
+              name: 'Anna Planer',
+              segment: 'B2B',
+              confidence: 0.82,
+              bio: 'Plant Filialausstattung und braucht belastbare Lieferversprechen.',
+              traits: [
+                { displayName: 'Preis', score: 62 },
+                { displayName: 'Vertrauen', score: 78 },
+              ],
+              goals: ['Schnelle Verfügbarkeit'],
+              painPoints: ['Unklare Lieferzeiten'],
+            },
+            {
+              name: 'Jonas Sucher',
+              segment: 'Privat',
+              confidence: 0.71,
+              bio: 'Vergleicht online und erwartet Prompt-taugliche Antworten.',
+              traits: [{ displayName: 'Recherche', score: 84 }],
+              goals: ['Passende Variante'],
+            },
+          ]}
+        />
+      </PrintChapter>
+
+      <PrintChapter index="04" eyebrow="E-E-A-T" title="E-E-A-T">
+        <PrintPullQuote body="Schwächste Signale zuerst — Erfahrung und lokal nachweisbare Expertise." />
         <PrintLedger
           items={[
-            { label: 'Erfahrung', score: 34 },
+            { label: 'Erfahrung', score: 34, detail: 'Wenig First-Hand-Nachweis' },
             { label: 'Fachkompetenz', score: 58 },
             { label: 'Autorität', score: 71 },
             { label: 'Vertrauen', score: 82 },
@@ -105,11 +146,24 @@ export const MagazineDeck: Story = {
         />
       </PrintChapter>
 
-      <PrintChapter eyebrow="GEO-Empfehlungen" title="GEO-Empfehlungen">
+      <PrintChapter index="05" eyebrow="Vergleich" title="Domain-Vergleich">
+        <PrintTable
+          columns={['Domain', 'Rolle', 'Score', 'Seiten']}
+          rows={[
+            ['beispiel.de', 'Eigen', 57, 50],
+            ['wettbewerber.de', 'Wettbewerb', 61, 120],
+          ]}
+        />
+      </PrintChapter>
+
+      <PrintChapter index="06" eyebrow="GEO" title="GEO-Empfehlungen">
         <PrintRankedList
+          columns={2}
           items={[
             { label: 'FAQ-Schema ergänzen', meta: 'Strukturierte Antworten für LLMs.' },
             { label: 'Autorenboxen auf Ratgeberseiten' },
+            { label: 'Lokale Landingpages mit Prompt-Ankern' },
+            { label: 'Lieferversprechen standardisieren' },
           ]}
         />
       </PrintChapter>

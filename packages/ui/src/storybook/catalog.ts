@@ -119,13 +119,19 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ChatQuoteList', layer: 'Molecules', title: 'Molecules/ChatQuoteList', stories: 'components/ChatQuoteList.stories.tsx', mdx: 'components/ChatQuoteList.mdx' },
   { id: 'ChatCatalog', layer: 'Organisms', title: 'Organisms/ChatCatalog', stories: 'components/ChatCatalog.stories.tsx', mdx: 'components/ChatCatalog.mdx' },
   { id: 'BrandionTokenStudio', layer: 'Templates', title: 'Templates/BrandionTokenStudio', stories: 'components/BrandionTokenStudio.stories.tsx', mdx: 'components/BrandionTokenStudio.mdx' },
-  // Print (magazine PDF visual twins)
+  // Print (magazine PDF visual twins — keep in sync with plexon pdf/magazine)
   { id: 'PrintCover', layer: 'Print', title: 'Print/Cover', stories: 'print/PrintCover.stories.tsx', mdx: 'print/PrintCover.mdx' },
   { id: 'PrintChapter', layer: 'Print', title: 'Print/Chapter', stories: 'print/PrintChapter.stories.tsx', mdx: 'print/PrintChapter.mdx' },
   { id: 'PrintScoreRing', layer: 'Print', title: 'Print/ScoreRing', stories: 'print/PrintScoreRing.stories.tsx', mdx: 'print/PrintScoreRing.mdx' },
   { id: 'PrintDonut', layer: 'Print', title: 'Print/Donut', stories: 'print/PrintDonut.stories.tsx', mdx: 'print/PrintDonut.mdx' },
   { id: 'PrintLedger', layer: 'Print', title: 'Print/Ledger', stories: 'print/PrintLedger.stories.tsx', mdx: 'print/PrintLedger.mdx' },
   { id: 'PrintRankedList', layer: 'Print', title: 'Print/RankedList', stories: 'print/PrintRankedList.stories.tsx', mdx: 'print/PrintRankedList.mdx' },
+  { id: 'PrintTwoColumn', layer: 'Print', title: 'Print/TwoColumn', stories: 'print/PrintTwoColumn.stories.tsx', mdx: 'print/PrintTwoColumn.mdx' },
+  { id: 'PrintPullQuote', layer: 'Print', title: 'Print/PullQuote', stories: 'print/PrintPullQuote.stories.tsx', mdx: 'print/PrintPullQuote.mdx' },
+  { id: 'PrintPersonaGrid', layer: 'Print', title: 'Print/PersonaGrid', stories: 'print/PrintPersonaGrid.stories.tsx', mdx: 'print/PrintPersonaGrid.mdx' },
+  { id: 'PrintTraitBars', layer: 'Print', title: 'Print/TraitBars', stories: 'print/PrintTraitBars.stories.tsx', mdx: 'print/PrintTraitBars.mdx' },
+  { id: 'PrintTable', layer: 'Print', title: 'Print/Table', stories: 'print/PrintTable.stories.tsx', mdx: 'print/PrintTable.mdx' },
+  { id: 'PrintChip', layer: 'Print', title: 'Print/Chip', stories: 'print/PrintChip.stories.tsx', mdx: 'print/PrintChip.mdx' },
   { id: 'PrintQuickCheck', layer: 'Print', title: 'Print/QuickCheck', stories: 'print/PrintQuickCheck.stories.tsx', mdx: 'print/PrintQuickCheck.mdx' },
 ]
 

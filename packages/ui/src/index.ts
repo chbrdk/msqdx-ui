@@ -284,8 +284,16 @@ export {
   PrintDonut,
   PrintRankedList,
   PrintLedger,
+  PrintTwoColumn,
+  PrintPullQuote,
+  PrintChip,
+  PrintChipRow,
+  PrintTraitBars,
+  PrintPersonaCard,
+  PrintPersonaGrid,
+  PrintTable,
 } from './print/PrintPrimitives'
-export type { PrintDonutSlice } from './print/PrintPrimitives'
+export type { PrintDonutSlice, PrintPersona } from './print/PrintPrimitives'
 export { printMagColors } from './print/tokens'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

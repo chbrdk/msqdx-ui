@@ -14,14 +14,15 @@ export const Default: Story = {
   render: () => (
     <PrintPage>
       <PrintChapter
-        eyebrow="Domain-Scan"
-        title="Domain & Barrierefreiheit"
-        lede="beispiel.de"
+        index="02"
+        eyebrow="Markt & Trends"
+        title="Markt & Trends"
+        lede="Kurzüberblick über Nachfrage und Wettbewerb."
       >
         <PrintRankedList
           items={[
-            { label: 'Form without submit button', meta: '50×' },
-            { label: 'Img with empty alt', meta: '49×' },
+            { label: 'Nachfrage nach konfigurierbaren Sets steigt' },
+            { label: 'Lokale Verfügbarkeit bleibt Kaufkriterium' },
           ]}
         />
       </PrintChapter>

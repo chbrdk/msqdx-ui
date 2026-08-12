@@ -11,6 +11,7 @@
 - Storybook container port: **6006** (static nginx; `Dockerfile` + `docker/nginx-storybook.conf`)
 - Storybook staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`; Coolify app `msqdx-ui:main-rapp` · UUID `rtxcfh4gtxi6yba5l70fu177`)
 - Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
+- Print magazine twins (EQC PDF): Storybook layer `Print/` · `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · twin of plexon `lib/assistant/reports/pdf/magazine/` · deck `?path=/story/print-quickcheck--magazine-deck`
 - Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
 - ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`
