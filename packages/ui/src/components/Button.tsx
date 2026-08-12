@@ -1,4 +1,9 @@
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react'
+import type {
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  MouseEvent,
+  ReactNode,
+} from 'react'
 
 export type ButtonVariant = 'primary' | 'ghost' | 'subtle' | 'danger' | 'link'
 export type ButtonSize = 'sm' | 'md' | 'lg'
@@ -38,7 +43,7 @@ export function buttonClassName({
   )
 }
 
-export type ButtonProps = {
+type ButtonChrome = {
   variant?: ButtonVariant
   size?: ButtonSize
   shape?: ButtonShape
@@ -48,34 +53,37 @@ export type ButtonProps = {
   block?: boolean
   children?: ReactNode
   className?: string
-  /**
-   * When set, renders an `<a>` with button classes (for external / plain links).
-   * Prefer wrapping `<Link><Button /></Link>` for Next.js app routes when you need client prefetch.
-   */
-  href?: string
-} & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> &
-  Pick<AnchorHTMLAttributes<HTMLAnchorElement>, 'target' | 'rel' | 'download'>
+}
+
+type ButtonAsButtonProps = ButtonChrome &
+  Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> & {
+    href?: undefined
+  }
+
+type ButtonAsLinkProps = ButtonChrome &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className'> & {
+    /** Renders an `<a>` with button classes (plain / external links). */
+    href: string
+    disabled?: boolean
+  }
+
+export type ButtonProps = ButtonAsButtonProps | ButtonAsLinkProps
 
 /**
  * Magazine button — square + md by default.
  * Spec: specs/domain/msqdx-ui-button.md
  */
-export function Button({
-  variant = 'primary',
-  size = 'md',
-  shape = 'square',
-  icon,
-  block = false,
-  children,
-  className,
-  type = 'button',
-  disabled,
-  href,
-  target,
-  rel,
-  download,
-  ...rest
-}: ButtonProps) {
+export function Button(props: ButtonProps) {
+  const {
+    variant = 'primary',
+    size = 'md',
+    shape = 'square',
+    icon,
+    block = false,
+    children,
+    className,
+    ...rest
+  } = props
   const classes = buttonClassName({ variant, size, shape, block, className })
   const content = (
     <>
@@ -84,7 +92,8 @@ export function Button({
     </>
   )
 
-  if (href != null) {
+  if ('href' in rest && rest.href != null) {
+    const { href, target, rel, download, disabled, ...anchorRest } = rest
     return (
       <a
         href={href}
@@ -93,16 +102,22 @@ export function Button({
         rel={rel}
         download={download}
         aria-disabled={disabled || undefined}
-        {...rest}
-        {...(disabled ? { tabIndex: -1, onClick: (e) => e.preventDefault() } : {})}
+        {...anchorRest}
+        {...(disabled
+          ? {
+              tabIndex: -1,
+              onClick: (e: MouseEvent<HTMLAnchorElement>) => e.preventDefault(),
+            }
+          : {})}
       >
         {content}
       </a>
     )
   }
 
+  const { type = 'button', disabled, ...buttonRest } = rest
   return (
-    <button type={type} disabled={disabled} className={classes} {...rest}>
+    <button type={type} disabled={disabled} className={classes} {...buttonRest}>
       {content}
     </button>
   )

@@ -14,6 +14,7 @@ E10 shipped icon slots, but Coolify failed: `pnpm-lock.yaml` still pinned `lucid
 |--------|--------|
 | Lockfile | `pnpm-lock.yaml` matches `lucide-react ^1.31.0` (latest as of 2026-08-12). |
 | Icons | Type/chrome wraps: italic/underline/strike, case, ban/ghost, min/max, scroll, dotted, move, minus, circle/sparkles/success/warning/danger. |
+| `Button` href | Discriminated link vs button props so `tsc` can spread a11y attrs onto `<a>` (Coolify `pnpm build`). |
 
 Apps own name → icon maps. Values stay token/enum.
 
