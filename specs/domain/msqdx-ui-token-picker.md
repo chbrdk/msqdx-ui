@@ -25,7 +25,8 @@ Compact control to **bind a property to a token path**. Values are **token paths
 | `onClear` | Optional clear affordance; called when user clears binding |
 | `clearLabel` | Accessible label for clear control (default `Clear`) |
 | `allowNone` | When true, list includes a none/empty option that calls `onClear` (or `onChange` is not used for empty) |
-| `noneLabel` | Label for none option (default `None`) |
+| `noneLabel` | Label for the none **list** option (default `None`) — not the empty strip |
+| `emptyLabel` | Current-strip placeholder when unbound (default `—`) |
 | `allowCycle` | When true, show −/+ on the current strip to step prev/next through `options` (token paths only) |
 | `prevLabel` | Accessible label for previous cycle (default `Previous token`) |
 | `nextLabel` | Accessible label for next cycle (default `Next token`) |
@@ -42,13 +43,15 @@ type TokenPickerOption = {
   label?: string
   /** Display-only CSS color for swatch; not written as the value. */
   preview?: string
+  /** Display-only font-family for the value label (type tokens). */
+  fontPreview?: string
 }
 ```
 
 ## Anatomy / density
 
 1. **Label** row (quiet meta).
-2. **Current value** strip: optional swatch + mono token path (or none placeholder) + optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set.
+2. **Current value** strip: optional color swatch + **option label** (or path) when bound, else `emptyLabel`; optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set. `fontPreview` renders the label in that font-family (display only).
 3. **Option list** (`role="listbox"`): swatch (if `preview`) + path/label; selected state outlined.
    - **compact (default):** list is a popover opened from the current strip (Penpot). Closed until the strip is clicked; choosing a token closes it.
    - **list:** always visible under the strip (Storybook / debug).
@@ -72,6 +75,6 @@ type TokenPickerOption = {
 
 ## Acceptance
 
-1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle.
-2. Tests: select path; clear calls `onClear`; none option; cycle prev/next; compact popover; no raw CSS field.
+1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle, FontFamily.
+2. Tests: select path; clear calls `onClear`; none option; cycle prev/next; compact popover; empty strip shows `emptyLabel` not `noneLabel`; labeled value; `fontPreview` style; no raw CSS field.
 3. Consuming apps import `TokenPicker` from `@msqdx/ui`.

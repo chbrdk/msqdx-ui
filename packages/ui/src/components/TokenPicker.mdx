@@ -13,6 +13,7 @@ Dense token-path picker for inspect bindings. **Values are token paths only** â€
 - AllowNone
 - DenseList (`variant="list"`)
 - WithCycle (`allowCycle` âˆ’/+)
+- FontFamily (`fontPreview` on the value label)
 
 ## Usage
 
@@ -20,12 +21,14 @@ Dense token-path picker for inspect bindings. **Values are token paths only** â€
 import { TokenPicker } from '@msqdx/ui'
 
 <TokenPicker
-  label="Color"
-  options={[{ path: 'color.accent', preview: '#245' }]}
+  label="Font"
+  options={[{ path: 'fontFamily.sans', label: 'Sans', fontPreview: 'Georgia, serif' }]}
   value={binding}
   onChange={(path) => setToken(path)}
   onClear={() => clearToken()}
   allowNone
+  emptyLabel="â€”"
+  noneLabel="None"
   allowCycle
 />
 ```

@@ -2467,6 +2467,20 @@ button.ds-marker-canvas__marker:focus-visible {
   min-height: 1.5rem;
   font-size: 0.75rem;
 }
+.ds-property-inspector .ds-select {
+  display: block;
+  width: 100%;
+  max-width: none;
+}
+.ds-property-inspector .ds-select-trigger {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+}
+.ds-property-inspector .ds-select-value {
+  flex: 1;
+  min-width: 0;
+}
 
 /* ComponentPalette */
 .ds-component-palette {
@@ -2637,6 +2651,13 @@ button.ds-marker-canvas__marker:focus-visible {
   white-space: nowrap;
   flex: 1;
   min-width: 0;
+}
+.ds-token-picker__path--empty {
+  color: var(--muted, #666);
+  font-family: inherit;
+}
+.ds-token-picker__path--font {
+  font-family: inherit;
 }
 .ds-token-picker__cycle {
   display: inline-flex;

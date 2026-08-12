@@ -127,4 +127,45 @@ describe('TokenPicker', () => {
     expect(onChange).toHaveBeenCalledWith('radius.lg')
     expect(screen.queryByRole('option', { name: /radius.lg/ })).toBeNull()
   })
+
+  it('empty strip shows emptyLabel, not noneLabel', () => {
+    render(
+      <TokenPicker
+        options={[{ path: 'fontFamily.sans', label: 'Sans' }]}
+        value={null}
+        allowNone
+        noneLabel="Clear token"
+        emptyLabel="—"
+      />,
+    )
+    expect(screen.getByTestId('token-picker-value')).toHaveTextContent('—')
+    expect(screen.getByTestId('token-picker-value')).not.toHaveTextContent('Clear token')
+  })
+
+  it('bound strip shows option label, not the token path', () => {
+    render(
+      <TokenPicker
+        options={[{ path: 'fontFamily.sans', label: 'Sans' }]}
+        value="fontFamily.sans"
+      />,
+    )
+    expect(screen.getByTestId('token-picker-value')).toHaveTextContent('Sans')
+    expect(screen.getByTestId('token-picker-value')).not.toHaveTextContent('fontFamily.sans')
+  })
+
+  it('fontPreview applies font-family on the value label', () => {
+    render(
+      <TokenPicker
+        options={[
+          {
+            path: 'fontFamily.serif',
+            label: 'Serif',
+            fontPreview: 'Georgia, serif',
+          },
+        ]}
+        value="fontFamily.serif"
+      />,
+    )
+    expect(screen.getByTestId('token-picker-value')).toHaveStyle({ fontFamily: 'Georgia, serif' })
+  })
 })

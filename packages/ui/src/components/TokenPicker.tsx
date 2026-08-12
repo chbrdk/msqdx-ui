@@ -7,6 +7,8 @@ export type TokenPickerOption = {
   label?: string
   /** Display-only CSS color for swatch; not written as the value. */
   preview?: string
+  /** Display-only font-family for the value label (type tokens). */
+  fontPreview?: string
 }
 
 export type TokenPickerVariant = 'compact' | 'list'
@@ -21,7 +23,10 @@ export type TokenPickerProps = {
   clearLabel?: string
   /** Include a none/empty option that invokes onClear. */
   allowNone?: boolean
+  /** Listbox none option only — never the empty strip. */
   noneLabel?: string
+  /** Current-strip placeholder when unbound (default em dash). */
+  emptyLabel?: string
   /** Show −/+ on the current strip to cycle prev/next through options (token paths only). */
   allowCycle?: boolean
   prevLabel?: string
@@ -56,6 +61,7 @@ export function TokenPicker({
   clearLabel = 'Clear',
   allowNone = false,
   noneLabel = 'None',
+  emptyLabel = '—',
   allowCycle = false,
   prevLabel = 'Previous token',
   nextLabel = 'Next token',
@@ -66,6 +72,8 @@ export function TokenPicker({
   ...rest
 }: TokenPickerProps) {
   const selectedOption = value ? options.find((opt) => opt.path === value) : undefined
+  const displayText = selectedOption?.label ?? value ?? emptyLabel
+  const fontPreview = selectedOption?.fontPreview
   const showClear = Boolean(onClear && value)
   const index = cycleIndex(value, options)
   const compact = variant === 'compact'
@@ -148,10 +156,13 @@ export function TokenPicker({
                   style={{ background: opt.preview }}
                   aria-hidden
                 />
-              ) : (
-                <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
-              )}
-              <span className="ds-token-picker__path">{opt.label ?? opt.path}</span>
+              ) : null}
+              <span
+                className={cx('ds-token-picker__path', opt.fontPreview && 'ds-token-picker__path--font')}
+                style={opt.fontPreview ? { fontFamily: opt.fontPreview } : undefined}
+              >
+                {opt.label ?? opt.path}
+              </span>
             </button>
           </li>
         )
@@ -198,11 +209,17 @@ export function TokenPicker({
               style={{ background: selectedOption.preview }}
               aria-hidden
             />
-          ) : (
-            <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
-          )}
-          <span className="ds-token-picker__path" data-testid="token-picker-value">
-            {value ?? noneLabel}
+          ) : null}
+          <span
+            className={cx(
+              'ds-token-picker__path',
+              !value && 'ds-token-picker__path--empty',
+              fontPreview && 'ds-token-picker__path--font',
+            )}
+            style={fontPreview ? { fontFamily: fontPreview } : undefined}
+            data-testid="token-picker-value"
+          >
+            {displayText}
           </span>
         </button>
         {allowCycle ? (

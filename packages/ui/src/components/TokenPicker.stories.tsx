@@ -95,3 +95,39 @@ export const WithCycle: Story = {
     )
   },
 }
+
+const FONT_OPTIONS = [
+  {
+    path: 'fontFamily.sans',
+    label: 'Sans',
+    fontPreview: 'ui-sans-serif, system-ui, sans-serif',
+  },
+  {
+    path: 'fontFamily.serif',
+    label: 'Serif',
+    fontPreview: 'ui-serif, Georgia, serif',
+  },
+  {
+    path: 'fontFamily.mono',
+    label: 'Mono',
+    fontPreview: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+  },
+]
+
+export const FontFamily: Story = {
+  render: function FontFamilyStory() {
+    const [value, setValue] = useState<string | null>('fontFamily.sans')
+    return (
+      <TokenPicker
+        label="Font"
+        options={FONT_OPTIONS}
+        value={value}
+        onChange={setValue}
+        onClear={() => setValue(null)}
+        allowNone
+        emptyLabel="—"
+        noneLabel="None"
+      />
+    )
+  },
+}
