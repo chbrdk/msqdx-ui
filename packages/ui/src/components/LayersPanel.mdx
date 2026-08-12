@@ -1,0 +1,36 @@
+# LayersPanel
+
+Layer: `organisms`
+
+Scene structure tree for composition editors. Apps map domain nodes to `{ id, label, type?, children? }`.
+
+**Spec:** `specs/domain/msqdx-ui-layers-panel.md`  
+**Related:** `ComponentPalette` (left rail insert) · CREATION `editor-workspace.md`
+
+## Stories
+
+- Default
+- Nested selection
+- Empty
+
+## Usage
+
+```tsx
+import { LayersPanel } from '@msqdx/ui'
+
+<LayersPanel
+  title="Layers"
+  items={[
+    {
+      id: 'root',
+      label: 'Page',
+      type: 'Stack',
+      children: [{ id: 't1', label: 'Title', type: 'Text' }],
+    },
+  ]}
+  selectedId={selectedId}
+  onSelect={setSelectedId}
+/>
+```
+
+Hide/lock/reorder stay in the app — this is select + expand chrome only.

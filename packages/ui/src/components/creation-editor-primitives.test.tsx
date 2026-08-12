@@ -12,6 +12,7 @@ import { CanvasViewport } from './CanvasViewport'
 import { SelectionHandles } from './SelectionHandles'
 import { PropertyInspector } from './PropertyInspector'
 import { ComponentPalette } from './ComponentPalette'
+import { LayersPanel } from './LayersPanel'
 import { TokenPicker } from './TokenPicker'
 
 afterEach(() => {
@@ -113,5 +114,17 @@ describe('creation editor primitives', () => {
     expect(onChange).toHaveBeenCalledWith('color.accent')
     screen.getByRole('button', { name: 'Clear' }).click()
     expect(onClear).toHaveBeenCalledTimes(1)
+  })
+
+  it('LayersPanel selects an item', () => {
+    const onSelect = vi.fn()
+    render(
+      <LayersPanel
+        items={[{ id: 'n1', label: 'Title', type: 'Text' }]}
+        onSelect={onSelect}
+      />,
+    )
+    screen.getByTestId('layers-panel-item-n1').click()
+    expect(onSelect).toHaveBeenCalledWith('n1')
   })
 })

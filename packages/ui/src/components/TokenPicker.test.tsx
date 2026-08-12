@@ -57,4 +57,41 @@ describe('TokenPicker', () => {
     expect(container.querySelector('input')).toBeNull()
     expect(container.querySelector('textarea')).toBeNull()
   })
+
+  it('cycles prev/next through options when allowCycle', () => {
+    const onChange = vi.fn()
+    const onClear = vi.fn()
+    const options = [
+      { path: 'radius.sm' },
+      { path: 'radius.md' },
+      { path: 'radius.lg' },
+    ]
+    const { rerender } = render(
+      <TokenPicker
+        options={options}
+        value="radius.md"
+        onChange={onChange}
+        onClear={onClear}
+        allowCycle
+        allowNone
+      />,
+    )
+    screen.getByRole('button', { name: 'Next token' }).click()
+    expect(onChange).toHaveBeenCalledWith('radius.lg')
+    screen.getByRole('button', { name: 'Previous token' }).click()
+    expect(onChange).toHaveBeenCalledWith('radius.sm')
+
+    rerender(
+      <TokenPicker
+        options={options}
+        value="radius.sm"
+        onChange={onChange}
+        onClear={onClear}
+        allowCycle
+        allowNone
+      />,
+    )
+    screen.getByRole('button', { name: 'Previous token' }).click()
+    expect(onClear).toHaveBeenCalled()
+  })
 })

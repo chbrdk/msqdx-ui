@@ -146,6 +146,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'SelectionHandles', layer: 'Organisms', title: 'Organisms/SelectionHandles', stories: 'components/SelectionHandles.stories.tsx', mdx: 'components/SelectionHandles.mdx' },
   { id: 'PropertyInspector', layer: 'Organisms', title: 'Organisms/PropertyInspector', stories: 'components/PropertyInspector.stories.tsx', mdx: 'components/PropertyInspector.mdx' },
   { id: 'ComponentPalette', layer: 'Organisms', title: 'Organisms/ComponentPalette', stories: 'components/ComponentPalette.stories.tsx', mdx: 'components/ComponentPalette.mdx' },
+  { id: 'LayersPanel', layer: 'Organisms', title: 'Organisms/LayersPanel', stories: 'components/LayersPanel.stories.tsx', mdx: 'components/LayersPanel.mdx' },
   { id: 'TokenPicker', layer: 'Organisms', title: 'Organisms/TokenPicker', stories: 'components/TokenPicker.stories.tsx', mdx: 'components/TokenPicker.mdx' },
 ]
 

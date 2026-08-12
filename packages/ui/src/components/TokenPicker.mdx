@@ -12,6 +12,7 @@ Dense token-path picker for inspect bindings. **Values are token paths only** â€
 - WithClear (`onClear`)
 - AllowNone
 - DenseList
+- WithCycle (`allowCycle` âˆ’/+)
 
 ## Usage
 
@@ -25,5 +26,6 @@ import { TokenPicker } from '@msqdx/ui'
   onChange={(path) => setToken(path)}
   onClear={() => clearToken()}
   allowNone
+  allowCycle
 />
 ```

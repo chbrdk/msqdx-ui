@@ -13,12 +13,13 @@
 | `PropertyInspector` | Organisms | Dense prop rail shell; app supplies fields |
 | `InspectSection` | Molecules | Title + body chrome inside the inspector |
 | `ComponentPalette` | Organisms | Draggable/clickable type list |
-| `TokenPicker` | Molecules | Token-path pick (+ optional clear / none); no raw CSS entry |
+| `LayersPanel` | Organisms | Scene structure tree (select / expand / collapse) |
+| `TokenPicker` | Molecules | Token-path pick (+ optional clear / none / −/+ cycle); no raw CSS entry |
 
 ## Density (inspect)
 
 - Inspector body stacks `InspectSection` blocks (Penpot-like section chrome).
-- Token fields: swatch + path + optional `onClear` / `allowNone` — values are token paths only.
+- Token fields: swatch + path + optional `onClear` / `allowNone` / `allowCycle` (−/+) — values are token paths only.
 - Apps own field catalogs; UI never invents free `#hex` / `px` inputs.
 
 ## Rules

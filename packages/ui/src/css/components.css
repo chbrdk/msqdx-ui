@@ -2576,4 +2576,116 @@ button.ds-marker-canvas__marker:focus-visible {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.ds-token-picker__cycle {
+  display: inline-flex;
+  gap: 0.1rem;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.ds-token-picker__cycle-btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  padding: 0.1rem 0.3rem;
+  color: var(--muted, #666);
+}
+.ds-token-picker__cycle-btn:hover {
+  color: var(--fg, #111);
+}
+.ds-token-picker__clear {
+  flex-shrink: 0;
+}
+.ds-token-picker__cycle + .ds-token-picker__clear {
+  margin-left: 0;
+}
+
+/* LayersPanel — scene structure tree */
+.ds-layers-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 12rem;
+  border-right: 1px solid var(--border, rgba(0, 0, 0, 0.12));
+  background: var(--surface-1, #fff);
+  min-height: 0;
+}
+.ds-layers-panel__head {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  font-size: 0.8125rem;
+}
+.ds-layers-panel__list {
+  list-style: none;
+  margin: 0;
+  padding: 0.25rem 0;
+  overflow: auto;
+}
+.ds-layers-panel__item {
+  margin: 0;
+}
+.ds-layers-panel__row {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  min-height: 1.5rem;
+  box-sizing: border-box;
+}
+.ds-layers-panel__chevron {
+  flex-shrink: 0;
+  width: 1.1rem;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.65rem;
+  line-height: 1;
+  padding: 0.15rem 0;
+  color: var(--muted, #666);
+}
+.ds-layers-panel__chevron--spacer {
+  visibility: hidden;
+  pointer-events: none;
+}
+.ds-layers-panel__btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.15rem 0.35rem 0.15rem 0;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+.ds-layers-panel__btn:hover {
+  background: var(--surface-2, #f4f4f4);
+}
+.ds-layers-panel__btn--selected {
+  background: color-mix(in srgb, var(--accent, #245) 12%, transparent);
+}
+.ds-layers-panel__type {
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted, #666);
+  flex-shrink: 0;
+}
+.ds-layers-panel__label {
+  font-size: 0.8125rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ds-layers-panel__empty {
+  margin: 0.75rem;
+  color: var(--muted, #666);
+  font-size: 0.8125rem;
 }

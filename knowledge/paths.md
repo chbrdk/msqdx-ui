@@ -13,6 +13,8 @@
 - CREATION keep-tag mapping: `knowledge/ds-keep-mapping.md`
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`
 - CREATION inspect density bump (MSQDX_UI_REF note): `knowledge/creation-inspect-chrome-bump.md`
+- CREATION layers panel bump (MSQDX_UI_REF note): `knowledge/creation-layers-panel-bump.md`
+- LayersPanel: `packages/ui/src/components/LayersPanel.tsx` · spec `specs/domain/msqdx-ui-layers-panel.md` · Storybook `Organisms/LayersPanel`
 - InspectSection: `packages/ui/src/components/InspectSection.tsx` · spec `specs/domain/msqdx-ui-inspect-section.md` · Storybook `Molecules/InspectSection`
 - PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`

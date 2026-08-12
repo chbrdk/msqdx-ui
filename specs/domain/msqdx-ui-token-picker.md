@@ -26,6 +26,9 @@ Compact control to **bind a property to a token path**. Values are **token paths
 | `clearLabel` | Accessible label for clear control (default `Clear`) |
 | `allowNone` | When true, list includes a none/empty option that calls `onClear` (or `onChange` is not used for empty) |
 | `noneLabel` | Label for none option (default `None`) |
+| `allowCycle` | When true, show −/+ on the current strip to step prev/next through `options` (token paths only) |
+| `prevLabel` | Accessible label for previous cycle (default `Previous token`) |
+| `nextLabel` | Accessible label for next cycle (default `Next token`) |
 | `label` | Field label above the control |
 | `aria-label` | Default `Token picker` |
 
@@ -43,8 +46,13 @@ type TokenPickerOption = {
 ## Anatomy / density
 
 1. **Label** row (quiet meta).
-2. **Current value** strip: optional swatch + mono token path (or none placeholder) + optional clear button when `onClear` and value set.
+2. **Current value** strip: optional swatch + mono token path (or none placeholder) + optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set.
 3. **Dense option list** (`role="listbox"`): swatch (if `preview`) + path/label; selected state outlined.
+
+### Cycle behaviour (`allowCycle`)
+
+- Cycle order is the `options` array order (paths only). When `allowNone` and value is empty, **next** selects `options[0]`; **prev** from first option clears via `onClear` when available.
+- Cycle MUST call `onChange(path)` for token paths and `onClear()` when stepping onto none — never invent CSS literals.
 
 ## Rules
 
@@ -60,6 +68,6 @@ type TokenPickerOption = {
 
 ## Acceptance
 
-1. Stories: Default, WithClear, AllowNone, DenseList.
-2. Tests: select path; clear calls `onClear`; none option; no raw CSS field.
+1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle.
+2. Tests: select path; clear calls `onClear`; none option; cycle prev/next; no raw CSS field.
 3. Consuming apps import `TokenPicker` from `@msqdx/ui`.

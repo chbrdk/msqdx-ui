@@ -13,7 +13,7 @@ Aside chrome for a design-tool property panel at **Penpot-like density**. **Fiel
 
 - Field catalogs, token DTCG parsing, or CREATION scene ops.
 - Free raw CSS / `#hex` / `px` text entry (forbidden by consumer inspect model).
-- Design | CSS tabs (app follow-up).
+- Built-in Design | CSS tab chrome (apps own tabs — see below).
 
 ## API
 
@@ -23,6 +23,10 @@ Aside chrome for a design-tool property panel at **Penpot-like density**. **Fiel
 | `emptyLabel` | Shown when `children` empty / null (default `Select a node`) |
 | `children` | App-supplied sections / fields |
 | `aria-label` | Default `Property inspector` |
+
+### Design | CSS tabs (app-owned)
+
+Do **not** add a `tabs` prop on this primitive. CREATION (and peers) compose Design vs CSS above or around `PropertyInspector` / as conditional `children` (e.g. Design = `InspectSection` stack; CSS = read-only preview). Keeps field catalogs and tab IA in the app.
 
 ## Density
 

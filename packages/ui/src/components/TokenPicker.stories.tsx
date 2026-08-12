@@ -77,3 +77,20 @@ export const DenseList: Story = {
     ],
   },
 }
+
+export const WithCycle: Story = {
+  render: function WithCycleStory() {
+    const [value, setValue] = useState<string | null>('color.accent')
+    return (
+      <TokenPicker
+        label="Fill"
+        options={COLOR_OPTIONS}
+        value={value}
+        onChange={setValue}
+        onClear={() => setValue(null)}
+        allowNone
+        allowCycle
+      />
+    )
+  },
+}
