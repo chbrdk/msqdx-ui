@@ -28,7 +28,14 @@ P23 added keep-props, but TokenPicker still expanded every option list under eve
 
 ## Suggested `MSQDX_UI_REF`
 
-Filled after push — see follow-up docs pin on `main`.
+E9 compact TokenPicker wave is **committed** on `msqdx-ui` `main`.
+
+```dockerfile
+ARG MSQDX_UI_REF=115711177cee9c5fac981675cb6a6e8f3517fcaa
+```
+
+**Wave commit (full):** `115711177cee9c5fac981675cb6a6e8f3517fcaa`  
+**Short:** `1157111`
 
 ## Paths
 
