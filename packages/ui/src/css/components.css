@@ -2689,11 +2689,52 @@ button.ds-marker-canvas__marker:focus-visible {
   color: var(--muted, #666);
   font-size: 0.8125rem;
 }
+.ds-layers-panel__row--hidden .ds-layers-panel__label,
+.ds-layers-panel__row--hidden .ds-layers-panel__type {
+  opacity: 0.45;
+}
+.ds-layers-panel__row--draggable {
+  cursor: grab;
+}
+.ds-layers-panel__row--draggable:active {
+  cursor: grabbing;
+}
+.ds-layers-panel__row--drop-before {
+  box-shadow: inset 0 2px 0 0 var(--accent, #245);
+}
+.ds-layers-panel__row--drop-after {
+  box-shadow: inset 0 -2px 0 0 var(--accent, #245);
+}
+.ds-layers-panel__actions {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.05rem;
+  margin-right: 0.25rem;
+}
+.ds-layers-panel__icon-btn {
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted, #666);
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 0.15rem;
+}
+.ds-layers-panel__icon-btn:hover {
+  background: var(--surface-2, #f4f4f4);
+  color: var(--fg, #111);
+}
+.ds-layers-panel__icon-btn--active {
+  color: var(--fg, #111);
+}
 .ds-layers-panel__moves {
   display: inline-flex;
   flex-shrink: 0;
   gap: 0.05rem;
-  margin-right: 0.25rem;
 }
 .ds-layers-panel__move {
   width: 1.1rem;

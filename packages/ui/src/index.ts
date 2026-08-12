@@ -326,11 +326,15 @@ export type {
 } from './components/BreakpointSwitcher'
 export { ComponentPalette } from './components/ComponentPalette'
 export type { ComponentPaletteProps } from './components/ComponentPalette'
-export { LayersPanel } from './components/LayersPanel'
+export {
+  LayersPanel,
+  LAYERS_PANEL_DND_MIME,
+} from './components/LayersPanel'
 export type {
   LayersPanelProps,
   LayersPanelItem,
   LayersPanelReorderDirection,
+  LayersPanelReorderDropPosition,
 } from './components/LayersPanel'
 export { TokenPicker } from './components/TokenPicker'
 export type { TokenPickerProps, TokenPickerOption } from './components/TokenPicker'

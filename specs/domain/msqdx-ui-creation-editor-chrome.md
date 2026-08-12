@@ -15,7 +15,7 @@
 | `InspectTabs` | Molecules | Dense Design\|CSS (labels as props) tablist — no panels; compose around inspector |
 | `BreakpointSwitcher` | Molecules | Mobile / tablet / desktop segmented control for preview width |
 | `ComponentPalette` | Organisms | Draggable/clickable type list |
-| `LayersPanel` | Organisms | Scene structure tree (select / expand / collapse; optional sibling move) |
+| `LayersPanel` | Organisms | Scene structure tree (select / expand / collapse; hide/lock toggles; sibling DnD + ▲▼ move) |
 | `TokenPicker` | Molecules | Token-path pick (+ optional clear / none / −/+ cycle); no raw CSS entry |
 
 ## Density (inspect)

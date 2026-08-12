@@ -2,9 +2,9 @@
 
 Layer: `organisms`
 
-Scene structure tree for composition editors. Apps map domain nodes to `{ id, label, type?, children? }`.
+Scene structure tree for composition editors. Apps map domain nodes to `{ id, label, type?, hidden?, locked?, children? }`.
 
-Optional sibling reorder via `onMoveUp` / `onMoveDown` or `onReorder` (no drag-drop in the DS).
+Optional sibling reorder via ▲▼ (`onMoveUp` / `onMoveDown` / `onReorder`) and/or drag-and-drop (`onReorderDrop`). Optional hide/lock row toggles (`onToggleHidden` / `onToggleLocked`).
 
 **Spec:** `specs/domain/msqdx-ui-layers-panel.md`  
 **Related:** `ComponentPalette` (left rail insert) · CREATION `editor-workspace.md`
@@ -15,6 +15,8 @@ Optional sibling reorder via `onMoveUp` / `onMoveDown` or `onReorder` (no drag-d
 - Nested selection
 - Empty
 - With sibling reorder
+- With hide and lock
+- With drag reorder
 
 ## Usage
 
@@ -28,13 +30,19 @@ import { LayersPanel } from '@msqdx/ui'
       id: 'root',
       label: 'Page',
       type: 'Stack',
-      children: [{ id: 't1', label: 'Title', type: 'Text' }],
+      children: [
+        { id: 't1', label: 'Title', type: 'Text', hidden: false, locked: false },
+      ],
     },
   ]}
   selectedId={selectedId}
   onSelect={setSelectedId}
-  onReorder={(id, direction) => /* mutate sibling order in app state */}
+  onToggleHidden={(id) => /* flip chrome.hiddenIds */}
+  onToggleLocked={(id) => /* flip chrome.lockedIds */}
+  onReorderDrop={(id, targetId, position) => /* sibling reorder */}
+  onMoveUp={(id) => /* a11y fallback */}
+  onMoveDown={(id) => /* a11y fallback */}
 />
 ```
 
-Hide/lock/drag-drop stay in the app — select, expand, and optional ▲▼ sibling move are chrome only.
+Rename stays app-owned. DnD is siblings-only; ▲▼ remain the accessible path.
