@@ -1,50 +1,50 @@
 /* Print magazine visual twins — mirrors plexon Magazin-PDF language. */
 
 .msqdx-print-page {
-  --print-ink: #111111;
-  --print-ink-soft: #3d3d3d;
-  --print-muted: #737373;
-  --print-line: #e2e2e0;
-  --print-paper: #ffffff;
-  --print-wash: #f4f4f2;
+  --print-ink: #141414;
+  --print-ink-soft: #3a3a38;
+  --print-muted: #6e6e6a;
+  --print-line: #dddcd7;
+  --print-paper: #f8f7f4;
+  --print-wash: #efeee9;
   --print-accent: #00ca55;
   --print-accent-ink: #007a33;
   --print-neg: #c23b2a;
   --print-warn: #b45309;
-  --print-track: #ecece9;
+  --print-track: #e6e5e0;
   box-sizing: border-box;
-  width: min(100%, 36rem);
+  width: min(100%, 34rem);
   margin: 0 auto;
-  padding: 2.75rem 3rem 3.25rem;
+  padding: 3rem 3.25rem 3.5rem;
   background: var(--print-paper);
   color: var(--print-ink);
   font-family: 'Noto Sans', 'Noto Sans JP', system-ui, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-size: 0.875rem;
+  line-height: 1.55;
   border: 1px solid var(--print-line);
 }
 
 .msqdx-print-eyebrow {
-  margin: 0 0 0.55rem;
-  font-size: 0.7rem;
+  margin: 0 0 0.65rem;
+  font-size: 0.65rem;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--print-muted);
 }
 
 .msqdx-print-headline {
-  margin: 0 0 0.5rem;
-  font-size: 1.4rem;
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.18;
   max-width: 28ch;
 }
 
 .msqdx-print-cover-headline {
-  margin: 0 0 0.65rem;
-  font-size: 1.85rem;
+  margin: 0 0 0.9rem;
+  font-size: 1.75rem;
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.12;
@@ -52,28 +52,31 @@
 }
 
 .msqdx-print-accent-rule {
-  width: 2.5rem;
-  height: 2.5px;
-  margin: 0 0 1rem;
+  width: 1.75rem;
+  height: 2px;
+  margin: 0 0 1.25rem;
   background: var(--print-accent);
 }
 
 .msqdx-print-lede {
-  margin: 0 0 1.15rem;
+  margin: 0 0 1.35rem;
   color: var(--print-ink-soft);
-  font-size: 1.02rem;
-  line-height: 1.45;
-  max-width: 38ch;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 40ch;
 }
 
 .msqdx-print-body {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.75rem;
   color: var(--print-ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.6;
 }
 
 .msqdx-print-meta {
   margin: 0 0 0.35rem;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
   color: var(--print-muted);
 }
 
@@ -83,35 +86,48 @@
   background: var(--print-wash);
 }
 
+.msqdx-print-pull {
+  display: grid;
+  grid-template-columns: 2.5px 1fr;
+  gap: 0.75rem;
+  margin: 0.5rem 0 1.15rem;
+}
+
+.msqdx-print-pull__bar {
+  background: var(--print-accent);
+}
+
 .msqdx-print-kpi-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: 1.15rem;
+  margin-top: 1.5rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--print-line);
 }
 
 .msqdx-print-kpi {
-  min-width: 5.5rem;
+  min-width: 5rem;
 }
 
 .msqdx-print-kpi__value {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: -0.03em;
 }
 
 .msqdx-print-kpi__label {
-  margin-top: 0.15rem;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--print-muted);
 }
 
 .msqdx-print-ring {
   position: relative;
-  width: 5rem;
-  height: 5rem;
+  width: 4.25rem;
+  height: 4.25rem;
 }
 
 .msqdx-print-ring__chart {
@@ -122,7 +138,7 @@
     var(--print-accent) 0 calc(var(--print-ring-pct, 0) * 1%),
     var(--print-track) 0
   );
-  mask: radial-gradient(farthest-side, transparent calc(100% - 0.45rem), #000 calc(100% - 0.44rem));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 0.4rem), #000 calc(100% - 0.39rem));
 }
 
 .msqdx-print-ring__value {
@@ -130,7 +146,7 @@
   inset: 0;
   display: grid;
   place-items: center;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -140,8 +156,8 @@
 }
 
 .msqdx-print-donut__chart {
-  width: 6rem;
-  height: 6rem;
+  width: 5.25rem;
+  height: 5.25rem;
   margin: 0 auto;
   border-radius: 50%;
   position: relative;
@@ -159,12 +175,12 @@
 
 .msqdx-print-donut__center-v {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .msqdx-print-donut__center-k {
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--print-muted);
 }
@@ -182,7 +198,7 @@
   grid-template-columns: 0.55rem 1fr auto auto;
   gap: 0.4rem;
   align-items: center;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
 }
 
 .msqdx-print-donut__swatch {
@@ -196,25 +212,35 @@
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.55rem;
+}
+
+.msqdx-print-ranked--cols {
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.5rem;
 }
 
 .msqdx-print-ranked__row {
   display: grid;
-  grid-template-columns: 1.5rem 1fr;
-  gap: 0.55rem;
+  grid-template-columns: 1.35rem 1fr;
+  gap: 0.5rem;
   align-items: start;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--print-line);
 }
 
 .msqdx-print-ranked__i {
   font-weight: 700;
   color: var(--print-accent-ink);
   font-variant-numeric: tabular-nums;
+  font-size: 0.75rem;
 }
 
 .msqdx-print-ranked__label {
   margin: 0;
   color: var(--print-ink);
+  font-size: 0.8rem;
+  line-height: 1.45;
 }
 
 .msqdx-print-ledger {
@@ -225,21 +251,33 @@
 
 .msqdx-print-ledger__row {
   display: grid;
-  grid-template-columns: 1.5rem 2rem 1fr;
-  gap: 0.6rem;
-  padding: 0.45rem 0;
+  grid-template-columns: 1.35rem 1.75rem 1fr;
+  gap: 0.65rem;
+  padding: 0.65rem 0;
   border-bottom: 1px solid var(--print-line);
   align-items: start;
 }
 
 .msqdx-print-ledger__score {
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-variant-numeric: tabular-nums;
 }
 
 .msqdx-print-chapter + .msqdx-print-chapter {
-  margin-top: 1.75rem;
-  padding-top: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--print-line);
+}
+
+.msqdx-print-folio {
+  margin-top: 2rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--print-line);
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--print-muted);
 }
