@@ -276,5 +276,16 @@ export type {
   ChatQuoteListProps,
   ChatQuoteTone,
 } from './components/ChatQuoteList'
+export {
+  PrintPage,
+  PrintCover,
+  PrintChapter,
+  PrintScoreRing,
+  PrintDonut,
+  PrintRankedList,
+  PrintLedger,
+} from './print/PrintPrimitives'
+export type { PrintDonutSlice } from './print/PrintPrimitives'
+export { printMagColors } from './print/tokens'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

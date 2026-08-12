@@ -9,9 +9,11 @@ Full Atomic Design catalog for ECHON product UI.
 
 ## Layers
 
-`Foundation` → `Atoms` → `Molecules` → `Organisms` → `Templates` → `Pages`
+`Foundation` → `Atoms` → `Molecules` → `Organisms` → `Templates` → `Print` → `Pages`
 
 Each entry: co-located `*.stories.tsx` + `*.mdx` (Usage / Do–Don’t).
+
+**Print** = magazine PDF visual twins (`src/print/`) aligned with plexon `pdf/magazine/` tokens.
 
 ## Guards
 
