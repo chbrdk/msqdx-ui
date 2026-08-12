@@ -20,15 +20,22 @@
 3. Token fields: set `allowCycle` for denser −/+ stepping within the filtered group.
 4. Design \| CSS: compose tabs in the app around `PropertyInspector` children — do not expect a DS tabs API.
 5. Re-export `LayersPanel` from `apps/web/lib/msqdx-ui.ts` after bump.
-6. Pin Dockerfile after this work is **committed & pushed** on `msqdx-ui`:
+6. Pin Dockerfile:
 
 ```dockerfile
-ARG MSQDX_UI_REF=<fill-after-push>
+ARG MSQDX_UI_REF=5e56fc5b887c1c9520608e1baa02966ec4244b2c
 ```
 
 ## Suggested `MSQDX_UI_REF`
 
-Filled after commit + push on `msqdx-ui` `main` (see bottom of this file / commit message).
+Layers panel wave is **committed** on `msqdx-ui` `main` (push follows).
+
+```dockerfile
+ARG MSQDX_UI_REF=5e56fc5b887c1c9520608e1baa02966ec4244b2c
+```
+
+**Wave commit (full):** `5e56fc5b887c1c9520608e1baa02966ec4244b2c`  
+**Short:** `5e56fc5`
 
 ## Paths
 
