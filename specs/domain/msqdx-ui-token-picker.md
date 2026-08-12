@@ -45,13 +45,15 @@ type TokenPickerOption = {
   preview?: string
   /** Display-only font-family for the value label (type tokens). */
   fontPreview?: string
+  /** Display-only CSS on the value label (size / weight samples). */
+  sampleStyle?: { fontFamily?: string; fontSize?: string; fontWeight?: string }
 }
 ```
 
 ## Anatomy / density
 
 1. **Label** row (quiet meta).
-2. **Current value** strip: optional color swatch + **option label** (or path) when bound, else `emptyLabel`; optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set. `fontPreview` renders the label in that font-family (display only).
+2. **Current value** strip: optional color swatch + **option label** (or path) when bound, else `emptyLabel`; optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set. `fontPreview` / `sampleStyle` render the label in that typeface/weight (display only). Cycle and clear MAY hide until hover so the value stays readable.
 3. **Option list** (`role="listbox"`): swatch (if `preview`) + path/label; selected state outlined.
    - **compact (default):** list is a popover opened from the current strip (Penpot). Closed until the strip is clicked; choosing a token closes it.
    - **list:** always visible under the strip (Storybook / debug).

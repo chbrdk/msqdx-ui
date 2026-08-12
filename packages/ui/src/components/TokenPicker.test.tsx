@@ -168,4 +168,14 @@ describe('TokenPicker', () => {
     )
     expect(screen.getByTestId('token-picker-value')).toHaveStyle({ fontFamily: 'Georgia, serif' })
   })
+
+  it('sampleStyle applies font-weight on the value label', () => {
+    render(
+      <TokenPicker
+        options={[{ path: 'fontWeight.semibold', label: 'Semibold', sampleStyle: { fontWeight: '600' } }]}
+        value="fontWeight.semibold"
+      />,
+    )
+    expect(screen.getByTestId('token-picker-value')).toHaveStyle({ fontWeight: '600' })
+  })
 })

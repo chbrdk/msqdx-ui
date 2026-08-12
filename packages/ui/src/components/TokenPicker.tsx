@@ -9,6 +9,14 @@ export type TokenPickerOption = {
   preview?: string
   /** Display-only font-family for the value label (type tokens). */
   fontPreview?: string
+  /** Display-only CSS on the value label (size / weight samples). */
+  sampleStyle?: {
+    fontFamily?: string
+    fontSize?: string
+    fontWeight?: string
+    lineHeight?: string
+    letterSpacing?: string
+  }
 }
 
 export type TokenPickerVariant = 'compact' | 'list'
@@ -46,6 +54,20 @@ function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
+function optionTextStyle(opt: TokenPickerOption): {
+  fontFamily?: string
+  fontSize?: string
+  fontWeight?: string
+  lineHeight?: string
+  letterSpacing?: string
+} | undefined {
+  if (!opt.fontPreview && !opt.sampleStyle) return undefined
+  return {
+    ...(opt.fontPreview ? { fontFamily: opt.fontPreview } : {}),
+    ...opt.sampleStyle,
+  }
+}
+
 function cycleIndex(value: string | null, options: TokenPickerOption[]): number {
   if (!value) return -1
   return options.findIndex((opt) => opt.path === value)
@@ -73,7 +95,13 @@ export function TokenPicker({
 }: TokenPickerProps) {
   const selectedOption = value ? options.find((opt) => opt.path === value) : undefined
   const displayText = selectedOption?.label ?? value ?? emptyLabel
-  const fontPreview = selectedOption?.fontPreview
+  const valueStyle = selectedOption
+    ? {
+        ...(selectedOption.fontPreview ? { fontFamily: selectedOption.fontPreview } : {}),
+        ...selectedOption.sampleStyle,
+      }
+    : undefined
+  const fontPreview = Boolean(selectedOption?.fontPreview || selectedOption?.sampleStyle)
   const showClear = Boolean(onClear && value)
   const index = cycleIndex(value, options)
   const compact = variant === 'compact'
@@ -158,8 +186,11 @@ export function TokenPicker({
                 />
               ) : null}
               <span
-                className={cx('ds-token-picker__path', opt.fontPreview && 'ds-token-picker__path--font')}
-                style={opt.fontPreview ? { fontFamily: opt.fontPreview } : undefined}
+                className={cx(
+                  'ds-token-picker__path',
+                  (opt.fontPreview || opt.sampleStyle) && 'ds-token-picker__path--font',
+                )}
+                style={optionTextStyle(opt)}
               >
                 {opt.label ?? opt.path}
               </span>
@@ -216,7 +247,7 @@ export function TokenPicker({
               !value && 'ds-token-picker__path--empty',
               fontPreview && 'ds-token-picker__path--font',
             )}
-            style={fontPreview ? { fontFamily: fontPreview } : undefined}
+            style={valueStyle}
             data-testid="token-picker-value"
           >
             {displayText}

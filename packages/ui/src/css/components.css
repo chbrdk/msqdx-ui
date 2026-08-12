@@ -2454,6 +2454,7 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-property-inspector .ds-field {
   width: 100%;
   gap: 0.12rem;
+  align-items: stretch;
 }
 .ds-property-inspector .ds-field-label {
   text-transform: none;
@@ -2466,6 +2467,10 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-property-inspector .ds-select-trigger {
   min-height: 1.5rem;
   font-size: 0.75rem;
+  width: 100%;
+  color: var(--fg, #111);
+  background: var(--surface-1, #fff);
+  letter-spacing: 0;
 }
 .ds-property-inspector .ds-select {
   display: block;
@@ -2480,6 +2485,7 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-property-inspector .ds-select-value {
   flex: 1;
   min-width: 0;
+  color: var(--fg, #111);
 }
 
 /* ComponentPalette */
@@ -2644,8 +2650,10 @@ button.ds-marker-canvas__marker:focus-visible {
     #fff;
 }
 .ds-token-picker__path {
-  font-family: var(--font-mono, ui-monospace, monospace);
+  font-family: var(--font-body, system-ui, sans-serif);
   font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--fg, #111);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2654,10 +2662,25 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-token-picker__path--empty {
   color: var(--muted, #666);
+  font-weight: 400;
   font-family: inherit;
 }
 .ds-token-picker__path--font {
   font-family: inherit;
+}
+.ds-token-picker__cycle,
+.ds-token-picker__clear {
+  opacity: 0;
+  pointer-events: none;
+}
+.ds-token-picker:hover .ds-token-picker__cycle,
+.ds-token-picker:hover .ds-token-picker__clear,
+.ds-token-picker:focus-within .ds-token-picker__cycle,
+.ds-token-picker:focus-within .ds-token-picker__clear,
+.ds-token-picker--open .ds-token-picker__cycle,
+.ds-token-picker--open .ds-token-picker__clear {
+  opacity: 1;
+  pointer-events: auto;
 }
 .ds-token-picker__cycle {
   display: inline-flex;

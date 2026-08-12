@@ -17,9 +17,11 @@ CREATION inspect passed `noneLabel="Clear token"`. The current strip rendered `{
 | `fontPreview` | Display-only `font-family` on the value label. Color `preview` remains swatch-only. |
 | Swatch | Rendered only when `preview` is set (no checkerboard on type tokens). |
 | Inspector Select | Full width inside `.ds-property-inspector` (`min-width: 0`, value `flex: 1`). |
+| P26 contrast | Inspector inputs/selects `color: #111` + white fill; TokenPicker path is body/500 not muted mono; cycle/clear opacity 0 until hover/focus. |
+| `sampleStyle` | Display-only size/weight on the value label. |
 
 ## Pin after push
 
 Fill `MSQDX_UI_REF` with the **code** SHA of this wave (not a later docs-only commit).
 
-Grep in creation-v3 Dockerfile: `emptyLabel` · `fontPreview`.
+Grep in creation-v3 Dockerfile: `emptyLabel` · `fontPreview` · `sampleStyle`.
