@@ -41,17 +41,19 @@ import {
 4. Pin Dockerfile:
 
 ```dockerfile
-ARG MSQDX_UI_REF=PENDING_PUSH_SHA
+ARG MSQDX_UI_REF=36653028cc609b18aa7ac8ed2b6bb34390d599a2
 ```
 
 ## Suggested `MSQDX_UI_REF`
 
+E8 layers hide/lock + DnD wave is **committed** on `msqdx-ui` `main`.
+
 ```dockerfile
-ARG MSQDX_UI_REF=PENDING_PUSH_SHA
+ARG MSQDX_UI_REF=36653028cc609b18aa7ac8ed2b6bb34390d599a2
 ```
 
-**Wave commit (full):** `PENDING_PUSH_SHA`  
-**Short:** `PENDING`
+**Wave commit (full):** `36653028cc609b18aa7ac8ed2b6bb34390d599a2`  
+**Short:** `3665302`
 
 ## Paths
 
