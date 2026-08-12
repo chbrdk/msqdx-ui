@@ -2,10 +2,12 @@
 
 Layer: `organisms`
 
-Scaffolded via `pnpm ds:add CanvasViewport --layer organisms`.
+Pan/zoom artboard host. Apps own gesture handlers; pass `panX` / `panY` / `zoom` and optional `overlays` (`SelectionHandles`).
 
-## Next steps
+**Spec:** `specs/domain/msqdx-ui-canvas-viewport.md`
 
-- Align API with `specs/domain/msqdx-ui-canvas-viewport.md`
-- Replace the scaffold markup with the final primitive implementation
-- Add meaningful stories and assertions
+## Stories
+
+- Default
+- ZoomedAndPanned
+- WithSelectionOverlay

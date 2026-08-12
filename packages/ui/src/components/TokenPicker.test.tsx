@@ -1,10 +1,60 @@
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { TokenPicker } from './TokenPicker'
 
+afterEach(() => {
+  cleanup()
+})
+
 describe('TokenPicker', () => {
-  it('renders options', () => {
-    render(<TokenPicker options={[{ path: 'TokenPicker' }]} />)
-    expect(screen.getByText('TokenPicker')).toBeInTheDocument()
+  it('renders options and selects a token path', () => {
+    const onChange = vi.fn()
+    render(
+      <TokenPicker
+        options={[{ path: 'color.accent', preview: '#245' }]}
+        onChange={onChange}
+      />,
+    )
+    expect(screen.getByRole('option', { name: /color.accent/ })).toBeInTheDocument()
+    screen.getByRole('option', { name: /color.accent/ }).click()
+    expect(onChange).toHaveBeenCalledWith('color.accent')
+  })
+
+  it('shows current path and clear affordance', () => {
+    const onClear = vi.fn()
+    render(
+      <TokenPicker
+        options={[{ path: 'color.accent', preview: '#245' }]}
+        value="color.accent"
+        onClear={onClear}
+        clearLabel="Clear token"
+      />,
+    )
+    expect(screen.getByTestId('token-picker-value')).toHaveTextContent('color.accent')
+    screen.getByRole('button', { name: 'Clear token' }).click()
+    expect(onClear).toHaveBeenCalledTimes(1)
+  })
+
+  it('allowNone option invokes onClear', () => {
+    const onClear = vi.fn()
+    render(
+      <TokenPicker
+        options={[{ path: 'radius.md' }]}
+        value="radius.md"
+        allowNone
+        noneLabel="None"
+        onClear={onClear}
+      />,
+    )
+    screen.getByRole('option', { name: 'None' }).click()
+    expect(onClear).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not render a free-text CSS input', () => {
+    const { container } = render(
+      <TokenPicker options={[{ path: 'color.accent' }]} value="color.accent" />,
+    )
+    expect(container.querySelector('input')).toBeNull()
+    expect(container.querySelector('textarea')).toBeNull()
   })
 })

@@ -1,11 +1,29 @@
 # TokenPicker
 
-Layer: `organisms`
+Layer: `molecules` (Storybook group: Organisms / editor chrome)
 
-Scaffolded via `pnpm ds:add TokenPicker --layer organisms`.
+Dense token-path picker for inspect bindings. **Values are token paths only** — swatches are display-only; there is no free CSS / hex entry.
 
-## Next steps
+**Spec:** `specs/domain/msqdx-ui-token-picker.md`
 
-- Align API with `specs/domain/msqdx-ui-token-picker.md`
-- Replace the scaffold markup with the final primitive implementation
-- Add meaningful stories and assertions
+## Stories
+
+- Default
+- WithClear (`onClear`)
+- AllowNone
+- DenseList
+
+## Usage
+
+```tsx
+import { TokenPicker } from '@msqdx/ui'
+
+<TokenPicker
+  label="Color"
+  options={[{ path: 'color.accent', preview: '#245' }]}
+  value={binding}
+  onChange={(path) => setToken(path)}
+  onClear={() => clearToken()}
+  allowNone
+/>
+```

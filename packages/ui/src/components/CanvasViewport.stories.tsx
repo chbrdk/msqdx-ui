@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { CanvasViewport } from './CanvasViewport'
+import { SelectionHandles } from './SelectionHandles'
 import { Text } from './Text'
 
 const meta = {
@@ -25,3 +26,19 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {}
+
+export const ZoomedAndPanned: Story = {
+  args: {
+    zoom: 0.75,
+    panX: 40,
+    panY: 24,
+  },
+}
+
+export const WithSelectionOverlay: Story = {
+  args: {
+    overlays: (
+      <SelectionHandles left={48} top={48} width={160} height={96} interactive />
+    ),
+  },
+}

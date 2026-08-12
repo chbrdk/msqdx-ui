@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { Stack } from './Stack'
 import { Card } from './Card'
 import { Badge } from './Badge'
@@ -13,6 +13,10 @@ import { SelectionHandles } from './SelectionHandles'
 import { PropertyInspector } from './PropertyInspector'
 import { ComponentPalette } from './ComponentPalette'
 import { TokenPicker } from './TokenPicker'
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('creation editor primitives', () => {
   it('Stack renders children with direction class', () => {
@@ -93,15 +97,21 @@ describe('creation editor primitives', () => {
     expect(onAdd).toHaveBeenCalledWith('Button')
   })
 
-  it('TokenPicker selects path', () => {
+  it('TokenPicker selects path and clears via onClear', () => {
     const onChange = vi.fn()
+    const onClear = vi.fn()
     render(
       <TokenPicker
         options={[{ path: 'color.accent', preview: '#245' }]}
+        value="color.accent"
         onChange={onChange}
+        onClear={onClear}
+        clearLabel="Clear"
       />,
     )
     screen.getByRole('option', { name: /color.accent/ }).click()
     expect(onChange).toHaveBeenCalledWith('color.accent')
+    screen.getByRole('button', { name: 'Clear' }).click()
+    expect(onClear).toHaveBeenCalledTimes(1)
   })
 })

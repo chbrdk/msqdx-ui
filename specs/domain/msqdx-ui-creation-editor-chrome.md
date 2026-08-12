@@ -9,10 +9,17 @@
 | Name | Layer | Role |
 |------|-------|------|
 | `CanvasViewport` | Organisms | Pan/zoom artboard host; children = scene |
-| `SelectionHandles` | Molecules | Bounding box + resize affordances (visual) |
-| `PropertyInspector` | Organisms | Prop list shell; app supplies fields |
+| `SelectionHandles` | Molecules | Bounding box + resize affordances (visual; optional interactive corners) |
+| `PropertyInspector` | Organisms | Dense prop rail shell; app supplies fields |
+| `InspectSection` | Molecules | Title + body chrome inside the inspector |
 | `ComponentPalette` | Organisms | Draggable/clickable type list |
-| `TokenPicker` | Molecules | Pick token path for bindings |
+| `TokenPicker` | Molecules | Token-path pick (+ optional clear / none); no raw CSS entry |
+
+## Density (inspect)
+
+- Inspector body stacks `InspectSection` blocks (Penpot-like section chrome).
+- Token fields: swatch + path + optional `onClear` / `allowNone` — values are token paths only.
+- Apps own field catalogs; UI never invents free `#hex` / `px` inputs.
 
 ## Rules
 
@@ -24,3 +31,4 @@
 
 - Full Figma-class canvas physics
 - Flow-board domain (separate `FlowBoard*`)
+- Porting Zaoly `App.tsx` / product-only chrome

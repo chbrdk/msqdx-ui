@@ -12,6 +12,11 @@
 - Storybook staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`; Coolify app `msqdx-ui:main-rapp` · UUID `rtxcfh4gtxi6yba5l70fu177`)
 - CREATION keep-tag mapping: `knowledge/ds-keep-mapping.md`
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`
+- CREATION inspect density bump (MSQDX_UI_REF note): `knowledge/creation-inspect-chrome-bump.md`
+- InspectSection: `packages/ui/src/components/InspectSection.tsx` · spec `specs/domain/msqdx-ui-inspect-section.md` · Storybook `Molecules/InspectSection`
+- PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
+- TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`
+- CanvasViewport / SelectionHandles: `packages/ui/src/components/CanvasViewport.tsx` · `SelectionHandles.tsx`
 - Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
 - Print magazine twins (EQC PDF): Storybook layer `Print/` · `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · twin of plexon `lib/assistant/reports/pdf/magazine/` · deck `?path=/story/print-quickcheck--magazine-deck`
 - Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
