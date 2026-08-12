@@ -18,6 +18,11 @@ import {
   IconVideo,
   IconUndo,
   IconAlignLeft,
+  IconItalic,
+  IconUnderline,
+  IconStrikethrough,
+  IconGhost,
+  IconBan,
 } from './icons'
 import { Text } from './Text'
 
@@ -40,6 +45,11 @@ const ICONS = [
   { name: 'IconClose', Node: IconClose },
   { name: 'IconUndo', Node: IconUndo },
   { name: 'IconAlignLeft', Node: IconAlignLeft },
+  { name: 'IconItalic', Node: IconItalic },
+  { name: 'IconUnderline', Node: IconUnderline },
+  { name: 'IconStrikethrough', Node: IconStrikethrough },
+  { name: 'IconGhost', Node: IconGhost },
+  { name: 'IconBan', Node: IconBan },
 ] as const
 
 const meta = {

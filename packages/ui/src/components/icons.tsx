@@ -19,15 +19,23 @@ import {
   ArrowRight,
   ArrowUp,
   Badge,
+  Ban,
   Baseline,
   BetweenHorizontalStart,
   Blend,
   Bold,
   BoxSelect,
+  CaseLower,
+  CaseSensitive,
+  CaseUpper,
   Check,
   ChevronDown,
   ChevronRight,
   ChevronUp,
+  Circle,
+  CircleAlert,
+  CircleCheck,
+  CircleDot,
   CircleHelp,
   Columns3,
   Contrast,
@@ -35,17 +43,22 @@ import {
   Eye,
   EyeOff,
   FolderKanban,
+  Ghost,
   Heading1,
   History,
   Image,
+  Italic,
   LayoutDashboard,
   LayoutGrid,
   Link,
   Lock,
   Map,
+  Maximize2,
   Mic,
+  Minimize2,
   Minus,
   MousePointerClick,
+  Move,
   MoveHorizontal,
   MoveVertical,
   Pencil,
@@ -54,16 +67,21 @@ import {
   RotateCw,
   Rows3,
   Save,
+  ScrollText,
   Search,
   Send,
   Share2,
+  Sparkles,
   Square,
   SquareDashed,
   SquareStack,
   StretchHorizontal,
+  Strikethrough,
   TextCursorInput,
   Trash2,
+  TriangleAlert,
   Type,
+  Underline,
   Undo2,
   Unlock,
   Users,
@@ -145,8 +163,27 @@ export const IconPadding = wrap(SquareDashed)
 export const IconBox = wrap(BoxSelect)
 export const IconType = wrap(Type)
 export const IconBold = wrap(Bold)
+export const IconItalic = wrap(Italic)
+export const IconUnderline = wrap(Underline)
+export const IconStrikethrough = wrap(Strikethrough)
+export const IconCaseUpper = wrap(CaseUpper)
+export const IconCaseLower = wrap(CaseLower)
+export const IconCaseTitle = wrap(CaseSensitive)
 export const IconBaseline = wrap(Baseline)
 export const IconFill = wrap(Droplet)
+export const IconBan = wrap(Ban)
+export const IconGhost = wrap(Ghost)
+export const IconMinimize = wrap(Minimize2)
+export const IconMaximize = wrap(Maximize2)
+export const IconScroll = wrap(ScrollText)
+export const IconDotted = wrap(CircleDot)
+export const IconMove = wrap(Move)
+export const IconMinus = wrap(Minus)
+export const IconCircle = wrap(Circle)
+export const IconSparkles = wrap(Sparkles)
+export const IconSuccess = wrap(CircleCheck)
+export const IconWarning = wrap(TriangleAlert)
+export const IconDanger = wrap(CircleAlert)
 export const IconRotate = wrap(RotateCw)
 export const IconRadius = wrap(Radius)
 export const IconOpacity = wrap(Contrast)
