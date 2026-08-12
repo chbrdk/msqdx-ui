@@ -20,20 +20,22 @@
 2. Inspect rail: put `InspectTabs` above `PropertyInspector`; switch Design vs CSS children in the app.
 3. Layers: wire `onMoveUp`/`onMoveDown` (or `onReorder`) to sibling reorder in the scene tree; keep drag-drop app-owned if needed later.
 4. Re-export new symbols from `apps/web/lib/msqdx-ui.ts` after bump.
-5. Pin Dockerfile (SHA filled after push):
+5. Pin Dockerfile:
 
 ```dockerfile
-ARG MSQDX_UI_REF=PENDING_PUSH_SHA
+ARG MSQDX_UI_REF=cae218fe19442d410b2b09a0c6039f4c75c3a6aa
 ```
 
 ## Suggested `MSQDX_UI_REF`
 
+E7 editor chrome wave is **committed** on `msqdx-ui` `main`.
+
 ```dockerfile
-ARG MSQDX_UI_REF=PENDING_PUSH_SHA
+ARG MSQDX_UI_REF=cae218fe19442d410b2b09a0c6039f4c75c3a6aa
 ```
 
-**Wave commit (full):** `PENDING_PUSH_SHA`  
-**Short:** `PENDING`
+**Wave commit (full):** `cae218fe19442d410b2b09a0c6039f4c75c3a6aa`  
+**Short:** `cae218f`
 
 ## Paths
 
