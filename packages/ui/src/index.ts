@@ -400,8 +400,8 @@ export type {
   BreakpointSwitcherProps,
   EditorBreakpoint,
 } from './components/BreakpointSwitcher'
-export { ComponentPalette } from './components/ComponentPalette'
-export type { ComponentPaletteProps } from './components/ComponentPalette'
+export { ComponentPalette, COMPONENT_PALETTE_DND_MIME } from './components/ComponentPalette'
+export type { ComponentPaletteProps, ComponentPaletteItem } from './components/ComponentPalette'
 export {
   LayersPanel,
   LAYERS_PANEL_DND_MIME,

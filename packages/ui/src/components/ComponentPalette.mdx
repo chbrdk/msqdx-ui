@@ -2,10 +2,6 @@
 
 Layer: `organisms`
 
-Scaffolded via `pnpm ds:add ComponentPalette --layer organisms`.
+Clickable and draggable type list. Click calls `onAdd`. Drag sets `COMPONENT_PALETTE_DND_MIME` to the item id so apps can `insert_child` on canvas drop.
 
-## Next steps
-
-- Align API with `specs/domain/msqdx-ui-component-palette.md`
-- Replace the scaffold markup with the final primitive implementation
-- Add meaningful stories and assertions
+See `specs/domain/msqdx-ui-component-palette.md`.

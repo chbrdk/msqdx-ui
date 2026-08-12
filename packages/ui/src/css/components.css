@@ -2507,6 +2507,12 @@ button.ds-marker-canvas__marker:focus-visible {
   display: grid;
   gap: 0.25rem;
 }
+.ds-component-palette__item[draggable='true'] {
+  cursor: grab;
+}
+.ds-component-palette__item[draggable='true']:active {
+  cursor: grabbing;
+}
 .ds-component-palette__btn.ds-btn {
   width: 100%;
   justify-content: flex-start;

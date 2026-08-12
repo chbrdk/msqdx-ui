@@ -1,8 +1,13 @@
 # ComponentPalette
 
-Scaffolded as a organisms primitive in `msqdx-ui`.
+Clickable and draggable type list for composition editors.
 
-## Follow-up
+## API
 
-- Capture usage examples once the primitive ships in a consuming app.
-- Note migrations or API decisions here.
+- `onAdd(id)` — click insert
+- Drag MIME `COMPONENT_PALETTE_DND_MIME` (`application/x-msqdx-component-palette-type`) — data is the item id
+- Optional `onItemDragStart(id, event)` for extra payload
+
+## Spec
+
+`specs/domain/msqdx-ui-component-palette.md`
