@@ -33,6 +33,7 @@ Do **not** add a `tabs` prop on this primitive. Compose `InspectTabs` (`msqdx-ui
 - Tight header + body padding (token-spaced).
 - Body is a vertical stack with small gaps — sections provide their own chrome.
 - Prefer `InspectSection` children over ad-hoc `<h3>` wrappers.
+- Surface: `--bg1` + hairline `--line`. Nested Inputs/Selects inherit magazine Field CSS (`--ink`, transparent fill) — do not override to `#fff` / `#111`.
 
 ## Accessibility
 

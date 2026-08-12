@@ -2334,11 +2334,11 @@ button.ds-marker-canvas__marker:focus-visible {
   position: relative;
   overflow: hidden;
   min-height: 16rem;
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+  background-color: var(--bg0);
+  background-image:
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--ink) 6%, transparent) 1px, transparent 1px);
   background-size: 16px 16px;
-  background-color: var(--surface-2, #f0f0f0);
 }
 .ds-canvas-viewport__stage {
   position: relative;
@@ -2350,9 +2350,9 @@ button.ds-marker-canvas__marker:focus-visible {
   box-sizing: border-box;
 }
 .ds-canvas-viewport__artboard {
-  background: var(--surface-1, #fff);
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
-  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent);
   box-sizing: border-box;
 }
 .ds-canvas-viewport__overlays {
@@ -2406,8 +2406,9 @@ button.ds-marker-canvas__marker:focus-visible {
   flex-direction: column;
   min-width: 14rem;
   max-width: 20rem;
-  border-left: 1px solid var(--border, rgba(0, 0, 0, 0.12));
-  background: var(--surface-1, #fff);
+  border-left: 1px solid var(--line);
+  background: var(--bg1);
+  color: var(--ink);
 }
 .ds-property-inspector__head {
   display: none;
@@ -2421,7 +2422,7 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-property-inspector__empty {
   margin: 0.75rem;
-  color: var(--muted, #666);
+  color: var(--muted);
   font-size: 0.8125rem;
 }
 
@@ -2431,7 +2432,7 @@ button.ds-marker-canvas__marker:focus-visible {
   flex-direction: column;
   gap: 0.35rem;
   padding: 0.5rem 0.75rem 0.65rem;
-  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.08));
+  border-bottom: 1px solid var(--line);
 }
 .ds-inspect-section:last-child {
   border-bottom: 0;
@@ -2442,7 +2443,7 @@ button.ds-marker-canvas__marker:focus-visible {
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--muted, #666);
+  color: var(--muted);
 }
 .ds-inspect-section__body {
   display: flex;
@@ -2459,7 +2460,7 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-property-inspector .ds-field-label {
   text-transform: none;
   letter-spacing: 0;
-  color: var(--muted, #666);
+  color: var(--muted);
   font-size: 0.6875rem;
   font-weight: 500;
 }
@@ -2468,8 +2469,6 @@ button.ds-marker-canvas__marker:focus-visible {
   min-height: 1.5rem;
   font-size: 0.75rem;
   width: 100%;
-  color: var(--fg, #111);
-  background: var(--surface-1, #fff);
   letter-spacing: 0;
 }
 .ds-property-inspector .ds-select {
@@ -2485,7 +2484,7 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-property-inspector .ds-select-value {
   flex: 1;
   min-width: 0;
-  color: var(--fg, #111);
+  color: var(--ink);
 }
 
 /* ComponentPalette */
@@ -2493,12 +2492,13 @@ button.ds-marker-canvas__marker:focus-visible {
   display: flex;
   flex-direction: column;
   min-width: 12rem;
-  border-right: 1px solid var(--border, rgba(0, 0, 0, 0.12));
-  background: var(--surface-1, #fff);
+  border-right: 1px solid var(--line);
+  background: var(--bg1);
+  color: var(--ink);
 }
 .ds-component-palette__head {
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  border-bottom: 1px solid var(--line);
 }
 .ds-component-palette__list {
   list-style: none;
@@ -2524,13 +2524,13 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-component-palette__desc {
   font-size: 0.75rem;
-  color: var(--muted, #666);
+  color: var(--muted);
   font-weight: 400;
 }
 .ds-component-palette__footer {
   margin-top: auto;
   padding: 0.75rem 1rem;
-  border-top: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  border-top: 1px solid var(--line);
 }
 
 /* TokenPicker — dense token-path field (no free CSS entry) */
@@ -2544,7 +2544,7 @@ button.ds-marker-canvas__marker:focus-visible {
   align-items: center;
   gap: 0.25rem;
   font-size: 0.6875rem;
-  color: var(--muted, #666);
+  color: var(--muted);
 }
 .ds-token-picker__icon {
   display: inline-flex;
@@ -2559,8 +2559,10 @@ button.ds-marker-canvas__marker:focus-visible {
   gap: 0.2rem;
   min-height: 1.5rem;
   padding: 0.1rem 0.25rem;
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
-  background: var(--surface-2, #f7f7f7);
+  border: 1px solid color-mix(in srgb, var(--ink) 6%, transparent);
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
   box-sizing: border-box;
 }
 .ds-token-picker__trigger {
@@ -2586,10 +2588,10 @@ button.ds-marker-canvas__marker:focus-visible {
   font: inherit;
   line-height: 1;
   padding: 0.1rem 0.35rem;
-  color: var(--muted, #666);
+  color: var(--muted);
 }
 .ds-token-picker__clear:hover {
-  color: var(--fg, #111);
+  color: var(--ink);
 }
 .ds-token-picker__list {
   list-style: none;
@@ -2599,8 +2601,8 @@ button.ds-marker-canvas__marker:focus-visible {
   gap: 0;
   max-height: 9rem;
   overflow: auto;
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
-  background: var(--surface-1, #fff);
+  border: 1px solid var(--line);
+  background: var(--bg1);
 }
 .ds-token-picker__list[hidden] {
   display: none !important;
@@ -2611,7 +2613,7 @@ button.ds-marker-canvas__marker:focus-visible {
   right: 0;
   z-index: 30;
   max-height: 12rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 18%, transparent);
 }
 .ds-token-picker__option {
   display: flex;
@@ -2620,7 +2622,7 @@ button.ds-marker-canvas__marker:focus-visible {
   width: 100%;
   padding: 0.2rem 0.35rem;
   border: 0;
-  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.06));
+  border-bottom: 1px solid var(--line);
   background: transparent;
   text-align: left;
   cursor: pointer;
@@ -2631,7 +2633,7 @@ button.ds-marker-canvas__marker:focus-visible {
   border-bottom: 0;
 }
 .ds-token-picker__option:hover {
-  background: var(--surface-2, #f4f4f4);
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
 }
 .ds-token-picker__option--selected {
   background: color-mix(in srgb, var(--accent, #245) 12%, transparent);
@@ -2639,7 +2641,7 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-token-picker__swatch {
   width: 0.875rem;
   height: 0.875rem;
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
+  border: 1px solid var(--line);
   flex-shrink: 0;
   box-sizing: border-box;
 }
@@ -2653,7 +2655,7 @@ button.ds-marker-canvas__marker:focus-visible {
   font-family: var(--font-body, system-ui, sans-serif);
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--fg, #111);
+  color: var(--ink);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2661,7 +2663,7 @@ button.ds-marker-canvas__marker:focus-visible {
   min-width: 0;
 }
 .ds-token-picker__path--empty {
-  color: var(--muted, #666);
+  color: var(--muted);
   font-weight: 400;
   font-family: inherit;
 }
@@ -2695,10 +2697,10 @@ button.ds-marker-canvas__marker:focus-visible {
   font: inherit;
   line-height: 1;
   padding: 0.1rem 0.3rem;
-  color: var(--muted, #666);
+  color: var(--muted);
 }
 .ds-token-picker__cycle-btn:hover {
-  color: var(--fg, #111);
+  color: var(--ink);
 }
 .ds-token-picker__clear {
   flex-shrink: 0;
@@ -2712,13 +2714,14 @@ button.ds-marker-canvas__marker:focus-visible {
   display: flex;
   flex-direction: column;
   min-width: 12rem;
-  border-right: 1px solid var(--border, rgba(0, 0, 0, 0.12));
-  background: var(--surface-1, #fff);
+  border-right: 1px solid var(--line);
+  background: var(--bg1);
+  color: var(--ink);
   min-height: 0;
 }
 .ds-layers-panel__head {
   padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  border-bottom: 1px solid var(--line);
   font-size: 0.8125rem;
 }
 .ds-layers-panel__list {
@@ -2747,7 +2750,7 @@ button.ds-marker-canvas__marker:focus-visible {
   font-size: 0.65rem;
   line-height: 1;
   padding: 0.15rem 0;
-  color: var(--muted, #666);
+  color: var(--muted);
 }
 .ds-layers-panel__chevron--spacer {
   visibility: hidden;
@@ -2769,7 +2772,7 @@ button.ds-marker-canvas__marker:focus-visible {
   box-sizing: border-box;
 }
 .ds-layers-panel__btn:hover {
-  background: var(--surface-2, #f4f4f4);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
 }
 .ds-layers-panel__btn--selected {
   background: color-mix(in srgb, var(--accent, #245) 12%, transparent);
@@ -2777,13 +2780,13 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-layers-panel__glyph {
   display: inline-flex;
   flex-shrink: 0;
-  color: var(--muted, #666);
+  color: var(--muted);
 }
 .ds-layers-panel__type {
   font-size: 0.625rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  color: var(--muted, #666);
+  color: var(--muted);
   flex-shrink: 0;
 }
 .ds-layers-panel__label {
@@ -2794,7 +2797,7 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-layers-panel__empty {
   margin: 0.75rem;
-  color: var(--muted, #666);
+  color: var(--muted);
   font-size: 0.8125rem;
 }
 .ds-layers-panel__row--hidden .ds-layers-panel__label,
@@ -2826,18 +2829,18 @@ button.ds-marker-canvas__marker:focus-visible {
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--muted, #666);
+  color: var(--muted);
   font-size: 0.65rem;
   line-height: 1;
   cursor: pointer;
   border-radius: 0.15rem;
 }
 .ds-layers-panel__icon-btn:hover {
-  background: var(--surface-2, #f4f4f4);
-  color: var(--fg, #111);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--ink);
 }
 .ds-layers-panel__icon-btn--active {
-  color: var(--fg, #111);
+  color: var(--ink);
 }
 .ds-layers-panel__moves {
   display: inline-flex;
@@ -2850,15 +2853,15 @@ button.ds-marker-canvas__marker:focus-visible {
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--muted, #666);
+  color: var(--muted);
   font-size: 0.55rem;
   line-height: 1;
   cursor: pointer;
   border-radius: 0.15rem;
 }
 .ds-layers-panel__move:hover:not(:disabled) {
-  background: var(--surface-2, #f4f4f4);
-  color: var(--fg, #111);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--ink);
 }
 .ds-layers-panel__move:disabled {
   opacity: 0.35;
@@ -2869,33 +2872,33 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-breakpoint-switcher {
   display: inline-flex;
   align-items: stretch;
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
+  border: 1px solid var(--line);
   border-radius: 0.35rem;
   overflow: hidden;
-  background: var(--surface-1, #fff);
+  background: transparent;
 }
 .ds-breakpoint-switcher__btn {
   border: 0;
   margin: 0;
   padding: 0.3rem 0.65rem;
   background: transparent;
-  color: var(--muted, #666);
+  color: var(--muted);
   font: inherit;
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  border-right: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  border-right: 1px solid var(--line);
 }
 .ds-breakpoint-switcher__btn:last-child {
   border-right: 0;
 }
 .ds-breakpoint-switcher__btn:hover {
-  background: var(--surface-2, #f4f4f4);
-  color: var(--fg, #111);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+  color: var(--ink);
 }
 .ds-breakpoint-switcher__btn--selected {
-  background: color-mix(in srgb, var(--accent, #245) 14%, transparent);
-  color: var(--fg, #111);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--ink);
   font-weight: 600;
 }
 .ds-breakpoint-switcher__btn:focus-visible {
@@ -2908,8 +2911,8 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-inspect-tabs {
   display: flex;
   align-items: stretch;
-  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.12));
-  background: var(--surface-1, #fff);
+  border-bottom: 1px solid var(--line);
+  background: transparent;
 }
 .ds-inspect-tabs__tab {
   flex: 1;
@@ -2917,7 +2920,7 @@ button.ds-marker-canvas__marker:focus-visible {
   margin: 0;
   padding: 0.45rem 0.5rem;
   background: transparent;
-  color: var(--muted, #666);
+  color: var(--muted);
   font: inherit;
   font-size: 0.75rem;
   font-weight: 600;
@@ -2927,12 +2930,12 @@ button.ds-marker-canvas__marker:focus-visible {
   border-bottom: 2px solid transparent;
 }
 .ds-inspect-tabs__tab:hover {
-  color: var(--fg, #111);
-  background: var(--surface-2, #f7f7f7);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
 }
 .ds-inspect-tabs__tab--selected {
-  color: var(--fg, #111);
-  border-bottom-color: var(--accent, #245);
+  color: var(--ink);
+  border-bottom-color: var(--accent);
 }
 .ds-inspect-tabs__tab:disabled {
   opacity: 0.45;

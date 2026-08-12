@@ -84,5 +84,7 @@ describe('design-system CSS layers', () => {
     expect(tokensCss).toContain("[data-theme='msqdx']")
     expect(tokensCss).toContain("[data-theme='msqdx-dark']")
     expect(tokensCss).toContain("[data-theme='forest']")
+    expect(tokensCss).toContain('--surface-1: var(--bg1)')
+    expect(tokensCss).toContain('--border: var(--line)')
   })
 })

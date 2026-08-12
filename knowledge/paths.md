@@ -19,6 +19,7 @@
 - CREATION inspect chrome E9 bump (TokenPicker compact popover): `knowledge/creation-inspect-chrome-e9-bump.md`
 - CREATION inspect chrome E10 bump (icon slots / ToggleGroup icon variant): `knowledge/creation-inspect-chrome-e10-bump.md`
 - CREATION TokenPicker empty strip + font preview: `knowledge/creation-token-picker-empty-label.md`
+- CREATION inspect light/dark tokens: `knowledge/creation-inspect-theme-tokens.md`
 - LayersPanel: `packages/ui/src/components/LayersPanel.tsx` · spec `specs/domain/msqdx-ui-layers-panel.md` · Storybook `Organisms/LayersPanel`
 - BreakpointSwitcher: `packages/ui/src/components/BreakpointSwitcher.tsx` · spec `specs/domain/msqdx-ui-breakpoint-switcher.md` · Storybook `Molecules/BreakpointSwitcher`
 - InspectTabs: `packages/ui/src/components/InspectTabs.tsx` · spec `specs/domain/msqdx-ui-inspect-tabs.md` · Storybook `Molecules/InspectTabs`

@@ -53,7 +53,7 @@ type TokenPickerOption = {
 ## Anatomy / density
 
 1. **Label** row (quiet meta).
-2. **Current value** strip: optional color swatch + **option label** (or path) when bound, else `emptyLabel`; optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set. `fontPreview` / `sampleStyle` render the label in that typeface/weight (display only). Cycle and clear MAY hide until hover so the value stays readable.
+2. **Current value** strip: optional color swatch + **option label** (or path) when bound, else `emptyLabel`; optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set. `fontPreview` / `sampleStyle` render the label in that typeface/weight (display only). Cycle and clear MAY hide until hover so the value stays readable. Strip chrome MUST match magazine Input: transparent fill, `--ink` hairline + bottom rule, value color `--ink` (not a grey `--surface-2` well).
 3. **Option list** (`role="listbox"`): swatch (if `preview`) + path/label; selected state outlined.
    - **compact (default):** list is a popover opened from the current strip (Penpot). Closed until the strip is clicked; choosing a token closes it.
    - **list:** always visible under the strip (Storybook / debug).

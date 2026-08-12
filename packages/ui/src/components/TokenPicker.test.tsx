@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { TokenPicker } from './TokenPicker'
@@ -177,5 +180,19 @@ describe('TokenPicker', () => {
       />,
     )
     expect(screen.getByTestId('token-picker-value')).toHaveStyle({ fontWeight: '600' })
+  })
+
+  it('current strip uses magazine ink tokens, not a grey well', () => {
+    const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../css/components.css'), 'utf8')
+    const start = css.indexOf('.ds-token-picker__current {')
+    const block = css.slice(start, start + 420)
+    expect(block).toContain('background: transparent')
+    expect(block).toContain('color: var(--ink)')
+    expect(block).toContain('border-bottom: 1px solid var(--ink)')
+    expect(block).not.toContain('#f7f7f7')
+    expect(css).not.toContain('color: var(--fg, #111)')
+    const tokens = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../css/tokens.css'), 'utf8')
+    expect(tokens).toContain('--surface-1: var(--bg1)')
+    expect(tokens).toContain('--border: var(--line)')
   })
 })

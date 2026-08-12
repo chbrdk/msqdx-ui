@@ -289,3 +289,106 @@
   --atmosphere-a: rgba(255, 106, 59, 0.16);
   --atmosphere-b: rgba(182, 56, 255, 0.12);
 }
+
+/* msqdx-ui ids share the v2 palettes (Storybook + product theme_choices). */
+[data-theme='msqdx-ui'] {
+  --bg0: #f6f4ee;
+  --bg1: #ffffff;
+  --ink: #0f172a;
+  --fg: var(--ink);
+  --muted: #475569;
+  --accent: #ff6a3b;
+  --line: rgba(0, 0, 0, 0.12);
+  --danger: #ef4444;
+  --ok: #00ca55;
+  --warn: #fef14d;
+  --surface: rgba(255, 255, 255, 0.96);
+  --surface-2: rgba(250, 249, 246, 0.85);
+  --radius: var(--radius-sm);
+  --icon-sm: 14px;
+  --icon-md: 18px;
+  --role-foresight: #ff6a3b;
+  --role-research: #3080ff;
+  --role-waves: #b638ff;
+  --role-signals: #d5108a;
+  --role-sources: #00ca55;
+  --role-ops: #64748b;
+  --role-corpus: #ff6a3b;
+  --role-pipeline: #3080ff;
+  --font-display: var(--stack-display);
+  --font-body: var(--stack-body);
+  --font-mono: var(--stack-mono);
+  --section-title: #000000;
+  --track: color-mix(in srgb, var(--ink) 16%, transparent);
+  --field: #ffffff;
+  --overlay-scrim: color-mix(in srgb, #ffffff 22%, transparent);
+  --atmosphere-a: rgba(255, 106, 59, 0.12);
+  --atmosphere-b: rgba(182, 56, 255, 0.08);
+}
+
+[data-theme='msqdx-ui-dark'] {
+  --bg0: #0c0c0c;
+  --bg1: #161616;
+  --ink: #ffffff;
+  --fg: var(--ink);
+  --muted: #a3a3a3;
+  --accent: #ff6a3b;
+  --line: rgba(255, 255, 255, 0.12);
+  --danger: #f87171;
+  --ok: #00ca55;
+  --warn: #fef14d;
+  --surface: rgba(22, 22, 22, 0.96);
+  --surface-2: rgba(34, 34, 34, 0.55);
+  --radius: var(--radius-sm);
+  --icon-sm: 14px;
+  --icon-md: 18px;
+  --role-foresight: #ff6a3b;
+  --role-research: #3080ff;
+  --role-waves: #b638ff;
+  --role-signals: #f256b6;
+  --role-sources: #00ca55;
+  --role-ops: #a3a3a3;
+  --role-corpus: #ff6a3b;
+  --role-pipeline: #3080ff;
+  --font-display: var(--stack-display);
+  --font-body: var(--stack-body);
+  --font-mono: var(--stack-mono);
+  --section-title: #ffffff;
+  --track: color-mix(in srgb, var(--ink) 16%, transparent);
+  --field: color-mix(in srgb, var(--ink) 7%, var(--bg1));
+  --overlay-scrim: color-mix(in srgb, #0c0c0c 20%, transparent);
+  --atmosphere-a: rgba(255, 106, 59, 0.16);
+  --atmosphere-b: rgba(182, 56, 255, 0.12);
+}
+
+/*
+ * Chrome aliases. Inspect/editor CSS used --surface-1 / --border with light-only
+ * fallbacks (#fff, black 12%). Those vars were never on the theme, so dark
+ * rails painted grey/white boxes. Map them to the real semantic tokens.
+ */
+:root,
+[data-theme='msqdx'],
+[data-theme='msqdx-dark'],
+[data-theme='msqdx-v2'],
+[data-theme='msqdx-v2-dark'],
+[data-theme='msqdx-ui'],
+[data-theme='msqdx-ui-dark'],
+[data-theme='forest'] {
+  --surface-1: var(--bg1);
+  --border: var(--line);
+  --paper: var(--bg1);
+}
+
+:root,
+[data-theme='msqdx'],
+[data-theme='msqdx-v2'],
+[data-theme='msqdx-ui'] {
+  color-scheme: light;
+}
+
+[data-theme='msqdx-dark'],
+[data-theme='msqdx-v2-dark'],
+[data-theme='msqdx-ui-dark'],
+[data-theme='forest'] {
+  color-scheme: dark;
+}

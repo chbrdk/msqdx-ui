@@ -17,8 +17,9 @@ CREATION inspect passed `noneLabel="Clear token"`. The current strip rendered `{
 | `fontPreview` | Display-only `font-family` on the value label. Color `preview` remains swatch-only. |
 | Swatch | Rendered only when `preview` is set (no checkerboard on type tokens). |
 | Inspector Select | Full width inside `.ds-property-inspector` (`min-width: 0`, value `flex: 1`). |
-| P26 contrast | Inspector inputs/selects `color: #111` + white fill; TokenPicker path is body/500 not muted mono; cycle/clear opacity 0 until hover/focus. |
+| P26 contrast | Inspector inputs/selects inherit magazine Field (`--ink`); TokenPicker path is body/500; cycle/clear opacity 0 until hover/focus. |
 | `sampleStyle` | Display-only size/weight on the value label. |
+| P27 theme | `--surface-1`/`--border` alias `--bg1`/`--line`. TokenPicker strip is transparent + ink rule (not `#f7f7f7`). |
 
 ## Pin after push
 
