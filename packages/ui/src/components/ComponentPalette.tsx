@@ -47,7 +47,10 @@ export function ComponentPalette({
             >
               <span className="ds-component-palette__label">{item.label}</span>
               {item.description ? (
-                <span className="ds-component-palette__desc">{item.description}</span>
+                <>
+                  {' '}
+                  <span className="ds-component-palette__desc">{item.description}</span>
+                </>
               ) : null}
             </Button>
           </li>

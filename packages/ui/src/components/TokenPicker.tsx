@@ -1,4 +1,6 @@
-import type { HTMLAttributes } from 'react'
+'use client'
+
+import { useEffect, useRef, useState, type HTMLAttributes } from 'react'
 
 export type TokenPickerOption = {
   path: string
@@ -6,6 +8,8 @@ export type TokenPickerOption = {
   /** Display-only CSS color for swatch; not written as the value. */
   preview?: string
 }
+
+export type TokenPickerVariant = 'compact' | 'list'
 
 export type TokenPickerProps = {
   className?: string
@@ -23,6 +27,11 @@ export type TokenPickerProps = {
   prevLabel?: string
   nextLabel?: string
   label?: string
+  /**
+   * `compact` (default): Penpot strip; option list is a popover.
+   * `list`: always-open dense list (Storybook / debug).
+   */
+  variant?: TokenPickerVariant
   'aria-label'?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'onChange'>
 
@@ -49,12 +58,25 @@ export function TokenPicker({
   prevLabel = 'Previous token',
   nextLabel = 'Next token',
   label = 'Token',
+  variant = 'compact',
   'aria-label': ariaLabel = 'Token picker',
   ...rest
 }: TokenPickerProps) {
   const selectedOption = value ? options.find((opt) => opt.path === value) : undefined
   const showClear = Boolean(onClear && value)
   const index = cycleIndex(value, options)
+  const compact = variant === 'compact'
+  const [open, setOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!compact || !open) return
+    const onDoc = (event: MouseEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onDoc)
+    return () => document.removeEventListener('mousedown', onDoc)
+  }, [compact, open])
 
   const step = (direction: -1 | 1) => {
     if (options.length === 0) return
@@ -70,7 +92,6 @@ export function TokenPicker({
       onChange?.(options[index + 1]!.path)
       return
     }
-    // prev
     if (index < 0) {
       onChange?.(options[options.length - 1]!.path)
       return
@@ -82,23 +103,98 @@ export function TokenPicker({
     onChange?.(options[index - 1]!.path)
   }
 
+  const pick = (path: string | null) => {
+    if (path == null) onClear?.()
+    else onChange?.(path)
+    if (compact) setOpen(false)
+  }
+
+  const list = (
+    <ul className="ds-token-picker__list" role="listbox" aria-label={ariaLabel} hidden={compact && !open}>
+      {allowNone ? (
+        <li>
+          <button
+            type="button"
+            role="option"
+            aria-selected={!value}
+            className={cx('ds-token-picker__option', !value && 'ds-token-picker__option--selected')}
+            onClick={() => pick(null)}
+          >
+            <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
+            <span className="ds-token-picker__path">{noneLabel}</span>
+          </button>
+        </li>
+      ) : null}
+      {options.map((opt) => {
+        const selected = value === opt.path
+        return (
+          <li key={opt.path}>
+            <button
+              type="button"
+              role="option"
+              aria-selected={selected}
+              className={cx(
+                'ds-token-picker__option',
+                selected && 'ds-token-picker__option--selected',
+              )}
+              onClick={() => pick(opt.path)}
+            >
+              {opt.preview ? (
+                <span
+                  className="ds-token-picker__swatch"
+                  style={{ background: opt.preview }}
+                  aria-hidden
+                />
+              ) : (
+                <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
+              )}
+              <span className="ds-token-picker__path">{opt.label ?? opt.path}</span>
+            </button>
+          </li>
+        )
+      })}
+    </ul>
+  )
+
   return (
-    <div className={cx('ds-token-picker', className)} aria-label={ariaLabel} {...rest}>
+    <div
+      ref={rootRef}
+      className={cx(
+        'ds-token-picker',
+        compact ? 'ds-token-picker--compact' : 'ds-token-picker--list',
+        compact && open && 'ds-token-picker--open',
+        className,
+      )}
+      aria-label={ariaLabel}
+      {...rest}
+    >
       <div className="ds-token-picker__label">{label}</div>
 
       <div className="ds-token-picker__current">
-        {selectedOption?.preview ? (
-          <span
-            className="ds-token-picker__swatch"
-            style={{ background: selectedOption.preview }}
-            aria-hidden
-          />
-        ) : (
-          <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
-        )}
-        <span className="ds-token-picker__path" data-testid="token-picker-value">
-          {value ?? noneLabel}
-        </span>
+        <button
+          type="button"
+          className="ds-token-picker__trigger"
+          data-testid="token-picker-trigger"
+          aria-expanded={compact ? open : undefined}
+          aria-haspopup={compact ? 'listbox' : undefined}
+          aria-label={label}
+          onClick={() => {
+            if (compact) setOpen((next) => !next)
+          }}
+        >
+          {selectedOption?.preview ? (
+            <span
+              className="ds-token-picker__swatch"
+              style={{ background: selectedOption.preview }}
+              aria-hidden
+            />
+          ) : (
+            <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
+          )}
+          <span className="ds-token-picker__path" data-testid="token-picker-value">
+            {value ?? noneLabel}
+          </span>
+        </button>
         {allowCycle ? (
           <span className="ds-token-picker__cycle">
             <button
@@ -131,56 +227,7 @@ export function TokenPicker({
         ) : null}
       </div>
 
-      <ul className="ds-token-picker__list" role="listbox" aria-label={ariaLabel}>
-        {allowNone ? (
-          <li>
-            <button
-              type="button"
-              role="option"
-              aria-selected={!value}
-              className={cx(
-                'ds-token-picker__option',
-                !value && 'ds-token-picker__option--selected',
-              )}
-              onClick={() => onClear?.()}
-            >
-              <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
-              <span className="ds-token-picker__path">{noneLabel}</span>
-            </button>
-          </li>
-        ) : null}
-        {options.map((opt) => {
-          const selected = value === opt.path
-          return (
-            <li key={opt.path}>
-              <button
-                type="button"
-                role="option"
-                aria-selected={selected}
-                className={cx(
-                  'ds-token-picker__option',
-                  selected && 'ds-token-picker__option--selected',
-                )}
-                onClick={() => onChange?.(opt.path)}
-              >
-                {opt.preview ? (
-                  <span
-                    className="ds-token-picker__swatch"
-                    style={{ background: opt.preview }}
-                    aria-hidden
-                  />
-                ) : (
-                  <span
-                    className="ds-token-picker__swatch ds-token-picker__swatch--empty"
-                    aria-hidden
-                  />
-                )}
-                <span className="ds-token-picker__path">{opt.label ?? opt.path}</span>
-              </button>
-            </li>
-          )
-        })}
-      </ul>
+      {list}
     </div>
   )
 }

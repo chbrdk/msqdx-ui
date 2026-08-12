@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { TokenPicker } from './TokenPicker'
 
@@ -13,6 +13,7 @@ describe('TokenPicker', () => {
       <TokenPicker
         options={[{ path: 'color.accent', preview: '#245' }]}
         onChange={onChange}
+        variant="list"
       />,
     )
     expect(screen.getByRole('option', { name: /color.accent/ })).toBeInTheDocument()
@@ -44,6 +45,7 @@ describe('TokenPicker', () => {
         allowNone
         noneLabel="None"
         onClear={onClear}
+        variant="list"
       />,
     )
     screen.getByRole('option', { name: 'None' }).click()
@@ -93,5 +95,24 @@ describe('TokenPicker', () => {
     )
     screen.getByRole('button', { name: 'Previous token' }).click()
     expect(onClear).toHaveBeenCalled()
+  })
+
+  it('compact variant hides the list until the strip is opened', () => {
+    const onChange = vi.fn()
+    render(
+      <TokenPicker
+        label="Radius"
+        options={[{ path: 'radius.md' }, { path: 'radius.lg' }]}
+        value="radius.md"
+        onChange={onChange}
+      />,
+    )
+    expect(screen.queryByRole('option', { name: /radius.lg/ })).toBeNull()
+    expect(document.querySelector('.ds-token-picker--compact')).not.toBeNull()
+    fireEvent.click(screen.getByTestId('token-picker-trigger'))
+    expect(screen.getByRole('option', { name: /radius.lg/ })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('option', { name: /radius.lg/ }))
+    expect(onChange).toHaveBeenCalledWith('radius.lg')
+    expect(screen.queryByRole('option', { name: /radius.lg/ })).toBeNull()
   })
 })

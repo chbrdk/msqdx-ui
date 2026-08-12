@@ -337,6 +337,6 @@ export type {
   LayersPanelReorderDropPosition,
 } from './components/LayersPanel'
 export { TokenPicker } from './components/TokenPicker'
-export type { TokenPickerProps, TokenPickerOption } from './components/TokenPicker'
+export type { TokenPickerProps, TokenPickerOption, TokenPickerVariant } from './components/TokenPicker'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

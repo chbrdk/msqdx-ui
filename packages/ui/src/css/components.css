@@ -2410,9 +2410,7 @@ button.ds-marker-canvas__marker:focus-visible {
   background: var(--surface-1, #fff);
 }
 .ds-property-inspector__head {
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.1));
-  font-size: 0.8125rem;
+  display: none;
 }
 .ds-property-inspector__body {
   padding: 0.35rem 0;
@@ -2449,7 +2447,25 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-inspect-section__body {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.28rem;
+}
+
+/* Inspect rail: magazine Field labels are too loud for a design tool. */
+.ds-property-inspector .ds-field {
+  width: 100%;
+  gap: 0.12rem;
+}
+.ds-property-inspector .ds-field-label {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--muted, #666);
+  font-size: 0.6875rem;
+  font-weight: 500;
+}
+.ds-property-inspector .ds-input,
+.ds-property-inspector .ds-select-trigger {
+  min-height: 1.5rem;
+  font-size: 0.75rem;
 }
 
 /* ComponentPalette */
@@ -2471,12 +2487,17 @@ button.ds-marker-canvas__marker:focus-visible {
   display: grid;
   gap: 0.25rem;
 }
-.ds-component-palette__btn {
+.ds-component-palette__btn.ds-btn {
   width: 100%;
   justify-content: flex-start;
+  align-items: flex-start;
+}
+.ds-component-palette__btn .ds-btn__label {
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.15rem;
+  width: 100%;
 }
 .ds-component-palette__label {
   font-weight: 600;
@@ -2494,6 +2515,7 @@ button.ds-marker-canvas__marker:focus-visible {
 
 /* TokenPicker — dense token-path field (no free CSS entry) */
 .ds-token-picker {
+  position: relative;
   display: grid;
   gap: 0.25rem;
 }
@@ -2504,12 +2526,27 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-token-picker__current {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 0.2rem;
   min-height: 1.5rem;
-  padding: 0.15rem 0.35rem;
+  padding: 0.1rem 0.25rem;
   border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
   background: var(--surface-2, #f7f7f7);
   box-sizing: border-box;
+}
+.ds-token-picker__trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
 }
 .ds-token-picker__clear {
   margin-left: auto;
@@ -2533,6 +2570,18 @@ button.ds-marker-canvas__marker:focus-visible {
   max-height: 9rem;
   overflow: auto;
   border: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+  background: var(--surface-1, #fff);
+}
+.ds-token-picker__list[hidden] {
+  display: none !important;
+}
+.ds-token-picker--compact .ds-token-picker__list:not([hidden]) {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: 12rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 .ds-token-picker__option {
   display: flex;

@@ -110,6 +110,7 @@ describe('creation editor primitives', () => {
         onChange={onChange}
         onClear={onClear}
         clearLabel="Clear"
+        variant="list"
       />,
     )
     screen.getByRole('option', { name: /color.accent/ }).click()

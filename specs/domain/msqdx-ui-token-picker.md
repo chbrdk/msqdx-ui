@@ -30,6 +30,7 @@ Compact control to **bind a property to a token path**. Values are **token paths
 | `prevLabel` | Accessible label for previous cycle (default `Previous token`) |
 | `nextLabel` | Accessible label for next cycle (default `Next token`) |
 | `label` | Field label above the control |
+| `variant` | `compact` (default): option list is a popover. `list`: always-open dense list. |
 | `aria-label` | Default `Token picker` |
 
 ### Option shape
@@ -47,7 +48,9 @@ type TokenPickerOption = {
 
 1. **Label** row (quiet meta).
 2. **Current value** strip: optional swatch + mono token path (or none placeholder) + optional −/+ cycle (`allowCycle`) + optional clear button when `onClear` and value set.
-3. **Dense option list** (`role="listbox"`): swatch (if `preview`) + path/label; selected state outlined.
+3. **Option list** (`role="listbox"`): swatch (if `preview`) + path/label; selected state outlined.
+   - **compact (default):** list is a popover opened from the current strip (Penpot). Closed until the strip is clicked; choosing a token closes it.
+   - **list:** always visible under the strip (Storybook / debug).
 
 ### Cycle behaviour (`allowCycle`)
 
@@ -69,5 +72,5 @@ type TokenPickerOption = {
 ## Acceptance
 
 1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle.
-2. Tests: select path; clear calls `onClear`; none option; cycle prev/next; no raw CSS field.
+2. Tests: select path; clear calls `onClear`; none option; cycle prev/next; compact popover; no raw CSS field.
 3. Consuming apps import `TokenPicker` from `@msqdx/ui`.

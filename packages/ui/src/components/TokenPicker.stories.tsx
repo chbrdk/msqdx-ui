@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Dense token-path picker for inspect fields. Values are token paths only — no free CSS entry.',
+          'Dense token-path picker for inspect fields. Default is a compact strip + popover. Values are token paths only — no free CSS entry.',
       },
     },
   },
@@ -65,6 +65,7 @@ export const AllowNone: Story = {
 
 export const DenseList: Story = {
   args: {
+    variant: 'list',
     label: 'Space',
     value: 'space.md',
     options: [

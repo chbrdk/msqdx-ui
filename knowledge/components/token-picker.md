@@ -1,8 +1,21 @@
 # TokenPicker
 
-Scaffolded as a organisms primitive in `msqdx-ui`.
+Dense inspect control that **binds a property to a token path**. Never free CSS / `#hex` / `px`.
 
-## Follow-up
+**Spec:** `specs/domain/msqdx-ui-token-picker.md`  
+**Storybook:** `Organisms/TokenPicker`
 
-- Capture usage examples once the primitive ships in a consuming app.
-- Note migrations or API decisions here.
+## Variants
+
+| `variant` | Behaviour |
+|-----------|-----------|
+| `compact` (default) | Current strip (swatch + path + optional −/+ / clear). Option list is a popover. |
+| `list` | Always-open dense list under the strip (Storybook / debug). |
+
+CREATION `/editor` MUST use compact (the default). Do not pass `list` in the inspect rail.
+
+## Rules
+
+- `onChange` emits `option.path` only.
+- Clear goes through `onClear`, not `onChange('')`.
+- Swatch `preview` is display-only.
