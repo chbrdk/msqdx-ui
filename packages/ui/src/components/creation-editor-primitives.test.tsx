@@ -14,6 +14,8 @@ import { PropertyInspector } from './PropertyInspector'
 import { ComponentPalette } from './ComponentPalette'
 import { LayersPanel } from './LayersPanel'
 import { TokenPicker } from './TokenPicker'
+import { BreakpointSwitcher } from './BreakpointSwitcher'
+import { InspectTabs } from './InspectTabs'
 
 afterEach(() => {
   cleanup()
@@ -126,5 +128,19 @@ describe('creation editor primitives', () => {
     )
     screen.getByTestId('layers-panel-item-n1').click()
     expect(onSelect).toHaveBeenCalledWith('n1')
+  })
+
+  it('BreakpointSwitcher changes breakpoint', () => {
+    const onChange = vi.fn()
+    render(<BreakpointSwitcher value="desktop" onChange={onChange} />)
+    screen.getByTestId('breakpoint-switcher-tablet').click()
+    expect(onChange).toHaveBeenCalledWith('tablet')
+  })
+
+  it('InspectTabs switches Design/CSS', () => {
+    const onChange = vi.fn()
+    render(<InspectTabs value="design" onChange={onChange} />)
+    screen.getByTestId('inspect-tab-css').click()
+    expect(onChange).toHaveBeenCalledWith('css')
   })
 })

@@ -1,0 +1,46 @@
+import type { Meta, StoryObj } from '@storybook/react-vite'
+import { useState } from 'react'
+import { BreakpointSwitcher, type EditorBreakpoint } from './BreakpointSwitcher'
+
+const meta = {
+  title: 'Molecules/BreakpointSwitcher',
+  component: BreakpointSwitcher,
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component:
+          'Mobile / tablet / desktop segmented control for editor preview chrome. Apps map value → artboard width.',
+      },
+    },
+  },
+} satisfies Meta<typeof BreakpointSwitcher>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    value: 'desktop',
+    onChange: () => undefined,
+  },
+}
+
+export const Interactive: Story = {
+  render: function InteractiveStory() {
+    const [value, setValue] = useState<EditorBreakpoint>('tablet')
+    return <BreakpointSwitcher value={value} onChange={setValue} />
+  },
+}
+
+export const CustomLabels: Story = {
+  args: {
+    value: 'mobile',
+    onChange: () => undefined,
+    labels: {
+      mobile: 'SM',
+      tablet: 'MD',
+      desktop: 'LG',
+    },
+  },
+}

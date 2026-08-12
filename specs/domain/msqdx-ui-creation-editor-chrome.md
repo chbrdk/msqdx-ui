@@ -12,8 +12,10 @@
 | `SelectionHandles` | Molecules | Bounding box + resize affordances (visual; optional interactive corners) |
 | `PropertyInspector` | Organisms | Dense prop rail shell; app supplies fields |
 | `InspectSection` | Molecules | Title + body chrome inside the inspector |
+| `InspectTabs` | Molecules | Dense Design\|CSS (labels as props) tablist — no panels; compose around inspector |
+| `BreakpointSwitcher` | Molecules | Mobile / tablet / desktop segmented control for preview width |
 | `ComponentPalette` | Organisms | Draggable/clickable type list |
-| `LayersPanel` | Organisms | Scene structure tree (select / expand / collapse) |
+| `LayersPanel` | Organisms | Scene structure tree (select / expand / collapse; optional sibling move) |
 | `TokenPicker` | Molecules | Token-path pick (+ optional clear / none / −/+ cycle); no raw CSS entry |
 
 ## Density (inspect)

@@ -24,9 +24,9 @@ Aside chrome for a design-tool property panel at **Penpot-like density**. **Fiel
 | `children` | App-supplied sections / fields |
 | `aria-label` | Default `Property inspector` |
 
-### Design | CSS tabs (app-owned)
+### Design | CSS tabs
 
-Do **not** add a `tabs` prop on this primitive. CREATION (and peers) compose Design vs CSS above or around `PropertyInspector` / as conditional `children` (e.g. Design = `InspectSection` stack; CSS = read-only preview). Keeps field catalogs and tab IA in the app.
+Do **not** add a `tabs` prop on this primitive. Compose `InspectTabs` (`msqdx-ui-inspect-tabs.md`) above or around `PropertyInspector` with conditional children (e.g. Design = `InspectSection` stack; CSS = read-only preview). Labels stay props on `InspectTabs`; field catalogs stay in the app.
 
 ## Density
 

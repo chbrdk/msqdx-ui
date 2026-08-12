@@ -56,4 +56,41 @@ describe('LayersPanel', () => {
     expect(chevron).toHaveAttribute('aria-expanded', 'false')
     expect(screen.queryByTestId('layers-panel-item-leaf')).toBeNull()
   })
+
+  it('calls onMoveUp / onMoveDown and disables edges', () => {
+    const onMoveUp = vi.fn()
+    const onMoveDown = vi.fn()
+    render(
+      <LayersPanel
+        items={TREE}
+        selectedId="child"
+        onMoveUp={onMoveUp}
+        onMoveDown={onMoveDown}
+      />,
+    )
+    // child is first sibling under root → up disabled, down enabled
+    expect(screen.getByTestId('layers-panel-move-up-child')).toBeDisabled()
+    const downChild = screen.getByTestId('layers-panel-move-down-child')
+    expect(downChild).not.toBeDisabled()
+    fireEvent.click(downChild)
+    expect(onMoveDown).toHaveBeenCalledWith('child')
+
+    // branch is last sibling under root → down disabled, up enabled
+    const upBranch = screen.getByTestId('layers-panel-move-up-branch')
+    expect(screen.getByTestId('layers-panel-move-down-branch')).toBeDisabled()
+    expect(upBranch).not.toBeDisabled()
+    fireEvent.click(upBranch)
+    expect(onMoveUp).toHaveBeenCalledWith('branch')
+
+    // sole root: both disabled
+    expect(screen.getByTestId('layers-panel-move-up-root')).toBeDisabled()
+    expect(screen.getByTestId('layers-panel-move-down-root')).toBeDisabled()
+  })
+
+  it('falls back to onReorder when directional props omitted', () => {
+    const onReorder = vi.fn()
+    render(<LayersPanel items={TREE} onReorder={onReorder} />)
+    fireEvent.click(screen.getByTestId('layers-panel-move-down-child'))
+    expect(onReorder).toHaveBeenCalledWith('child', 'down')
+  })
 })

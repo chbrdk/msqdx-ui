@@ -14,7 +14,10 @@
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`
 - CREATION inspect density bump (MSQDX_UI_REF note): `knowledge/creation-inspect-chrome-bump.md`
 - CREATION layers panel bump (MSQDX_UI_REF note): `knowledge/creation-layers-panel-bump.md`
+- CREATION editor chrome E7 bump (BreakpointSwitcher / InspectTabs / Layers reorder): `knowledge/creation-editor-chrome-e7-bump.md`
 - LayersPanel: `packages/ui/src/components/LayersPanel.tsx` · spec `specs/domain/msqdx-ui-layers-panel.md` · Storybook `Organisms/LayersPanel`
+- BreakpointSwitcher: `packages/ui/src/components/BreakpointSwitcher.tsx` · spec `specs/domain/msqdx-ui-breakpoint-switcher.md` · Storybook `Molecules/BreakpointSwitcher`
+- InspectTabs: `packages/ui/src/components/InspectTabs.tsx` · spec `specs/domain/msqdx-ui-inspect-tabs.md` · Storybook `Molecules/InspectTabs`
 - InspectSection: `packages/ui/src/components/InspectSection.tsx` · spec `specs/domain/msqdx-ui-inspect-section.md` · Storybook `Molecules/InspectSection`
 - PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`

@@ -1,0 +1,26 @@
+# BreakpointSwitcher
+
+Layer: `molecules`
+
+Mobile / tablet / desktop segmented control for composition editor chrome.
+
+**Spec:** `specs/domain/msqdx-ui-breakpoint-switcher.md`  
+**Related:** CanvasViewport — apps map `value` → preview width.
+
+## Stories
+
+- Default
+- Interactive
+- CustomLabels
+
+## Usage
+
+```tsx
+import { BreakpointSwitcher, type EditorBreakpoint } from '@msqdx/ui'
+
+const [bp, setBp] = useState<EditorBreakpoint>('desktop')
+
+<BreakpointSwitcher value={bp} onChange={setBp} />
+```
+
+Pixel widths stay in the consuming app — this is chrome only.

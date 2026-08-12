@@ -18,6 +18,9 @@ function toLayerItem(node: SceneNode): LayersPanelItem {
   items={[toLayerItem(scene.root)]}
   selectedId={selectedId}
   onSelect={setSelectedId}
+  onMoveUp={(id) => moveSibling(id, 'up')}
+  onMoveDown={(id) => moveSibling(id, 'down')}
+  // or: onReorder={(id, direction) => moveSibling(id, direction)}
   title={t('editor.layers')}
 />
 ```
@@ -26,7 +29,8 @@ function toLayerItem(node: SceneNode): LayersPanelItem {
 
 - Hide / lock / rename stay app-owned (Zaoly R41/R47 reference).
 - Persist collapse ids in session chrome if needed — primitive is uncontrolled expand for v1.
+- Drag-drop reorder remains app-owned; DS only exposes ▲▼ sibling callbacks.
 
 ## Bump
 
-Pin: `knowledge/creation-layers-panel-bump.md`
+Pin: `knowledge/creation-editor-chrome-e7-bump.md` (also prior `creation-layers-panel-bump.md`)

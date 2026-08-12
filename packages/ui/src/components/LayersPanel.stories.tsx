@@ -71,3 +71,47 @@ export const Empty: Story = {
     emptyLabel: 'No layers',
   },
 }
+
+export const WithReorder: Story = {
+  name: 'With sibling reorder',
+  render: function ReorderStory() {
+    const [selectedId, setSelectedId] = useState<string | null>('title')
+    const [items, setItems] = useState<LayersPanelItem[]>(DEMO_TREE)
+
+    const reorderSiblings = (
+      list: LayersPanelItem[],
+      id: string,
+      direction: 'up' | 'down',
+    ): LayersPanelItem[] => {
+      const idx = list.findIndex((n) => n.id === id)
+      if (idx >= 0) {
+        const swap = direction === 'up' ? idx - 1 : idx + 1
+        if (swap < 0 || swap >= list.length) return list
+        const next = [...list]
+        const tmp = next[idx]!
+        next[idx] = next[swap]!
+        next[swap] = tmp
+        return next
+      }
+      return list.map((n) =>
+        n.children
+          ? { ...n, children: reorderSiblings(n.children, id, direction) }
+          : n,
+      )
+    }
+
+    return (
+      <div style={{ maxWidth: '16rem', border: '1px solid var(--border, #ddd)' }}>
+        <LayersPanel
+          title="Layers"
+          items={items}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+          onReorder={(id, direction) =>
+            setItems((prev) => reorderSiblings(prev, id, direction))
+          }
+        />
+      </div>
+    )
+  },
+}

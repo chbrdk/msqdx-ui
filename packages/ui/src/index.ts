@@ -317,10 +317,21 @@ export { PropertyInspector } from './components/PropertyInspector'
 export type { PropertyInspectorProps } from './components/PropertyInspector'
 export { InspectSection } from './components/InspectSection'
 export type { InspectSectionProps } from './components/InspectSection'
+export { InspectTabs } from './components/InspectTabs'
+export type { InspectTabsProps, InspectTabItem } from './components/InspectTabs'
+export { BreakpointSwitcher } from './components/BreakpointSwitcher'
+export type {
+  BreakpointSwitcherProps,
+  EditorBreakpoint,
+} from './components/BreakpointSwitcher'
 export { ComponentPalette } from './components/ComponentPalette'
 export type { ComponentPaletteProps } from './components/ComponentPalette'
 export { LayersPanel } from './components/LayersPanel'
-export type { LayersPanelProps, LayersPanelItem } from './components/LayersPanel'
+export type {
+  LayersPanelProps,
+  LayersPanelItem,
+  LayersPanelReorderDirection,
+} from './components/LayersPanel'
 export { TokenPicker } from './components/TokenPicker'
 export type { TokenPickerProps, TokenPickerOption } from './components/TokenPicker'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'

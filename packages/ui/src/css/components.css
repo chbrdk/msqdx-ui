@@ -2689,3 +2689,107 @@ button.ds-marker-canvas__marker:focus-visible {
   color: var(--muted, #666);
   font-size: 0.8125rem;
 }
+.ds-layers-panel__moves {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.05rem;
+  margin-right: 0.25rem;
+}
+.ds-layers-panel__move {
+  width: 1.1rem;
+  height: 1.1rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted, #666);
+  font-size: 0.55rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 0.15rem;
+}
+.ds-layers-panel__move:hover:not(:disabled) {
+  background: var(--surface-2, #f4f4f4);
+  color: var(--fg, #111);
+}
+.ds-layers-panel__move:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* BreakpointSwitcher — editor preview width chrome */
+.ds-breakpoint-switcher {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
+  border-radius: 0.35rem;
+  overflow: hidden;
+  background: var(--surface-1, #fff);
+}
+.ds-breakpoint-switcher__btn {
+  border: 0;
+  margin: 0;
+  padding: 0.3rem 0.65rem;
+  background: transparent;
+  color: var(--muted, #666);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-right: 1px solid var(--border, rgba(0, 0, 0, 0.1));
+}
+.ds-breakpoint-switcher__btn:last-child {
+  border-right: 0;
+}
+.ds-breakpoint-switcher__btn:hover {
+  background: var(--surface-2, #f4f4f4);
+  color: var(--fg, #111);
+}
+.ds-breakpoint-switcher__btn--selected {
+  background: color-mix(in srgb, var(--accent, #245) 14%, transparent);
+  color: var(--fg, #111);
+  font-weight: 600;
+}
+.ds-breakpoint-switcher__btn:focus-visible {
+  outline: 2px solid var(--accent, #245);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* InspectTabs — dense Design|CSS tablist (no panels) */
+.ds-inspect-tabs {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border, rgba(0, 0, 0, 0.12));
+  background: var(--surface-1, #fff);
+}
+.ds-inspect-tabs__tab {
+  flex: 1;
+  border: 0;
+  margin: 0;
+  padding: 0.45rem 0.5rem;
+  background: transparent;
+  color: var(--muted, #666);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+.ds-inspect-tabs__tab:hover {
+  color: var(--fg, #111);
+  background: var(--surface-2, #f7f7f7);
+}
+.ds-inspect-tabs__tab--selected {
+  color: var(--fg, #111);
+  border-bottom-color: var(--accent, #245);
+}
+.ds-inspect-tabs__tab:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.ds-inspect-tabs__tab:focus-visible {
+  outline: 2px solid var(--accent, #245);
+  outline-offset: -2px;
+}
