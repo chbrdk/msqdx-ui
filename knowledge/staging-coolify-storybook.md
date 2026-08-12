@@ -37,7 +37,18 @@ Product app Dockerfiles that **clone** this repo for sibling source are unrelate
 - **Heap:** Storybook build uses `NODE_OPTIONS=--max-old-space-size=4096` (same class of Coolify OOM mitigation as plexon-v3). Raising much higher can trigger cgroup OOM instead.
 - **Docker context size (~0.6–1.5 MB)** is expected: `.dockerignore` drops `node_modules`, `dist`, `knowledge`, `specs`. Storybook config lives under `packages/ui/.storybook` and is copied with `COPY packages` — it is not excluded.
 
-## Coolify attach checklist
+## Redeploy (Wave E2 editor primitives)
+
+After merging editor chrome / Top-N atoms to `main`, queue:
+
+```http
+POST https://coolify.plygrnd.tech/api/v1/deploy
+{ "uuid": "rtxcfh4gtxi6yba5l70fu177", "force": true }
+```
+
+Stories to verify: `Atoms/Stack`, `Atoms/Card`, `Organisms/CanvasViewport`, `Organisms/ComponentPalette`, `Organisms/TokenPicker`.
+
+
 
 1. Project `msqdx-ecosystem-v3` → Environment `staging`
 2. New Application `msqdx-ui-storybook`

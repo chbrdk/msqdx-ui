@@ -133,6 +133,19 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'PrintTable', layer: 'Print', title: 'Print/Table', stories: 'print/PrintTable.stories.tsx', mdx: 'print/PrintTable.mdx' },
   { id: 'PrintChip', layer: 'Print', title: 'Print/Chip', stories: 'print/PrintChip.stories.tsx', mdx: 'print/PrintChip.mdx' },
   { id: 'PrintQuickCheck', layer: 'Print', title: 'Print/QuickCheck', stories: 'print/PrintQuickCheck.stories.tsx', mdx: 'print/PrintQuickCheck.mdx' },
+  { id: 'Stack', layer: 'Atoms', title: 'Atoms/Stack', stories: 'components/Stack.stories.tsx', mdx: 'components/Stack.mdx' },
+  { id: 'Card', layer: 'Atoms', title: 'Atoms/Card', stories: 'components/Card.stories.tsx', mdx: 'components/Card.mdx' },
+  { id: 'Badge', layer: 'Atoms', title: 'Atoms/Badge', stories: 'components/Badge.stories.tsx', mdx: 'components/Badge.mdx' },
+  { id: 'Heading', layer: 'Atoms', title: 'Atoms/Heading', stories: 'components/Heading.stories.tsx', mdx: 'components/Heading.mdx' },
+  { id: 'Image', layer: 'Atoms', title: 'Atoms/Image', stories: 'components/Image.stories.tsx', mdx: 'components/Image.mdx' },
+  { id: 'Link', layer: 'Atoms', title: 'Atoms/Link', stories: 'components/Link.stories.tsx', mdx: 'components/Link.mdx' },
+  { id: 'Spacer', layer: 'Atoms', title: 'Atoms/Spacer', stories: 'components/Spacer.stories.tsx', mdx: 'components/Spacer.mdx' },
+  { id: 'Grid', layer: 'Atoms', title: 'Atoms/Grid', stories: 'components/Grid.stories.tsx', mdx: 'components/Grid.mdx' },
+  { id: 'CanvasViewport', layer: 'Organisms', title: 'Organisms/CanvasViewport', stories: 'components/CanvasViewport.stories.tsx', mdx: 'components/CanvasViewport.mdx' },
+  { id: 'SelectionHandles', layer: 'Organisms', title: 'Organisms/SelectionHandles', stories: 'components/SelectionHandles.stories.tsx', mdx: 'components/SelectionHandles.mdx' },
+  { id: 'PropertyInspector', layer: 'Organisms', title: 'Organisms/PropertyInspector', stories: 'components/PropertyInspector.stories.tsx', mdx: 'components/PropertyInspector.mdx' },
+  { id: 'ComponentPalette', layer: 'Organisms', title: 'Organisms/ComponentPalette', stories: 'components/ComponentPalette.stories.tsx', mdx: 'components/ComponentPalette.mdx' },
+  { id: 'TokenPicker', layer: 'Organisms', title: 'Organisms/TokenPicker', stories: 'components/TokenPicker.stories.tsx', mdx: 'components/TokenPicker.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)
