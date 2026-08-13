@@ -30,10 +30,8 @@ Canvas `selectedIds` remains SSOT. No app DOM class patching for secondary highl
 
 ## Pin
 
-Set after this commit is on `msqdx-ui` `main` / pushed:
-
 ```dockerfile
-ARG MSQDX_UI_REF=<this-commit-sha>
+ARG MSQDX_UI_REF=86971324812c094062f74d206c010bb3b547741e
 ```
 
 Document in creation-v3 `knowledge/paths.md` + `knowledge/creation-layers-panel-multi-bump.md`.
