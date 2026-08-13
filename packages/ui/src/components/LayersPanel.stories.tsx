@@ -112,14 +112,23 @@ export const Default: Story = {
 export const Nested: Story = {
   name: 'Nested selection',
   render: function NestedStory() {
-    const [selectedId, setSelectedId] = useState<string | null>('cta')
+    const [selectedIds, setSelectedIds] = useState<string[]>(['cta'])
+    const selectedId = selectedIds[selectedIds.length - 1] ?? null
     return (
       <div style={{ maxWidth: '16rem', border: '1px solid var(--border, #ddd)' }}>
         <LayersPanel
           title="Layers"
           items={DEMO_TREE}
           selectedId={selectedId}
-          onSelect={setSelectedId}
+          selectedIds={selectedIds}
+          onSelect={(id, mods) => {
+            const additive = Boolean(mods?.shiftKey || mods?.metaKey || mods?.ctrlKey)
+            setSelectedIds((prev) => {
+              if (!additive) return [id]
+              if (prev.includes(id)) return prev.filter((x) => x !== id)
+              return [...prev, id]
+            })
+          }}
         />
       </div>
     )

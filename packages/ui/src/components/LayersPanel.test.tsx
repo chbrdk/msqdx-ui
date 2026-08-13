@@ -47,13 +47,58 @@ describe('LayersPanel', () => {
     expect(screen.getByTestId('layers-panel')).toBeInTheDocument()
     expect(screen.getByTestId('layers-panel-item-child')).toBeInTheDocument()
     screen.getByTestId('layers-panel-item-child').click()
-    expect(onSelect).toHaveBeenCalledWith('child')
+    expect(onSelect).toHaveBeenCalledWith('child', {
+      shiftKey: false,
+      metaKey: false,
+      ctrlKey: false,
+    })
   })
 
   it('marks selected row with aria-current', () => {
     render(<LayersPanel items={TREE} selectedId="child" />)
     expect(screen.getByTestId('layers-panel-item-child')).toHaveAttribute('aria-current', 'true')
     expect(screen.getByTestId('layers-panel-item-root')).not.toHaveAttribute('aria-current')
+  })
+
+  it('highlights multi-selection via selectedIds', () => {
+    render(
+      <LayersPanel
+        items={TREE}
+        selectedId="branch"
+        selectedIds={['child', 'branch']}
+      />,
+    )
+    expect(screen.getByTestId('layers-panel-item-branch')).toHaveAttribute('aria-current', 'true')
+    expect(screen.getByTestId('layers-panel-item-branch')).toHaveClass(
+      'ds-layers-panel__btn--selected',
+    )
+    expect(screen.getByTestId('layers-panel-item-child')).toHaveClass(
+      'ds-layers-panel__btn--selected',
+    )
+    expect(screen.getByTestId('layers-panel-item-child')).toHaveClass(
+      'ds-layers-panel__btn--multi-selected',
+    )
+    expect(screen.getByTestId('layers-panel-item-child')).toHaveAttribute(
+      'data-multi-selected',
+      'true',
+    )
+    expect(screen.getByTestId('layers-panel-item-root')).not.toHaveClass(
+      'ds-layers-panel__btn--selected',
+    )
+  })
+
+  it('passes modifier keys to onSelect', () => {
+    const onSelect = vi.fn()
+    render(<LayersPanel items={TREE} selectedId="root" onSelect={onSelect} />)
+    fireEvent.click(screen.getByTestId('layers-panel-item-child'), {
+      shiftKey: true,
+      metaKey: true,
+    })
+    expect(onSelect).toHaveBeenCalledWith('child', {
+      shiftKey: true,
+      metaKey: true,
+      ctrlKey: false,
+    })
   })
 
   it('renders an optional row icon', () => {

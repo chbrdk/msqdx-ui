@@ -4,7 +4,7 @@ Layer: `organisms`
 
 Scene structure tree for composition editors. Apps map domain nodes to `{ id, label, type?, hidden?, locked?, children? }`.
 
-Optional sibling reorder via ▲▼ (`onMoveUp` / `onMoveDown` / `onReorder`) and/or drag-and-drop (`onReorderDrop`). Optional hide/lock row toggles (`onToggleHidden` / `onToggleLocked`).
+Optional sibling reorder via ▲▼ (`onMoveUp` / `onMoveDown` / `onReorder`) and/or drag-and-drop (`onReorderDrop`). Optional hide/lock row toggles (`onToggleHidden` / `onToggleLocked`). Optional multi-select via `selectedIds` + `onSelect(id, mods)`.
 
 **Spec:** `specs/domain/msqdx-ui-layers-panel.md`  
 **Related:** `ComponentPalette` (left rail insert) · CREATION `editor-workspace.md`
@@ -36,7 +36,8 @@ import { LayersPanel } from '@msqdx/ui'
     },
   ]}
   selectedId={selectedId}
-  onSelect={setSelectedId}
+  selectedIds={selectedIds}
+  onSelect={(id, mods) => /* canvas SSOT; honor shift/meta/ctrl */}
   onToggleHidden={(id) => /* flip chrome.hiddenIds */}
   onToggleLocked={(id) => /* flip chrome.lockedIds */}
   onReorderDrop={(id, targetId, position) => /* sibling reorder */}

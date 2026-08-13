@@ -128,7 +128,11 @@ describe('creation editor primitives', () => {
       />,
     )
     screen.getByTestId('layers-panel-item-n1').click()
-    expect(onSelect).toHaveBeenCalledWith('n1')
+    expect(onSelect).toHaveBeenCalledWith('n1', {
+      shiftKey: false,
+      metaKey: false,
+      ctrlKey: false,
+    })
   })
 
   it('BreakpointSwitcher changes breakpoint', () => {

@@ -411,6 +411,7 @@ export type {
   LayersPanelItem,
   LayersPanelReorderDirection,
   LayersPanelReorderDropPosition,
+  LayersPanelSelectMods,
 } from './components/LayersPanel'
 export { TokenPicker } from './components/TokenPicker'
 export type { TokenPickerProps, TokenPickerOption, TokenPickerVariant } from './components/TokenPicker'

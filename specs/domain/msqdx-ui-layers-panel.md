@@ -1,6 +1,6 @@
 # MSQDX UI — LayersPanel
 
-**Status:** Accepted (CREATION E6 chrome) — 2026-08-12 · reorder polish E7 · hide/lock + DnD E8  
+**Status:** Accepted (CREATION E6 chrome) — 2026-08-12 · reorder polish E7 · hide/lock + DnD E8 · multi-select E9 (2026-08-13)  
 **Layer:** Organisms  
 **Consumers:** creation-v3 `/editor` left rail (`specs/domain/editor-workspace.md`)  
 **Related:** `msqdx-ui-creation-editor-chrome.md` · `msqdx-ui-component-palette.md` · `schema-tree.md`
@@ -22,8 +22,9 @@ Generic **scene / composition layers tree** chrome for design editors. Apps map 
 | Prop | Notes |
 |------|--------|
 | `items` | Root-level `LayersPanelItem[]` (often a single root) |
-| `selectedId` | Currently selected item id (or `null`) |
-| `onSelect` | `(id: string) => void` when a row is activated |
+| `selectedId` | Primary selected item id (or `null`) — drives `aria-current` |
+| `selectedIds` | Optional full multi-selection set; every id gets selected chrome; non-primary also get `--multi-selected` |
+| `onSelect` | `(id: string, mods?: { shiftKey; metaKey; ctrlKey }) => void` when a row is activated |
 | `onMoveUp` | Optional `(id: string) => void` — move among siblings toward list start (a11y fallback) |
 | `onMoveDown` | Optional `(id: string) => void` — move among siblings toward list end (a11y fallback) |
 | `onReorder` | Optional `(id: string, direction: 'up' \| 'down') => void` — alternative to up/down pair; used when the matching directional prop is omitted |
@@ -57,10 +58,10 @@ type LayersPanelReorderDropPosition = 'before' | 'after'
 
 ## Behaviour
 
-- Clicking a row calls `onSelect(id)` (does not toggle expand).
+- Clicking a row calls `onSelect(id, mods)` with pointer modifiers (does not toggle expand). Apps own additive multi-select (Shift / ⌘ / Ctrl) — canvas `selectedIds` stays SSOT.
 - Branches with `children` show a chevron; chevron toggles expand/collapse only.
 - Collapse state is **uncontrolled / session-local** inside the primitive for v1 (apps may remount to reset).
-- Selected row uses `aria-current="true"` and a selected style class.
+- Primary row (`selectedId`) uses `aria-current="true"`. Every id in `selectedIds` (or sole `selectedId`) uses the selected style; secondary multi ids also use `--multi-selected` / `data-multi-selected`.
 - Depth indentation via inline padding (token-friendly rem steps).
 - When `onMoveUp` / `onMoveDown` / `onReorder` is provided, each row shows move affordances; first sibling disables up, last disables down. Prefer directional props when both `onMoveUp`/`onMoveDown` and `onReorder` exist.
 - When `onToggleHidden` is provided, each row shows a visibility toggle; `item.hidden` drives pressed/visual state (`aria-pressed`).
@@ -80,5 +81,5 @@ type LayersPanelReorderDropPosition = 'before' | 'after'
 ## Acceptance
 
 1. Stories: Default tree, Nested, Selected, Empty, WithReorder, WithHideLock, WithDragReorder.
-2. Tests: select calls `onSelect`; nested children render; empty label; expand toggles children visibility; move callbacks fire / edge disabled; hide/lock toggles fire and reflect flags; DnD drop calls `onReorderDrop` with before/after among siblings; locked not draggable.
+2. Tests: select calls `onSelect` (with mods); `selectedIds` highlights primary + secondary; nested children render; empty label; expand toggles children visibility; move callbacks fire / edge disabled; hide/lock toggles fire and reflect flags; DnD drop calls `onReorderDrop` with before/after among siblings; locked not draggable.
 3. Consuming apps import `LayersPanel` from `@msqdx/ui` and map scene → `items` (including `hidden` / `locked` from chrome).

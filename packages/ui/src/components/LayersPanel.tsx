@@ -1,6 +1,12 @@
 'use client'
 
-import { useState, type DragEvent, type HTMLAttributes, type ReactNode } from 'react'
+import {
+  useState,
+  type DragEvent,
+  type HTMLAttributes,
+  type MouseEvent,
+  type ReactNode,
+} from 'react'
 import {
   IconChevronDown,
   IconChevronRight,
@@ -29,6 +35,13 @@ export type LayersPanelReorderDirection = 'up' | 'down'
 
 export type LayersPanelReorderDropPosition = 'before' | 'after'
 
+/** Modifier keys for layer row activation (matches canvas multi-select). */
+export type LayersPanelSelectMods = {
+  shiftKey: boolean
+  metaKey: boolean
+  ctrlKey: boolean
+}
+
 /** MIME for sibling layer drag-and-drop within LayersPanel. */
 export const LAYERS_PANEL_DND_MIME = 'application/x-msqdx-layers-panel-id'
 
@@ -36,8 +49,17 @@ export type LayersPanelProps = {
   className?: string
   title?: string
   items: LayersPanelItem[]
+  /**
+   * Primary selection id (`aria-current`). When `selectedIds` is omitted,
+   * this alone drives the selected style.
+   */
   selectedId?: string | null
-  onSelect?: (id: string) => void
+  /**
+   * Full multi-selection set. Every id is highlighted; primary remains
+   * `selectedId` (or the last id when `selectedId` is omitted).
+   */
+  selectedIds?: readonly string[] | null
+  onSelect?: (id: string, mods?: LayersPanelSelectMods) => void
   /** Move among siblings toward list start. */
   onMoveUp?: (id: string) => void
   /** Move among siblings toward list end. */
@@ -64,7 +86,7 @@ export type LayersPanelProps = {
   /** When true (default), branches with children start expanded. */
   defaultExpanded?: boolean
   'aria-label'?: string
-} & Omit<HTMLAttributes<HTMLElement>, 'className' | 'children' | 'title'>
+} & Omit<HTMLAttributes<HTMLElement>, 'className' | 'children' | 'title' | 'onSelect'>
 
 const INDENT_REM = 0.75
 const BASE_PAD_REM = 0.5
@@ -81,12 +103,21 @@ function dropPositionFromEvent(
   return event.clientY < mid ? 'before' : 'after'
 }
 
+function modsFromMouse(event: MouseEvent<HTMLElement>): LayersPanelSelectMods {
+  return {
+    shiftKey: event.shiftKey,
+    metaKey: event.metaKey,
+    ctrlKey: event.ctrlKey,
+  }
+}
+
 function LayerRow({
   item,
   depth,
   siblings,
   index,
   selectedId,
+  selectedSet,
   onSelect,
   onMoveUp,
   onMoveDown,
@@ -105,7 +136,8 @@ function LayerRow({
   siblings: LayersPanelItem[]
   index: number
   selectedId?: string | null
-  onSelect?: (id: string) => void
+  selectedSet: Set<string>
+  onSelect?: (id: string, mods?: LayersPanelSelectMods) => void
   onMoveUp?: (id: string) => void
   onMoveDown?: (id: string) => void
   onReorder?: (id: string, direction: LayersPanelReorderDirection) => void
@@ -125,7 +157,8 @@ function LayerRow({
   const hasChildren = Boolean(item.children?.length)
   const [open, setOpen] = useState(defaultExpanded)
   const [dropHint, setDropHint] = useState<LayersPanelReorderDropPosition | null>(null)
-  const selected = selectedId === item.id
+  const inSelection = selectedSet.has(item.id)
+  const isPrimary = Boolean(selectedId && selectedId === item.id)
   const canUp = index > 0
   const canDown = index < siblings.length - 1
   const siblingIds = new Set(siblings.map((s) => s.id))
@@ -191,6 +224,7 @@ function LayerRow({
         onDragEnd={showDrag ? clearDropHint : undefined}
         onDrop={showDrag ? handleDrop : undefined}
         data-testid={`layers-panel-row-${item.id}`}
+        data-drop-edge={dropHint ?? undefined}
       >
         {hasChildren ? (
           <button
@@ -209,11 +243,13 @@ function LayerRow({
           type="button"
           className={cx(
             'ds-layers-panel__btn',
-            selected && 'ds-layers-panel__btn--selected',
+            inSelection && 'ds-layers-panel__btn--selected',
+            inSelection && !isPrimary && 'ds-layers-panel__btn--multi-selected',
           )}
           data-testid={`layers-panel-item-${item.id}`}
-          aria-current={selected ? 'true' : undefined}
-          onClick={() => onSelect?.(item.id)}
+          data-multi-selected={inSelection && !isPrimary ? 'true' : undefined}
+          aria-current={isPrimary ? 'true' : undefined}
+          onClick={(event) => onSelect?.(item.id, modsFromMouse(event))}
         >
           {item.icon ? (
             <span className="ds-layers-panel__glyph" aria-hidden>
@@ -292,6 +328,7 @@ function LayerRow({
               siblings={item.children!}
               index={childIndex}
               selectedId={selectedId}
+              selectedSet={selectedSet}
               onSelect={onSelect}
               onMoveUp={onMoveUp}
               onMoveDown={onMoveDown}
@@ -312,12 +349,31 @@ function LayerRow({
   )
 }
 
+function resolveSelectedSet(
+  selectedId: string | null | undefined,
+  selectedIds: readonly string[] | null | undefined,
+): Set<string> {
+  if (selectedIds?.length) return new Set(selectedIds)
+  if (selectedId) return new Set([selectedId])
+  return new Set()
+}
+
+function resolvePrimaryId(
+  selectedId: string | null | undefined,
+  selectedIds: readonly string[] | null | undefined,
+): string | null {
+  if (selectedId) return selectedId
+  if (selectedIds?.length) return selectedIds[selectedIds.length - 1] ?? null
+  return null
+}
+
 /** Scene structure tree for composition editors — app maps domain nodes → items. */
 export function LayersPanel({
   className,
   title = 'Layers',
   items,
   selectedId = null,
+  selectedIds = null,
   onSelect,
   onMoveUp,
   onMoveDown,
@@ -335,6 +391,8 @@ export function LayersPanel({
   const showDrag = Boolean(onReorderDrop)
   const showHidden = Boolean(onToggleHidden)
   const showLocked = Boolean(onToggleLocked)
+  const selectedSet = resolveSelectedSet(selectedId, selectedIds)
+  const primaryId = resolvePrimaryId(selectedId, selectedIds)
 
   return (
     <nav
@@ -357,7 +415,8 @@ export function LayersPanel({
               depth={0}
               siblings={items}
               index={index}
-              selectedId={selectedId}
+              selectedId={primaryId}
+              selectedSet={selectedSet}
               onSelect={onSelect}
               onMoveUp={onMoveUp}
               onMoveDown={onMoveDown}
