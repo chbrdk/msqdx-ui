@@ -9,6 +9,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test && node --test scripts/ds-add.test.mjs scripts/dockerfile-storybook.test.mjs",
+    "test:ds-deposit-drift": "pnpm --filter @msqdx/ui-tokens exec vitest run deposit/drift.test.ts",
     "storybook": "pnpm --filter @msqdx/ui storybook",
     "build-storybook": "pnpm --filter @msqdx/ui build-storybook",
     "ds:add": "node ./scripts/ds-add.mjs"
