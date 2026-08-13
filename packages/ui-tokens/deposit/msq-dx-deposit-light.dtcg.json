@@ -95,7 +95,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "hex": "#0f0f0f"
+          "hex": "#f8f6f0"
         }
       }
     },
@@ -104,7 +104,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#1a1a1a"
+            "hex": "#ffffff"
           }
         }
       },
@@ -112,7 +112,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "rgba": "rgba(26, 26, 26, 0.92)"
+            "rgba": "rgba(255, 255, 255, 0.92)"
           }
         }
       },
@@ -120,7 +120,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#262626"
+            "hex": "#ffffff"
           }
         }
       }
@@ -129,7 +129,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "hex": "#ffffff"
+          "hex": "#0f172a"
         }
       }
     },
@@ -137,7 +137,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "hex": "#a3a3a3"
+          "hex": "#475569"
         }
       }
     },
@@ -155,7 +155,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "rgba": "rgba(255, 255, 255, 0.12)"
+          "rgba": "rgba(0, 0, 0, 0.12)"
         }
       }
     },
@@ -164,7 +164,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#f87171"
+            "hex": "#ef4444"
           }
         }
       },
@@ -263,7 +263,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "hex": "#2a2a2a"
+          "hex": "#ffffff"
         }
       }
     },
@@ -271,7 +271,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "hex": "#ffffff"
+          "hex": "#000000"
         }
       }
     },
@@ -279,7 +279,7 @@
       "$type": "color",
       "$value": {
         "digital": {
-          "rgba": "rgba(255, 255, 255, 0.16)"
+          "rgba": "rgba(15, 23, 42, 0.16)"
         }
       }
     },
@@ -312,7 +312,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#f256b6"
+            "hex": "#d5108a"
           }
         }
       },
@@ -328,7 +328,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#a3a3a3"
+            "hex": "#64748b"
           }
         }
       },
@@ -354,7 +354,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#a3a3a3"
+            "hex": "#64748b"
           }
         }
       },
@@ -378,7 +378,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#ffffff"
+            "hex": "#0f172a"
           }
         }
       },
@@ -386,7 +386,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "rgba": "rgba(255, 255, 255, 0.12)"
+            "rgba": "rgba(15, 23, 42, 0.12)"
           }
         }
       },
@@ -394,7 +394,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#1a1a1a"
+            "hex": "#ffffff"
           }
         }
       },
@@ -402,7 +402,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "rgba": "rgba(255, 255, 255, 0.16)"
+            "rgba": "rgba(0, 0, 0, 0.12)"
           }
         }
       },
@@ -410,7 +410,7 @@
         "$type": "color",
         "$value": {
           "digital": {
-            "hex": "#ffffff"
+            "hex": "#0f172a"
           }
         }
       }
@@ -937,7 +937,7 @@
     "overlay": {
       "$type": "opacity",
       "$value": {
-        "digital": "0.2"
+        "digital": "0.22"
       }
     }
   },
