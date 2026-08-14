@@ -27,6 +27,7 @@
 - InspectSection: `packages/ui/src/components/InspectSection.tsx` · spec `specs/domain/msqdx-ui-inspect-section.md` · Storybook `Molecules/InspectSection`
 - PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`
+- TokenPreview: `packages/ui/src/components/TokenPreview.tsx` · Storybook `Molecules/TokenPreview` · used by TokenPicker browser (P77)
 - CanvasViewport / SelectionHandles: `packages/ui/src/components/CanvasViewport.tsx` · `SelectionHandles.tsx`
 - Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
 - Print magazine twins (EQC PDF): Storybook layer `Print/` · `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · twin of plexon `lib/assistant/reports/pdf/magazine/` · deck `?path=/story/print-quickcheck--magazine-deck`
