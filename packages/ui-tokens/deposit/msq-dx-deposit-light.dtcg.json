@@ -454,6 +454,144 @@
           "digital": "2rem"
         }
       }
+    },
+    "padding": {
+      "xs": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.25rem"
+        }
+      },
+      "sm": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.5rem"
+        }
+      },
+      "md": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.75rem"
+        }
+      },
+      "lg": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1rem"
+        }
+      },
+      "xl": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1.5rem"
+        }
+      },
+      "2xl": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "2rem"
+        }
+      }
+    },
+    "margin": {
+      "xs": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.25rem"
+        }
+      },
+      "sm": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.5rem"
+        }
+      },
+      "md": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.75rem"
+        }
+      },
+      "lg": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1rem"
+        }
+      },
+      "xl": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1.5rem"
+        }
+      },
+      "2xl": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "2rem"
+        }
+      },
+      "page": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "2rem"
+        }
+      },
+      "top": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1.5rem"
+        }
+      }
+    },
+    "gap": {
+      "xs": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.25rem"
+        }
+      },
+      "sm": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.5rem"
+        }
+      },
+      "md": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.75rem"
+        }
+      },
+      "lg": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1rem"
+        }
+      },
+      "xl": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1.5rem"
+        }
+      },
+      "2xl": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "2rem"
+        }
+      },
+      "tight": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "0.5rem"
+        }
+      },
+      "modules": {
+        "$type": "spacing",
+        "$value": {
+          "digital": "1rem"
+        }
+      }
     }
   },
   "radius": {

@@ -20,7 +20,7 @@ const depositDir = path.dirname(fileURLToPath(import.meta.url))
 const darkPackPath = path.join(depositDir, 'msq-dx-deposit.dtcg.json')
 const lightPackPath = path.join(depositDir, 'msq-dx-deposit-light.dtcg.json')
 
-const EXPECTED_LEAF_COUNT = 116
+const EXPECTED_LEAF_COUNT = 138
 const REGENERATE_HINT =
   'Deposit mirror drifted from ui-tokens. In brandion-v3 with sibling msqdx-ui: npm run ds:deposit:regenerate'
 
