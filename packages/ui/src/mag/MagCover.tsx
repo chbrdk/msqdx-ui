@@ -1,0 +1,56 @@
+import { Text, View } from '@react-pdf/renderer'
+import { MagScoreRing } from './MagScoreRing'
+import { MagPullQuote } from './MagPullQuote'
+import { magStyles } from './tokens'
+
+export type MagCoverKpi = {
+  label: string
+  value: string
+  ringValue?: number | null
+  ringMax?: number
+}
+
+type MagCoverProps = {
+  eyebrow: string
+  title: string
+  url?: string
+  meta?: string
+  fazit?: string
+  kpis: MagCoverKpi[]
+}
+
+export function MagCover({ eyebrow, title, url, meta, fazit, kpis }: MagCoverProps) {
+  return (
+    <View>
+      <Text style={magStyles.eyebrow}>{eyebrow}</Text>
+      <Text style={magStyles.coverHeadline}>{title}</Text>
+      <View style={magStyles.accentRule} />
+      <View style={magStyles.coverMetaBlock}>
+        {url ? <Text style={magStyles.meta}>{url}</Text> : null}
+        {meta ? <Text style={magStyles.meta}>{meta}</Text> : null}
+      </View>
+      {fazit ? <MagPullQuote label="Fazit" body={fazit} /> : null}
+      {kpis.length > 0 ? (
+        <View style={magStyles.kpiGrid}>
+          {kpis.slice(0, 4).map((kpi) => (
+            <View key={kpi.label} style={magStyles.kpiCell}>
+              {kpi.ringValue != null ? (
+                <MagScoreRing
+                  value={kpi.ringValue}
+                  max={kpi.ringMax ?? 100}
+                  label={kpi.label}
+                  size={58}
+                />
+              ) : (
+                <View>
+                  <Text style={magStyles.kpiValue}>{kpi.value}</Text>
+                  <Text style={magStyles.kpiLabel}>{kpi.label}</Text>
+                </View>
+              )}
+            </View>
+          ))}
+        </View>
+      ) : null}
+    </View>
+  )
+}
