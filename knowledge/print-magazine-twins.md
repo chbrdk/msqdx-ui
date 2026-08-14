@@ -23,6 +23,7 @@ Stand: 2026-08-14 (P78)
 - HTML: `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · catalog layer `Print`
 - PDF: `packages/ui/src/mag/` · import `@msqdx/ui/mag` (optional peer `@react-pdf/renderer`)
 - Consumer document/packing: plexon `eqc-magazine-pdf.tsx` + `pack-magazine-pages.ts` (not in DS)
+- Consumer composition export: creation-v3 `lib/magazine-pdf/` (scene → Mag Document; not in DS)
 - Spec: `specs/domain/msqdx-ui-mag-pdf-kit.md`
 
 Staging: `URL_MSQDX_UI_STORYBOOK` → `https://ds.projects-a.plygrnd.tech/?path=/story/print-quickcheck--magazine-deck`

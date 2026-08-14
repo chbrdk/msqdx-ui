@@ -22,9 +22,10 @@
 | `@msqdx/ui` | HTML Print* + app chrome (unchanged) |
 | `@msqdx/ui/mag` | Mag* react-pdf kit + `magStyles` / `magColors` / font register |
 
-- **Peer (optional):** `@react-pdf/renderer` `^4.5` (target **4.6.0** as of 2026-08-14).
+- **Peer (optional):** `@react-pdf/renderer` `^4.5` (target **4.6.1** as of 2026-08-14).
 - Shared magazine **colors** are SSOT in `packages/ui/src/magazine/colors.ts`, re-exported as `printMagColors` and `magColors`.
 - Fonts: `packages/ui/src/mag/fonts/` (Noto Sans); `registerMagazinePdfFonts()` resolves sibling `fonts/`.
+- **Consumers:** plexon-v3 EQC magazine document; creation-v3 composition export (`composition-magazine-pdf` adapter — scene flatten stays in the app).
 
 ## Twin map
 
