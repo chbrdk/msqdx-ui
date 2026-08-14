@@ -22,6 +22,17 @@ One magazine horizontal band language for:
 | `tone` | `default` \| `pos` \| `low` \| `neg` \| `ok` \| `choice` |
 | `kind` | `number` \| `text` \| `empty` |
 
+### Token tones (P72)
+
+| Tone | CSS | Brandion |
+|------|-----|----------|
+| pos / choice | `--accent` | `color.action.primary` |
+| ok | `--ok` | `color.status.ok` |
+| low | `--ink` / `--muted` | `color.ink` / `color.muted` |
+| neg | mix `--ink` + `--danger` | `color.ink` + `color.status.danger` |
+
+Hardcoded `#b33` is forbidden — use `--danger`.
+
 ### `LedeStrip`
 
 | Prop | Notes |

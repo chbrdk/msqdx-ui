@@ -78,6 +78,11 @@
   color: var(--accent);
 }
 
+.ds-lede[data-tone='ok'] .ds-lede-num,
+.ds-stat-lede[data-tone='ok'] .ds-stat-lede-num {
+  color: var(--ok);
+}
+
 .ds-lede[data-tone='low'] .ds-lede-num,
 .ds-stat-lede[data-tone='low'] .ds-stat-lede-num {
   color: color-mix(in srgb, var(--ink) 78%, var(--muted));
@@ -85,7 +90,7 @@
 
 .ds-lede[data-tone='neg'] .ds-lede-num,
 .ds-stat-lede[data-tone='neg'] .ds-stat-lede-num {
-  color: color-mix(in srgb, var(--ink) 45%, #b33);
+  color: color-mix(in srgb, var(--ink) 45%, var(--danger));
 }
 
 .ds-lede[data-tone='choice'] .ds-lede-choice,
@@ -162,7 +167,7 @@
 
 .ds-diverging-bar-fill[data-tone='neg'] {
   right: 50%;
-  background: color-mix(in srgb, #b33 55%, var(--ink));
+  background: color-mix(in srgb, var(--danger) 55%, var(--ink));
   transform-origin: right center;
 }
 
@@ -184,7 +189,7 @@
 }
 
 .ds-diverging-bar[data-tone='neg'] .ds-diverging-bar-value {
-  color: color-mix(in srgb, var(--ink) 55%, #b33);
+  color: color-mix(in srgb, var(--ink) 55%, var(--danger));
 }
 
 .ds-lede-strip--steps,

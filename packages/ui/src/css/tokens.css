@@ -377,6 +377,10 @@
   --surface-1: var(--bg1);
   --border: var(--line);
   --paper: var(--bg1);
+  /* P72 / W-CHROME-TONES — synonym aliases of Layer 0 status (no new Brandion leaves) */
+  --success: var(--ok);
+  --warning: var(--warn);
+  --bad: var(--danger);
 }
 
 :root,

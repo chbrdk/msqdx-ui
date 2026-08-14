@@ -33,6 +33,26 @@ const MDX_REQUIRED: Array<{ file: string; needles: string[] }> = [
     file: 'src/components/Panel.mdx',
     needles: ['Tokens consumed', 'radius.panel'],
   },
+  {
+    file: 'src/components/Field.mdx',
+    needles: ['Tokens consumed', 'color.action.primary', 'color.status.danger'],
+  },
+  {
+    file: 'src/components/Avatar.mdx',
+    needles: ['Tokens consumed', 'color.ink', 'color.field', 'radius.pill'],
+  },
+  {
+    file: 'src/components/FilterRow.mdx',
+    needles: ['Tokens consumed', 'color.muted', 'color.line'],
+  },
+  {
+    file: 'src/components/FloatingPanel.mdx',
+    needles: ['Tokens consumed', 'color.surface.base', 'color.line'],
+  },
+  {
+    file: 'src/components/ChatAlertBlock.mdx',
+    needles: ['Tokens consumed', 'color.status.ok', 'color.status.danger'],
+  },
 ]
 
 describe('DS-DEPOSIT D5 Storybook consume citations', () => {
@@ -49,6 +69,13 @@ describe('DS-DEPOSIT D5 Storybook consume citations', () => {
     expect(existsSync(localMap)).toBe(true)
     if (!existsSync(brandionCanonical)) return
     expect(readFileSync(localMap, 'utf8')).toBe(readFileSync(brandionCanonical, 'utf8'))
+  })
+
+  it('P72 tokens.css declares success/warning/bad as Layer 0 aliases', () => {
+    const css = readFileSync(path.join(uiPkg, 'src/css/tokens.css'), 'utf8')
+    expect(css).toMatch(/--success:\s*var\(--ok\)/)
+    expect(css).toMatch(/--warning:\s*var\(--warn\)/)
+    expect(css).toMatch(/--bad:\s*var\(--danger\)/)
   })
 
   it('Button primary CSS still uses --accent (map is not guessed)', () => {

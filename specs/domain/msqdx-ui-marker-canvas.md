@@ -46,7 +46,9 @@ Apps own PDF rasterization, fixture paints, and domain hit payloads — this pri
 
 ## Tokens / CSS
 
-`.ds-marker-canvas*` — frame uses `--line`, `--radius-md`, `--bg1`; marker tones map to `--danger` / `--success` / `--warn` / `--accent`.
+`.ds-marker-canvas*` — frame uses `--line`, `--radius-md`, `--bg1`; marker tones map to `--danger` / `--ok` (via `--success` alias) / `--warn` / `--accent`.
+
+**P72:** `--success` / `--warning` / `--bad` are declared CSS aliases of `--ok` / `--warn` / `--danger` in `tokens.css` (map to Brandion `color.status.*`). Do not mint new deposit leaves for synonym names.
 
 ## Accessibility
 
