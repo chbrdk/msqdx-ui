@@ -31,3 +31,29 @@ export function registerMagazinePdfFonts(): void {
   })
   registered = true
 }
+
+const customFamilies = new Set<string>()
+
+/**
+ * P82c — Register an extra Mag face from URL or filesystem path (TTF/OTF).
+ * Brandion font-bytes upload MIME is still out; typography.source may point at a fetchable file.
+ * Idempotent per family name. Returns false on empty input or register failure.
+ */
+export function registerMagazinePdfFontFromSrc(family: string, src: string): boolean {
+  const name = family.trim()
+  const href = src.trim()
+  if (!name || !href) return false
+  if (customFamilies.has(name)) return true
+  try {
+    Font.register({ family: name, src: href })
+    customFamilies.add(name)
+    return true
+  } catch {
+    return false
+  }
+}
+
+/** Test helper — clear custom registrations bookkeeping (Font itself stays registered). */
+export function resetMagazinePdfCustomFontsForTests(): void {
+  customFamilies.clear()
+}

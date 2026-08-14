@@ -33,4 +33,9 @@ export {
 export { MagPersonaGrid } from './MagPersonaGrid'
 export { MagTwoColumn } from './MagTwoColumn'
 export { MagPullQuote } from './MagPullQuote'
-export { registerMagazinePdfFonts, MAG_FONT_FAMILY } from './register-mag-fonts'
+export {
+  registerMagazinePdfFonts,
+  registerMagazinePdfFontFromSrc,
+  resetMagazinePdfCustomFontsForTests,
+  MAG_FONT_FAMILY,
+} from './register-mag-fonts'

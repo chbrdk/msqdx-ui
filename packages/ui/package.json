@@ -36,8 +36,8 @@
     "@msqdx/ui-tokens": "workspace:*",
     "lucide-react": "^1.31.0",
     "react": "^19.2.7",
-    "react-driftkit": "^0.7.3",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "react-driftkit": "^0.7.3"
   },
   "peerDependencies": {
     "@react-pdf/renderer": "^4.5.0",
@@ -61,6 +61,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "jsdom": "^29.1.1",
+    "pdf-to-img": "6.2.0",
     "storybook": "^10.5.5",
     "typescript": "^6.0.2",
     "vite": "^8.1.1",

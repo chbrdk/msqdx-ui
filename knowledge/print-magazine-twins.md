@@ -1,6 +1,6 @@
 # Print ↔ Mag magazine twins
 
-Stand: 2026-08-14 (P78 · **P80b/c**)
+Stand: 2026-08-14 (P78 · **P80b/c** · **P82d**)
 
 **SSOT:** both surfaces live in `msqdx-ui`. Shared colors: `packages/ui/src/magazine/colors.ts` (`printMagColors` / `magColors`). Twin matrix code: `packages/ui/src/magazine/twins.ts`.
 
@@ -25,7 +25,7 @@ Stand: 2026-08-14 (P78 · **P80b/c**)
 - PDF: `packages/ui/src/mag/` · import `@msqdx/ui/mag` (optional peer `@react-pdf/renderer`)
 - Theme: `MagThemeProvider` + `mergeMagazineColors` / `createMagStyles` (apps map Brandion → colors)
 - Drift-CI: `packages/ui/src/mag/mag-kit.test.tsx` (colors + twin map + `%PDF` smoke)
-- **P81c:** Playwright HTML↔Mag pixel farm remains **out** (Chromatic/visual CI still deferred in DS completeness). Operator eyeball: Print Cover story + Mag Overview docs + MagCover `%PDF` smoke. Do not add Playwright solely for twin screenshots this wave.
+- **P81c / P82d:** Playwright HTML↔Mag pixel farm remains **out**. P82d adds MagCover PDF → **`pdf-to-img@6.2.0`** page-1 PNG header/length smoke in the same vitest file (CI-runnable; no Chromatic). Soft-skips PNG assert if `pdf-to-img` is unavailable.
 - Consumer document/packing: plexon `eqc-magazine-pdf.tsx` + `pack-magazine-pages.ts` (not in DS)
 - Consumer composition export: creation-v3 `lib/magazine-pdf/` (scene → Mag Document; not in DS)
 - Spec: `specs/domain/msqdx-ui-mag-pdf-kit.md`

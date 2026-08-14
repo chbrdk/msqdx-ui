@@ -14,7 +14,7 @@ import { MagPage } from './MagPage'
 import { MagThemeProvider, applyMagTheme, getMagTheme } from './MagTheme'
 import { magColors, createMagStyles } from './tokens'
 import { mergeMagazineColors } from '../magazine/colors'
-import { registerMagazinePdfFonts } from './register-mag-fonts'
+import { registerMagazinePdfFonts, registerMagazinePdfFontFromSrc } from './register-mag-fonts'
 
 const srcRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -112,4 +112,54 @@ describe('Mag PDF kit smoke', () => {
     const pdf = Buffer.from(buffer)
     expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
   }, 30000)
+})
+
+describe('Mag PDF pixel smoke (P82d)', () => {
+  it('registers custom font from local TTF path', () => {
+    registerMagazinePdfFonts()
+    const dir = join(dirname(fileURLToPath(import.meta.url)), 'fonts')
+    const regular = join(dir, 'NotoSans-Regular.ttf')
+    expect(existsSync(regular)).toBe(true)
+    expect(registerMagazinePdfFontFromSrc('MagExtraFace', regular)).toBe(true)
+    expect(registerMagazinePdfFontFromSrc('MagExtraFace', regular)).toBe(true)
+  })
+
+  it('renders MagCover PDF and converts page-1 to PNG via pdf-to-img', async () => {
+    registerMagazinePdfFonts()
+    const buffer = await renderToBuffer(
+      <Document>
+        <MagPage footerTitle="pixel-smoke" showLogo={false}>
+          <MagCover
+            eyebrow="Pixel"
+            title="Magazin pixel smoke"
+            kpis={[{ label: 'Score', value: '88', ringValue: 88, ringMax: 100 }]}
+          />
+        </MagPage>
+      </Document>,
+    )
+    const pdf = Buffer.from(buffer)
+    expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
+
+    let pdfToImg: typeof import('pdf-to-img') | null = null
+    try {
+      pdfToImg = await import('pdf-to-img')
+    } catch {
+      // Optional until installed — skip soft if package missing in consumer installs
+    }
+    if (!pdfToImg) {
+      expect(pdf.length).toBeGreaterThan(500)
+      return
+    }
+    const document = await pdfToImg.pdf(pdf, { scale: 1 })
+    let pageCount = 0
+    let first: Buffer | null = null
+    for await (const page of document) {
+      pageCount += 1
+      if (!first) first = Buffer.from(page)
+    }
+    expect(pageCount).toBeGreaterThanOrEqual(1)
+    expect(first).toBeTruthy()
+    expect(first!.subarray(0, 8).toString('hex')).toBe('89504e470d0a1a0a')
+    expect(first!.length).toBeGreaterThan(1000)
+  }, 60000)
 })
