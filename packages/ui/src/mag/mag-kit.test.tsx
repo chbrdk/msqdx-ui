@@ -11,7 +11,7 @@ import * as Mag from './index'
 import { MagChip, MagChipRow } from './MagChip'
 import { MagCover } from './MagCover'
 import { MagPage } from './MagPage'
-import { MagThemeProvider } from './MagTheme'
+import { MagThemeProvider, applyMagTheme, getMagTheme } from './MagTheme'
 import { magColors, createMagStyles } from './tokens'
 import { mergeMagazineColors } from '../magazine/colors'
 import { registerMagazinePdfFonts } from './register-mag-fonts'
@@ -62,6 +62,13 @@ describe('Mag theme override', () => {
     const styles = createMagStyles(merged)
     expect(styles.page).toBeTruthy()
     expect(styles.accentRule).toBeTruthy()
+  })
+
+  it('applyMagTheme sets and resets active palette', () => {
+    applyMagTheme({ accent: '#abcdef' })
+    expect(getMagTheme().colors.accent).toBe('#abcdef')
+    applyMagTheme(null)
+    expect(getMagTheme().colors.accent).toBe(magColors.accent)
   })
 })
 

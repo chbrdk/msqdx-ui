@@ -34,7 +34,7 @@ Same matrix as `knowledge/print-magazine-twins.md` (`Print/X` ↔ `MagX`). Chang
 
 ## MagTheme (P80)
 
-`MagThemeProvider` accepts color overrides (app maps Brandion print/digital via existing path grammar). Mag components call `useMagTheme()` — no Brandion imports in DS.
+`applyMagTheme` / `getMagTheme` / `MagThemeProvider` — module-scoped theme for sync PDF renders (no `React.createContext`, so Next.js API routes can import `@msqdx/ui/mag`). Apps map Brandion packs → color overrides; Mag primitives stay Brandion-agnostic. Reset with `applyMagTheme(null)` after `renderToBuffer`.
 
 ## Storybook Mag docs (P80b)
 

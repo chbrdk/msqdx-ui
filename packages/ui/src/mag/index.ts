@@ -7,7 +7,7 @@ export {
   MAG_PAGE_WIDTH,
   MAG_PAGE_HEIGHT,
 } from './tokens'
-export { MagThemeProvider, useMagTheme, type MagThemeValue } from './MagTheme'
+export { MagThemeProvider, useMagTheme, getMagTheme, applyMagTheme, type MagThemeValue } from './MagTheme'
 export {
   mergeMagazineColors,
   magazineColors,

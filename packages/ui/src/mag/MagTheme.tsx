@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import {
   mergeMagazineColors,
   type MagazineColorOverrides,
@@ -16,11 +16,40 @@ const defaultTheme: MagThemeValue = {
   styles: magStyles,
 }
 
-const MagThemeContext = createContext<MagThemeValue>(defaultTheme)
+/**
+ * Module-scoped Mag theme for sync react-pdf renders.
+ * Avoids React.createContext so Next.js API routes can import `@msqdx/ui/mag`
+ * without a Client Component boundary.
+ */
+let activeTheme: MagThemeValue = defaultTheme
+
+/** Apply color overrides (or reset to DS defaults when null/undefined). */
+export function applyMagTheme(
+  colorOverrides?: MagazineColorOverrides | MagazineColors | null,
+): MagThemeValue {
+  if (!colorOverrides) {
+    activeTheme = defaultTheme
+    return activeTheme
+  }
+  const colors = mergeMagazineColors(colorOverrides)
+  activeTheme = { colors, styles: createMagStyles(colors) }
+  return activeTheme
+}
+
+export function getMagTheme(): MagThemeValue {
+  return activeTheme
+}
+
+/** @deprecated Prefer getMagTheme — kept as alias for call-site clarity. */
+export function useMagTheme(): MagThemeValue {
+  return activeTheme
+}
 
 /**
- * Optional Mag color theme for PDF documents.
- * Apps resolve Brandion (or other) packs → overrides; Mag primitives stay Brandion-agnostic.
+ * Applies Mag color overrides for the wrapped subtree during sync PDF render.
+ * Callers that use `renderToBuffer` SHOULD `applyMagTheme(null)` in a `finally`
+ * (creation `renderMagazinePdf` does this). Concurrent PDF jobs on one isolate
+ * are not supported.
  */
 export function MagThemeProvider({
   colors: colorOverrides,
@@ -29,15 +58,6 @@ export function MagThemeProvider({
   colors?: MagazineColorOverrides | MagazineColors | null
   children: ReactNode
 }) {
-  const value = useMemo<MagThemeValue>(() => {
-    if (!colorOverrides) return defaultTheme
-    const colors = mergeMagazineColors(colorOverrides)
-    return { colors, styles: createMagStyles(colors) }
-  }, [colorOverrides])
-
-  return <MagThemeContext.Provider value={value}>{children}</MagThemeContext.Provider>
-}
-
-export function useMagTheme(): MagThemeValue {
-  return useContext(MagThemeContext)
+  applyMagTheme(colorOverrides)
+  return <>{children}</>
 }
