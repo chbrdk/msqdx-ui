@@ -2715,6 +2715,225 @@ button.ds-marker-canvas__marker:focus-visible {
   margin-left: 0;
 }
 
+/* TokenPreview — kind-aware display chip */
+.ds-token-preview {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--line);
+  overflow: hidden;
+}
+.ds-token-preview--sm {
+  width: 0.875rem;
+  height: 0.875rem;
+  font-size: 0.5rem;
+}
+.ds-token-preview--md {
+  width: 1.25rem;
+  height: 1.25rem;
+  font-size: 0.625rem;
+}
+.ds-token-preview--empty {
+  background:
+    linear-gradient(45deg, #ccc 25%, transparent 25%) -0.125rem 0 / 0.5rem 0.5rem,
+    linear-gradient(-45deg, #ccc 25%, transparent 25%) -0.125rem 0 / 0.5rem 0.5rem,
+    #fff;
+}
+.ds-token-preview--space,
+.ds-token-preview--size,
+.ds-token-preview--opacity,
+.ds-token-preview--type {
+  background: var(--bg1);
+}
+.ds-token-preview--radius {
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+  border-radius: 0.25rem;
+}
+.ds-token-preview--shadow {
+  background: var(--bg1);
+  border-radius: 0.2rem;
+}
+.ds-token-preview--type {
+  font-family: var(--font-body, system-ui, sans-serif);
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.ds-token-preview__bar {
+  display: block;
+  height: 0.25rem;
+  border-radius: 999px;
+  background: var(--ink);
+}
+.ds-token-preview__size {
+  display: block;
+  background: color-mix(in srgb, var(--ink) 35%, transparent);
+  border: 1px solid var(--ink);
+  box-sizing: border-box;
+}
+.ds-token-preview__opacity {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(45deg, #bbb 25%, transparent 25%) 0 0 / 0.35rem 0.35rem,
+    linear-gradient(-45deg, #bbb 25%, transparent 25%) 0 0 / 0.35rem 0.35rem,
+    #333;
+}
+
+/* TokenPicker browser (P77) */
+.ds-token-picker__browser {
+  position: fixed;
+  z-index: 80;
+  display: flex;
+  flex-direction: column;
+  max-height: min(380px, calc(100vh - 16px));
+  border: 1px solid var(--line);
+  background: var(--bg1);
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--ink) 22%, transparent);
+  color: var(--ink);
+  box-sizing: border-box;
+}
+.ds-token-picker__browser--dragging {
+  user-select: none;
+  cursor: grabbing;
+}
+.ds-token-picker__browser-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.5rem 0.55rem 0.4rem;
+  border-bottom: 1px solid var(--line);
+  cursor: grab;
+}
+.ds-token-picker__browser-title {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
+}
+.ds-token-picker__browser-title strong {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.ds-token-picker__browser-context {
+  font-size: 0.625rem;
+  color: var(--muted);
+}
+.ds-token-picker__browser-close {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  padding: 0.1rem 0.35rem;
+  color: var(--muted);
+}
+.ds-token-picker__browser-close:hover {
+  color: var(--ink);
+}
+.ds-token-picker__browser-search {
+  padding: 0.4rem 0.5rem 0.25rem;
+}
+.ds-token-picker__search {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.35rem 0.45rem;
+  border: 1px solid var(--line);
+  background: var(--bg0, var(--bg1));
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.75rem;
+}
+.ds-token-picker__scopes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem 0.4rem;
+}
+.ds-token-picker__scope {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.625rem;
+  padding: 0.15rem 0.4rem;
+}
+.ds-token-picker__scope--active {
+  color: var(--ink);
+  border-color: var(--ink);
+  background: color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.ds-token-picker__recent {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0 0.5rem 0.4rem;
+}
+.ds-token-picker__recent-label {
+  font-size: 0.625rem;
+  color: var(--muted);
+}
+.ds-token-picker__recent-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+.ds-token-picker__recent-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.625rem;
+  padding: 0.15rem 0.35rem;
+  color: var(--ink);
+}
+.ds-token-picker__browser-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+.ds-token-picker__browser-body--grid {
+  grid-template-columns: repeat(auto-fill, minmax(1.5rem, 1fr));
+  gap: 0.35rem;
+  padding: 0.5rem;
+}
+.ds-token-picker__swatch-btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--line);
+  padding: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.ds-token-picker__swatch-btn--active,
+.ds-token-picker__swatch-btn--highlight {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+.ds-token-picker__option--highlight {
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.ds-token-picker__empty-msg {
+  margin: 0;
+  padding: 0.75rem 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.ds-token-picker__browser-footer {
+  border-top: 1px solid var(--line);
+}
+
 /* LayersPanel — scene structure tree */
 .ds-layers-panel {
   display: flex;

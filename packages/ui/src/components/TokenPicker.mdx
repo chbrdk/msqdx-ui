@@ -14,6 +14,8 @@ Dense token-path picker for inspect bindings. **Values are token paths only** �
 - DenseList (`variant="list"`)
 - WithCycle (`allowCycle` −/+)
 - FontFamily (`fontPreview` on the value label)
+- **Browser** — floating multi-context window (search, scopes, Recent, drag, keyboard)
+- **BrowserColorGrid** — color swatch grid when `previewKind="color"`
 
 ## Usage
 
@@ -21,14 +23,23 @@ Dense token-path picker for inspect bindings. **Values are token paths only** �
 import { TokenPicker } from '@msqdx/ui'
 
 <TokenPicker
-  label="Font"
-  options={[{ path: 'fontFamily.sans', label: 'Sans', fontPreview: 'Georgia, serif' }]}
+  label="Radius"
+  browser
+  allowCycle
+  previewKind="radius"
+  contextTitle="Binding for: Desktop"
+  options={[{ path: 'radius.md', label: 'radius.md · 8px', preview: '8px', category: 'radius' }]}
   value={binding}
   onChange={(path) => setToken(path)}
   onClear={() => clearToken()}
+  scopes={[
+    { id: 'suggested', label: 'Suggested' },
+    { id: 'radius', label: 'Radius' },
+    { id: 'all', label: 'All' },
+  ]}
+  suggestedPaths={['radius.md']}
   allowNone
   emptyLabel="—"
   noneLabel="None"
-  allowCycle
 />
 ```

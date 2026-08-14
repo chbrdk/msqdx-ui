@@ -131,3 +131,72 @@ export const FontFamily: Story = {
     )
   },
 }
+
+const RADIUS_OPTIONS = [
+  { path: 'radius.sm', label: 'radius.sm · 4px', preview: '4px', category: 'radius' },
+  { path: 'radius.md', label: 'radius.md · 8px', preview: '8px', category: 'radius' },
+  { path: 'radius.lg', label: 'radius.lg · 16px', preview: '16px', category: 'radius' },
+  { path: 'space.md', label: 'space.md · 16px', preview: '16px', category: 'space' },
+  { path: 'color.accent', label: 'color.accent', preview: '#224455', category: 'color' },
+]
+
+export const Browser: Story = {
+  render: function BrowserStory() {
+    const [value, setValue] = useState<string | null>('radius.md')
+    const [scope, setScope] = useState('suggested')
+    const [recent, setRecent] = useState<string[]>(['radius.sm'])
+    return (
+      <div style={{ minHeight: 420, padding: 24 }}>
+        <TokenPicker
+          label="Radius"
+          browser
+          allowCycle
+          allowNone
+          previewKind="radius"
+          contextTitle="Binding for: Desktop"
+          options={RADIUS_OPTIONS}
+          value={value}
+          onChange={setValue}
+          onClear={() => setValue(null)}
+          scopes={[
+            { id: 'suggested', label: 'Suggested' },
+            { id: 'radius', label: 'Radius' },
+            { id: 'all', label: 'All' },
+          ]}
+          scope={scope}
+          onScopeChange={setScope}
+          suggestedPaths={['radius.sm', 'radius.md', 'radius.lg']}
+          recentPaths={recent}
+          onRecentPathsChange={setRecent}
+        />
+      </div>
+    )
+  },
+}
+
+export const BrowserColorGrid: Story = {
+  render: function BrowserColorGridStory() {
+    const [value, setValue] = useState<string | null>('color.accent')
+    return (
+      <div style={{ minHeight: 420, padding: 24 }}>
+        <TokenPicker
+          label="Fill"
+          browser
+          allowCycle
+          previewKind="color"
+          options={COLOR_OPTIONS.map((o) => ({ ...o, category: 'color' }))}
+          value={value}
+          onChange={setValue}
+          onClear={() => setValue(null)}
+          allowNone
+          scopes={[
+            { id: 'suggested', label: 'Suggested' },
+            { id: 'color', label: 'Color' },
+            { id: 'all', label: 'All' },
+          ]}
+          suggestedPaths={COLOR_OPTIONS.map((o) => o.path)}
+        />
+      </div>
+    )
+  },
+}

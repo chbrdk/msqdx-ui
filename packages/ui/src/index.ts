@@ -414,6 +414,13 @@ export type {
   LayersPanelSelectMods,
 } from './components/LayersPanel'
 export { TokenPicker } from './components/TokenPicker'
-export type { TokenPickerProps, TokenPickerOption, TokenPickerVariant } from './components/TokenPicker'
+export type {
+  TokenPickerProps,
+  TokenPickerOption,
+  TokenPickerVariant,
+  TokenPickerScope,
+} from './components/TokenPicker'
+export { TokenPreview } from './components/TokenPreview'
+export type { TokenPreviewProps, TokenPreviewKind } from './components/TokenPreview'
 export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer } from './storybook/catalog'

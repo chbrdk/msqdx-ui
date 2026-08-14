@@ -195,4 +195,113 @@ describe('TokenPicker', () => {
     expect(tokens).toContain('--surface-1: var(--bg1)')
     expect(tokens).toContain('--border: var(--line)')
   })
+
+  describe('browser mode (P77)', () => {
+    const options = [
+      { path: 'radius.sm', label: 'radius.sm', preview: '4px', category: 'radius' },
+      { path: 'radius.md', label: 'radius.md', preview: '8px', category: 'radius' },
+      { path: 'radius.lg', label: 'radius.lg', preview: '16px', category: 'radius' },
+      { path: 'space.md', label: 'space.md', preview: '16px', category: 'space' },
+    ]
+
+    it('opens search + scopes and picks a path', () => {
+      const onChange = vi.fn()
+      const onRecent = vi.fn()
+      render(
+        <TokenPicker
+          label="Radius"
+          browser
+          options={options}
+          value="radius.md"
+          onChange={onChange}
+          scopes={[
+            { id: 'suggested', label: 'Suggested' },
+            { id: 'radius', label: 'Radius' },
+            { id: 'all', label: 'All' },
+          ]}
+          suggestedPaths={['radius.sm', 'radius.md', 'radius.lg']}
+          recentPaths={[]}
+          onRecentPathsChange={onRecent}
+          previewKind="radius"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      expect(screen.getByTestId('token-picker-search')).toBeInTheDocument()
+      expect(screen.getByTestId('token-picker-drag-header')).toBeInTheDocument()
+      expect(screen.getByRole('tab', { name: 'Suggested' })).toHaveAttribute('aria-selected', 'true')
+      fireEvent.change(screen.getByTestId('token-picker-search'), { target: { value: 'lg' } })
+      expect(screen.getByRole('option', { name: /radius.lg/ })).toBeInTheDocument()
+      expect(screen.queryByRole('option', { name: /radius.sm/ })).toBeNull()
+      fireEvent.click(screen.getByRole('option', { name: /radius.lg/ }))
+      expect(onChange).toHaveBeenCalledWith('radius.lg')
+      expect(onRecent).toHaveBeenCalledWith(['radius.lg'])
+    })
+
+    it('filters by scope tab', () => {
+      render(
+        <TokenPicker
+          label="Tokens"
+          browser
+          options={options}
+          value={null}
+          scopes={[
+            { id: 'suggested', label: 'Suggested' },
+            { id: 'radius', label: 'Radius' },
+            { id: 'all', label: 'All' },
+          ]}
+          suggestedPaths={['radius.md']}
+          previewKind="radius"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      expect(screen.getByRole('option', { name: /radius.md/ })).toBeInTheDocument()
+      expect(screen.queryByRole('option', { name: /space.md/ })).toBeNull()
+      fireEvent.click(screen.getByRole('tab', { name: 'All' }))
+      expect(screen.getByRole('option', { name: /space.md/ })).toBeInTheDocument()
+    })
+
+    it('color grid renders swatch buttons', () => {
+      const onChange = vi.fn()
+      render(
+        <TokenPicker
+          label="Fill"
+          browser
+          previewKind="color"
+          options={[
+            { path: 'color.accent', preview: '#224455', category: 'color' },
+            { path: 'color.muted', preview: '#666', category: 'color' },
+          ]}
+          value="color.accent"
+          onChange={onChange}
+          scopes={[{ id: 'all', label: 'All' }]}
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const swatches = document.querySelectorAll('.ds-token-picker__swatch-btn')
+      expect(swatches.length).toBe(2)
+      fireEvent.click(swatches[1]!)
+      expect(onChange).toHaveBeenCalledWith('color.muted')
+    })
+
+    it('keyboard ArrowDown + Enter selects highlighted option', () => {
+      const onChange = vi.fn()
+      render(
+        <TokenPicker
+          label="Radius"
+          browser
+          options={options}
+          value="radius.sm"
+          onChange={onChange}
+          scopes={[{ id: 'all', label: 'All' }]}
+          suggestedPaths={['radius.sm', 'radius.md', 'radius.lg']}
+          previewKind="radius"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const search = screen.getByTestId('token-picker-search')
+      fireEvent.keyDown(search, { key: 'ArrowDown' })
+      fireEvent.keyDown(search, { key: 'Enter' })
+      expect(onChange).toHaveBeenCalledWith('radius.md')
+    })
+  })
 })
