@@ -25,6 +25,7 @@ Stand: 2026-08-14 (P78 · **P80b/c**)
 - PDF: `packages/ui/src/mag/` · import `@msqdx/ui/mag` (optional peer `@react-pdf/renderer`)
 - Theme: `MagThemeProvider` + `mergeMagazineColors` / `createMagStyles` (apps map Brandion → colors)
 - Drift-CI: `packages/ui/src/mag/mag-kit.test.tsx` (colors + twin map + `%PDF` smoke)
+- **P81c:** Playwright HTML↔Mag pixel farm remains **out** (Chromatic/visual CI still deferred in DS completeness). Operator eyeball: Print Cover story + Mag Overview docs + MagCover `%PDF` smoke. Do not add Playwright solely for twin screenshots this wave.
 - Consumer document/packing: plexon `eqc-magazine-pdf.tsx` + `pack-magazine-pages.ts` (not in DS)
 - Consumer composition export: creation-v3 `lib/magazine-pdf/` (scene → Mag Document; not in DS)
 - Spec: `specs/domain/msqdx-ui-mag-pdf-kit.md`
