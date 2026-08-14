@@ -1,5 +1,5 @@
 import { Circle, Svg, Text, View } from '@react-pdf/renderer'
-import { magColors, magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 type MagScoreRingProps = {
   value: number
@@ -17,6 +17,7 @@ export function MagScoreRing({
   size = 80,
   stroke = 7,
 }: MagScoreRingProps) {
+  const { colors, styles } = useMagTheme()
   const clamped = Math.max(0, Math.min(max, Number.isFinite(value) ? value : 0))
   const pct = max > 0 ? clamped / max : 0
   const r = (size - stroke) / 2
@@ -32,7 +33,7 @@ export function MagScoreRing({
           cx={size / 2}
           cy={size / 2}
           r={r}
-          stroke={magColors.track}
+          stroke={colors.track}
           strokeWidth={stroke}
           fill="none"
         />
@@ -40,12 +41,11 @@ export function MagScoreRing({
           cx={size / 2}
           cy={size / 2}
           r={r}
-          stroke={magColors.accent}
+          stroke={colors.accent}
           strokeWidth={stroke}
           fill="none"
           strokeDasharray={`${dash} ${gap}`}
           strokeLinecap="butt"
-          // Start at 12 o'clock
           transform={`rotate(-90 ${size / 2} ${size / 2})`}
         />
       </Svg>
@@ -57,9 +57,9 @@ export function MagScoreRing({
           alignItems: 'center',
         }}
       >
-        <Text style={[magStyles.kpiValue, { fontSize: size > 70 ? 15 : 12 }]}>{display}</Text>
+        <Text style={[styles.kpiValue, { fontSize: size > 70 ? 15 : 12 }]}>{display}</Text>
       </View>
-      {label ? <Text style={[magStyles.kpiLabel, { marginTop: 6, textAlign: 'center' }]}>{label}</Text> : null}
+      {label ? <Text style={[styles.kpiLabel, { marginTop: 6, textAlign: 'center' }]}>{label}</Text> : null}
     </View>
   )
 }

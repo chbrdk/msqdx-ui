@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Text, View } from '@react-pdf/renderer'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 type MagChapterProps = {
   eyebrow: string
@@ -23,16 +23,17 @@ export function MagChapter({
   children,
   break: pageBreak,
 }: MagChapterProps) {
+  const { styles } = useMagTheme()
   return (
     <View
-      style={[magStyles.chapterGap, stacked ? magStyles.chapterStacked : undefined]}
+      style={[styles.chapterGap, stacked ? styles.chapterStacked : undefined]}
       break={pageBreak}
     >
-      {index ? <Text style={magStyles.chapterIndex}>{index}</Text> : null}
-      <Text style={magStyles.eyebrow}>{eyebrow}</Text>
-      <Text style={magStyles.headline}>{title}</Text>
-      <View style={magStyles.accentRule} />
-      {lede ? <Text style={magStyles.lede}>{lede}</Text> : null}
+      {index ? <Text style={styles.chapterIndex}>{index}</Text> : null}
+      <Text style={styles.eyebrow}>{eyebrow}</Text>
+      <Text style={styles.headline}>{title}</Text>
+      <View style={styles.accentRule} />
+      {lede ? <Text style={styles.lede}>{lede}</Text> : null}
       {children}
     </View>
   )

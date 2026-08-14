@@ -26,4 +26,43 @@ export const magazineColors = {
   ],
 } as const
 
-export type MagazineColors = typeof magazineColors
+export type MagazineColors = {
+  ink: string
+  inkSoft: string
+  muted: string
+  line: string
+  paper: string
+  wash: string
+  accent: string
+  accentInk: string
+  neg: string
+  warn: string
+  track: string
+  donut: readonly string[]
+}
+
+export type MagazineColorOverrides = Partial<
+  Omit<MagazineColors, 'donut'> & { donut: readonly string[] }
+>
+
+/** Merge app/Brandion overrides onto DS magazine colors (app-layer theme hook). */
+export function mergeMagazineColors(
+  overrides?: MagazineColorOverrides | null,
+  base: MagazineColors = magazineColors,
+): MagazineColors {
+  if (!overrides) return { ...base, donut: [...base.donut] }
+  return {
+    ink: overrides.ink ?? base.ink,
+    inkSoft: overrides.inkSoft ?? base.inkSoft,
+    muted: overrides.muted ?? base.muted,
+    line: overrides.line ?? base.line,
+    paper: overrides.paper ?? base.paper,
+    wash: overrides.wash ?? base.wash,
+    accent: overrides.accent ?? base.accent,
+    accentInk: overrides.accentInk ?? base.accentInk,
+    neg: overrides.neg ?? base.neg,
+    warn: overrides.warn ?? base.warn,
+    track: overrides.track ?? base.track,
+    donut: overrides.donut ? [...overrides.donut] : [...base.donut],
+  }
+}

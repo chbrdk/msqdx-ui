@@ -1,30 +1,31 @@
 import type { ReactNode } from 'react'
 import { Page, Text, View } from '@react-pdf/renderer'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 type MagPageProps = {
   children: ReactNode
   footerTitle?: string
-  /** App-injected logo (e.g. plexon MsqdxLogoPdf). */
+  /** App-injected logo (e.g. plexon/creation MsqdxLogoPdf). */
   logo?: ReactNode
   showLogo?: boolean
 }
 
 export function MagPage({ children, footerTitle, logo, showLogo = false }: MagPageProps) {
+  const { styles } = useMagTheme()
   return (
-    <Page size="A4" style={magStyles.page} wrap>
-      <View style={magStyles.columnShell}>
-        <View style={magStyles.column}>
+    <Page size="A4" style={styles.page} wrap>
+      <View style={styles.columnShell}>
+        <View style={styles.column}>
           {showLogo && logo ? <View style={{ marginBottom: 36 }}>{logo}</View> : null}
           {children}
         </View>
       </View>
-      <View style={magStyles.footer} fixed>
-        <View style={magStyles.footerRule} />
-        <View style={magStyles.footerRow}>
-          <Text style={magStyles.footerMeta}>{footerTitle ?? 'Quick Check'}</Text>
+      <View style={styles.footer} fixed>
+        <View style={styles.footerRule} />
+        <View style={styles.footerRow}>
+          <Text style={styles.footerMeta}>{footerTitle ?? 'Quick Check'}</Text>
           <Text
-            style={magStyles.footerMeta}
+            style={styles.footerMeta}
             render={({ pageNumber, totalPages }) => `${pageNumber} — ${totalPages}`}
           />
         </View>

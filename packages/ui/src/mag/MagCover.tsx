@@ -1,7 +1,7 @@
 import { Text, View } from '@react-pdf/renderer'
 import { MagScoreRing } from './MagScoreRing'
 import { MagPullQuote } from './MagPullQuote'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 export type MagCoverKpi = {
   label: string
@@ -20,20 +20,21 @@ type MagCoverProps = {
 }
 
 export function MagCover({ eyebrow, title, url, meta, fazit, kpis }: MagCoverProps) {
+  const { styles } = useMagTheme()
   return (
     <View>
-      <Text style={magStyles.eyebrow}>{eyebrow}</Text>
-      <Text style={magStyles.coverHeadline}>{title}</Text>
-      <View style={magStyles.accentRule} />
-      <View style={magStyles.coverMetaBlock}>
-        {url ? <Text style={magStyles.meta}>{url}</Text> : null}
-        {meta ? <Text style={magStyles.meta}>{meta}</Text> : null}
+      <Text style={styles.eyebrow}>{eyebrow}</Text>
+      <Text style={styles.coverHeadline}>{title}</Text>
+      <View style={styles.accentRule} />
+      <View style={styles.coverMetaBlock}>
+        {url ? <Text style={styles.meta}>{url}</Text> : null}
+        {meta ? <Text style={styles.meta}>{meta}</Text> : null}
       </View>
       {fazit ? <MagPullQuote label="Fazit" body={fazit} /> : null}
       {kpis.length > 0 ? (
-        <View style={magStyles.kpiGrid}>
+        <View style={styles.kpiGrid}>
           {kpis.slice(0, 4).map((kpi) => (
-            <View key={kpi.label} style={magStyles.kpiCell}>
+            <View key={kpi.label} style={styles.kpiCell}>
               {kpi.ringValue != null ? (
                 <MagScoreRing
                   value={kpi.ringValue}
@@ -43,8 +44,8 @@ export function MagCover({ eyebrow, title, url, meta, fazit, kpis }: MagCoverPro
                 />
               ) : (
                 <View>
-                  <Text style={magStyles.kpiValue}>{kpi.value}</Text>
-                  <Text style={magStyles.kpiLabel}>{kpi.label}</Text>
+                  <Text style={styles.kpiValue}>{kpi.value}</Text>
+                  <Text style={styles.kpiLabel}>{kpi.label}</Text>
                 </View>
               )}
             </View>

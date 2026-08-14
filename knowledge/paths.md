@@ -31,7 +31,7 @@
 - CanvasViewport / SelectionHandles: `packages/ui/src/components/CanvasViewport.tsx` · `SelectionHandles.tsx`
 - Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
 - Print magazine twins (HTML): Storybook layer `Print/` · `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · deck `?path=/story/print-quickcheck--magazine-deck` · twin knowledge `knowledge/print-magazine-twins.md`
-- Mag PDF kit (react-pdf): `@msqdx/ui/mag` · `packages/ui/src/mag/` · fonts `packages/ui/src/mag/fonts/` · shared colors `packages/ui/src/magazine/colors.ts` · spec `specs/domain/msqdx-ui-mag-pdf-kit.md` · consumer plexon `eqc-magazine-pdf.tsx`
+- Mag PDF kit (react-pdf): `@msqdx/ui/mag` · `packages/ui/src/mag/` · fonts `packages/ui/src/mag/fonts/` · shared colors `packages/ui/src/magazine/colors.ts` · twin map `packages/ui/src/magazine/twins.ts` · theme `MagThemeProvider` · docs Storybook `Mag/` · Drift-CI `mag/mag-kit.test.tsx` · spec `specs/domain/msqdx-ui-mag-pdf-kit.md` · twin knowledge `knowledge/print-magazine-twins.md` · consumers plexon `eqc-magazine-pdf.tsx` · creation `lib/magazine-pdf/`
 - Storybook local always-on: `docker compose up --build -d` → `http://localhost:6006/`
 - Storybook coverage audit (2026-08-03): `knowledge/storybook-coverage-audit-2026-08-03.md`
 - ChatOverlay stories: `Organisms/ChatOverlay` · DockEnd / Center / ComposedPanel / IframeSlot · `?path=/story/organisms-chatoverlay--dock-end`

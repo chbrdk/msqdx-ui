@@ -3,7 +3,7 @@ import { MagChip, MagChipRow } from './MagChip'
 import { MagRankedList } from './MagRankedList'
 import { MagTraitBars, type MagTrait } from './MagTraitBars'
 import { MagTwoColumn } from './MagTwoColumn'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 /** Generic persona card model — apps map domain types into this shape. */
 export type MagPersonaCardModel = {
@@ -46,6 +46,7 @@ export function MagPersonaCard({
   spread = false,
   bare = false,
 }: MagPersonaCardProps) {
+  const { styles } = useMagTheme()
   const labels = { ...DEFAULT_LABELS, ...labelOverrides }
   const confidence = Math.round(
     persona.confidence <= 1 ? persona.confidence * 100 : persona.confidence,
@@ -54,11 +55,11 @@ export function MagPersonaCard({
   const goals = persona.goals.slice(0, spread ? 6 : 3).map((g) => ({ label: g }))
   const pains = persona.painPoints.slice(0, spread ? 6 : 3).map((g) => ({ label: g }))
 
-  const shell = spread ? magStyles.personaSpread : bare ? { width: '100%' as const } : magStyles.personaCell
+  const shell = spread ? styles.personaSpread : bare ? { width: '100%' as const } : styles.personaCell
 
   return (
     <View style={shell}>
-      <Text style={magStyles.personaName}>{persona.name}</Text>
+      <Text style={styles.personaName}>{persona.name}</Text>
       <MagChipRow>
         {persona.segment ? <MagChip>{persona.segment}</MagChip> : null}
         <MagChip>
@@ -66,7 +67,7 @@ export function MagPersonaCard({
         </MagChip>
       </MagChipRow>
       {persona.bio || persona.headline ? (
-        <Text style={magStyles.personaBio}>{persona.bio || persona.headline}</Text>
+        <Text style={styles.personaBio}>{persona.bio || persona.headline}</Text>
       ) : null}
       {traits.length > 0 ? <MagTraitBars traits={traits} compact /> : null}
       {spread && (goals.length > 0 || pains.length > 0) ? (
@@ -75,7 +76,7 @@ export function MagPersonaCard({
             left={
               goals.length > 0 ? (
                 <View style={{ width: '100%' }}>
-                  <Text style={magStyles.subEyebrow}>{labels.goals}</Text>
+                  <Text style={styles.subEyebrow}>{labels.goals}</Text>
                   <MagRankedList items={goals} compact />
                 </View>
               ) : (
@@ -85,7 +86,7 @@ export function MagPersonaCard({
             right={
               pains.length > 0 ? (
                 <View style={{ width: '100%' }}>
-                  <Text style={magStyles.subEyebrow}>{labels.painPoints}</Text>
+                  <Text style={styles.subEyebrow}>{labels.painPoints}</Text>
                   <MagRankedList items={pains} compact />
                 </View>
               ) : (
@@ -97,7 +98,7 @@ export function MagPersonaCard({
       ) : null}
       {!spread && goals.length > 0 ? (
         <View style={{ marginTop: 10, width: '100%' }}>
-          <Text style={magStyles.subEyebrow}>{labels.goals}</Text>
+          <Text style={styles.subEyebrow}>{labels.goals}</Text>
           <MagRankedList items={goals} compact />
         </View>
       ) : null}

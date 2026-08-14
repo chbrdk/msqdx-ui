@@ -1,5 +1,5 @@
 import { Text, View } from '@react-pdf/renderer'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 export type MagRankedItem = {
   label: string
@@ -24,32 +24,34 @@ function RankedColumn({
   items,
   startIndex,
   compact,
+  styles,
 }: {
   items: MagRankedItem[]
   startIndex: number
   compact: boolean
+  styles: ReturnType<typeof useMagTheme>['styles']
 }) {
   return (
     <View style={{ width: '100%' }}>
       {items.map((item, i) => (
         <View
           key={`${item.label}-${i}`}
-          style={compact ? magStyles.rankedRowCompact : magStyles.rankedRow}
+          style={compact ? styles.rankedRowCompact : styles.rankedRow}
           wrap={false}
         >
-          <Text style={compact ? magStyles.rankedIndexCompact : magStyles.rankedIndex}>
+          <Text style={compact ? styles.rankedIndexCompact : styles.rankedIndex}>
             {String(startIndex + i).padStart(2, '0')}
           </Text>
-          <View style={magStyles.rankedTextCol}>
-            <Text style={compact ? magStyles.rankedLabelCompact : magStyles.rankedLabel}>
+          <View style={styles.rankedTextCol}>
+            <Text style={compact ? styles.rankedLabelCompact : styles.rankedLabel}>
               {item.label}
             </Text>
             {item.meta ? (
               <Text
                 style={
                   compact
-                    ? [magStyles.meta, magStyles.rankedMetaCompact, { marginTop: 3 }]
-                    : [magStyles.meta, { marginTop: 3 }]
+                    ? [styles.meta, styles.rankedMetaCompact, { marginTop: 3 }]
+                    : [styles.meta, { marginTop: 3 }]
                 }
               >
                 {item.meta}
@@ -68,18 +70,24 @@ export function MagRankedList({
   columns = 1,
   compact = false,
 }: MagRankedListProps) {
+  const { styles } = useMagTheme()
   if (!items.length) return null
 
   if (columns === 2 && items.length > 1) {
     const [left, right] = splitColumns(items)
     const pad = 12
     return (
-      <View style={[magStyles.twoColRow, { marginTop: compact ? 2 : 6 }]}>
-        <View style={[magStyles.twoColCell, { paddingRight: pad }]}>
-          <RankedColumn items={left} startIndex={startIndex} compact={compact} />
+      <View style={[styles.twoColRow, { marginTop: compact ? 2 : 6 }]}>
+        <View style={[styles.twoColCell, { paddingRight: pad }]}>
+          <RankedColumn items={left} startIndex={startIndex} compact={compact} styles={styles} />
         </View>
-        <View style={[magStyles.twoColCell, { paddingLeft: pad }]}>
-          <RankedColumn items={right} startIndex={startIndex + left.length} compact={compact} />
+        <View style={[styles.twoColCell, { paddingLeft: pad }]}>
+          <RankedColumn
+            items={right}
+            startIndex={startIndex + left.length}
+            compact={compact}
+            styles={styles}
+          />
         </View>
       </View>
     )
@@ -87,7 +95,7 @@ export function MagRankedList({
 
   return (
     <View style={{ marginTop: compact ? 2 : 6, width: '100%' }}>
-      <RankedColumn items={items} startIndex={startIndex} compact={compact} />
+      <RankedColumn items={items} startIndex={startIndex} compact={compact} styles={styles} />
     </View>
   )
 }

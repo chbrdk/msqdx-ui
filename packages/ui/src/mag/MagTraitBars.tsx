@@ -1,5 +1,5 @@
 import { Text, View } from '@react-pdf/renderer'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 export type MagTrait = {
   displayName: string
@@ -7,6 +7,7 @@ export type MagTrait = {
 }
 
 export function MagTraitBars({ traits, compact = false }: { traits: MagTrait[]; compact?: boolean }) {
+  const { styles } = useMagTheme()
   if (!traits.length) return null
   return (
     <View style={{ marginTop: compact ? 4 : 8, width: '100%' }}>
@@ -14,12 +15,12 @@ export function MagTraitBars({ traits, compact = false }: { traits: MagTrait[]; 
         const pct = Math.round(t.score <= 1 ? t.score * 100 : t.score)
         return (
           <View key={t.displayName} wrap={false} style={{ marginBottom: compact ? 4 : 6, width: '100%' }}>
-            <View style={magStyles.row}>
-              <Text style={magStyles.traitName}>{t.displayName}</Text>
-              <Text style={magStyles.traitPct}>{pct}%</Text>
+            <View style={styles.row}>
+              <Text style={styles.traitName}>{t.displayName}</Text>
+              <Text style={styles.traitPct}>{pct}%</Text>
             </View>
-            <View style={compact ? magStyles.traitTrackCompact : magStyles.traitTrack}>
-              <View style={[magStyles.traitFill, { width: `${Math.max(2, Math.min(100, pct))}%` }]} />
+            <View style={compact ? styles.traitTrackCompact : styles.traitTrack}>
+              <View style={[styles.traitFill, { width: `${Math.max(2, Math.min(100, pct))}%` }]} />
             </View>
           </View>
         )

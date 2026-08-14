@@ -1,11 +1,20 @@
 export {
   magColors,
   magStyles,
+  createMagStyles,
   MAG_MARGIN_X,
   MAG_COLUMN_MAX,
   MAG_PAGE_WIDTH,
   MAG_PAGE_HEIGHT,
 } from './tokens'
+export { MagThemeProvider, useMagTheme, type MagThemeValue } from './MagTheme'
+export {
+  mergeMagazineColors,
+  magazineColors,
+  type MagazineColors,
+  type MagazineColorOverrides,
+} from '../magazine/colors'
+export { PRINT_MAG_TWINS, type PrintMagTwin } from '../magazine/twins'
 export { MagPage } from './MagPage'
 export { MagCover, type MagCoverKpi } from './MagCover'
 export { MagChapter } from './MagChapter'

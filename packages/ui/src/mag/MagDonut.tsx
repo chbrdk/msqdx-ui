@@ -1,5 +1,5 @@
 import { Path, Svg, Text, View } from '@react-pdf/renderer'
-import { magColors, magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 export type MagDonutSlice = {
   id: string
@@ -32,6 +32,7 @@ export function MagDonut({
   centerLabel,
   size = 96,
 }: MagDonutProps) {
+  const { colors, styles } = useMagTheme()
   const positive = slices.filter((s) => s.value > 0)
   const total = positive.reduce((sum, s) => sum + s.value, 0) || 1
   const stroke = size * 0.18
@@ -48,7 +49,7 @@ export function MagDonut({
     return {
       id: slice.id,
       d: arcPath(cx, cy, r, start, end),
-      color: magColors.donut[Math.min(i, magColors.donut.length - 1)],
+      color: colors.donut[Math.min(i, colors.donut.length - 1)],
       label: slice.label,
       value: slice.value,
       pct: Math.round((100 * slice.value) / total),
@@ -80,15 +81,15 @@ export function MagDonut({
             }}
           >
             {centerValue != null ? (
-              <Text style={[magStyles.kpiValue, { fontSize: 12 }]}>{centerValue}</Text>
+              <Text style={[styles.kpiValue, { fontSize: 12 }]}>{centerValue}</Text>
             ) : null}
-            {centerLabel ? <Text style={magStyles.kpiLabel}>{centerLabel}</Text> : null}
+            {centerLabel ? <Text style={styles.kpiLabel}>{centerLabel}</Text> : null}
           </View>
         )}
       </View>
       <View style={{ width: '100%' }}>
         {arcs.map((a) => (
-          <View key={a.id} style={[magStyles.row, { marginBottom: 3, alignItems: 'center' }]}>
+          <View key={a.id} style={[styles.row, { marginBottom: 3, alignItems: 'center' }]}>
             <View
               style={{
                 width: 8,
@@ -97,10 +98,10 @@ export function MagDonut({
                 marginRight: 6,
               }}
             />
-            <View style={magStyles.rankedTextCol}>
-              <Text style={[magStyles.rankedLabel, { fontSize: 7.5 }]}>{a.label}</Text>
+            <View style={styles.rankedTextCol}>
+              <Text style={[styles.rankedLabel, { fontSize: 7.5 }]}>{a.label}</Text>
             </View>
-            <Text style={[magStyles.rankedMeta, { width: 40, textAlign: 'right' }]}>{a.pct}%</Text>
+            <Text style={[styles.rankedMeta, { width: 40, textAlign: 'right' }]}>{a.pct}%</Text>
           </View>
         ))}
       </View>

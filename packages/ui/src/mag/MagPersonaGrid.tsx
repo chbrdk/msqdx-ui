@@ -4,7 +4,7 @@ import {
   type MagPersonaCardLabels,
   type MagPersonaCardModel,
 } from './MagPersonaCard'
-import { magStyles } from './tokens'
+import { useMagTheme } from './MagTheme'
 
 type MagPersonaGridProps = {
   personas: MagPersonaCardModel[]
@@ -12,6 +12,7 @@ type MagPersonaGridProps = {
 }
 
 export function MagPersonaGrid({ personas, labels }: MagPersonaGridProps) {
+  const { styles } = useMagTheme()
   if (personas.length === 1) {
     return <MagPersonaCard persona={personas[0]!} spread labels={labels} />
   }
@@ -26,12 +27,12 @@ export function MagPersonaGrid({ personas, labels }: MagPersonaGridProps) {
       {rows.map((pair, rowIndex) => (
         <View
           key={rowIndex}
-          style={[magStyles.personaRow, rowIndex > 0 ? { marginTop: 22 } : undefined]}
+          style={[styles.personaRow, rowIndex > 0 ? { marginTop: 22 } : undefined]}
         >
           {pair.map((persona, i) => (
             <View
               key={persona.id || persona.name}
-              style={i === 0 ? magStyles.personaCell : magStyles.personaCellLast}
+              style={i === 0 ? styles.personaCell : styles.personaCellLast}
             >
               <MagPersonaCard persona={persona} bare labels={labels} />
             </View>

@@ -11,6 +11,7 @@ export type CatalogLayer =
   | 'Organisms'
   | 'Templates'
   | 'Print'
+  | 'Mag'
 
 export type CatalogEntry = {
   id: string
@@ -136,6 +137,11 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'PrintTable', layer: 'Print', title: 'Print/Table', stories: 'print/PrintTable.stories.tsx', mdx: 'print/PrintTable.mdx' },
   { id: 'PrintChip', layer: 'Print', title: 'Print/Chip', stories: 'print/PrintChip.stories.tsx', mdx: 'print/PrintChip.mdx' },
   { id: 'PrintQuickCheck', layer: 'Print', title: 'Print/QuickCheck', stories: 'print/PrintQuickCheck.stories.tsx', mdx: 'print/PrintQuickCheck.mdx' },
+  // Mag (docs-only PDF kit — no react-pdf in Storybook canvas; twins under Print/)
+  { id: 'MagOverview', layer: 'Mag', title: 'Mag/Overview', stories: 'mag/MagOverview.stories.tsx', mdx: 'mag/MagOverview.mdx' },
+  { id: 'MagPage', layer: 'Mag', title: 'Mag/Page', stories: 'mag/MagPage.stories.tsx', mdx: 'mag/MagPage.mdx' },
+  { id: 'MagCover', layer: 'Mag', title: 'Mag/Cover', stories: 'mag/MagCover.stories.tsx', mdx: 'mag/MagCover.mdx' },
+  { id: 'MagChip', layer: 'Mag', title: 'Mag/Chip', stories: 'mag/MagChip.stories.tsx', mdx: 'mag/MagChip.mdx' },
   { id: 'Stack', layer: 'Atoms', title: 'Atoms/Stack', stories: 'components/Stack.stories.tsx', mdx: 'components/Stack.mdx' },
   { id: 'Card', layer: 'Atoms', title: 'Atoms/Card', stories: 'components/Card.stories.tsx', mdx: 'components/Card.mdx' },
   { id: 'Badge', layer: 'Atoms', title: 'Atoms/Badge', stories: 'components/Badge.stories.tsx', mdx: 'components/Badge.mdx' },
