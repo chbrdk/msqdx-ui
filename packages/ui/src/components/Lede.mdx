@@ -22,3 +22,14 @@ Aliases: `StatLede` / `StatLedeGroup` · `WizardSteps`.
 ## Spec
 
 `specs/domain/msqdx-ui-lede.md`
+
+## Tokens consumed
+
+DS-DEPOSIT D5 — tones consume Brandion paths via Layer 0 CSS. See `knowledge/ds-deposit-component-semantic-map.md`.
+
+| Tone | CSS | Brandion path |
+|------|-----|---------------|
+| pos / choice | `--accent` | `color.action.primary` |
+| low | `--ink` / `--muted` | `color.ink` / `color.muted` |
+| neg | mix `--ink` + `#b33` | `color.ink` + hardcoded (not `--danger`) |
+

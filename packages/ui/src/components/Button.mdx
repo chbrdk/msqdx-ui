@@ -39,3 +39,19 @@ Prefer roles, labels, and keyboard paths already used in product UI.
 ## Related
 
 See `specs/domain/msqdx-ui-storybook-atomic.md` and sibling Atomic entries.
+
+## Tokens consumed
+
+DS-DEPOSIT D5 — variants consume Brandion paths via Layer 0 CSS vars. Enums stay React API (no `button.variant.ghost` leaves).
+
+See `knowledge/ds-deposit-component-semantic-map.md`.
+
+| Variant | CSS | Brandion path |
+|---------|-----|---------------|
+| primary | `--accent` | `color.action.primary` (background) |
+| ghost | `--muted` / `--line` | `color.muted` / `color.line` |
+| subtle | mix `--ink` | `color.ink` |
+| danger | `--danger` | `color.status.danger` |
+| link | `--accent` | `color.action.primary` (color) |
+
+Primary foreground `#1a150c` is hardcoded (not a token leaf). Sizes use `--type-sm` / `--space-*`; pill `--radius-pill`.

@@ -1,0 +1,613 @@
+{
+  "version": 1,
+  "program": "DS-DEPOSIT",
+  "wave": "D5",
+  "date": "2026-08-14",
+  "canonical": "brandion-v3/knowledge/ds-deposit-component-semantic-map.json",
+  "rule": "Enums stay React API. Do not mint button.variant.ghost (or any component-enum) leaves.",
+  "cssVerified": true,
+  "defaults": {
+    "Button": { "variant": "primary", "size": "md", "shape": "square" },
+    "Badge": { "tone": "neutral" },
+    "Alert": { "tone": "info" },
+    "Chip": { "selected": "false", "size": "sm" },
+    "Panel": { "variant": "editorial" },
+    "Text": { "role": "body" },
+    "Heading": { "level": "2" },
+    "Lede": { "tone": "default" },
+    "Toast": { "tone": "ok" },
+    "Stack": { "gap": "md" },
+    "Card": {}
+  },
+  "entries": [
+    {
+      "component": "Button",
+      "prop": "*",
+      "value": "*",
+      "source": "packages/ui/src/css/button.css .ds-btn",
+      "consumes": [
+        { "css": "--space-2", "path": "spacing.static.2", "role": "gap", "aliasPath": "spacing.gap.sm" },
+        { "css": "--font-body", "path": "typography.family.body", "role": "font-family" },
+        { "css": "--weight-medium", "path": "typography.weight.medium", "role": "font-weight" }
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "variant",
+      "value": "primary",
+      "source": ".ds-btn--primary",
+      "consumes": [
+        { "css": "--accent", "path": "color.action.primary", "role": "background" }
+      ],
+      "notes": [
+        "Foreground is hardcoded #1a150c (implementation detail; not a Brandion leaf)."
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "variant",
+      "value": "ghost",
+      "source": ".ds-btn--ghost",
+      "consumes": [
+        { "css": "--muted", "path": "color.muted", "role": "color" },
+        { "css": "--line", "path": "color.line", "role": "border" },
+        { "css": "--ink", "path": "color.ink", "role": "hover-color" }
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "variant",
+      "value": "subtle",
+      "source": ".ds-btn--subtle",
+      "consumes": [
+        { "css": "--ink", "path": "color.ink", "role": "background" },
+        { "css": "--ink", "path": "color.ink", "role": "color" }
+      ],
+      "notes": ["Background is color-mix(--ink 6%, transparent)."]
+    },
+    {
+      "component": "Button",
+      "prop": "variant",
+      "value": "danger",
+      "source": ".ds-btn--danger",
+      "consumes": [
+        { "css": "--danger", "path": "color.status.danger", "role": "background" },
+        { "css": "--danger", "path": "color.status.danger", "role": "color" },
+        { "css": "--line", "path": "color.line", "role": "border" }
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "variant",
+      "value": "link",
+      "source": ".ds-btn--link",
+      "consumes": [
+        { "css": "--accent", "path": "color.action.primary", "role": "color" },
+        { "css": "--weight-regular", "path": "typography.weight.regular", "role": "font-weight" }
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "size",
+      "value": "sm",
+      "source": ".ds-btn--sm",
+      "consumes": [
+        { "css": "--type-sm", "path": "typography.scale.sm", "role": "font-size" },
+        { "css": "--space-1", "path": "spacing.static.1", "role": "gap", "aliasPath": "spacing.gap.xs" }
+      ],
+      "notes": ["min-height 2rem and padding 0.35rem 0.75rem are hardcoded rem (not tokens)."]
+    },
+    {
+      "component": "Button",
+      "prop": "size",
+      "value": "md",
+      "source": ".ds-btn--md",
+      "consumes": [
+        { "css": "--type-sm", "path": "typography.scale.sm", "role": "font-size" }
+      ],
+      "notes": ["min-height 2.5rem and padding 0.55rem 1rem are hardcoded rem (not tokens)."]
+    },
+    {
+      "component": "Button",
+      "prop": "size",
+      "value": "lg",
+      "source": ".ds-btn--lg",
+      "consumes": [
+        { "css": "--weight-medium", "path": "typography.weight.medium", "role": "font-weight" }
+      ],
+      "notes": ["font-size is clamp(1rem, 1.8vw, 1.15rem) — hardcoded, not --type-*."]
+    },
+    {
+      "component": "Button",
+      "prop": "shape",
+      "value": "pill",
+      "source": ".ds-btn--pill",
+      "consumes": [
+        { "css": "--radius-pill", "path": "radius.pill", "role": "radius" }
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "shape",
+      "value": "rounded",
+      "source": ".ds-btn--rounded",
+      "consumes": [
+        { "css": "--radius-md", "path": "radius.control.md", "role": "radius" }
+      ]
+    },
+    {
+      "component": "Button",
+      "prop": "shape",
+      "value": "square",
+      "source": ".ds-btn--square / default",
+      "consumes": [],
+      "notes": ["border-radius: 0 — magazine default, not a radius leaf."]
+    },
+    {
+      "component": "Badge",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-badge",
+      "consumes": [
+        { "css": "--border", "path": "color.line", "role": "border", "note": "--border aliases --line in tokens.css" },
+        { "css": "--surface-2", "path": "color.surface.raised", "role": "background" },
+        { "css": "--fg", "path": "color.ink", "role": "color", "note": "--fg aliases --ink" }
+      ]
+    },
+    {
+      "component": "Badge",
+      "prop": "tone",
+      "value": "accent",
+      "source": ".ds-badge--accent",
+      "consumes": [
+        { "css": "--accent", "path": "color.action.primary", "role": "color" },
+        { "css": "--accent", "path": "color.action.primary", "role": "border" }
+      ]
+    },
+    {
+      "component": "Badge",
+      "prop": "tone",
+      "value": "success",
+      "source": ".ds-badge--success",
+      "consumes": [
+        { "css": "--success", "path": "color.status.ok", "role": "color", "note": "--success is undeclared in tokens.css (fallback #2a6); intended Layer 0 is --ok" },
+        { "css": "--success", "path": "color.status.ok", "role": "border" }
+      ]
+    },
+    {
+      "component": "Badge",
+      "prop": "tone",
+      "value": "warning",
+      "source": ".ds-badge--warning",
+      "consumes": [
+        { "css": "--warning", "path": "color.status.warn", "role": "color", "note": "--warning is undeclared in tokens.css (fallback #a60); intended Layer 0 is --warn" },
+        { "css": "--warning", "path": "color.status.warn", "role": "border" }
+      ]
+    },
+    {
+      "component": "Badge",
+      "prop": "tone",
+      "value": "danger",
+      "source": ".ds-badge--danger",
+      "consumes": [
+        { "css": "--danger", "path": "color.status.danger", "role": "color" },
+        { "css": "--danger", "path": "color.status.danger", "role": "border" }
+      ]
+    },
+    {
+      "component": "Badge",
+      "prop": "tone",
+      "value": "neutral",
+      "source": ".ds-badge (no tone class)",
+      "consumes": [
+        { "css": "--border", "path": "color.line", "role": "border" },
+        { "css": "--fg", "path": "color.ink", "role": "color" }
+      ]
+    },
+    {
+      "component": "Alert",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-alert",
+      "consumes": [
+        { "css": "--space-2", "path": "spacing.static.2", "role": "margin", "aliasPath": "spacing.margin.sm" },
+        { "css": "--type-md", "path": "typography.scale.md", "role": "font-size" }
+      ]
+    },
+    {
+      "component": "Alert",
+      "prop": "tone",
+      "value": "error",
+      "source": ".ds-alert--error",
+      "consumes": [
+        { "css": "--bad", "path": "color.status.danger", "role": "color", "note": "--bad is undeclared in tokens.css (fallback #c44); intended Layer 0 is --danger" }
+      ]
+    },
+    {
+      "component": "Alert",
+      "prop": "tone",
+      "value": "ok",
+      "source": ".ds-alert--ok",
+      "consumes": [
+        { "css": "--ok", "path": "color.status.ok", "role": "color" }
+      ]
+    },
+    {
+      "component": "Alert",
+      "prop": "tone",
+      "value": "info",
+      "source": ".ds-alert--info",
+      "consumes": [
+        { "css": "--muted", "path": "color.muted", "role": "color" }
+      ]
+    },
+    {
+      "component": "Chip",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-chip",
+      "consumes": [
+        { "css": "--space-1", "path": "spacing.static.1", "role": "gap", "aliasPath": "spacing.gap.xs" },
+        { "css": "--radius-sm", "path": "radius.control.sm", "role": "radius" },
+        { "css": "--line", "path": "color.line", "role": "border" },
+        { "css": "--muted", "path": "color.muted", "role": "color" },
+        { "css": "--font-body", "path": "typography.family.body", "role": "font-family" },
+        { "css": "--type-md", "path": "typography.scale.md", "role": "font-size" },
+        { "css": "--weight-regular", "path": "typography.weight.regular", "role": "font-weight" }
+      ]
+    },
+    {
+      "component": "Chip",
+      "prop": "selected",
+      "value": "true",
+      "source": ".ds-chip--selected",
+      "consumes": [
+        { "css": "--accent", "path": "color.action.primary", "role": "color" },
+        { "css": "--accent", "path": "color.action.primary", "role": "border" }
+      ]
+    },
+    {
+      "component": "Chip",
+      "prop": "size",
+      "value": "sm",
+      "source": ".ds-chip--sm",
+      "consumes": [
+        { "css": "--type-xs", "path": "typography.scale.xs", "role": "font-size" },
+        { "css": "--track-meta", "path": "typography.tracking.meta", "role": "letter-spacing" },
+        { "css": "--radius-sm", "path": "radius.control.sm", "role": "radius" }
+      ]
+    },
+    {
+      "component": "Chip",
+      "prop": "size",
+      "value": "md",
+      "source": ".ds-chip--md",
+      "consumes": [
+        { "css": "--type-md", "path": "typography.scale.md", "role": "font-size" }
+      ]
+    },
+    {
+      "component": "Panel",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-panel",
+      "consumes": [
+        { "css": "--line", "path": "color.line", "role": "border" }
+      ]
+    },
+    {
+      "component": "Panel",
+      "prop": "variant",
+      "value": "default",
+      "source": ".ds-panel.ds-panel--default",
+      "consumes": [
+        { "css": "--space-4", "path": "spacing.static.4", "role": "margin", "aliasPath": "spacing.margin.lg" },
+        { "css": "--line", "path": "color.line", "role": "border" },
+        { "css": "--radius-panel", "path": "radius.panel", "role": "radius" },
+        { "css": "--surface-2", "path": "color.surface.raised", "role": "background" }
+      ]
+    },
+    {
+      "component": "Panel",
+      "prop": "variant",
+      "value": "editorial",
+      "source": ".ds-panel.ds-panel--editorial",
+      "consumes": [
+        { "css": "--line", "path": "color.line", "role": "border" }
+      ],
+      "notes": ["Fill-free magazine band; padding/margin are clamp() rem, not --space-*."]
+    },
+    {
+      "component": "Panel",
+      "prop": "variant",
+      "value": "flush",
+      "source": ".ds-panel.ds-panel--flush",
+      "consumes": [],
+      "notes": ["No chrome: padding/margin/border/radius 0, transparent fill."]
+    },
+    {
+      "component": "Panel",
+      "prop": "variant",
+      "value": "card",
+      "source": ".ds-panel.ds-panel--card",
+      "consumes": [
+        { "css": "--line", "path": "color.line", "role": "border" }
+      ],
+      "notes": ["Square (radius 0). Padding 1rem 1.05rem 1.15rem is hardcoded rem."]
+    },
+    {
+      "component": "Card",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-card",
+      "consumes": [
+        { "css": "--space-3", "path": "spacing.static.3", "role": "gap", "aliasPath": "spacing.gap.md" },
+        { "css": "--space-4", "path": "spacing.static.4", "role": "padding", "aliasPath": "spacing.padding.lg" },
+        { "css": "--border", "path": "color.line", "role": "border", "note": "--border aliases --line" },
+        { "css": "--surface-1", "path": "color.surface.base", "role": "background", "note": "--surface-1 aliases --bg1" },
+        { "css": "--radius-panel", "path": "radius.panel", "role": "radius" }
+      ]
+    },
+    {
+      "component": "Stack",
+      "prop": "gap",
+      "value": "xs",
+      "source": ".ds-stack--gap-xs",
+      "consumes": [
+        { "css": "--space-1", "path": "spacing.static.1", "role": "gap", "aliasPath": "spacing.gap.xs" }
+      ]
+    },
+    {
+      "component": "Stack",
+      "prop": "gap",
+      "value": "sm",
+      "source": ".ds-stack--gap-sm",
+      "consumes": [
+        { "css": "--space-2", "path": "spacing.static.2", "role": "gap", "aliasPath": "spacing.gap.sm" }
+      ]
+    },
+    {
+      "component": "Stack",
+      "prop": "gap",
+      "value": "md",
+      "source": ".ds-stack--gap-md",
+      "consumes": [
+        { "css": "--space-3", "path": "spacing.static.3", "role": "gap", "aliasPath": "spacing.gap.md" }
+      ]
+    },
+    {
+      "component": "Stack",
+      "prop": "gap",
+      "value": "lg",
+      "source": ".ds-stack--gap-lg",
+      "consumes": [
+        { "css": "--space-4", "path": "spacing.static.4", "role": "gap", "aliasPath": "spacing.gap.lg" }
+      ]
+    },
+    {
+      "component": "Stack",
+      "prop": "gap",
+      "value": "xl",
+      "source": ".ds-stack--gap-xl",
+      "consumes": [
+        { "css": "--space-6", "path": "spacing.static.6", "role": "gap", "aliasPath": "spacing.gap.2xl", "note": "CSS fallback 1.5rem is stale vs deposited --space-6 2rem / spacing.static.5 = 1.5rem" }
+      ]
+    },
+    {
+      "component": "Text",
+      "prop": "role",
+      "value": "display",
+      "source": ".ds-text-display",
+      "consumes": [
+        { "css": "--font-display", "path": "typography.family.display", "role": "font-family" },
+        { "css": "--type-display", "path": "typography.scale.display", "role": "font-size" },
+        { "css": "--weight-thin", "path": "typography.weight.thin", "role": "font-weight" },
+        { "css": "--track-tight", "path": "typography.tracking.tight", "role": "letter-spacing" },
+        { "css": "--section-title", "path": "color.inkStrong", "role": "color" },
+        { "css": null, "path": "typography.role.display", "role": "typography-role", "note": "composed role leaf (family+size+weight+track)" }
+      ]
+    },
+    {
+      "component": "Text",
+      "prop": "role",
+      "value": "headline",
+      "source": ".ds-text-headline",
+      "consumes": [
+        { "css": "--font-display", "path": "typography.family.display", "role": "font-family" },
+        { "css": "--type-display", "path": "typography.scale.display", "role": "font-size" },
+        { "css": "--weight-bold", "path": "typography.weight.bold", "role": "font-weight" },
+        { "css": "--track-display", "path": "typography.tracking.display", "role": "letter-spacing" },
+        { "css": "--ink", "path": "color.ink", "role": "color" },
+        { "css": null, "path": "typography.role.headline", "role": "typography-role" }
+      ]
+    },
+    {
+      "component": "Text",
+      "prop": "role",
+      "value": "title",
+      "source": ".ds-text-title",
+      "consumes": [
+        { "css": "--font-display", "path": "typography.family.display", "role": "font-family" },
+        { "css": "--type-2xl", "path": "typography.scale.2xl", "role": "font-size" },
+        { "css": "--weight-regular", "path": "typography.weight.regular", "role": "font-weight" },
+        { "css": "--track-tight", "path": "typography.tracking.tight", "role": "letter-spacing" },
+        { "css": "--section-title", "path": "color.inkStrong", "role": "color" },
+        { "css": null, "path": "typography.role.title", "role": "typography-role" }
+      ]
+    },
+    {
+      "component": "Text",
+      "prop": "role",
+      "value": "body",
+      "source": ".ds-text-body",
+      "consumes": [
+        { "css": "--font-body", "path": "typography.family.body", "role": "font-family" },
+        { "css": "--type-xl", "path": "typography.scale.xl", "role": "font-size" },
+        { "css": "--weight-regular", "path": "typography.weight.regular", "role": "font-weight" },
+        { "css": "--ink", "path": "color.ink", "role": "color" },
+        { "css": null, "path": "typography.role.body", "role": "typography-role" }
+      ]
+    },
+    {
+      "component": "Text",
+      "prop": "role",
+      "value": "meta",
+      "source": ".ds-text-meta",
+      "consumes": [
+        { "css": "--font-body", "path": "typography.family.body", "role": "font-family" },
+        { "css": "--type-sm", "path": "typography.scale.sm", "role": "font-size" },
+        { "css": "--weight-regular", "path": "typography.weight.regular", "role": "font-weight" },
+        { "css": "--muted", "path": "color.muted", "role": "color" },
+        { "css": null, "path": "typography.role.meta", "role": "typography-role" }
+      ]
+    },
+    {
+      "component": "Text",
+      "prop": "role",
+      "value": "label",
+      "source": ".ds-text-label",
+      "consumes": [
+        { "css": "--type-sm", "path": "typography.scale.sm", "role": "font-size" },
+        { "css": "--weight-medium", "path": "typography.weight.medium", "role": "font-weight" },
+        { "css": "--track-label", "path": "typography.tracking.label", "role": "letter-spacing" },
+        { "css": "--muted", "path": "color.muted", "role": "color" },
+        { "css": null, "path": "typography.role.label", "role": "typography-role" }
+      ]
+    },
+    {
+      "component": "Heading",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-heading",
+      "consumes": [
+        { "css": "--fg", "path": "color.ink", "role": "color", "note": "--fg aliases --ink" }
+      ],
+      "notes": [
+        "Level sizes are hardcoded rem (.ds-heading--1 2rem … --4/5/6 1rem), not --type-*. Do not invent scale leaves from these px/rem."
+      ]
+    },
+    {
+      "component": "Lede",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-lede",
+      "consumes": [
+        { "css": "--line", "path": "color.line", "role": "border" },
+        { "css": "--ink", "path": "color.ink", "role": "color" },
+        { "css": "--muted", "path": "color.muted", "role": "color" },
+        { "css": "--font-display", "path": "typography.family.display", "role": "font-family" },
+        { "css": "--weight-medium", "path": "typography.weight.medium", "role": "font-weight" }
+      ]
+    },
+    {
+      "component": "Lede",
+      "prop": "tone",
+      "value": "pos",
+      "source": ".ds-lede[data-tone='pos']",
+      "consumes": [
+        { "css": "--accent", "path": "color.action.primary", "role": "color" }
+      ],
+      "notes": ["Keep-drop sketched pos→color.status.ok; CSS uses --accent. Map follows CSS."]
+    },
+    {
+      "component": "Lede",
+      "prop": "tone",
+      "value": "low",
+      "source": ".ds-lede[data-tone='low']",
+      "consumes": [
+        { "css": "--ink", "path": "color.ink", "role": "color" },
+        { "css": "--muted", "path": "color.muted", "role": "color" }
+      ]
+    },
+    {
+      "component": "Lede",
+      "prop": "tone",
+      "value": "neg",
+      "source": ".ds-lede[data-tone='neg']",
+      "consumes": [
+        { "css": "--ink", "path": "color.ink", "role": "color" }
+      ],
+      "notes": ["Mixes --ink 45% with hardcoded #b33 — not --danger. Do not invent a leaf."]
+    },
+    {
+      "component": "Lede",
+      "prop": "tone",
+      "value": "choice",
+      "source": ".ds-lede[data-tone='choice']",
+      "consumes": [
+        { "css": "--accent", "path": "color.action.primary", "role": "color" }
+      ]
+    },
+    {
+      "component": "Lede",
+      "prop": "tone",
+      "value": "ok",
+      "source": "(no CSS selector)",
+      "consumes": [],
+      "notes": ["CREATION enum includes ok; msqdx-ui CSS has no data-tone='ok'. Uncovered until CSS exists."]
+    },
+    {
+      "component": "Toast",
+      "prop": "*",
+      "value": "*",
+      "source": ".ds-toast",
+      "consumes": [
+        { "css": "--space-2", "path": "spacing.static.2", "role": "gap", "aliasPath": "spacing.gap.sm" },
+        { "css": "--space-3", "path": "spacing.static.3", "role": "padding", "aliasPath": "spacing.padding.md" },
+        { "css": "--line", "path": "color.line", "role": "border" },
+        { "css": "--radius-md", "path": "radius.control.md", "role": "radius" },
+        { "css": "--bg1", "path": "color.surface.base", "role": "background" },
+        { "css": "--ink", "path": "color.ink", "role": "color" },
+        { "css": "--type-sm", "path": "typography.scale.sm", "role": "font-size" }
+      ]
+    },
+    {
+      "component": "Toast",
+      "prop": "tone",
+      "value": "ok",
+      "source": ".ds-toast--ok",
+      "consumes": [
+        { "css": "--ok", "path": "color.status.ok", "role": "border" }
+      ]
+    },
+    {
+      "component": "Toast",
+      "prop": "tone",
+      "value": "error",
+      "source": ".ds-toast--error",
+      "consumes": [
+        { "css": "--danger", "path": "color.status.danger", "role": "border" }
+      ]
+    }
+  ],
+  "uncovered": [
+    {
+      "surface": "Chat* tones / ChatAlertBlock / ChatBlockPanel",
+      "reason": "Product chrome; map later. Keep-drop sketches status + color.role.* / accent."
+    },
+    {
+      "surface": "FilterRow / FloatingPanel / Flyout / ToggleGroup / TokenPicker / Cutdown",
+      "reason": "Chrome-only variants; no semantic consume table this wave."
+    },
+    {
+      "surface": "Avatar / Field / Spacer / Meter / MetricChip / FormSection",
+      "reason": "Length enums still keep React API; optional later bind to size/spacing ladder."
+    },
+    {
+      "surface": "Print* magazine kit",
+      "reason": "Layer 0 --print-* stays unbound (token-layers). Not Brandion digital consume."
+    },
+    {
+      "surface": "AppFrame / NavRail / LayersPanel / inspect chrome",
+      "reason": "Editor chrome; Layer 0 CSS only."
+    },
+    {
+      "surface": "Flow* / ContextMenu / SchemaTree / JsonTree",
+      "reason": "Tooling chrome; later."
+    },
+    {
+      "surface": "Lede tone=ok / Button primary foreground #1a150c / Badge --success/--warning undeclared vars / Alert --bad / Lede neg #b33",
+      "reason": "Documented as implementation detail; no new leaves."
+    }
+  ]
+}
