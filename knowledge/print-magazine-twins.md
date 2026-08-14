@@ -30,6 +30,6 @@ Stand: 2026-08-14 (P78 · **P80b/c**)
 - Spec: `specs/domain/msqdx-ui-mag-pdf-kit.md`
 
 Staging: `URL_MSQDX_UI_STORYBOOK` → `https://ds.projects-a.plygrnd.tech/?path=/story/print-quickcheck--magazine-deck`  
-Mag docs: `https://ds.projects-a.plygrnd.tech/?path=/story/mag-overview--docs`
+Mag docs: `https://ds.projects-a.plygrnd.tech/?path=/story/mag-overview--default`
 
 **Creation:** editor stays on Print*; change Print/Mag chrome in msqdx-ui, not in the Creation editor.
