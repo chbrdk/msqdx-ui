@@ -11,6 +11,7 @@ import * as Mag from './index'
 import { MagChip, MagChipRow } from './MagChip'
 import { MagCover } from './MagCover'
 import { MagPage } from './MagPage'
+import { MagRankedList } from './MagRankedList'
 import { MagThemeProvider, applyMagTheme, getMagTheme } from './MagTheme'
 import { magColors, createMagStyles } from './tokens'
 import { mergeMagazineColors } from '../magazine/colors'
@@ -111,6 +112,25 @@ describe('Mag PDF kit smoke', () => {
     )
     const pdf = Buffer.from(buffer)
     expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
+  }, 30000)
+  it('renders MagRankedList with instance tones (P84)', async () => {
+    registerMagazinePdfFonts()
+    const buffer = await renderToBuffer(
+      <Document>
+        <MagPage footerTitle="tones-smoke" showLogo={false}>
+          <MagRankedList
+            tones={{ ink: '#1122aa', accentInk: '#aa1122' }}
+            items={[
+              { label: 'Base tone' },
+              { label: 'Per-item', color: '#00aa55' },
+            ]}
+          />
+        </MagPage>
+      </Document>,
+    )
+    const pdf = Buffer.from(buffer)
+    expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
+    expect(pdf.length).toBeGreaterThan(500)
   }, 30000)
 })
 

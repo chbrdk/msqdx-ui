@@ -1,9 +1,23 @@
+/**
+ * MagRankedList — magazine numbered list (PDF twin of PrintRankedList).
+ * Optional instance tones: apps (CREATION) pass inspect-resolved colors.
+ */
+
 import { Text, View } from '@react-pdf/renderer'
 import { useMagTheme } from './MagTheme'
 
 export type MagRankedItem = {
   label: string
   meta?: string
+  /** Optional per-item label color (Creation instance paint). */
+  color?: string
+}
+
+export type MagRankedListTones = {
+  ink?: string
+  accentInk?: string
+  muted?: string
+  line?: string
 }
 
 type MagRankedListProps = {
@@ -13,6 +27,8 @@ type MagRankedListProps = {
   columns?: 1 | 2
   /** Tighter rows for persona tiles and nested lists. */
   compact?: boolean
+  /** Instance color overrides from the authoring canvas (optional). */
+  tones?: MagRankedListTones
 }
 
 function splitColumns(items: MagRankedItem[]): [MagRankedItem[], MagRankedItem[]] {
@@ -25,34 +41,51 @@ function RankedColumn({
   startIndex,
   compact,
   styles,
+  tones,
 }: {
   items: MagRankedItem[]
   startIndex: number
   compact: boolean
   styles: ReturnType<typeof useMagTheme>['styles']
+  tones?: MagRankedListTones
 }) {
   return (
     <View style={{ width: '100%' }}>
       {items.map((item, i) => (
         <View
           key={`${item.label}-${i}`}
-          style={compact ? styles.rankedRowCompact : styles.rankedRow}
+          style={[
+            compact ? styles.rankedRowCompact : styles.rankedRow,
+            tones?.line ? { borderBottomColor: tones.line } : undefined,
+          ]}
           wrap={false}
         >
-          <Text style={compact ? styles.rankedIndexCompact : styles.rankedIndex}>
+          <Text
+            style={[
+              compact ? styles.rankedIndexCompact : styles.rankedIndex,
+              tones?.accentInk ? { color: tones.accentInk } : undefined,
+            ]}
+          >
             {String(startIndex + i).padStart(2, '0')}
           </Text>
           <View style={styles.rankedTextCol}>
-            <Text style={compact ? styles.rankedLabelCompact : styles.rankedLabel}>
+            <Text
+              style={[
+                compact ? styles.rankedLabelCompact : styles.rankedLabel,
+                tones?.ink ? { color: tones.ink } : undefined,
+                item.color ? { color: item.color } : undefined,
+              ]}
+            >
               {item.label}
             </Text>
             {item.meta ? (
               <Text
-                style={
+                style={[
                   compact
                     ? [styles.meta, styles.rankedMetaCompact, { marginTop: 3 }]
-                    : [styles.meta, { marginTop: 3 }]
-                }
+                    : [styles.meta, { marginTop: 3 }],
+                  tones?.muted ? { color: tones.muted } : undefined,
+                ]}
               >
                 {item.meta}
               </Text>
@@ -69,6 +102,7 @@ export function MagRankedList({
   startIndex = 1,
   columns = 1,
   compact = false,
+  tones,
 }: MagRankedListProps) {
   const { styles } = useMagTheme()
   if (!items.length) return null
@@ -79,7 +113,13 @@ export function MagRankedList({
     return (
       <View style={[styles.twoColRow, { marginTop: compact ? 2 : 6 }]}>
         <View style={[styles.twoColCell, { paddingRight: pad }]}>
-          <RankedColumn items={left} startIndex={startIndex} compact={compact} styles={styles} />
+          <RankedColumn
+            items={left}
+            startIndex={startIndex}
+            compact={compact}
+            styles={styles}
+            tones={tones}
+          />
         </View>
         <View style={[styles.twoColCell, { paddingLeft: pad }]}>
           <RankedColumn
@@ -87,6 +127,7 @@ export function MagRankedList({
             startIndex={startIndex + left.length}
             compact={compact}
             styles={styles}
+            tones={tones}
           />
         </View>
       </View>
@@ -95,7 +136,13 @@ export function MagRankedList({
 
   return (
     <View style={{ marginTop: compact ? 2 : 6, width: '100%' }}>
-      <RankedColumn items={items} startIndex={startIndex} compact={compact} styles={styles} />
+      <RankedColumn
+        items={items}
+        startIndex={startIndex}
+        compact={compact}
+        styles={styles}
+        tones={tones}
+      />
     </View>
   )
 }

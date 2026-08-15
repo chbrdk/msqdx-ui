@@ -1,6 +1,6 @@
 # MSQDX UI — Mag PDF kit
 
-**Status:** Accepted (P78) · Amended **P80b/c** 2026-08-14  
+**Status:** Accepted (P78) · Amended **P80b/c** 2026-08-14 · **P84** 2026-08-15  
 **Layer:** Print / Mag (PDF primitives; not Storybook HTML twins)  
 **Consumers:** plexon-v3 Event Quick Check magazine PDF · creation-v3 composition Magazin-PDF  
 **Related:** `knowledge/print-magazine-twins.md` · HTML twins in `packages/ui/src/print/`
@@ -35,6 +35,10 @@ Same matrix as `knowledge/print-magazine-twins.md` (`Print/X` ↔ `MagX`). Chang
 ## MagTheme (P80)
 
 `applyMagTheme` / `getMagTheme` / `MagThemeProvider` — module-scoped theme for sync PDF renders (no `React.createContext`, so Next.js API routes can import `@msqdx/ui/mag`). Apps map Brandion packs → color overrides; Mag primitives stay Brandion-agnostic. Reset with `applyMagTheme(null)` after `renderToBuffer`.
+
+## Instance tones (P84)
+
+Document theme stays pack-level. Per-module inspect paint (CREATION) MAY pass optional tones into Mag primitives that expose them — e.g. `MagRankedList` `tones` / `MagRankedItem.color` — without making Mag Brandion-aware. Box model (padding/margin/background) stays an app-side `View` wrap.
 
 ## Storybook Mag docs (P80b)
 
