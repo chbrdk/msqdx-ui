@@ -12,6 +12,8 @@ type MagChapterProps = {
   stacked?: boolean
   children?: ReactNode
   break?: boolean
+  /** Instance typography for the chapter title (Creation P86). */
+  titleStyle?: Record<string, string | number>
 }
 
 export function MagChapter({
@@ -22,6 +24,7 @@ export function MagChapter({
   stacked = false,
   children,
   break: pageBreak,
+  titleStyle,
 }: MagChapterProps) {
   const { styles } = useMagTheme()
   return (
@@ -31,7 +34,7 @@ export function MagChapter({
     >
       {index ? <Text style={styles.chapterIndex}>{index}</Text> : null}
       <Text style={styles.eyebrow}>{eyebrow}</Text>
-      <Text style={styles.headline}>{title}</Text>
+      <Text style={[styles.headline, titleStyle]}>{title}</Text>
       <View style={styles.accentRule} />
       {lede ? <Text style={styles.lede}>{lede}</Text> : null}
       {children}

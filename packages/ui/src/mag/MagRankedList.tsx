@@ -11,6 +11,8 @@ export type MagRankedItem = {
   meta?: string
   /** Optional per-item label color (Creation instance paint). */
   color?: string
+  /** Optional per-item label typography (Creation P86). */
+  labelStyle?: Record<string, string | number>
 }
 
 export type MagRankedListTones = {
@@ -29,6 +31,8 @@ type MagRankedListProps = {
   compact?: boolean
   /** Instance color overrides from the authoring canvas (optional). */
   tones?: MagRankedListTones
+  /** Instance typography applied to all labels (optional; per-item labelStyle wins). */
+  labelStyle?: Record<string, string | number>
 }
 
 function splitColumns(items: MagRankedItem[]): [MagRankedItem[], MagRankedItem[]] {
@@ -42,12 +46,14 @@ function RankedColumn({
   compact,
   styles,
   tones,
+  labelStyle,
 }: {
   items: MagRankedItem[]
   startIndex: number
   compact: boolean
   styles: ReturnType<typeof useMagTheme>['styles']
   tones?: MagRankedListTones
+  labelStyle?: Record<string, string | number>
 }) {
   return (
     <View style={{ width: '100%' }}>
@@ -74,6 +80,8 @@ function RankedColumn({
                 compact ? styles.rankedLabelCompact : styles.rankedLabel,
                 tones?.ink ? { color: tones.ink } : undefined,
                 item.color ? { color: item.color } : undefined,
+                labelStyle,
+                item.labelStyle,
               ]}
             >
               {item.label}
@@ -103,6 +111,7 @@ export function MagRankedList({
   columns = 1,
   compact = false,
   tones,
+  labelStyle,
 }: MagRankedListProps) {
   const { styles } = useMagTheme()
   if (!items.length) return null
@@ -119,6 +128,7 @@ export function MagRankedList({
             compact={compact}
             styles={styles}
             tones={tones}
+            labelStyle={labelStyle}
           />
         </View>
         <View style={[styles.twoColCell, { paddingLeft: pad }]}>
@@ -128,6 +138,7 @@ export function MagRankedList({
             compact={compact}
             styles={styles}
             tones={tones}
+            labelStyle={labelStyle}
           />
         </View>
       </View>
@@ -142,6 +153,7 @@ export function MagRankedList({
         compact={compact}
         styles={styles}
         tones={tones}
+        labelStyle={labelStyle}
       />
     </View>
   )

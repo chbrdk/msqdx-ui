@@ -17,14 +17,24 @@ type MagCoverProps = {
   meta?: string
   fazit?: string
   kpis: MagCoverKpi[]
+  /** Instance typography for the cover title (Creation P86). */
+  titleStyle?: Record<string, string | number>
 }
 
-export function MagCover({ eyebrow, title, url, meta, fazit, kpis }: MagCoverProps) {
+export function MagCover({
+  eyebrow,
+  title,
+  url,
+  meta,
+  fazit,
+  kpis,
+  titleStyle,
+}: MagCoverProps) {
   const { styles } = useMagTheme()
   return (
     <View>
       <Text style={styles.eyebrow}>{eyebrow}</Text>
-      <Text style={styles.coverHeadline}>{title}</Text>
+      <Text style={[styles.coverHeadline, titleStyle]}>{title}</Text>
       <View style={styles.accentRule} />
       <View style={styles.coverMetaBlock}>
         {url ? <Text style={styles.meta}>{url}</Text> : null}

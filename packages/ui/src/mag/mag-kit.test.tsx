@@ -120,9 +120,10 @@ describe('Mag PDF kit smoke', () => {
         <MagPage footerTitle="tones-smoke" showLogo={false}>
           <MagRankedList
             tones={{ ink: '#1122aa', accentInk: '#aa1122' }}
+            labelStyle={{ fontSize: 14, textAlign: 'center' }}
             items={[
               { label: 'Base tone' },
-              { label: 'Per-item', color: '#00aa55' },
+              { label: 'Per-item', color: '#00aa55', labelStyle: { fontSize: 16 } },
             ]}
           />
         </MagPage>
