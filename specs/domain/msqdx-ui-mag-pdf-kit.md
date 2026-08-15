@@ -44,6 +44,8 @@ Document theme stays pack-level. Per-module inspect paint (CREATION) MAY pass op
 
 **P87:** MagRankedList MAY accept `gap` (pt) for row spacing. MagCover/MagChapter MUST honor `titleStyle.textAlign` on eyebrow/meta (not only the headline).
 
+**P88:** MagTable MAY accept `headStyle` / `cellStyle` / `cellStyles` / `gap` so Creation can forward PrintTable cell Text inspect paint.
+
 ## Storybook Mag docs (P80b)
 
 Docs-only layer `Mag/` (Overview, Page, Cover, Chip) — **must not** import Mag PDF modules into Storybook stories (avoids Font/FS side effects). HTML visual preview stays under `Print/`. Catalog entries in `storybook/catalog.ts`.
