@@ -390,6 +390,7 @@ export function createMagStyles(colors: MagazineColors) {
     fontWeight: 400,
     color: colors.inkSoft,
     paddingRight: 6,
+    width: '100%',
     maxWidth: '100%',
   },
   tableHeadCell: {
@@ -400,6 +401,7 @@ export function createMagStyles(colors: MagazineColors) {
     textTransform: 'uppercase',
     letterSpacing: 0.8,
     paddingRight: 6,
+    width: '100%',
     maxWidth: '100%',
   },
   traitTrack: {

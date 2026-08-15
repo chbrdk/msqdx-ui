@@ -31,9 +31,19 @@ export function MagChapter({
     titleStyle && typeof titleStyle.textAlign === 'string'
       ? { textAlign: titleStyle.textAlign as 'left' | 'center' | 'right' | 'justify' }
       : undefined
+  const alignItems =
+    textAlign?.textAlign === 'center'
+      ? ('center' as const)
+      : textAlign?.textAlign === 'right'
+        ? ('flex-end' as const)
+        : undefined
   return (
     <View
-      style={[styles.chapterGap, stacked ? styles.chapterStacked : undefined]}
+      style={[
+        styles.chapterGap,
+        stacked ? styles.chapterStacked : undefined,
+        alignItems ? { alignItems, width: '100%' } : undefined,
+      ]}
       break={pageBreak}
     >
       {index ? <Text style={[styles.chapterIndex, textAlign]}>{index}</Text> : null}

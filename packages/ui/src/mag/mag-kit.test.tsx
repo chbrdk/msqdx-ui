@@ -12,6 +12,7 @@ import { MagChip, MagChipRow } from './MagChip'
 import { MagCover } from './MagCover'
 import { MagPage } from './MagPage'
 import { MagRankedList } from './MagRankedList'
+import { MagTable } from './MagTable'
 import { MagThemeProvider, applyMagTheme, getMagTheme } from './MagTheme'
 import { magColors, createMagStyles } from './tokens'
 import { mergeMagazineColors } from '../magazine/colors'
@@ -126,6 +127,26 @@ describe('Mag PDF kit smoke', () => {
               { label: 'Base tone' },
               { label: 'Per-item', color: '#00aa55', labelStyle: { fontSize: 16 } },
             ]}
+          />
+        </MagPage>
+      </Document>,
+    )
+    const pdf = Buffer.from(buffer)
+    expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
+    expect(pdf.length).toBeGreaterThan(500)
+  }, 30000)
+
+  it('renders MagTable with cell textAlign (P90)', async () => {
+    registerMagazinePdfFonts()
+    const buffer = await renderToBuffer(
+      <Document>
+        <MagPage footerTitle="table-align-smoke" showLogo={false}>
+          <MagTable
+            columns={['Metric', 'Now']}
+            rows={[['GEO', 72]]}
+            headStyle={{ textAlign: 'center' }}
+            cellStyle={{ textAlign: 'center', fontSize: 12 }}
+            gap={10}
           />
         </MagPage>
       </Document>,

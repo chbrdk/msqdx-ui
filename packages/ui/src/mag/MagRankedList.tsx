@@ -82,6 +82,7 @@ function RankedColumn({
             <Text
               style={[
                 compact ? styles.rankedLabelCompact : styles.rankedLabel,
+                { width: '100%' },
                 tones?.ink ? { color: tones.ink } : undefined,
                 item.color ? { color: item.color } : undefined,
                 labelStyle,

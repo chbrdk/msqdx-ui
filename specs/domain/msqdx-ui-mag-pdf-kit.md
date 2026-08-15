@@ -46,6 +46,8 @@ Document theme stays pack-level. Per-module inspect paint (CREATION) MAY pass op
 
 **P88:** MagTable MAY accept `headStyle` / `cellStyle` / `cellStyles` / `gap` so Creation can forward PrintTable cell Text inspect paint.
 
+**P90:** MagTable cell/head `Text` MUST span the cell width (`width: '100%'`) so `textAlign` from inspect is visible in react-pdf; cell Views MAY mirror `textAlign` via `alignItems`. MagChapter MUST mirror MagCover `alignItems` when `titleStyle.textAlign` is center/right. MagRankedList / MagPullQuote label/body Text MUST stretch for `textAlign`.
+
 ## Storybook Mag docs (P80b)
 
 Docs-only layer `Mag/` (Overview, Page, Cover, Chip) — **must not** import Mag PDF modules into Storybook stories (avoids Font/FS side effects). HTML visual preview stays under `Print/`. Catalog entries in `storybook/catalog.ts`.

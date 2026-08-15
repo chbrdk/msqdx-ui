@@ -16,7 +16,11 @@ export function MagPullQuote({ label, body, bodyStyle }: MagPullQuoteProps) {
       <View style={styles.pullQuoteBar} />
       <View style={styles.pullQuoteBody}>
         {label ? <Text style={styles.subEyebrow}>{label}</Text> : null}
-        <Text style={[styles.body, { marginBottom: 0, lineHeight: 1.55 }, bodyStyle]}>{body}</Text>
+        <Text
+          style={[styles.body, { marginBottom: 0, lineHeight: 1.55, width: '100%' }, bodyStyle]}
+        >
+          {body}
+        </Text>
       </View>
     </View>
   )
