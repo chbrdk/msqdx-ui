@@ -38,4 +38,19 @@ describe('BreakpointSwitcher', () => {
     expect(screen.getByRole('radiogroup', { name: 'Breakpoint' })).toBeInTheDocument()
     expect(screen.getAllByRole('radio')).toHaveLength(3)
   })
+
+  it('renders print when options include print', () => {
+    const onChange = vi.fn()
+    render(
+      <BreakpointSwitcher
+        value="desktop"
+        onChange={onChange}
+        options={['mobile', 'tablet', 'desktop', 'print']}
+        labels={{ print: 'Print' }}
+      />,
+    )
+    expect(screen.getAllByRole('radio')).toHaveLength(4)
+    fireEvent.click(screen.getByTestId('breakpoint-switcher-print'))
+    expect(onChange).toHaveBeenCalledWith('print')
+  })
 })

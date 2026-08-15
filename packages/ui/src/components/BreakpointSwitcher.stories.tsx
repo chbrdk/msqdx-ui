@@ -10,7 +10,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Mobile / tablet / desktop segmented control for editor preview chrome. Apps map value → artboard width.',
+          'Mobile / tablet / desktop segmented control for editor preview chrome. Apps may pass `print` via options; map value → artboard size.',
       },
     },
   },
@@ -41,6 +41,17 @@ export const CustomLabels: Story = {
       mobile: 'SM',
       tablet: 'MD',
       desktop: 'LG',
+    },
+  },
+}
+
+export const WithPrint: Story = {
+  args: {
+    value: 'print',
+    onChange: () => undefined,
+    options: ['mobile', 'tablet', 'desktop', 'print'],
+    labels: {
+      print: 'Print',
     },
   },
 }

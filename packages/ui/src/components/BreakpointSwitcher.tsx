@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 
-export type EditorBreakpoint = 'mobile' | 'tablet' | 'desktop'
+export type EditorBreakpoint = 'mobile' | 'tablet' | 'desktop' | 'print'
 
 export type BreakpointSwitcherProps = {
   value: EditorBreakpoint
@@ -27,13 +27,14 @@ const DEFAULT_LABELS: Record<EditorBreakpoint, string> = {
   mobile: 'Mobile',
   tablet: 'Tablet',
   desktop: 'Desktop',
+  print: 'Print',
 }
 
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
-/** Mobile / tablet / desktop segmented control for editor preview chrome. */
+/** Mobile / tablet / desktop (/ optional print) segmented control for editor preview chrome. */
 export function BreakpointSwitcher({
   value,
   onChange,
