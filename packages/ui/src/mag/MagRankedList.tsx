@@ -33,6 +33,8 @@ type MagRankedListProps = {
   tones?: MagRankedListTones
   /** Instance typography applied to all labels (optional; per-item labelStyle wins). */
   labelStyle?: Record<string, string | number>
+  /** Row gap in pt (Creation inspect gap → Mag). */
+  gap?: number
 }
 
 function splitColumns(items: MagRankedItem[]): [MagRankedItem[], MagRankedItem[]] {
@@ -47,6 +49,7 @@ function RankedColumn({
   styles,
   tones,
   labelStyle,
+  gap,
 }: {
   items: MagRankedItem[]
   startIndex: number
@@ -54,9 +57,10 @@ function RankedColumn({
   styles: ReturnType<typeof useMagTheme>['styles']
   tones?: MagRankedListTones
   labelStyle?: Record<string, string | number>
+  gap?: number
 }) {
   return (
-    <View style={{ width: '100%' }}>
+    <View style={{ width: '100%', gap: gap != null ? gap : undefined }}>
       {items.map((item, i) => (
         <View
           key={`${item.label}-${i}`}
@@ -112,6 +116,7 @@ export function MagRankedList({
   compact = false,
   tones,
   labelStyle,
+  gap,
 }: MagRankedListProps) {
   const { styles } = useMagTheme()
   if (!items.length) return null
@@ -129,6 +134,7 @@ export function MagRankedList({
             styles={styles}
             tones={tones}
             labelStyle={labelStyle}
+            gap={gap}
           />
         </View>
         <View style={[styles.twoColCell, { paddingLeft: pad }]}>
@@ -139,6 +145,7 @@ export function MagRankedList({
             styles={styles}
             tones={tones}
             labelStyle={labelStyle}
+            gap={gap}
           />
         </View>
       </View>
@@ -154,6 +161,7 @@ export function MagRankedList({
         styles={styles}
         tones={tones}
         labelStyle={labelStyle}
+        gap={gap}
       />
     </View>
   )

@@ -27,16 +27,20 @@ export function MagChapter({
   titleStyle,
 }: MagChapterProps) {
   const { styles } = useMagTheme()
+  const textAlign =
+    titleStyle && typeof titleStyle.textAlign === 'string'
+      ? { textAlign: titleStyle.textAlign as 'left' | 'center' | 'right' | 'justify' }
+      : undefined
   return (
     <View
       style={[styles.chapterGap, stacked ? styles.chapterStacked : undefined]}
       break={pageBreak}
     >
-      {index ? <Text style={styles.chapterIndex}>{index}</Text> : null}
-      <Text style={styles.eyebrow}>{eyebrow}</Text>
+      {index ? <Text style={[styles.chapterIndex, textAlign]}>{index}</Text> : null}
+      <Text style={[styles.eyebrow, textAlign]}>{eyebrow}</Text>
       <Text style={[styles.headline, titleStyle]}>{title}</Text>
       <View style={styles.accentRule} />
-      {lede ? <Text style={styles.lede}>{lede}</Text> : null}
+      {lede ? <Text style={[styles.lede, textAlign]}>{lede}</Text> : null}
       {children}
     </View>
   )

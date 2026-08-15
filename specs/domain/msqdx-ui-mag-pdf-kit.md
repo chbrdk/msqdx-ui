@@ -42,6 +42,8 @@ Document theme stays pack-level. Per-module inspect paint (CREATION) MAY pass op
 
 **P86:** Mag primitives MAY accept optional typography overrides (`labelStyle` / `titleStyle` / `bodyStyle` / per-item `labelStyle`) so apps can forward inspect fontSize / weight / textAlign. Stack/Grid gap and align remain app-side wraps. Folio / column chrome stay Mag kit defaults.
 
+**P87:** MagRankedList MAY accept `gap` (pt) for row spacing. MagCover/MagChapter MUST honor `titleStyle.textAlign` on eyebrow/meta (not only the headline).
+
 ## Storybook Mag docs (P80b)
 
 Docs-only layer `Mag/` (Overview, Page, Cover, Chip) — **must not** import Mag PDF modules into Storybook stories (avoids Font/FS side effects). HTML visual preview stays under `Print/`. Catalog entries in `storybook/catalog.ts`.

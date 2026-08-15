@@ -121,6 +121,7 @@ describe('Mag PDF kit smoke', () => {
           <MagRankedList
             tones={{ ink: '#1122aa', accentInk: '#aa1122' }}
             labelStyle={{ fontSize: 14, textAlign: 'center' }}
+            gap={12}
             items={[
               { label: 'Base tone' },
               { label: 'Per-item', color: '#00aa55', labelStyle: { fontSize: 16 } },
