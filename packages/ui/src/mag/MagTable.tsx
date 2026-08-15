@@ -12,6 +12,11 @@ type MagTableProps = {
   cellStyles?: Array<Array<Record<string, string | number> | undefined>>
   /** Row vertical rhythm in pt (inspect gap). */
   gap?: number
+  /**
+   * stretch (default): fill Mag column measure.
+   * hug: size to content so parent `alignSelf: flex-end|center` can park the block (P91).
+   */
+  fit?: 'stretch' | 'hug'
 }
 
 type TextAlign = 'left' | 'center' | 'right' | 'justify'
@@ -44,29 +49,45 @@ export function MagTable({
   cellStyle,
   cellStyles,
   gap,
+  fit = 'stretch',
 }: MagTableProps) {
   const { styles } = useMagTheme()
-  const width = `${100 / Math.max(columns.length, 1)}%`
+  const hug = fit === 'hug'
+  const width = hug ? undefined : `${100 / Math.max(columns.length, 1)}%`
   const rowPad = gap != null ? { paddingVertical: Math.max(2, gap / 2) } : undefined
   const headAlign = cellAlignItems(headStyle)
   const bodyAlign = cellAlignItems(cellStyle)
+  // Hug must override kit `width: '100%'` on header/row bands or alignSelf cannot park the block.
+  const hugBand = hug
+    ? { width: 'auto' as const, alignSelf: 'flex-start' as const, flexDirection: 'row' as const }
+    : undefined
   return (
-    <View style={{ width: '100%' }}>
-      <View style={styles.tableHeader}>
+    <View style={hug ? undefined : { width: '100%' }}>
+      <View style={[styles.tableHeader, hugBand]}>
         {columns.map((col) => (
           <View
             key={col}
             style={[
-              { width, paddingRight: 4, minWidth: 0 },
+              hug
+                ? { paddingRight: 12, flexShrink: 0 }
+                : { width, paddingRight: 4, minWidth: 0 },
               headAlign ? { alignItems: headAlign } : undefined,
             ]}
           >
-            <Text style={[styles.tableHeadCell, CELL_TEXT_STRETCH, headStyle]}>{col}</Text>
+            <Text
+              style={[
+                styles.tableHeadCell,
+                hug ? { width: 'auto', maxWidth: undefined } : CELL_TEXT_STRETCH,
+                headStyle,
+              ]}
+            >
+              {col}
+            </Text>
           </View>
         ))}
       </View>
       {rows.map((row, ri) => (
-        <View key={ri} style={[styles.tableRow, rowPad]} wrap={false}>
+        <View key={ri} style={[styles.tableRow, hugBand, rowPad]} wrap={false}>
           {columns.map((_, ci) => {
             const perCell = cellStyles?.[ri]?.[ci]
             const align = cellAlignItems(perCell) ?? bodyAlign
@@ -74,11 +95,20 @@ export function MagTable({
               <View
                 key={ci}
                 style={[
-                  { width, paddingRight: 4, minWidth: 0 },
+                  hug
+                    ? { paddingRight: 12, flexShrink: 0 }
+                    : { width, paddingRight: 4, minWidth: 0 },
                   align ? { alignItems: align } : undefined,
                 ]}
               >
-                <Text style={[styles.tableCell, CELL_TEXT_STRETCH, cellStyle, perCell]}>
+                <Text
+                  style={[
+                    styles.tableCell,
+                    hug ? { width: 'auto', maxWidth: undefined } : CELL_TEXT_STRETCH,
+                    cellStyle,
+                    perCell,
+                  ]}
+                >
                   {row[ci] == null || row[ci] === '' ? '–' : String(row[ci])}
                 </Text>
               </View>

@@ -155,6 +155,23 @@ describe('Mag PDF kit smoke', () => {
     expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
     expect(pdf.length).toBeGreaterThan(500)
   }, 30000)
+
+  it('renders MagTable fit=hug with alignSelf flex-end without blowout (P91)', async () => {
+    registerMagazinePdfFonts()
+    const { View } = await import('@react-pdf/renderer')
+    const buffer = await renderToBuffer(
+      <Document>
+        <MagPage footerTitle="table-hug-smoke" showLogo={false}>
+          <View style={{ alignSelf: 'flex-end' }}>
+            <MagTable fit="hug" columns={['Metric', 'Now']} rows={[['GEO', 72]]} />
+          </View>
+        </MagPage>
+      </Document>,
+    )
+    const pdf = Buffer.from(buffer)
+    expect(pdf.subarray(0, 4).toString('utf8')).toBe('%PDF')
+    expect(pdf.length).toBeGreaterThan(500)
+  }, 30000)
 })
 
 describe('Mag PDF pixel smoke (P82d)', () => {

@@ -47,6 +47,9 @@ export function createMagStyles(colors: MagazineColors) {
   },
   column: {
     width: MAG_COLUMN_MAX,
+    flexDirection: 'column',
+    // Default stretch; children with alignSelf center|flex-end hug and park on the cross-axis (P91).
+    alignItems: 'stretch',
   },
   footer: {
     position: 'absolute',
