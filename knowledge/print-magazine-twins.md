@@ -24,7 +24,8 @@ Stand: 2026-08-14 (P78 · **P80b/c** · **P82d**)
 - HTML: `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · catalog layer `Print`
 - PDF: `packages/ui/src/mag/` · import `@msqdx/ui/mag` (optional peer `@react-pdf/renderer`)
 - Theme: `MagThemeProvider` + `mergeMagazineColors` / `createMagStyles` (apps map Brandion → colors)
-- Drift-CI: `packages/ui/src/mag/mag-kit.test.tsx` (colors + twin map + `%PDF` smoke)
+- **Shared theme (WYSIWYG-P3):** `packages/ui/src/magazine/theme.ts` — `magazineTheme` + `magazineThemeToCssVars` (HTML) paired with Mag `createMagStyles` / `MAG_COLUMN_MAX`. CSS px→PDF pt = **0.75** (`cssPxToPdfPt`). Visual fixtures: Cover / Chapter / Table / Persona — HTML screenshot vs PDF raster remain soft (documented tolerance); structural Drift-CI stays in `mag-kit.test.tsx`.
+- Drift-CI: `packages/ui/src/mag/mag-kit.test.tsx` (colors + twin map + `%PDF` smoke + magazineTheme vars)
 - **P81c / P82d:** Playwright HTML↔Mag pixel farm remains **out**. P82d adds MagCover PDF → **`pdf-to-img@6.2.0`** page-1 PNG header/length smoke in the same vitest file (CI-runnable; no Chromatic). Soft-skips PNG assert if `pdf-to-img` is unavailable.
 - Consumer document/packing: plexon `eqc-magazine-pdf.tsx` + `pack-magazine-pages.ts` (not in DS)
 - Consumer composition export: creation-v3 `lib/magazine-pdf/` (scene → Mag Document; not in DS)

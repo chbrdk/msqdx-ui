@@ -14,6 +14,14 @@ export {
   type MagazineColors,
   type MagazineColorOverrides,
 } from '../magazine/colors'
+export {
+  magazineTheme,
+  magazineLayoutDefaults,
+  magazineThemeToCssVars,
+  mergeMagazineTheme,
+  type MagazineTheme,
+  type MagazineLayoutTheme,
+} from '../magazine/theme'
 export { PRINT_MAG_TWINS, type PrintMagTwin } from '../magazine/twins'
 export { MagPage } from './MagPage'
 export { MagCover, type MagCoverKpi } from './MagCover'

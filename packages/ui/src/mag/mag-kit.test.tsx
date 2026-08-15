@@ -16,6 +16,11 @@ import { MagTable } from './MagTable'
 import { MagThemeProvider, applyMagTheme, getMagTheme } from './MagTheme'
 import { magColors, createMagStyles } from './tokens'
 import { mergeMagazineColors } from '../magazine/colors'
+import {
+  magazineLayoutDefaults,
+  magazineTheme,
+  magazineThemeToCssVars,
+} from '../magazine/theme'
 import { registerMagazinePdfFonts, registerMagazinePdfFontFromSrc } from './register-mag-fonts'
 
 const srcRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -71,6 +76,15 @@ describe('Mag theme override', () => {
     expect(getMagTheme().colors.accent).toBe('#abcdef')
     applyMagTheme(null)
     expect(getMagTheme().colors.accent).toBe(magColors.accent)
+  })
+
+  it('magazineTheme CSS vars match shared colors + 0.75 px→pt', () => {
+    const vars = magazineThemeToCssVars(magazineTheme)
+    expect(vars['--print-ink']).toBe(magColors.ink)
+    expect(vars['--print-paper']).toBe(magColors.paper)
+    expect(vars['--print-type-body']).toBe(magazineLayoutDefaults.typeBody)
+    expect(magazineLayoutDefaults.cssPxToPdfPt).toBe(0.75)
+    expect(magazineTheme.layout.columnMax).toBe('34rem')
   })
 })
 

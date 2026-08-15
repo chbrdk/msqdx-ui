@@ -29,6 +29,8 @@ function textAlignOf(style?: Record<string, string | number>): TextAlign | undef
   if (typeof raw !== 'string') return undefined
   const v = raw.trim().toLowerCase()
   if (v === 'left' || v === 'center' || v === 'right' || v === 'justify') return v
+  if (v === 'start' || v === 'flex-start') return 'left'
+  if (v === 'end' || v === 'flex-end') return 'right'
   return undefined
 }
 
