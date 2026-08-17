@@ -13,7 +13,7 @@
 - Storybook staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`; Coolify app `msqdx-ui:main-rapp` · UUID `rtxcfh4gtxi6yba5l70fu177`)
 - Promoted P1 stories: `packages/ui/src/components/*.promoted.stories.tsx` MUST `import { Type } from './Type'` and be args-only (no JSX `render`). JSX `render` in Storybook 10 static preview fails with “Couldn't find story matching”.
 - Storybook Coolify auto-deploy: `is_auto_deploy_enabled` on `main`; PR preview via Coolify GitHub App UI (`preview_url_template` `{{pr_id}}.{{domain}}`; API PATCH `is_preview_deployments_enabled` not allowed); force fallback `POST /deploy` `{ uuid, force: true }` · runbook `knowledge/staging-coolify-storybook.md`
-- Catalog registry: `packages/ui/src/storybook/catalog.ts` · `catalog-registry.ts` · `catalogComponent(id)` / `insertableCatalogEntries()`
+- Catalog registry: `packages/ui/src/storybook/catalog.ts` · `catalog-registry.ts` (`"use client"`) · `catalogComponent(id)` / `insertableCatalogEntries()`
 - Pin-bump CREATION: `.github/workflows/pin-bump-creation.yml` · script `scripts/pin-bump-creation.mjs` · consumer `chbrdk/creation-v3` · secret `CREATION_GITHUB_TOKEN` (never in git)
 - CREATION keep-tag mapping: `knowledge/ds-keep-mapping.md`
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`

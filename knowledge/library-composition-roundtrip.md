@@ -16,7 +16,7 @@ Storybook is the **catalog you look at**. Git in this repo is the **catalog you 
 | Force fallback | `POST /deploy` `{ uuid, force: true }` — `knowledge/staging-coolify-storybook.md` |
 | Print deck | `?path=/story/print-quickcheck--magazine-deck` |
 | WC compile | `pnpm wc:compile` → `packages/ui/src/wc/generated/manifest.ts` · import `@msqdx/ui/wc` |
-| Catalog registry | `packages/ui/src/storybook/catalog.ts` + `catalog-registry.ts` · `catalogComponent(id)` |
+| Catalog registry | `packages/ui/src/storybook/catalog.ts` + `catalog-registry.ts` (`"use client"`) · `catalogComponent(id)` |
 | Pin-bump Action | `.github/workflows/pin-bump-creation.yml` · secret `CREATION_GITHUB_TOKEN` · consumer `chbrdk/creation-v3` |
 
 ## Operator loop

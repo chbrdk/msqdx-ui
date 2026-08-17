@@ -197,6 +197,7 @@ WHERE Web Components are required, they MUST be compiled from `@msqdx/ui` `CATAL
 
 - `CatalogEntry.insert`: `canvas` \| `print-twin` \| `template` \| `docs` (computed when omitted). Mag HTML canvas uses Print twins (`PRINT_MAG_TWINS`). Foundation `tokens` / `typography` / `motion`, MagOverview, ChatCatalog, BrandionTokenStudio are `docs`. PrintQuickCheck is `template` (fragment root `PrintPage`). `ChannelLane` is a catalog id (canvas).
 - `catalogComponent(id)` in `@msqdx/ui` maps catalog ids to barrel React components. Completeness: every non-`docs` id has a function export.
+- `catalog-registry.ts` and hook-using catalog primitives MUST start with `"use client"` so Next webpack can compile a consumer App Router (CREATION Coolify). Metadata (`CATALOG`, `insertableCatalogEntries`) stays in `catalog.ts` and MUST remain importable from server modules.
 - CREATION palette is generated from `insertableCatalogEntries()` grouped by `CatalogLayer`. Scene switch stays for existing Print/slot types; **default** uses `catalogComponent`. Inspector: types without a component contract still expose the closed P4 alignment set (Creation stays the richer editor). Unknown CSS outside that set is rejected. New primitives remain P3/Dev-track.
 
 ## Phase 8 — Extend primitive (P4)

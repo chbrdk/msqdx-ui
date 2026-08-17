@@ -126,4 +126,24 @@ describe('catalog insert + registry', () => {
     expect(catalogInsert(mag!)).toBe('print-twin')
     expect(catalogInsertType(mag!)).toBe('PrintCover')
   })
+
+  it('catalog registry and hook primitives are Next client modules', () => {
+    const hookRe =
+      /\b(useState|useEffect|useRef|useReducer|useCallback|useMemo|useId|useLayoutEffect|useSyncExternalStore|useImperativeHandle|useTransition|useDeferredValue)\b/
+    const registryPath = join(srcRoot, 'storybook/catalog-registry.ts')
+    const registry = readFileSync(registryPath, 'utf8')
+    expect(registry.startsWith("'use client'")).toBe(true)
+    const missing: string[] = []
+    for (const match of registry.matchAll(/from '\.\.\/(components\/[^']+|print\/[^']+|SectionChrome)'/g)) {
+      const rel = match[1]
+      const tsx = join(srcRoot, `${rel}.tsx`)
+      const ts = join(srcRoot, `${rel}.ts`)
+      const file = existsSync(tsx) ? tsx : ts
+      const text = readFileSync(file, 'utf8')
+      if (hookRe.test(text) && !text.startsWith("'use client'") && !text.startsWith('"use client"')) {
+        missing.push(file.replace(`${srcRoot}/`, ''))
+      }
+    }
+    expect(missing).toEqual([])
+  })
 })

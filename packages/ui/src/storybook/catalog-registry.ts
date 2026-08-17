@@ -1,6 +1,9 @@
+'use client'
+
 /**
  * Catalog id → React component. Spec: specs/domain/library-composition-roundtrip.md Phase 7.
  * Keep in sync with CATALOG; `pnpm ds:add` appends an import + map entry.
+ * Next App Router: this module and hook-using primitives MUST stay client.
  */
 import type { ComponentType } from 'react'
 import { Accordion } from '../components/Accordion'
