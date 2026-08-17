@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
@@ -48,5 +48,23 @@ describe('catalogCompleteness', () => {
   it('catalog ids are unique', () => {
     const ids = CATALOG.map((e) => e.id)
     expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('P1 promoted stories import from the same folder (./Type)', () => {
+    const files: string[] = []
+    const walk = (dir: string) => {
+      for (const ent of readdirSync(dir, { withFileTypes: true })) {
+        const p = join(dir, ent.name)
+        if (ent.isDirectory()) walk(p)
+        else if (ent.name.endsWith('.promoted.stories.tsx')) files.push(p)
+      }
+    }
+    walk(srcRoot)
+    expect(files.length).toBeGreaterThan(0)
+    for (const file of files) {
+      const text = readFileSync(file, 'utf8')
+      expect(text, file).not.toContain("from '../components/")
+      expect(text, file).toMatch(/from '\.\//)
+    }
   })
 })
