@@ -2,7 +2,8 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
-import { CATALOG } from './catalog'
+import { CATALOG, catalogInsert, catalogInsertType } from './catalog'
+import { catalogComponent } from './catalog-registry'
 
 const srcRoot = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -67,5 +68,62 @@ describe('catalogCompleteness', () => {
       expect(text, file).toMatch(/from '\.\//)
       expect(text, file).not.toMatch(/<[A-Z][A-Za-z0-9]*[\s/>]/)
     }
+  })
+
+  /**
+   * CREATION Print* palette types MUST equal Storybook catalog ids (round-trip Phase 1).
+   * Source: creation-v3 `EDITOR_PALETTE_GROUP_TYPES.print`. PrintQuickCheck is catalog-only.
+   */
+  it('CREATION Print palette types have matching Print/ catalog ids', () => {
+    const ids = new Set(CATALOG.map((e) => e.id))
+    const creationPrintPalette = [
+      'PrintPage',
+      'PrintChapter',
+      'PrintCover',
+      'PrintPullQuote',
+      'PrintScoreRing',
+      'PrintChip',
+      'PrintChipRow',
+      'PrintTwoColumn',
+      'PrintDonut',
+      'PrintRankedList',
+      'PrintLedger',
+      'PrintTraitBars',
+      'PrintTable',
+      'PrintPersonaCard',
+      'PrintPersonaGrid',
+    ] as const
+    for (const id of creationPrintPalette) {
+      expect(ids.has(id), `missing catalog id for CREATION palette type ${id}`).toBe(true)
+    }
+    expect(ids.has('PrintQuickCheck')).toBe(true)
+  })
+})
+
+describe('catalog insert + registry', () => {
+  it('every non-docs catalog id has a React catalogComponent', () => {
+    const missing: string[] = []
+    for (const entry of CATALOG) {
+      if (catalogInsert(entry) === 'docs') {
+        expect(catalogComponent(entry.id)).toBeNull()
+        continue
+      }
+      const Comp = catalogComponent(entry.id)
+      if (typeof Comp !== 'function') missing.push(entry.id)
+    }
+    expect(missing).toEqual([])
+  })
+
+  it('ChannelLane is a canvas catalog id', () => {
+    const lane = CATALOG.find((e) => e.id === 'ChannelLane')
+    expect(lane).toBeTruthy()
+    expect(catalogInsert(lane!)).toBe('canvas')
+    expect(catalogInsertType(lane!)).toBe('ChannelLane')
+  })
+
+  it('MagCover print-twin inserts PrintCover', () => {
+    const mag = CATALOG.find((e) => e.id === 'MagCover')
+    expect(catalogInsert(mag!)).toBe('print-twin')
+    expect(catalogInsertType(mag!)).toBe('PrintCover')
   })
 })

@@ -1,5 +1,9 @@
 # Staging — Coolify Storybook (`msqdx-ui`)
 
+## Status (2026-08-17) — Phase 6 auto-deploy
+
+Coolify `msqdx-ui:main-rapp` (`rtxcfh4gtxi6yba5l70fu177`): `is_auto_deploy_enabled` via API PATCH (200). GitHub webhook is connected (`source` `chbrdk/msqdx-ui` `main`). This Coolify API rejects `is_preview_deployments_enabled` on PATCH ("field is not allowed"); `preview_url_template` is already `{{pr_id}}.{{domain}}` — enable PR previews in the Coolify GitHub App UI if needed. Force `POST /deploy` is fallback only.
+
 ## Target
 
 Deploy an **always-on static Storybook** for the central design system into Coolify island **msqdx-v3-staging**, next to plexon-v3 / audion-v3 / checkion-v3.
@@ -16,7 +20,10 @@ Deploy an **always-on static Storybook** for the central design system into Cool
 | Container port | **6006** |
 | Domain (live) | `https://ds.projects-a.plygrnd.tech` (Coolify `msqdx-ui:main-rapp`) |
 | Domain (alias placeholder) | `URL_MSQDX_UI_STORYBOOK` — prefer live FQDN above; `msqdx-ui.projects-a.plygrnd.tech` may be unset/503 |
+| Auto-deploy | `is_auto_deploy_enabled` on git push to `main` (Phase 6) |
+| PR preview | Coolify GitHub App UI (`preview_url_template` `{{pr_id}}.{{domain}}`). API PATCH `is_preview_deployments_enabled` is not allowed on this instance |
 | Runtime secrets | **none** (static nginx; no DB/auth) |
+| Pin-bump secret | Repo secret `CREATION_GITHUB_TOKEN` (Actions only; Contents + Pulls on `chbrdk/creation-v3`) |
 
 
 Hierarchy context: `plexon-v3/knowledge/coolify-v3-staging-runbook.md`.
@@ -37,14 +44,18 @@ Product app Dockerfiles that **clone** this repo for sibling source are unrelate
 - **Heap:** Storybook build uses `NODE_OPTIONS=--max-old-space-size=4096` (same class of Coolify OOM mitigation as plexon-v3). Raising much higher can trigger cgroup OOM instead.
 - **Docker context size (~0.6–1.5 MB)** is expected: `.dockerignore` drops `node_modules`, `dist`, `knowledge`, `specs`. Storybook config lives under `packages/ui/.storybook` and is copied with `COPY packages` — it is not excluded.
 
-## Redeploy (Wave E2 editor primitives)
+## Redeploy
 
-After merging editor chrome / Top-N atoms to `main`, queue:
+**Default:** merge to `main` → Coolify auto-deploys this UUID (`is_auto_deploy_enabled`). GitHub App webhook on `chbrdk/msqdx-ui` must stay connected in Coolify (operator UI; no token in git). `preview_url_template` is `{{pr_id}}.{{domain}}`; this Coolify API version rejects PATCH `is_preview_deployments_enabled` — toggle PR previews in the GitHub App source UI if a Promote PR should get a preview host.
+
+Force fallback when the webhook missed:
 
 ```http
 POST https://coolify.plygrnd.tech/api/v1/deploy
 { "uuid": "rtxcfh4gtxi6yba5l70fu177", "force": true }
 ```
+
+API base: `https://coolify.plygrnd.tech/api/v1` (`URL_COOLIFY_API`). Recipe: plexon-v3 `knowledge/coolify-deploy-api.md`.
 
 Stories to verify: `Atoms/Stack`, `Atoms/Card`, `Organisms/CanvasViewport`, `Organisms/ComponentPalette`, `Organisms/TokenPicker`.
 

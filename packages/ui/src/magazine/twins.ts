@@ -18,6 +18,7 @@ export type PrintMagTwin = {
  * PrintQuickCheck is HTML-only (composed deck) — no Mag twin.
  */
 export const PRINT_MAG_TWINS: readonly PrintMagTwin[] = [
+  { printStory: 'Page', magExport: 'MagPage', printExport: 'PrintPage' },
   { printStory: 'Cover', magExport: 'MagCover', printExport: 'PrintCover' },
   { printStory: 'Chapter', magExport: 'MagChapter', printExport: 'PrintChapter' },
   { printStory: 'ScoreRing', magExport: 'MagScoreRing', printExport: 'PrintScoreRing' },
@@ -26,8 +27,10 @@ export const PRINT_MAG_TWINS: readonly PrintMagTwin[] = [
   { printStory: 'RankedList', magExport: 'MagRankedList', printExport: 'PrintRankedList' },
   { printStory: 'TwoColumn', magExport: 'MagTwoColumn', printExport: 'PrintTwoColumn' },
   { printStory: 'PullQuote', magExport: 'MagPullQuote', printExport: 'PrintPullQuote' },
+  { printStory: 'PersonaCard', magExport: 'MagPersonaCard', printExport: 'PrintPersonaCard' },
   { printStory: 'PersonaGrid', magExport: 'MagPersonaGrid', printExport: 'PrintPersonaGrid' },
   { printStory: 'TraitBars', magExport: 'MagTraitBars', printExport: 'PrintTraitBars' },
   { printStory: 'Table', magExport: 'MagTable', printExport: 'PrintTable' },
   { printStory: 'Chip', magExport: 'MagChip', printExport: 'PrintChip' },
+  { printStory: 'ChipRow', magExport: 'MagChipRow', printExport: 'PrintChipRow' },
 ] as const

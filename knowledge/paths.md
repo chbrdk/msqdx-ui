@@ -12,6 +12,9 @@
 - Storybook container port: **6006** (static nginx; `Dockerfile` + `docker/nginx-storybook.conf`)
 - Storybook staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`; Coolify app `msqdx-ui:main-rapp` · UUID `rtxcfh4gtxi6yba5l70fu177`)
 - Promoted P1 stories: `packages/ui/src/components/*.promoted.stories.tsx` MUST `import { Type } from './Type'` and be args-only (no JSX `render`). JSX `render` in Storybook 10 static preview fails with “Couldn't find story matching”.
+- Storybook Coolify auto-deploy: `is_auto_deploy_enabled` on `main`; PR preview via Coolify GitHub App UI (`preview_url_template` `{{pr_id}}.{{domain}}`; API PATCH `is_preview_deployments_enabled` not allowed); force fallback `POST /deploy` `{ uuid, force: true }` · runbook `knowledge/staging-coolify-storybook.md`
+- Catalog registry: `packages/ui/src/storybook/catalog.ts` · `catalog-registry.ts` · `catalogComponent(id)` / `insertableCatalogEntries()`
+- Pin-bump CREATION: `.github/workflows/pin-bump-creation.yml` · script `scripts/pin-bump-creation.mjs` · consumer `chbrdk/creation-v3` · secret `CREATION_GITHUB_TOKEN` (never in git)
 - CREATION keep-tag mapping: `knowledge/ds-keep-mapping.md`
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`
 - CREATION inspect density bump (MSQDX_UI_REF note): `knowledge/creation-inspect-chrome-bump.md`
@@ -30,6 +33,8 @@
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`
 - TokenPreview: `packages/ui/src/components/TokenPreview.tsx` · Storybook `Molecules/TokenPreview` · used by TokenPicker browser (P77)
 - CanvasViewport / SelectionHandles: `packages/ui/src/components/CanvasViewport.tsx` · `SelectionHandles.tsx`
+- Library ↔ Composition round-trip (Storybook catalog SSOT, CREATION migrate/promote, Phase 6 auto fan-out, Phase 7 catalog palette): spec `specs/domain/library-composition-roundtrip.md` · knowledge `knowledge/library-composition-roundtrip.md` · consumer `creation-v3/knowledge/library-composition-roundtrip.md`
+- WC compile (catalog → Custom Elements): spec `specs/domain/wc-compile.md` · knowledge `knowledge/wc-compile.md` · job `pnpm wc:compile` · output `packages/ui/src/wc/generated/manifest.ts` · import `@msqdx/ui/wc`
 - Storybook Coolify runbook: `knowledge/staging-coolify-storybook.md`
 - Print magazine twins (HTML): Storybook layer `Print/` · `packages/ui/src/print/` · CSS `packages/ui/src/css/print.css` · deck `?path=/story/print-quickcheck--magazine-deck` · twin knowledge `knowledge/print-magazine-twins.md`
 - Mag PDF kit (react-pdf): `@msqdx/ui/mag` · `packages/ui/src/mag/` · fonts `packages/ui/src/mag/fonts/` · shared colors `packages/ui/src/magazine/colors.ts` · twin map `packages/ui/src/magazine/twins.ts` · theme `MagThemeProvider` · docs Storybook `Mag/` · Drift-CI `mag/mag-kit.test.tsx` · spec `specs/domain/msqdx-ui-mag-pdf-kit.md` · twin knowledge `knowledge/print-magazine-twins.md` · consumers plexon `eqc-magazine-pdf.tsx` · creation `lib/magazine-pdf/`

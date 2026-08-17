@@ -13,6 +13,9 @@ export type CatalogLayer =
   | 'Print'
   | 'Mag'
 
+/** How CREATION may instantiate this catalog id. Omitted → derived by `catalogInsert`. */
+export type CatalogInsert = 'canvas' | 'print-twin' | 'template' | 'docs'
+
 export type CatalogEntry = {
   id: string
   layer: CatalogLayer
@@ -21,6 +24,10 @@ export type CatalogEntry = {
   mdx: string
   /** Requires Narrow story (globals.viewport responsiveSm) — responsive bar. */
   viewportCritical?: boolean
+  /** Override derived insert mode. */
+  insert?: CatalogInsert
+  /** Barrel export name when it differs from `id` (e.g. DivergingBar → DivergingBarList). */
+  component?: string
 }
 
 export const CATALOG: CatalogEntry[] = [
@@ -65,6 +72,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'InspectDock', layer: 'Molecules', title: 'Molecules/InspectDock', stories: 'components/InspectDock.stories.tsx', mdx: 'components/InspectDock.mdx' },
   { id: 'StepStrip', layer: 'Molecules', title: 'Molecules/StepStrip', stories: 'components/StepStrip.stories.tsx', mdx: 'components/StepStrip.mdx' },
   { id: 'ChannelStack', layer: 'Molecules', title: 'Molecules/ChannelStack', stories: 'components/ChannelStack.stories.tsx', mdx: 'components/ChannelStack.mdx' },
+  { id: 'ChannelLane', layer: 'Molecules', title: 'Molecules/ChannelLane', stories: 'components/ChannelStack.stories.tsx', mdx: 'components/ChannelStack.mdx' },
   { id: 'EventFooter', layer: 'Molecules', title: 'Molecules/EventFooter', stories: 'components/EventFooter.stories.tsx', mdx: 'components/EventFooter.mdx' },
   { id: 'CardActions', layer: 'Molecules', title: 'Molecules/CardActions', stories: 'components/CardActions.stories.tsx', mdx: 'components/CardActions.mdx' },
   { id: 'Lede', layer: 'Molecules', title: 'Molecules/Lede', stories: 'components/Lede.stories.tsx', mdx: 'components/Lede.mdx' },
@@ -124,6 +132,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ChatCatalog', layer: 'Organisms', title: 'Organisms/ChatCatalog', stories: 'components/ChatCatalog.stories.tsx', mdx: 'components/ChatCatalog.mdx' },
   { id: 'BrandionTokenStudio', layer: 'Templates', title: 'Templates/BrandionTokenStudio', stories: 'components/BrandionTokenStudio.stories.tsx', mdx: 'components/BrandionTokenStudio.mdx' },
   // Print (magazine PDF visual twins — keep in sync with plexon pdf/magazine)
+  { id: 'PrintPage', layer: 'Print', title: 'Print/Page', stories: 'print/PrintPage.stories.tsx', mdx: 'print/PrintPage.mdx' },
   { id: 'PrintCover', layer: 'Print', title: 'Print/Cover', stories: 'print/PrintCover.stories.tsx', mdx: 'print/PrintCover.mdx' },
   { id: 'PrintChapter', layer: 'Print', title: 'Print/Chapter', stories: 'print/PrintChapter.stories.tsx', mdx: 'print/PrintChapter.mdx' },
   { id: 'PrintScoreRing', layer: 'Print', title: 'Print/ScoreRing', stories: 'print/PrintScoreRing.stories.tsx', mdx: 'print/PrintScoreRing.mdx' },
@@ -136,6 +145,8 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'PrintTraitBars', layer: 'Print', title: 'Print/TraitBars', stories: 'print/PrintTraitBars.stories.tsx', mdx: 'print/PrintTraitBars.mdx' },
   { id: 'PrintTable', layer: 'Print', title: 'Print/Table', stories: 'print/PrintTable.stories.tsx', mdx: 'print/PrintTable.mdx' },
   { id: 'PrintChip', layer: 'Print', title: 'Print/Chip', stories: 'print/PrintChip.stories.tsx', mdx: 'print/PrintChip.mdx' },
+  { id: 'PrintChipRow', layer: 'Print', title: 'Print/ChipRow', stories: 'print/PrintChipRow.stories.tsx', mdx: 'print/PrintChipRow.mdx' },
+  { id: 'PrintPersonaCard', layer: 'Print', title: 'Print/PersonaCard', stories: 'print/PrintPersonaCard.stories.tsx', mdx: 'print/PrintPersonaCard.mdx' },
   { id: 'PrintQuickCheck', layer: 'Print', title: 'Print/QuickCheck', stories: 'print/PrintQuickCheck.stories.tsx', mdx: 'print/PrintQuickCheck.mdx' },
   // Mag (docs-only PDF kit — no react-pdf in Storybook canvas; twins under Print/)
   { id: 'MagOverview', layer: 'Mag', title: 'Mag/Overview', stories: 'mag/MagOverview.stories.tsx', mdx: 'mag/MagOverview.mdx' },
@@ -160,3 +171,66 @@ export const CATALOG: CatalogEntry[] = [
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)
+
+export const CATALOG_LAYER_ORDER: readonly CatalogLayer[] = [
+  'Foundation',
+  'Atoms',
+  'Molecules',
+  'Organisms',
+  'Templates',
+  'Print',
+  'Mag',
+]
+
+const DOCS_IDS = new Set([
+  'tokens',
+  'typography',
+  'motion',
+  'MagOverview',
+  'ChatCatalog',
+  'BrandionTokenStudio',
+])
+
+const TEMPLATE_IDS = new Set(['PrintQuickCheck'])
+
+const COMPONENT_ALIASES: Record<string, string> = {
+  DivergingBar: 'DivergingBarList',
+  Icons: 'IconOverview',
+  PrintQuickCheck: 'PrintPage',
+}
+
+/** Mag catalog id → Print export (`PRINT_MAG_TWINS`). */
+const MAG_PRINT_EXPORT: Record<string, string> = {
+  MagPage: 'PrintPage',
+  MagCover: 'PrintCover',
+  MagChip: 'PrintChip',
+}
+
+export function catalogInsert(entry: CatalogEntry): CatalogInsert {
+  if (entry.insert) return entry.insert
+  if (DOCS_IDS.has(entry.id)) return 'docs'
+  if (TEMPLATE_IDS.has(entry.id)) return 'template'
+  if (entry.layer === 'Mag') return 'print-twin'
+  return 'canvas'
+}
+
+/** Scene `type` CREATION should insert for this catalog entry. `docs` → null. */
+export function catalogInsertType(entry: CatalogEntry): string | null {
+  const mode = catalogInsert(entry)
+  if (mode === 'docs') return null
+  if (mode === 'print-twin') return MAG_PRINT_EXPORT[entry.id] ?? null
+  if (mode === 'template') return COMPONENT_ALIASES[entry.id] ?? 'PrintPage'
+  return entry.id
+}
+
+export function catalogComponentName(entry: CatalogEntry): string | null {
+  const mode = catalogInsert(entry)
+  if (mode === 'docs') return null
+  if (mode === 'print-twin') return MAG_PRINT_EXPORT[entry.id] ?? null
+  if (entry.component) return entry.component
+  return COMPONENT_ALIASES[entry.id] ?? entry.id
+}
+
+export function insertableCatalogEntries(): CatalogEntry[] {
+  return CATALOG.filter((entry) => catalogInsert(entry) !== 'docs')
+}

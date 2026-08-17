@@ -20,6 +20,18 @@ function seedRepo(root) {
     join(root, 'packages', 'ui', 'src', 'storybook', 'catalog.ts'),
     "export const CATALOG = [\n]\n\nexport const VIEWPORT_CRITICAL = CATALOG.filter(Boolean)\n",
   )
+  writeFileSync(
+    join(root, 'packages', 'ui', 'src', 'storybook', 'catalog-registry.ts'),
+    `import { Button } from '../components/Button'
+import {
+  CATALOG,
+} from './catalog'
+
+const CATALOG_COMPONENTS = {
+  Button,
+} as unknown as Record<string, CatalogComponent>
+`,
+  )
 }
 
 test('scaffoldComponent creates files and updates barrel/catalog', () => {
@@ -31,6 +43,9 @@ test('scaffoldComponent creates files and updates barrel/catalog', () => {
   assert.equal(result.layer, 'atoms')
   assert.match(readFileSync(join(root, 'packages', 'ui', 'src', 'index.ts'), 'utf8'), /SignalBadge/)
   assert.match(readFileSync(join(root, 'packages', 'ui', 'src', 'storybook', 'catalog.ts'), 'utf8'), /Atoms\/SignalBadge/)
+  const registry = readFileSync(join(root, 'packages', 'ui', 'src', 'storybook', 'catalog-registry.ts'), 'utf8')
+  assert.match(registry, /from '\.\.\/components\/SignalBadge'/)
+  assert.match(registry, /SignalBadge,/)
   assert.match(readFileSync(join(root, 'packages', 'ui', 'src', 'css', 'components.css'), 'utf8'), /\.ds-signal-badge/)
   assert.match(readFileSync(join(root, 'specs', 'domain', 'msqdx-ui-signal-badge.md'), 'utf8'), /SignalBadge/)
   assert.match(readFileSync(join(root, 'knowledge', 'components', 'signal-badge.md'), 'utf8'), /SignalBadge/)

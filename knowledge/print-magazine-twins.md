@@ -6,6 +6,7 @@ Stand: 2026-08-14 (P78 · **P80b/c** · **P82d**)
 
 | Storybook (HTML) | PDF (`@msqdx/ui/mag`) |
 | --- | --- |
+| Print/Page | MagPage |
 | Print/Cover | MagCover (+ PullQuote fazit) |
 | Print/Chapter | MagChapter (+ index) |
 | Print/ScoreRing | MagScoreRing |
@@ -14,10 +15,12 @@ Stand: 2026-08-14 (P78 · **P80b/c** · **P82d**)
 | Print/RankedList | MagRankedList (1 / 2 cols / compact) |
 | Print/TwoColumn | MagTwoColumn |
 | Print/PullQuote | MagPullQuote |
-| Print/PersonaGrid | MagPersonaGrid / MagPersonaCard |
+| Print/PersonaCard | MagPersonaCard |
+| Print/PersonaGrid | MagPersonaGrid |
 | Print/TraitBars | MagTraitBars |
 | Print/Table | MagTable |
 | Print/Chip | MagChip |
+| Print/ChipRow | MagChipRow |
 | Print/QuickCheck | composed magazine deck (HTML only) |
 | Mag/Overview · Mag/Page · Mag/Cover · Mag/Chip | Docs-only Mag layer (no react-pdf in Storybook canvas) |
 

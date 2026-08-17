@@ -92,6 +92,7 @@ export function scaffoldComponent(rootDir, name, layer) {
   const cssPath = join(root, 'packages', 'ui', 'src', 'css', 'components.css')
   const indexPath = join(root, 'packages', 'ui', 'src', 'index.ts')
   const catalogPath = join(root, 'packages', 'ui', 'src', 'storybook', 'catalog.ts')
+  const srcRoot = join(root, 'packages', 'ui', 'src')
   const specPath = join(root, 'specs', 'domain', `msqdx-ui-${slug}.md`)
   const knowledgePath = join(root, 'knowledge', 'components', `${slug}.md`)
 
@@ -117,6 +118,26 @@ export function scaffoldComponent(rootDir, name, layer) {
   const catalogPrev = readFileSync(catalogPath, 'utf8')
   if (!catalogPrev.includes(`id: '${name}'`)) {
     writeFileSync(catalogPath, insertBeforeLast(catalogPrev, ']\n\nexport const VIEWPORT_CRITICAL', `${catalogEntry(name, cleanLayer)}`))
+  }
+
+  const registryPath = join(srcRoot, 'storybook', 'catalog-registry.ts')
+  if (existsSync(registryPath)) {
+    let registryPrev = readFileSync(registryPath, 'utf8')
+    if (!registryPrev.includes(`from '../components/${name}'`)) {
+      registryPrev = insertBeforeLast(
+        registryPrev,
+        'import {\n  CATALOG,',
+        `import { ${name} } from '../components/${name}'\n`,
+      )
+    }
+    if (!new RegExp(`\\b${name},`).test(registryPrev.split('const CATALOG_COMPONENTS')[1] ?? '')) {
+      registryPrev = insertBeforeLast(
+        registryPrev,
+        '} as unknown as Record<string, CatalogComponent>',
+        `  ${name},\n`,
+      )
+    }
+    writeFileSync(registryPath, registryPrev)
   }
 
   return {

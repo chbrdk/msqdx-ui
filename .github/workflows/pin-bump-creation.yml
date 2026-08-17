@@ -1,0 +1,58 @@
+# Pin-bump CREATION after catalog main advances.
+# Spec: specs/domain/library-composition-roundtrip.md Phase 6
+# Knowledge: knowledge/library-composition-roundtrip.md
+# HITL: this PR must be merged by a human. Never auto-merge. Never deploy Coolify.
+
+name: pin-bump-creation
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pin-bump:
+    runs-on: ubuntu-latest
+    if: github.repository == 'chbrdk/msqdx-ui'
+    steps:
+      - name: Checkout catalog SHA
+        uses: actions/checkout@v6
+
+      - name: Checkout CREATION
+        uses: actions/checkout@v6
+        with:
+          repository: chbrdk/creation-v3
+          token: ${{ secrets.CREATION_GITHUB_TOKEN }}
+          path: creation-v3
+
+      - name: Bump MSQDX_UI_REF
+        env:
+          MSQDX_UI_SHA: ${{ github.sha }}
+        run: |
+          node scripts/pin-bump-creation.mjs \
+            "$MSQDX_UI_SHA" \
+            creation-v3/Dockerfile \
+            creation-v3/apps/web/lib/paths.ts
+
+      - name: Open or update pin-bump PR
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.CREATION_GITHUB_TOKEN }}
+          path: creation-v3
+          branch: pin/msqdx-ui-${{ github.sha }}
+          base: main
+          delete-branch: true
+          title: "chore: pin MSQDX_UI_REF ${{ github.sha }}"
+          commit-message: "chore: pin @msqdx/ui to ${{ github.sha }}"
+          body: |
+            Catalog `chbrdk/msqdx-ui` `main` is now `${{ github.sha }}`.
+
+            HITL: merge this PR to let CREATION staging consume the new library SHA.
+            Storybook staging auto-deploys from the catalog merge; this PR does **not** auto-merge and does **not** write Coolify.
+
+            - Dockerfile `ARG MSQDX_UI_REF`
+            - `apps/web/lib/paths.ts` `msqdxUiRefDefault`
+
+            Spec: msqdx-ui `specs/domain/library-composition-roundtrip.md` Phase 6
