@@ -91,7 +91,7 @@ Designer invented structure the catalog cannot represent.
 Designer set a Creation inspector field (alignment family) the library component does not yet expose as a named prop.
 
 - Allowed keys (closed): `textAlign`, `align`, `justify`, `alignItems`, `justifyContent`, `alignSelf`, `alignContent`. Values MUST be the contract enums. No invented CSS.
-- CREATION keeps the richer inspector. Types without a full contract still expose this closed alignment set (not name-only).
+- CREATION keeps the richer inspector. Types without a full contract still expose this closed alignment set (not name-only) **plus instance DESIGN chrome** (fill, type, radius, padding, size) that paint can honor. Token/literal chrome stays composition-only; P4 Promote remains the alignment family.
 - Promote P1 on a node that has such a field MUST upgrade to P4 (no extra button). MUST NOT drop the field.
 - Writes generator-shaped: (1) named prop + style apply on `packages/ui/src/components/{Type}.tsx`, (2) `{Type}.promoted.stories.tsx` args, (3) `{Type}.promoted.extend.test.tsx`. MUST NOT overwrite human Default stories.
 - WHEN the source is not a single `components/{Type}.tsx` (Print bundle, union props, missing needles), Promote MUST reject `extend-unrepresentable` — Dev-track, don't guess.
@@ -198,7 +198,7 @@ WHERE Web Components are required, they MUST be compiled from `@msqdx/ui` `CATAL
 - `CatalogEntry.insert`: `canvas` \| `print-twin` \| `template` \| `docs` (computed when omitted). Mag HTML canvas uses Print twins (`PRINT_MAG_TWINS`). Foundation `tokens` / `typography` / `motion`, MagOverview, ChatCatalog, BrandionTokenStudio are `docs`. PrintQuickCheck is `template` (fragment root `PrintPage`). `ChannelLane` is a catalog id (canvas).
 - `catalogComponent(id)` in `@msqdx/ui` maps catalog ids to barrel React components. Completeness: every non-`docs` id has a function export.
 - `catalog-registry.ts` and hook-using catalog primitives MUST start with `"use client"` so Next webpack can compile a consumer App Router (CREATION Coolify). Metadata (`CATALOG`, `insertableCatalogEntries`) stays in `catalog.ts` and MUST remain importable from server modules.
-- CREATION palette is generated from `insertableCatalogEntries()` grouped by `CatalogLayer`. Scene switch stays for existing Print/slot types; **default** uses `catalogComponent`. Inspector: types without a component contract still expose the closed P4 alignment set (Creation stays the richer editor). Unknown CSS outside that set is rejected. New primitives remain P3/Dev-track.
+- CREATION palette is generated from `insertableCatalogEntries()` grouped by `CatalogLayer`. Scene switch stays for existing Print/slot types; **default** uses `catalogComponent`. Inspector: types without a component contract still expose the closed P4 alignment set **plus instance DESIGN chrome** (fill, type, radius, padding, size) that paint can honor (Creation stays the richer editor). Do not invent a typed ChatBlockPanel contract. Unknown CSS outside the shared catalog is rejected. New primitives remain P3/Dev-track.
 
 ## Phase 8 — Extend primitive (P4)
 
