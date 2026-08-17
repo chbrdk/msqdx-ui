@@ -65,6 +65,7 @@ describe('catalogCompleteness', () => {
       const text = readFileSync(file, 'utf8')
       expect(text, file).not.toContain("from '../components/")
       expect(text, file).toMatch(/from '\.\//)
+      expect(text, file).not.toMatch(/<[A-Z][A-Za-z0-9]*[\s/>]/)
     }
   })
 })

@@ -11,7 +11,7 @@
 - Storybook output: `packages/ui/storybook-static`
 - Storybook container port: **6006** (static nginx; `Dockerfile` + `docker/nginx-storybook.conf`)
 - Storybook staging URL: `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`; Coolify app `msqdx-ui:main-rapp` · UUID `rtxcfh4gtxi6yba5l70fu177`)
-- Promoted P1 stories: `packages/ui/src/components/*.promoted.stories.tsx` MUST `import { Type } from './Type'` (a `../components/` import 404s the Storybook iframe)
+- Promoted P1 stories: `packages/ui/src/components/*.promoted.stories.tsx` MUST `import { Type } from './Type'` and be args-only (no JSX `render`). JSX `render` in Storybook 10 static preview fails with “Couldn't find story matching”.
 - CREATION keep-tag mapping: `knowledge/ds-keep-mapping.md`
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`
 - CREATION inspect density bump (MSQDX_UI_REF note): `knowledge/creation-inspect-chrome-bump.md`
