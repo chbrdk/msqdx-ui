@@ -25,7 +25,7 @@ Storybook is the **catalog you look at**. Git in this repo is the **catalog you 
 2. Open a PR. Coolify Storybook **preview** builds from the branch (HITL = review the PR).
 3. Merge to `chbrdk/msqdx-ui` `main` — Storybook staging auto-deploys (~70s). Do not force-deploy unless the webhook missed.
 4. Action opens/updates `pin/msqdx-ui-<sha>` on `chbrdk/creation-v3` (Dockerfile `MSQDX_UI_REF` + `paths.msqdxUiRefDefault`). Merge that PR (second HITL). CREATION auto-deploys.
-5. CREATION `POST /api/library/promote/dry-run` validates; `POST /api/library/promote` opens/updates the PR (never `main`, never Coolify).
+5. CREATION `POST /api/library/promote/dry-run` validates; `POST /api/library/promote` opens/updates the PR (never `main`, never Coolify). P4 extends **all** inspect chrome (`genericCatalogInspectProps`), not alignment-only. Token paths map to existing CSS variables (`--accent`, `--status-category-queued`, `--space-*`). Pipeline paths need `--status-*` in `packages/ui/src/css/tokens.css` (hex from `msqdxStatus`, not Collection paint).
 6. After catalog changes, run `pnpm wc:compile` so WC tags stay SHA-accurate.
 
 ## Catalog insert modes

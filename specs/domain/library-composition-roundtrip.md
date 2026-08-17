@@ -88,14 +88,15 @@ Designer invented structure the catalog cannot represent.
 
 ### P4 — Extend primitive API
 
-Designer set a Creation inspector field (alignment family) the library component does not yet expose as a named prop.
+Designer set a Creation inspector field the library component does not yet expose as a named prop. **Every inspect chrome field is promoteable** — not alignment-only.
 
-- Allowed keys (closed): `textAlign`, `align`, `justify`, `alignItems`, `justifyContent`, `alignSelf`, `alignContent`. Values MUST be the contract enums. No invented CSS.
-- CREATION keeps the richer inspector. Types without a full contract still expose this closed alignment set (not name-only) **plus instance DESIGN chrome** (fill, type, radius, padding, size) that paint can honor. Token/literal chrome stays composition-only; P4 Promote remains the alignment family.
-- Promote P1 on a node that has such a field MUST upgrade to P4 (no extra button). MUST NOT drop the field.
-- Writes generator-shaped: (1) named prop + style apply on `packages/ui/src/components/{Type}.tsx`, (2) `{Type}.promoted.stories.tsx` args, (3) `{Type}.promoted.extend.test.tsx`. MUST NOT overwrite human Default stories.
+- Allowed keys (closed): `genericCatalogInspectProps` / `EXTENDABLE_PRIMITIVE_PROP_NAMES` — shared DESIGN chrome (fill, color, radius, padding, size, stroke, type, opacity, shadow, blur, rotate, overflow) **plus** the alignment family (`textAlign`, `align`, `justify`, `alignItems`, `justifyContent`, `alignSelf`, `alignContent`). MUST NOT invent CSS outside that set. MUST NOT invent a typed ChatBlockPanel contract — P4 adds named props.
+- Enum fields MUST use the contract option values. Token/literal fields MUST be CSS lengths, `var(--*)`, or a Brandion path mapped to an **existing** library CSS variable (`PROMOTE_TOKEN_PATH_TO_CSS_VAR`). Raw `#hex` remains `collection-branding`. Unmapped token paths MUST reject `extend-unrepresentable` (don't guess a new `--var`).
+- CREATION keeps the richer inspector. Types without a full contract still expose the full inspect set; live canvas paint stays composition (`--creation-catalog-fill`). Promote MUST lift those fields into the primitive so Storybook and later pin-bump consumers (CHECKION, AUDION, …) honor them.
+- Promote P1 on a node that has such a field MUST upgrade to P4 (no extra button). MUST NOT drop the field. Empty `props.background` + `tokenBindings.background` MUST still Promote (token bind is the fill).
+- Writes generator-shaped: (1) named prop + style apply on `packages/ui/src/components/{Type}.tsx` (root `{...rest}`; WHEN a child `<Panel` has no `style=`, also apply there so `.ds-panel--default` wash is replaced), (2) `{Type}.promoted.stories.tsx` args that **paint** (CSS `var(--*)`, not parameters-only), (3) `{Type}.promoted.extend.test.tsx`. MUST NOT overwrite human Default stories.
 - WHEN the source is not a single `components/{Type}.tsx` (Print bundle, union props, missing needles), Promote MUST reject `extend-unrepresentable` — Dev-track, don't guess.
-- After merge: Storybook shows the same alignment; pin-bump HITL for CREATION staging.
+- After merge: Storybook Promoted story shows the chrome; pin-bump HITL for CREATION staging. Human Default/Findings stay until a later explicit default change.
 
 ## Promote pipeline (git-native)
 
@@ -142,7 +143,7 @@ WHEN a MagazineTemplate is published, the snapshot SHOULD record `msqdxUiRef` (t
 10. WHEN `msqdx-ui` `main` gains a SHA, a pin-bump PR MUST open or update on `chbrdk/creation-v3` changing only `MSQDX_UI_REF` (Dockerfile + `paths.msqdxUiRefDefault`). The PR MUST NOT auto-merge.
 11. WHERE a `CATALOG` entry has `insert` `canvas`, `print-twin`, or `template`, CREATION MUST be able to insert it (print-twin inserts the Print export; template inserts the documented fragment root). WHERE `insert` is `docs`, CREATION MUST NOT insert it.
 12. WHEN CREATION renders a catalog type with no hand-written scene switch case, it MUST call `catalogComponent(type)` and MUST NOT invent a parallel primitive. WHEN that lookup is null and the type is not docs, the renderer MUST show an unsupported marker (reject, don't guess).
-13. WHEN a designer sets a closed extendable inspector field that the primitive does not yet expose, Promote MUST emit P4 (API + promoted story args + extend test) and MUST NOT drop the field. WHEN the patch is not span-accurate, Promote MUST reject `extend-unrepresentable`.
+13. WHEN a designer sets a closed extendable inspector field (`genericCatalogInspectProps`, including fill/type/radius/padding/size/stroke and token bindings mapped to library CSS variables) that the primitive does not yet expose, Promote MUST emit P4 (API + promoted story args that paint + extend test) and MUST NOT drop the field. WHEN the patch is not span-accurate or the token path has no library CSS variable, Promote MUST reject `extend-unrepresentable`.
 
 ## Non-goals (this proposal)
 
@@ -198,11 +199,13 @@ WHERE Web Components are required, they MUST be compiled from `@msqdx/ui` `CATAL
 - `CatalogEntry.insert`: `canvas` \| `print-twin` \| `template` \| `docs` (computed when omitted). Mag HTML canvas uses Print twins (`PRINT_MAG_TWINS`). Foundation `tokens` / `typography` / `motion`, MagOverview, ChatCatalog, BrandionTokenStudio are `docs`. PrintQuickCheck is `template` (fragment root `PrintPage`). `ChannelLane` is a catalog id (canvas).
 - `catalogComponent(id)` in `@msqdx/ui` maps catalog ids to barrel React components. Completeness: every non-`docs` id has a function export.
 - `catalog-registry.ts` and hook-using catalog primitives MUST start with `"use client"` so Next webpack can compile a consumer App Router (CREATION Coolify). Metadata (`CATALOG`, `insertableCatalogEntries`) stays in `catalog.ts` and MUST remain importable from server modules.
-- CREATION palette is generated from `insertableCatalogEntries()` grouped by `CatalogLayer`. Scene switch stays for existing Print/slot types; **default** uses `catalogComponent`. Inspector: types without a component contract still expose the closed P4 alignment set **plus instance DESIGN chrome** (fill, type, radius, padding, size) that paint can honor (Creation stays the richer editor). Do not invent a typed ChatBlockPanel contract. Unknown CSS outside the shared catalog is rejected. New primitives remain P3/Dev-track.
+- CREATION palette is generated from `insertableCatalogEntries()` grouped by `CatalogLayer`. Scene switch stays for existing Print/slot types; **default** uses `catalogComponent`. Inspector: types without a component contract still expose `genericCatalogInspectProps` (fill, type, radius, padding, size, stroke, alignment). Do not invent a typed ChatBlockPanel contract. Unknown CSS outside the shared catalog is rejected. New primitives remain P3/Dev-track. P4 Promote MUST extend **all** of those inspect fields into the library primitive (token paths → existing CSS variables), not alignment-only.
 
 ## Phase 8 — Extend primitive (P4)
 
-Closed alignment inspector fields that the library type does not name MUST Promote as P4: patch `components/{Type}.tsx` (prop + style), write `{Type}.promoted.stories.tsx` args, write `{Type}.promoted.extend.test.tsx`. HITL remains merge. Unpatchable sources → `extend-unrepresentable`.
+Closed inspect chrome the library type does not name MUST Promote as P4: patch `components/{Type}.tsx` (prop + style, including inner `Panel` when present), write `{Type}.promoted.stories.tsx` args that paint, write `{Type}.promoted.extend.test.tsx`. HITL remains merge. Unpatchable sources or unmapped token paths → `extend-unrepresentable`.
+
+Pipeline status paint: `packages/ui/src/css/tokens.css` MUST expose `--status-*` on `:root, [data-theme='msqdx']` matching `msqdxStatus` (`tokens/status.ts`). Creation Promote maps `color.status.pipeline.{completed,…,failed_enrich}` to those variables (no Collection hex, no alias-guess onto `--ok` / `--warn` for unique pipeline hexes).
 
 ## Phases
 

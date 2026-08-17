@@ -3,6 +3,7 @@
 - Repo root: `/Users/christoph.bordeck/Desktop/GITHUB/msqdx-ui`
 - UI package: `packages/ui`
 - Token package: `packages/ui-tokens`
+- Pipeline status CSS: `--status-*` on `:root, [data-theme='msqdx']` in `packages/ui/src/css/tokens.css` (SoT TS `packages/ui/src/tokens/status.ts` `msqdxStatus`). Creation Promote path `color.status.pipeline.category_queued` → `var(--status-category-queued)`
 - DS deposit as Brandion guideline / Plexon Collection (program **DS-DEPOSIT**, D0–**D7** + **D5** consume map landed 2026-08-14): canonical `brandion-v3/knowledge/ds-tokens-as-plexon-project.md` · path map `brandion-v3/knowledge/ds-deposit-path-map.md` · D5 map `knowledge/ds-deposit-component-semantic-map.json` · human `knowledge/ds-deposit-component-semantic-map.md` · DTCG mirrors `packages/ui-tokens/deposit/msq-dx-deposit.dtcg.json` + `msq-dx-deposit-light.dtcg.json` (Brandion import SoT remains `brandion-v3/packs/…`) · drift CI `pnpm test:ds-deposit-drift` · operator `brandion-v3/knowledge/ds-deposit-d6-operator.md` · D3a light twin · brand colors `knowledge/msqdx-brand-colors.md`
 - Storybook config: `packages/ui/.storybook`
 - Storybook preview (loads `src/styles.css` + theme toolbar): `packages/ui/.storybook/preview.tsx`

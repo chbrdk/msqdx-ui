@@ -27,9 +27,27 @@ describe('library-composition-roundtrip spec', () => {
     expect(text).toContain('Phase 6')
     expect(text).toContain('Phase 7')
     expect(text).toContain('Phase 8')
+    expect(text).toContain('--status-*')
+    expect(text).toContain('color.status.pipeline.')
     expect(text).toContain('is_auto_deploy_enabled')
     expect(text).toContain('catalogComponent')
     expect(text).toContain('pnpm wc:compile')
+  })
+
+  it('tokens.css exposes pipeline status vars matching msqdxStatus for Creation Promote', () => {
+    const css = readFileSync(
+      path.join(root, 'packages/ui/src/css/tokens.css'),
+      'utf8',
+    )
+    const status = readFileSync(
+      path.join(root, 'packages/ui/src/tokens/status.ts'),
+      'utf8',
+    )
+    expect(css).toContain('--status-category-queued: #fef14d')
+    expect(css).toContain('--status-completed:')
+    expect(css).toContain('--status-failed-enrich:')
+    expect(status).toContain('CATEGORY_QUEUED')
+    expect(status).toContain('msqdxBrand.yellow')
   })
 
   it('pin-bump workflow opens a HITL PR and never auto-merges', () => {

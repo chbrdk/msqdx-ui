@@ -149,6 +149,16 @@
   --overlay-scrim: color-mix(in srgb, #ffffff 22%, transparent);
   --atmosphere-a: rgba(255, 106, 59, 0.12);
   --atmosphere-b: rgba(182, 56, 255, 0.08);
+  /* Pipeline status — tokens/status.ts msqdxStatus. Creation Promote: color.status.pipeline.* */
+  --status-completed: #00ca55;
+  --status-enriched: #16a34a;
+  --status-category-ready: #22c55e;
+  --status-category-queued: #fef14d;
+  --status-enrich-queued: #ff6a3b;
+  --status-embed-queued: #ea580c;
+  --status-content-ready: #3080ff;
+  --status-skipped-near-dup: #94a3b8;
+  --status-failed-enrich: #ef4444;
 }
 
 [data-theme='msqdx-dark'] {
