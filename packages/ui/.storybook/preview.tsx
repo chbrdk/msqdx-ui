@@ -1,7 +1,9 @@
+import React from 'react'
 import type { Decorator, Preview } from '@storybook/react-vite'
 import { RESPONSIVE_VIEWPORTS } from '../src/storybook/viewports'
 import { restoreNativeHtmlElementFocus } from './restoreNativeFocus'
 import '../src/styles.css'
+import { PromotedTokenBindingsApplier } from '../src/storybook/promotedTokenBindings'
 
 /** Re-apply if Storybook focus instrumentation re-patches between stories. */
 restoreNativeHtmlElementFocus()
@@ -39,6 +41,15 @@ const withTheme: Decorator = (Story, context) => {
   )
 }
 
+const withPromotedTokenBindings: Decorator = (Story, context) => {
+  const tokenBindings = context.parameters?.tokenBindings
+  if (!tokenBindings || typeof tokenBindings !== 'object') {
+    return <Story />
+  }
+
+  return <PromotedTokenBindingsApplier tokenBindings={tokenBindings}>{<Story />}</PromotedTokenBindingsApplier>
+}
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -69,10 +80,11 @@ const preview: Preview = {
   initialGlobals: {
     theme: 'msqdx-dark',
   },
-  decorators: [withTheme],
+  decorators: [withTheme, withPromotedTokenBindings],
   async beforeEach() {
     restoreNativeHtmlElementFocus()
   },
 }
 
 export default preview
+
