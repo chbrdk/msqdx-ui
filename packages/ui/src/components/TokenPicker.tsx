@@ -97,6 +97,11 @@ export type TokenPickerProps = {
   literalReadOnly?: boolean
   /** Optional `data-testid` on the literal input. */
   literalTestId?: string
+  /**
+   * When the search query is empty, cap how many options render (large catalogs).
+   * Searching shows the full filtered set.
+   */
+  emptyQueryCap?: number
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'onChange'>
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -160,6 +165,7 @@ export function TokenPicker({
   literalPlaceholder,
   literalReadOnly = false,
   literalTestId,
+  emptyQueryCap,
   ...rest
 }: TokenPickerProps) {
   const listId = useId()
@@ -242,11 +248,21 @@ export function TokenPicker({
     )
   }, [useBrowser, scopedOptions, options, query])
 
+  const visibleOptions = useMemo(() => {
+    if (!emptyQueryCap || query.trim()) return filtered
+    if (filtered.length <= emptyQueryCap) return filtered
+    return filtered.slice(0, emptyQueryCap)
+  }, [emptyQueryCap, filtered, query])
+
+  const listTruncated = Boolean(
+    emptyQueryCap && !query.trim() && filtered.length > emptyQueryCap,
+  )
+
   const colorGrid =
     useBrowser &&
     previewKind === 'color' &&
-    filtered.length > 0 &&
-    filtered.every((o) => Boolean(o.preview))
+    visibleOptions.length > 0 &&
+    visibleOptions.every((o) => Boolean(o.preview))
 
   const pushRecent = useCallback(
     (path: string) => {
@@ -376,11 +392,11 @@ export function TokenPicker({
   }
 
   const onListKeyDown = (e: ReactKeyboardEvent) => {
-    if (!filtered.length) return
+    if (!visibleOptions.length) return
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       e.stopPropagation()
-      setActiveIndex((i) => Math.min(filtered.length - 1, i + 1))
+      setActiveIndex((i) => Math.min(visibleOptions.length - 1, i + 1))
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       e.stopPropagation()
@@ -388,7 +404,7 @@ export function TokenPicker({
     } else if (e.key === 'Enter') {
       e.preventDefault()
       e.stopPropagation()
-      const opt = filtered[activeIndex]
+      const opt = visibleOptions[activeIndex]
       if (opt) pick(opt.path)
     }
   }
@@ -566,7 +582,7 @@ export function TokenPicker({
               {filtered.length === 0 ? (
                 <p className="ds-token-picker__empty-msg">No matching tokens</p>
               ) : colorGrid ? (
-                filtered.map((opt, i) => (
+                visibleOptions.map((opt, i) => (
                   <button
                     key={opt.path}
                     type="button"
@@ -585,7 +601,7 @@ export function TokenPicker({
                   />
                 ))
               ) : (
-                filtered.map((opt, i) => {
+                visibleOptions.map((opt, i) => {
                   const selected = value === opt.path
                   const highlight = i === activeIndex
                   return (
@@ -618,6 +634,11 @@ export function TokenPicker({
                   )
                 })
               )}
+              {listTruncated ? (
+                <p className="ds-token-picker__empty-msg" data-testid="token-picker-list-cap">
+                  Type to search all {filtered.length} options
+                </p>
+              ) : null}
             </div>
             {allowNone && onClear ? (
               <div className="ds-token-picker__browser-footer">

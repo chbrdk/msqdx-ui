@@ -52,6 +52,7 @@ Compact control to **bind a property to a token path**. Default mode: values are
 | `literalPlaceholder` | Input placeholder when unbound (default `emptyLabel` / `—`) |
 | `literalReadOnly` | When true, literal input is read-only (e.g. mixed multi-select) |
 | `literalTestId` | Optional `data-testid` on the literal input |
+| `emptyQueryCap` | When search is empty, cap visible options (large catalogs); typing shows full filter |
 
 ### Option shape
 

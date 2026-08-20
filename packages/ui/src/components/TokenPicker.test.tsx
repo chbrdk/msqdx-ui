@@ -129,6 +129,34 @@ describe('TokenPicker', () => {
     expect(onClear).toHaveBeenCalledTimes(1)
   })
 
+  it('emptyQueryCap truncates until the user searches', () => {
+    const options = Array.from({ length: 60 }, (_, i) => ({
+      path: `font.${i}`,
+      label: `Font ${i}`,
+      category: 'google',
+    }))
+    render(
+      <TokenPicker
+        label="Font"
+        browser
+        options={options}
+        emptyQueryCap={10}
+        scopes={[
+          { id: 'google', label: 'Google' },
+          { id: 'all', label: 'All' },
+        ]}
+        scope="google"
+      />,
+    )
+    fireEvent.click(screen.getByTestId('token-picker-trigger'))
+    expect(screen.getByTestId('token-picker-search')).toBeInTheDocument()
+    expect(screen.getAllByRole('option').length).toBeLessThanOrEqual(10)
+    expect(screen.getByTestId('token-picker-list-cap')).toHaveTextContent(/60/)
+    fireEvent.change(screen.getByTestId('token-picker-search'), { target: { value: 'Font 12' } })
+    expect(screen.queryByTestId('token-picker-list-cap')).toBeNull()
+    expect(screen.getByRole('option', { name: /^Font 12$/ })).toBeInTheDocument()
+  })
+
   it('cycles prev/next through options when allowCycle', () => {
     const onChange = vi.fn()
     const onClear = vi.fn()
