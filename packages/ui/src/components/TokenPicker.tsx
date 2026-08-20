@@ -83,6 +83,20 @@ export type TokenPickerProps = {
   previewKind?: TokenPreviewKind
   searchPlaceholder?: string
   'aria-label'?: string
+  /**
+   * When true: Penpot-style hybrid strip — editable literal input plus token browser.
+   * Typing calls `onLiteralChange`; picking still calls `onChange(path)`.
+   */
+  allowLiteral?: boolean
+  /** App-owned freeform value when no token `value` is bound. */
+  literalValue?: string
+  onLiteralChange?: (raw: string) => void
+  /** Placeholder for the literal input (defaults to `emptyLabel`). */
+  literalPlaceholder?: string
+  /** Read-only literal (e.g. mixed multi-select). */
+  literalReadOnly?: boolean
+  /** Optional `data-testid` on the literal input. */
+  literalTestId?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'onChange'>
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -112,7 +126,7 @@ const PANEL_W = 300
 const PANEL_H = 380
 const RECENT_MAX = 8
 
-/** Interactive token path picker — values are token paths only (no free CSS entry). */
+/** Interactive token path picker — paths by default; optional hybrid literal strip. */
 export function TokenPicker({
   className,
   options,
@@ -140,11 +154,19 @@ export function TokenPicker({
   previewKind = 'auto',
   searchPlaceholder = 'Search tokens…',
   'aria-label': ariaLabel = 'Token picker',
+  allowLiteral = false,
+  literalValue = '',
+  onLiteralChange,
+  literalPlaceholder,
+  literalReadOnly = false,
+  literalTestId,
   ...rest
 }: TokenPickerProps) {
   const listId = useId()
   const selectedOption = value ? options.find((opt) => opt.path === value) : undefined
   const displayText = selectedOption?.label ?? value ?? emptyLabel
+  const literalPlaceholderText = literalPlaceholder ?? emptyLabel
+  const stripInputValue = value ? (selectedOption?.label ?? value) : literalValue
   const valueStyle = selectedOption
     ? {
         ...(selectedOption.fontPreview ? { fontFamily: selectedOption.fontPreview } : {}),
@@ -152,7 +174,7 @@ export function TokenPicker({
       }
     : undefined
   const fontPreview = Boolean(selectedOption?.fontPreview || selectedOption?.sampleStyle)
-  const showClear = Boolean(onClear && value)
+  const showClear = Boolean(onClear && (value || (allowLiteral && literalValue)))
   const compact = variant === 'compact'
   const useBrowser = compact && browser
   const [open, setOpen] = useState(false)
@@ -245,6 +267,15 @@ export function TokenPicker({
     if (top + PANEL_H > window.innerHeight - 8) top = Math.max(8, r.top - PANEL_H - 6)
     setPanelPos({ top, left })
   }, [])
+
+  const toggleOpen = useCallback(() => {
+    if (!compact) return
+    setOpen((next) => {
+      const opening = !next
+      if (opening && useBrowser) placePanel()
+      return opening
+    })
+  }, [compact, useBrowser, placePanel])
 
   useEffect(() => {
     if (!compact || !open) return
@@ -613,13 +644,14 @@ export function TokenPicker({
   return (
     <div
       ref={rootRef}
-      className={cx(
-        'ds-token-picker',
-        compact ? 'ds-token-picker--compact' : 'ds-token-picker--list',
-        useBrowser && 'ds-token-picker--browser',
-        compact && open && 'ds-token-picker--open',
-        className,
-      )}
+        className={cx(
+          'ds-token-picker',
+          compact ? 'ds-token-picker--compact' : 'ds-token-picker--list',
+          useBrowser && 'ds-token-picker--browser',
+          allowLiteral && 'ds-token-picker--literal',
+          compact && open && 'ds-token-picker--open',
+          className,
+        )}
       aria-label={ariaLabel}
       {...rest}
     >
@@ -633,47 +665,87 @@ export function TokenPicker({
       </div>
 
       <div className="ds-token-picker__current">
-        <button
-          ref={triggerRef}
-          type="button"
-          className="ds-token-picker__trigger"
-          data-testid="token-picker-trigger"
-          aria-expanded={compact ? open : undefined}
-          aria-haspopup={compact ? 'listbox' : undefined}
-          aria-label={label}
-          onClick={() => {
-            if (compact) {
-              setOpen((next) => {
-                const opening = !next
-                if (opening && useBrowser) placePanel()
-                return opening
-              })
-            }
-          }}
-        >
-          {selectedOption?.preview ? (
-            stripPreview && previewKind !== 'auto' && previewKind !== 'color' ? (
-              <TokenPreview kind={previewKind} value={selectedOption.preview} size="sm" />
-            ) : (
-              <span
-                className="ds-token-picker__swatch"
-                style={{ background: selectedOption.preview }}
-                aria-hidden
-              />
-            )
-          ) : null}
-          <span
-            className={cx(
-              'ds-token-picker__path',
-              !value && 'ds-token-picker__path--empty',
-              fontPreview && 'ds-token-picker__path--font',
-            )}
-            style={valueStyle}
-            data-testid="token-picker-value"
+        {allowLiteral ? (
+          <>
+            <button
+              ref={triggerRef}
+              type="button"
+              className="ds-token-picker__trigger ds-token-picker__trigger--browse"
+              data-testid="token-picker-trigger"
+              aria-expanded={compact ? open : undefined}
+              aria-haspopup={compact ? 'listbox' : undefined}
+              aria-label={`${label} token`}
+              onClick={toggleOpen}
+            >
+              {selectedOption?.preview ? (
+                stripPreview && previewKind !== 'auto' && previewKind !== 'color' ? (
+                  <TokenPreview kind={previewKind} value={selectedOption.preview} size="sm" />
+                ) : (
+                  <span
+                    className="ds-token-picker__swatch"
+                    style={{ background: selectedOption.preview }}
+                    aria-hidden
+                  />
+                )
+              ) : (
+                <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
+              )}
+            </button>
+            <input
+              type="text"
+              className={cx(
+                'ds-token-picker__literal',
+                !value && !literalValue && 'ds-token-picker__literal--empty',
+                fontPreview && 'ds-token-picker__literal--font',
+              )}
+              style={valueStyle}
+              value={stripInputValue}
+              placeholder={literalPlaceholderText}
+              readOnly={literalReadOnly}
+              aria-label={label}
+              data-testid={literalTestId ?? 'token-picker-value'}
+              onFocus={(e) => {
+                if (value) e.currentTarget.select()
+              }}
+              onChange={(e) => onLiteralChange?.(e.target.value)}
+              onBlur={(e) => onLiteralChange?.(e.target.value)}
+            />
+          </>
+        ) : (
+          <button
+            ref={triggerRef}
+            type="button"
+            className="ds-token-picker__trigger"
+            data-testid="token-picker-trigger"
+            aria-expanded={compact ? open : undefined}
+            aria-haspopup={compact ? 'listbox' : undefined}
+            aria-label={label}
+            onClick={toggleOpen}
           >
-            {displayText}
-          </span>
-        </button>
+            {selectedOption?.preview ? (
+              stripPreview && previewKind !== 'auto' && previewKind !== 'color' ? (
+                <TokenPreview kind={previewKind} value={selectedOption.preview} size="sm" />
+              ) : (
+                <span
+                  className="ds-token-picker__swatch"
+                  style={{ background: selectedOption.preview }}
+                  aria-hidden
+                />
+              )
+            ) : null}
+            <span
+              className={cx(
+                'ds-token-picker__path',
+                !value && 'ds-token-picker__path--empty',
+                fontPreview && 'ds-token-picker__path--font',
+              )}
+              style={valueStyle}
+              data-testid="token-picker-value"
+            >
+              {displayText}
+            </span>
+          </button>
+        )}
         {allowCycle ? (
           <span className="ds-token-picker__cycle">
             <button

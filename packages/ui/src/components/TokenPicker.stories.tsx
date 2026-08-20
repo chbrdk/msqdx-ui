@@ -20,7 +20,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Dense token-path picker for inspect fields. Default is a compact strip + popover. Values are token paths only — no free CSS entry.',
+          'Dense token-path picker for inspect fields. Default is a compact strip + popover. Optional `allowLiteral` hybrid accepts freeform entry via `onLiteralChange`.',
       },
     },
   },
@@ -197,6 +197,50 @@ export const BrowserColorGrid: Story = {
           suggestedPaths={COLOR_OPTIONS.map((o) => o.path)}
         />
       </div>
+    )
+  },
+}
+
+export const WithLiteral: Story = {
+  render: function WithLiteralStory() {
+    const [value, setValue] = useState<string | null>(null)
+    const [literal, setLiteral] = useState('16')
+    return (
+      <TokenPicker
+        label="Padding"
+        allowLiteral
+        allowCycle
+        allowNone
+        browser
+        previewKind="space"
+        options={[
+          { path: 'space.sm', label: 'space.sm · 8px', preview: '8px', category: 'space' },
+          { path: 'space.md', label: 'space.md · 16px', preview: '16px', category: 'space' },
+          { path: 'space.lg', label: 'space.lg · 24px', preview: '24px', category: 'space' },
+        ]}
+        value={value}
+        literalValue={literal}
+        onChange={(path) => {
+          setValue(path)
+          setLiteral('')
+        }}
+        onLiteralChange={(raw) => {
+          setLiteral(raw)
+          setValue(null)
+        }}
+        onClear={() => {
+          setValue(null)
+          setLiteral('')
+        }}
+        scopes={[
+          { id: 'suggested', label: 'Suggested' },
+          { id: 'space', label: 'Space' },
+          { id: 'all', label: 'All' },
+        ]}
+        suggestedPaths={['space.sm', 'space.md', 'space.lg']}
+        emptyLabel="—"
+        noneLabel="None"
+      />
     )
   },
 }

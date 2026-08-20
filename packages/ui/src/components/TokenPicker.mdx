@@ -2,7 +2,9 @@
 
 Layer: `molecules` (Storybook group: Organisms / editor chrome)
 
-Dense token-path picker for inspect bindings. **Values are token paths only** — swatches are display-only; there is no free CSS / hex entry.
+Dense token-path picker for inspect bindings. Default: **token paths only** — swatches are display-only.
+
+Optional **`allowLiteral`**: Penpot-style hybrid strip — tippen writes a freeform literal via `onLiteralChange`; browse/cycle still write token paths via `onChange`.
 
 **Spec:** `specs/domain/msqdx-ui-token-picker.md`
 
@@ -16,6 +18,7 @@ Dense token-path picker for inspect bindings. **Values are token paths only** �
 - FontFamily (`fontPreview` on the value label)
 - **Browser** — floating multi-context window (search, scopes, Recent, drag, keyboard)
 - **BrowserColorGrid** — color swatch grid when `previewKind="color"`
+- **WithLiteral** — hybrid strip (`allowLiteral` + literal tippen + token browse)
 
 ## Usage
 
@@ -26,12 +29,15 @@ import { TokenPicker } from '@msqdx/ui'
   label="Radius"
   browser
   allowCycle
+  allowLiteral
   previewKind="radius"
   contextTitle="Binding for: Desktop"
   options={[{ path: 'radius.md', label: 'radius.md · 8px', preview: '8px', category: 'radius' }]}
   value={binding}
+  literalValue={literal}
   onChange={(path) => setToken(path)}
-  onClear={() => clearToken()}
+  onLiteralChange={(raw) => setLiteral(raw)}
+  onClear={() => clearBoth()}
   scopes={[
     { id: 'suggested', label: 'Suggested' },
     { id: 'radius', label: 'Radius' },

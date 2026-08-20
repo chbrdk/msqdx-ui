@@ -75,6 +75,60 @@ describe('TokenPicker', () => {
     expect(container.querySelector('textarea')).toBeNull()
   })
 
+  it('allowLiteral: typing fires onLiteralChange and pick still fires onChange', () => {
+    const onChange = vi.fn()
+    const onLiteralChange = vi.fn()
+    const { rerender } = render(
+      <TokenPicker
+        label="Padding"
+        allowLiteral
+        options={[{ path: 'space.md', label: 'space.md · 16px', preview: '16px' }]}
+        value={null}
+        literalValue=""
+        onChange={onChange}
+        onLiteralChange={onLiteralChange}
+        variant="list"
+      />,
+    )
+    const input = screen.getByLabelText('Padding')
+    expect(input).toBeInstanceOf(HTMLInputElement)
+    fireEvent.change(input, { target: { value: '12' } })
+    expect(onLiteralChange).toHaveBeenCalledWith('12')
+
+    rerender(
+      <TokenPicker
+        label="Padding"
+        allowLiteral
+        options={[{ path: 'space.md', label: 'space.md · 16px', preview: '16px' }]}
+        value="space.md"
+        literalValue=""
+        onChange={onChange}
+        onLiteralChange={onLiteralChange}
+        variant="list"
+      />,
+    )
+    expect(screen.getByTestId('token-picker-value')).toHaveValue('space.md · 16px')
+    screen.getByRole('option', { name: /space\.md/ }).click()
+    expect(onChange).toHaveBeenCalledWith('space.md')
+    expect(screen.getByRole('button', { name: 'Padding token' })).toBeInTheDocument()
+  })
+
+  it('allowLiteral: clear shows when literal is set', () => {
+    const onClear = vi.fn()
+    render(
+      <TokenPicker
+        label="Width"
+        allowLiteral
+        options={[{ path: 'size.md' }]}
+        literalValue="120"
+        onClear={onClear}
+        clearLabel="Clear token"
+      />,
+    )
+    screen.getByRole('button', { name: 'Clear token' }).click()
+    expect(onClear).toHaveBeenCalledTimes(1)
+  })
+
   it('cycles prev/next through options when allowCycle', () => {
     const onChange = vi.fn()
     const onClear = vi.fn()
