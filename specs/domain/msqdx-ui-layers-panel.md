@@ -7,7 +7,7 @@
 
 ## Purpose
 
-Generic **scene / composition layers tree** chrome for design editors. Apps map their domain nodes (e.g. `CompositionScene` tree) into `{ id, label, type?, children?, hidden?, locked? }` items. The primitive handles selection highlight, nested indentation, expand/collapse for branches, optional **hide/lock** row controls, optional **sibling drag-and-drop reorder**, and accessible **▲▼** move callbacks — not scene persistence or chrome JSON.
+Generic **scene / composition layers tree** chrome for design editors. Apps map their domain nodes (e.g. `CompositionScene` tree) into `{ id, label, type?, children?, hidden?, locked?, acceptsChildren? }` items. The primitive handles selection highlight, nested indentation, expand/collapse for branches, optional **hide/lock** row controls, optional **drag-and-drop reorder / nest**, and accessible **▲▼** move callbacks — not scene persistence or chrome JSON.
 
 ## Non-goals
 
@@ -15,7 +15,7 @@ Generic **scene / composition layers tree** chrome for design editors. Apps map 
 - CREATION / Plexon IDs or routes inside `@msqdx/ui`.
 - Replacing `SchemaTree` / `JsonTree` (flow / data browsers stay separate).
 - Mutating `items` inside the primitive — callbacks notify; apps update the tree.
-- Cross-parent reparent / nest-into drops (siblings only for DnD v1).
+- Scene cycle / lock / container validation — apps reject invalid drops in `onReorderDrop`.
 
 ## API
 
@@ -28,7 +28,7 @@ Generic **scene / composition layers tree** chrome for design editors. Apps map 
 | `onMoveUp` | Optional `(id: string) => void` — move among siblings toward list start (a11y fallback) |
 | `onMoveDown` | Optional `(id: string) => void` — move among siblings toward list end (a11y fallback) |
 | `onReorder` | Optional `(id: string, direction: 'up' \| 'down') => void` — alternative to up/down pair; used when the matching directional prop is omitted |
-| `onReorderDrop` | Optional `(id: string, targetId: string, position: 'before' \| 'after') => void` — sibling DnD drop; enables drag affordances |
+| `onReorderDrop` | Optional `(id, targetId, position: 'before' \| 'after' \| 'into')` — DnD drop (sibling or cross-parent); enables drag affordances |
 | `onToggleHidden` | Optional `(id: string) => void` — show eye control; apps flip visibility in chrome/state |
 | `onToggleLocked` | Optional `(id: string) => void` — show lock control; apps flip lock in chrome/state |
 | `title` | Panel header (default `Layers`) |
@@ -50,10 +50,12 @@ type LayersPanelItem = {
   hidden?: boolean
   /** Visual: lock affordance pressed; row not draggable when true. */
   locked?: boolean
+  /** When true, middle drop zone is `into` (nest). Apps set for containers. */
+  acceptsChildren?: boolean
   children?: LayersPanelItem[]
 }
 
-type LayersPanelReorderDropPosition = 'before' | 'after'
+type LayersPanelReorderDropPosition = 'before' | 'after' | 'into'
 ```
 
 ## Behaviour
@@ -66,7 +68,7 @@ type LayersPanelReorderDropPosition = 'before' | 'after'
 - When `onMoveUp` / `onMoveDown` / `onReorder` is provided, each row shows move affordances; first sibling disables up, last disables down. Prefer directional props when both `onMoveUp`/`onMoveDown` and `onReorder` exist.
 - When `onToggleHidden` is provided, each row shows a visibility toggle; `item.hidden` drives pressed/visual state (`aria-pressed`).
 - When `onToggleLocked` is provided, each row shows a lock toggle; `item.locked` drives pressed/visual state (`aria-pressed`).
-- When `onReorderDrop` is provided, non-locked rows are `draggable`. Drop targets are **siblings only**; position is `'before'` or `'after'` from pointer Y vs row midpoint. Self-drops and cross-parent drops are ignored. Locked rows are not draggable.
+- When `onReorderDrop` is provided, non-locked rows are `draggable`. Any row may be a drop target (sibling or cross-parent). Position: `'before'` / `'after'` from pointer Y; when `acceptsChildren`, the middle third is `'into'`. Self-drops are ignored. Locked rows are not draggable. Nest/cycle validation is the app's job.
 - ▲▼ remain the **accessible / single-pointer** reorder path (WCAG 2.5.7); DnD is an accelerator.
 
 ## Accessibility

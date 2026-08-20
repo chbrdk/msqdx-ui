@@ -252,17 +252,19 @@ describe('LayersPanel', () => {
     expect(onReorderDrop).toHaveBeenCalledWith('child', 'branch', 'after')
   })
 
-  it('ignores cross-parent drops and does not drag locked rows', () => {
+  it('fires onReorderDrop for nest-into and cross-parent drops', () => {
     const onReorderDrop = vi.fn()
     const items: LayersPanelItem[] = [
       {
         id: 'root',
         label: 'Root',
+        acceptsChildren: true,
         children: [
-          { id: 'a', label: 'A', locked: true },
+          { id: 'a', label: 'A' },
           {
             id: 'b',
             label: 'B',
+            acceptsChildren: true,
             children: [{ id: 'c', label: 'C' }],
           },
         ],
@@ -270,15 +272,109 @@ describe('LayersPanel', () => {
     ]
     render(<LayersPanel items={items} onReorderDrop={onReorderDrop} />)
 
-    expect(screen.getByTestId('layers-panel-row-a')).toHaveAttribute('draggable', 'false')
-    expect(screen.getByTestId('layers-panel-row-c')).toHaveAttribute('draggable', 'true')
-
     const branchRow = screen.getByTestId('layers-panel-row-b')
-    const dt = dataTransferMock({
-      [LAYERS_PANEL_DND_MIME]: 'c',
-      'text/plain': 'c',
+    Object.defineProperty(branchRow, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({
+        top: 100,
+        height: 60,
+        bottom: 160,
+        left: 0,
+        right: 100,
+        width: 100,
+        x: 0,
+        y: 100,
+        toJSON: () => ({}),
+      }),
     })
-    fireEvent.drop(branchRow, { dataTransfer: dt, clientY: 0 })
-    expect(onReorderDrop).not.toHaveBeenCalled()
+
+    const fireAt = (draggedId: string, clientY: number) => {
+      const dt = dataTransferMock({
+        [LAYERS_PANEL_DND_MIME]: draggedId,
+        'text/plain': draggedId,
+      })
+      const row = screen.getByTestId('layers-panel-row-b')
+      const over = createEvent.dragOver(row)
+      Object.defineProperty(over, 'clientY', { get: () => clientY })
+      Object.defineProperty(over, 'dataTransfer', { get: () => dt })
+      fireEvent(row, over)
+      const drop = createEvent.drop(screen.getByTestId('layers-panel-row-b'))
+      Object.defineProperty(drop, 'clientY', { get: () => clientY })
+      Object.defineProperty(drop, 'dataTransfer', { get: () => dt })
+      fireEvent(screen.getByTestId('layers-panel-row-b'), drop)
+    }
+
+    // Middle of row (container) → into — wide nest zone
+    fireAt('a', 130)
+    expect(onReorderDrop).toHaveBeenCalledWith('a', 'b', 'into')
+
+    onReorderDrop.mockClear()
+    // Child onto parent middle → still fires (app may no-op)
+    fireAt('c', 130)
+    expect(onReorderDrop).toHaveBeenCalledWith('c', 'b', 'into')
+  })
+
+  it('fires into for any drop on empty acceptsChildren row', () => {
+    const onReorderDrop = vi.fn()
+    const items: LayersPanelItem[] = [
+      {
+        id: 'root',
+        label: 'Root',
+        acceptsChildren: true,
+        children: [
+          { id: 'box', label: 'SiteContainer', acceptsChildren: true },
+          { id: 'link', label: 'SiteLink' },
+        ],
+      },
+    ]
+    render(<LayersPanel items={items} onReorderDrop={onReorderDrop} />)
+
+    const box = screen.getByTestId('layers-panel-row-box')
+    Object.defineProperty(box, 'getBoundingClientRect', {
+      configurable: true,
+      value: () => ({
+        top: 100,
+        height: 40,
+        bottom: 140,
+        left: 0,
+        right: 100,
+        width: 100,
+        x: 0,
+        y: 100,
+        toJSON: () => ({}),
+      }),
+    })
+    const dt = dataTransferMock({
+      [LAYERS_PANEL_DND_MIME]: 'link',
+      'text/plain': 'link',
+    })
+    // Top edge would be "before" for filled containers — empty forces into
+    const over = createEvent.dragOver(box)
+    Object.defineProperty(over, 'clientY', { get: () => 102 })
+    Object.defineProperty(over, 'dataTransfer', { get: () => dt })
+    fireEvent(box, over)
+    const drop = createEvent.drop(screen.getByTestId('layers-panel-row-box'))
+    Object.defineProperty(drop, 'clientY', { get: () => 102 })
+    Object.defineProperty(drop, 'dataTransfer', { get: () => dt })
+    fireEvent(screen.getByTestId('layers-panel-row-box'), drop)
+    expect(onReorderDrop).toHaveBeenCalledWith('link', 'box', 'into')
+  })
+
+  it('does not drag locked rows', () => {
+    const onReorderDrop = vi.fn()
+    const items: LayersPanelItem[] = [
+      {
+        id: 'root',
+        label: 'Root',
+        children: [
+          { id: 'a', label: 'A', locked: true },
+          { id: 'b', label: 'B' },
+        ],
+      },
+    ]
+    render(<LayersPanel items={items} onReorderDrop={onReorderDrop} />)
+
+    expect(screen.getByTestId('layers-panel-row-a')).toHaveAttribute('draggable', 'false')
+    expect(screen.getByTestId('layers-panel-row-b')).toHaveAttribute('draggable', 'true')
   })
 })

@@ -28,12 +28,14 @@ export type LayersPanelItem = {
   hidden?: boolean
   /** Visual: lock pressed; row not draggable when true. */
   locked?: boolean
+  /** When true, middle drop zone is `into` (nest). Apps set for containers. */
+  acceptsChildren?: boolean
   children?: LayersPanelItem[]
 }
 
 export type LayersPanelReorderDirection = 'up' | 'down'
 
-export type LayersPanelReorderDropPosition = 'before' | 'after'
+export type LayersPanelReorderDropPosition = 'before' | 'after' | 'into'
 
 /** Modifier keys for layer row activation (matches canvas multi-select). */
 export type LayersPanelSelectMods = {
@@ -42,7 +44,7 @@ export type LayersPanelSelectMods = {
   ctrlKey: boolean
 }
 
-/** MIME for sibling layer drag-and-drop within LayersPanel. */
+/** MIME for layer drag-and-drop within LayersPanel. */
 export const LAYERS_PANEL_DND_MIME = 'application/x-msqdx-layers-panel-id'
 
 export type LayersPanelProps = {
@@ -70,8 +72,8 @@ export type LayersPanelProps = {
    */
   onReorder?: (id: string, direction: LayersPanelReorderDirection) => void
   /**
-   * Sibling drag-and-drop drop. `position` is relative to `targetId`.
-   * Self / cross-parent drops are ignored by the primitive.
+   * Drag-and-drop drop. `position` is relative to `targetId` (`into` nests).
+   * Self-drops are ignored; apps validate cycle / lock / container.
    */
   onReorderDrop?: (
     id: string,
@@ -97,10 +99,18 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 
 function dropPositionFromEvent(
   event: DragEvent<HTMLElement>,
+  acceptsChildren: boolean,
 ): LayersPanelReorderDropPosition {
   const rect = event.currentTarget.getBoundingClientRect()
-  const mid = rect.top + rect.height / 2
-  return event.clientY < mid ? 'before' : 'after'
+  const y = event.clientY - rect.top
+  if (!acceptsChildren || rect.height <= 0) {
+    return y < rect.height / 2 ? 'before' : 'after'
+  }
+  // Wide middle = nest (into). Thin edges = sibling before/after.
+  const edge = Math.max(6, rect.height * 0.18)
+  if (y < edge) return 'before'
+  if (y > rect.height - edge) return 'after'
+  return 'into'
 }
 
 function modsFromMouse(event: MouseEvent<HTMLElement>): LayersPanelSelectMods {
@@ -118,6 +128,9 @@ function LayerRow({
   index,
   selectedId,
   selectedSet,
+  draggingId,
+  onDragBegin,
+  onDragEnd,
   onSelect,
   onMoveUp,
   onMoveDown,
@@ -137,6 +150,9 @@ function LayerRow({
   index: number
   selectedId?: string | null
   selectedSet: Set<string>
+  draggingId: string | null
+  onDragBegin: (id: string) => void
+  onDragEnd: () => void
   onSelect?: (id: string, mods?: LayersPanelSelectMods) => void
   onMoveUp?: (id: string) => void
   onMoveDown?: (id: string) => void
@@ -155,14 +171,15 @@ function LayerRow({
   showLocked: boolean
 }) {
   const hasChildren = Boolean(item.children?.length)
+  const acceptsChildren = Boolean(item.acceptsChildren)
   const [open, setOpen] = useState(defaultExpanded)
   const [dropHint, setDropHint] = useState<LayersPanelReorderDropPosition | null>(null)
   const inSelection = selectedSet.has(item.id)
   const isPrimary = Boolean(selectedId && selectedId === item.id)
   const canUp = index > 0
   const canDown = index < siblings.length - 1
-  const siblingIds = new Set(siblings.map((s) => s.id))
   const canDrag = showDrag && !item.locked
+  const panelDragging = Boolean(draggingId)
 
   const move = (direction: LayersPanelReorderDirection) => {
     if (direction === 'up') {
@@ -181,28 +198,61 @@ function LayerRow({
     event.dataTransfer.setData(LAYERS_PANEL_DND_MIME, item.id)
     event.dataTransfer.setData('text/plain', item.id)
     event.dataTransfer.effectAllowed = 'move'
+    onDragBegin(item.id)
+  }
+
+  const handleDragEnd = () => {
+    clearDropHint()
+    onDragEnd()
   }
 
   const handleDragOver = (event: DragEvent<HTMLElement>) => {
     if (!showDrag || !onReorderDrop) return
-    const types = Array.from(event.dataTransfer.types)
-    if (!types.includes(LAYERS_PANEL_DND_MIME) && !types.includes('text/plain')) return
+    // Do not rely on dataTransfer.types here — browsers hide custom MIME during dragover.
+    if (!panelDragging && draggingId !== item.id) {
+      const types = Array.from(event.dataTransfer.types)
+      if (
+        !types.includes(LAYERS_PANEL_DND_MIME) &&
+        !types.includes('text/plain') &&
+        !types.includes('Text')
+      ) {
+        return
+      }
+    }
     event.preventDefault()
+    event.stopPropagation()
     event.dataTransfer.dropEffect = 'move'
-    setDropHint(dropPositionFromEvent(event))
+    if (draggingId === item.id) {
+      clearDropHint()
+      return
+    }
+    let next = dropPositionFromEvent(event, acceptsChildren)
+    if (acceptsChildren && !hasChildren) next = 'into'
+    setDropHint(next)
+    if (next === 'into' && acceptsChildren) setOpen(true)
   }
 
   const handleDrop = (event: DragEvent<HTMLElement>) => {
     if (!onReorderDrop) return
     event.preventDefault()
-    const position = dropHint ?? dropPositionFromEvent(event)
+    event.stopPropagation()
+    let position = dropHint ?? dropPositionFromEvent(event, acceptsChildren)
+    if (acceptsChildren && !hasChildren) position = 'into'
     clearDropHint()
     const draggedId =
+      draggingId ||
       event.dataTransfer.getData(LAYERS_PANEL_DND_MIME) ||
       event.dataTransfer.getData('text/plain')
+    onDragEnd()
     if (!draggedId || draggedId === item.id) return
-    if (!siblingIds.has(draggedId)) return
+    if (position === 'into') setOpen(true)
     onReorderDrop(draggedId, item.id, position)
+  }
+
+  const handleDragLeave = (event: DragEvent<HTMLElement>) => {
+    const related = event.relatedTarget as Node | null
+    if (related && event.currentTarget.contains(related)) return
+    clearDropHint()
   }
 
   return (
@@ -214,17 +264,20 @@ function LayerRow({
           item.locked && 'ds-layers-panel__row--locked',
           dropHint === 'before' && 'ds-layers-panel__row--drop-before',
           dropHint === 'after' && 'ds-layers-panel__row--drop-after',
+          dropHint === 'into' && 'ds-layers-panel__row--drop-into',
           canDrag && 'ds-layers-panel__row--draggable',
+          draggingId === item.id && 'ds-layers-panel__row--dragging',
         )}
         style={{ paddingLeft: `${BASE_PAD_REM + depth * INDENT_REM}rem` }}
         draggable={canDrag}
         onDragStart={canDrag ? handleDragStart : undefined}
         onDragOver={showDrag ? handleDragOver : undefined}
-        onDragLeave={showDrag ? clearDropHint : undefined}
-        onDragEnd={showDrag ? clearDropHint : undefined}
+        onDragLeave={showDrag ? handleDragLeave : undefined}
+        onDragEnd={showDrag ? handleDragEnd : undefined}
         onDrop={showDrag ? handleDrop : undefined}
         data-testid={`layers-panel-row-${item.id}`}
         data-drop-edge={dropHint ?? undefined}
+        data-accepts-children={acceptsChildren ? 'true' : undefined}
       >
         {hasChildren ? (
           <button
@@ -329,6 +382,9 @@ function LayerRow({
               index={childIndex}
               selectedId={selectedId}
               selectedSet={selectedSet}
+              draggingId={draggingId}
+              onDragBegin={onDragBegin}
+              onDragEnd={onDragEnd}
               onSelect={onSelect}
               onMoveUp={onMoveUp}
               onMoveDown={onMoveDown}
@@ -393,12 +449,14 @@ export function LayersPanel({
   const showLocked = Boolean(onToggleLocked)
   const selectedSet = resolveSelectedSet(selectedId, selectedIds)
   const primaryId = resolvePrimaryId(selectedId, selectedIds)
+  const [draggingId, setDraggingId] = useState<string | null>(null)
 
   return (
     <nav
-      className={cx('ds-layers-panel', className)}
+      className={cx('ds-layers-panel', className, draggingId && 'ds-layers-panel--dragging')}
       aria-label={ariaLabel}
       data-testid="layers-panel"
+      data-dragging={draggingId ? 'true' : undefined}
       {...rest}
     >
       <header className="ds-layers-panel__head">
@@ -417,6 +475,9 @@ export function LayersPanel({
               index={index}
               selectedId={primaryId}
               selectedSet={selectedSet}
+              draggingId={draggingId}
+              onDragBegin={setDraggingId}
+              onDragEnd={() => setDraggingId(null)}
               onSelect={onSelect}
               onMoveUp={onMoveUp}
               onMoveDown={onMoveDown}

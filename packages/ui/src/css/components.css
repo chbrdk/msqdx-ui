@@ -3039,6 +3039,15 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-layers-panel__row--draggable:active {
   cursor: grabbing;
 }
+/* While dragging, disable hit-testing on row chrome so drop targets stay the row. */
+.ds-layers-panel--dragging .ds-layers-panel__btn,
+.ds-layers-panel--dragging .ds-layers-panel__actions,
+.ds-layers-panel--dragging .ds-layers-panel__chevron {
+  pointer-events: none;
+}
+.ds-layers-panel__row--dragging {
+  opacity: 0.45;
+}
 .ds-layers-panel__row--drop-before {
   box-shadow: inset 0 3px 0 0 var(--accent, #245);
   background: color-mix(in srgb, var(--accent, #245) 8%, transparent);
@@ -3046,6 +3055,11 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-layers-panel__row--drop-after {
   box-shadow: inset 0 -3px 0 0 var(--accent, #245);
   background: color-mix(in srgb, var(--accent, #245) 8%, transparent);
+}
+.ds-layers-panel__row--drop-into {
+  outline: 2px solid var(--accent, #245);
+  outline-offset: -2px;
+  background: color-mix(in srgb, var(--accent, #245) 14%, transparent);
 }
 .ds-layers-panel__actions {
   display: inline-flex;
