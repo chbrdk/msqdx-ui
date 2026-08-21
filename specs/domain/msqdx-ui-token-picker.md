@@ -83,7 +83,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
    - **Hybrid (`allowLiteral`):** optional preview / browse control opens the option surface; an editable `<input>` shows token label when `value` is set, else `literalValue` / placeholder. Focus on a bound token selects all so the first keystroke replaces via `onLiteralChange`. Optional −/+ cycle (`allowCycle`) + optional clear. Cycle and clear MAY hide until hover.
 3. **Option surface**
    - **compact (default, `browser=false`):** flat list popover from the strip.
-   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, list **or** color swatch grid when `previewKind === 'color'`. List rows use quiet type and a three-column layout (preview · `valueLabel` · name) without visible column rules. Panel is resizable via east / south / southeast edges (defaults 300×380; clamps ~240–720); resize grows the chrome only — row/type size stay fixed (`align-content: start`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
+   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, then a **columnar list** for every scope/kind (preview · `valueLabel` · name). Panel size is fixed across scopes (default 300×380; resizable via E/S/SE; clamps ~240–720); list body scrolls inside (`flex: 1 1 0`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
    - **list:** always visible under the strip (Storybook / debug).
 
 ### Cycle behaviour (`allowCycle`)
@@ -116,6 +116,6 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 
 ## Acceptance
 
-1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle, FontFamily, **Browser**, **BrowserColorGrid**, **WithLiteral**.
-2. Tests: select path; clear; none; cycle; compact popover; browser search/scope/pick; color grid; keyboard; drag header present; empty strip shows `emptyLabel`; with `allowLiteral`: typing fires `onLiteralChange`, pick still fires `onChange`, default mode still has no free-text input.
+1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle, FontFamily, **Browser**, **BrowserColorList**, **WithLiteral**.
+2. Tests: select path; clear; none; cycle; compact popover; browser search/scope/pick; color columnar list; keyboard; drag header present; empty strip shows `emptyLabel`; with `allowLiteral`: typing fires `onLiteralChange`, pick still fires `onChange`, default mode still has no free-text input.
 3. Consuming apps import `TokenPicker` / `TokenPreview` from `@msqdx/ui`.

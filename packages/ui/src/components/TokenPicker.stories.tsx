@@ -174,8 +174,8 @@ export const Browser: Story = {
   },
 }
 
-export const BrowserColorGrid: Story = {
-  render: function BrowserColorGridStory() {
+export const BrowserColorList: Story = {
+  render: function BrowserColorListStory() {
     const [value, setValue] = useState<string | null>('color.accent')
     return (
       <div style={{ minHeight: 420, padding: 24 }}>
@@ -184,7 +184,12 @@ export const BrowserColorGrid: Story = {
           browser
           allowCycle
           previewKind="color"
-          options={COLOR_OPTIONS.map((o) => ({ ...o, category: 'color' }))}
+          options={COLOR_OPTIONS.map((o) => ({
+            ...o,
+            category: 'color',
+            valueLabel: o.preview,
+            label: o.path.split('.').pop() ?? o.path,
+          }))}
           value={value}
           onChange={setValue}
           onClear={() => setValue(null)}

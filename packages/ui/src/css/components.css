@@ -2850,6 +2850,7 @@ button.ds-marker-canvas__marker:focus-visible {
   flex-direction: column;
   min-width: 240px;
   min-height: 200px;
+  overflow: hidden;
   border: 1px solid var(--line);
   background: var(--bg1);
   box-shadow: 0 12px 36px color-mix(in srgb, var(--ink) 22%, transparent);
@@ -2985,7 +2986,7 @@ button.ds-marker-canvas__marker:focus-visible {
   color: var(--ink);
 }
 .ds-token-picker__browser-body {
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
   overflow: auto;
   display: grid;
@@ -2995,6 +2996,7 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-token-picker__browser-body--grid {
   grid-template-columns: repeat(auto-fill, minmax(1.5rem, 1fr));
+  align-content: start;
   gap: 0.35rem;
   padding: 0.5rem;
 }

@@ -351,12 +351,6 @@ export function TokenPicker({
     emptyQueryCap && !query.trim() && filtered.length > emptyQueryCap,
   )
 
-  const colorGrid =
-    useBrowser &&
-    previewKind === 'color' &&
-    visibleOptions.length > 0 &&
-    visibleOptions.every((o) => Boolean(o.preview))
-
   const pushRecent = useCallback(
     (path: string) => {
       if (!onRecentPathsChange) return
@@ -633,6 +627,7 @@ export function TokenPicker({
               left: panelPos.left,
               width: panelSize.w,
               height: panelSize.h,
+              minHeight: panelSize.h,
             }}
             role="dialog"
             aria-label={`${label} token browser`}
@@ -718,34 +713,12 @@ export function TokenPicker({
             ) : null}
             <div
               id={listId}
-              className={cx(
-                'ds-token-picker__browser-body',
-                colorGrid && 'ds-token-picker__browser-body--grid',
-              )}
+              className="ds-token-picker__browser-body"
               role="listbox"
               aria-label={ariaLabel}
             >
               {filtered.length === 0 ? (
                 <p className="ds-token-picker__empty-msg">No matching tokens</p>
-              ) : colorGrid ? (
-                visibleOptions.map((opt, i) => (
-                  <button
-                    key={opt.path}
-                    type="button"
-                    role="option"
-                    aria-selected={opt.path === value}
-                    aria-label={`${opt.path} — ${opt.label ?? opt.path}`}
-                    title={`${opt.path} — ${opt.label ?? opt.path}`}
-                    className={cx(
-                      'ds-token-picker__swatch-btn',
-                      opt.path === value && 'ds-token-picker__swatch-btn--active',
-                      i === activeIndex && 'ds-token-picker__swatch-btn--highlight',
-                    )}
-                    style={{ background: opt.preview }}
-                    onClick={() => pick(opt.path)}
-                    onMouseEnter={() => setActiveIndex(i)}
-                  />
-                ))
               ) : (
                 visibleOptions.map((opt, i) => {
                   const selected = value === opt.path

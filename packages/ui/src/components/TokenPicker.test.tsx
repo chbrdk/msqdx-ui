@@ -395,7 +395,7 @@ describe('TokenPicker', () => {
       expect(screen.getByRole('option', { name: /space.md/ })).toBeInTheDocument()
     })
 
-    it('color grid renders swatch buttons', () => {
+    it('color options use the same columnar list as other kinds', () => {
       const onChange = vi.fn()
       render(
         <TokenPicker
@@ -403,18 +403,28 @@ describe('TokenPicker', () => {
           browser
           previewKind="color"
           options={[
-            { path: 'color.accent', preview: '#224455', category: 'color' },
-            { path: 'color.muted', preview: '#666', category: 'color' },
+            { path: 'color.accent', label: 'accent', valueLabel: '#224455', preview: '#224455', category: 'color' },
+            { path: 'color.muted', label: 'muted', valueLabel: '#666', preview: '#666', category: 'color' },
           ]}
           value="color.accent"
           onChange={onChange}
-          scopes={[{ id: 'all', label: 'All' }]}
+          scopes={[
+            { id: 'suggested', label: 'Suggested' },
+            { id: 'all', label: 'All' },
+          ]}
+          suggestedPaths={['color.accent']}
         />,
       )
       fireEvent.click(screen.getByTestId('token-picker-trigger'))
-      const swatches = document.querySelectorAll('.ds-token-picker__swatch-btn')
-      expect(swatches.length).toBe(2)
-      fireEvent.click(swatches[1]!)
+      expect(document.querySelectorAll('.ds-token-picker__swatch-btn')).toHaveLength(0)
+      const panel = screen.getByRole('dialog', { name: /Fill token browser/i })
+      expect(panel).toHaveStyle({ height: '380px', minHeight: '380px' })
+      fireEvent.click(screen.getByRole('tab', { name: 'All' }))
+      expect(panel).toHaveStyle({ height: '380px', minHeight: '380px' })
+      expect(screen.getByRole('option', { name: /#666 · muted/i })).toHaveClass(
+        'ds-token-picker__option--columns',
+      )
+      fireEvent.click(screen.getByRole('option', { name: /#666 · muted/i }))
       expect(onChange).toHaveBeenCalledWith('color.muted')
     })
 
