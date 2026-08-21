@@ -83,7 +83,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
    - **Hybrid (`allowLiteral`):** optional preview / browse control opens the option surface; an editable `<input>` shows token label when `value` is set, else `literalValue` / placeholder. Focus on a bound token selects all so the first keystroke replaces via `onLiteralChange`. Optional −/+ cycle (`allowCycle`) + optional clear. Cycle and clear MAY hide until hover.
 3. **Option surface**
    - **compact (default, `browser=false`):** flat list popover from the strip.
-   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, list **or** color swatch grid when `previewKind === 'color'`. List rows use quiet type and a three-column layout (preview · `valueLabel` · name) without visible column rules. Panel is resizable via east / south / southeast edges (defaults 300×380; clamps ~240–720). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
+   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, list **or** color swatch grid when `previewKind === 'color'`. List rows use quiet type and a three-column layout (preview · `valueLabel` · name) without visible column rules. Panel is resizable via east / south / southeast edges (defaults 300×380; clamps ~240–720); resize grows the chrome only — row/type size stay fixed (`align-content: start`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
    - **list:** always visible under the strip (Storybook / debug).
 
 ### Cycle behaviour (`allowCycle`)

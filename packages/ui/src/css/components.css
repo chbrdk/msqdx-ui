@@ -2670,7 +2670,7 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-token-picker__option--columns {
   display: grid;
-  grid-template-columns: 1rem minmax(3.25rem, 4.75rem) minmax(0, 1fr);
+  grid-template-columns: 1rem 4.75rem minmax(0, 1fr);
   column-gap: 0.65rem;
   align-items: center;
   padding: 0.28rem 0.5rem;
@@ -2678,6 +2678,8 @@ button.ds-marker-canvas__marker:focus-visible {
   font-size: 0.625rem;
   font-weight: 400;
   letter-spacing: 0;
+  height: auto;
+  min-height: 0;
 }
 .ds-token-picker__preview-slot {
   display: inline-flex;
@@ -2987,6 +2989,7 @@ button.ds-marker-canvas__marker:focus-visible {
   min-height: 0;
   overflow: auto;
   display: grid;
+  align-content: start;
   gap: 0;
   border-top: 1px solid var(--line);
 }

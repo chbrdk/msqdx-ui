@@ -366,17 +366,22 @@ export function TokenPicker({
     [onRecentPathsChange, recentPaths],
   )
 
+  const panelSizeRef = useRef(panelSize)
+  panelSizeRef.current = panelSize
+  const panelPosRef = useRef(panelPos)
+  panelPosRef.current = panelPos
+
   const placePanel = useCallback(() => {
     const el = triggerRef.current
     if (!el || typeof window === 'undefined') return
     const r = el.getBoundingClientRect()
-    const { w, h } = panelSize
+    const { w, h } = panelSizeRef.current
     let left = r.left
     let top = r.bottom + 6
     if (left + w > window.innerWidth - 8) left = Math.max(8, window.innerWidth - w - 8)
     if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 6)
     setPanelPos({ top, left })
-  }, [panelSize])
+  }, [])
 
   const toggleOpen = useCallback(() => {
     if (!compact) return
@@ -452,7 +457,9 @@ export function TokenPicker({
       let nextH = session.startH
       if (session.edge === 'e' || session.edge === 'se') nextW = session.startW + dw
       if (session.edge === 's' || session.edge === 'se') nextH = session.startH + dh
-      setPanelSize(clampPanelSize(nextW, nextH, panelPos.left, panelPos.top))
+      setPanelSize(
+        clampPanelSize(nextW, nextH, panelPosRef.current.left, panelPosRef.current.top),
+      )
     }
     const onUp = () => {
       resizeSession.current = null
@@ -464,7 +471,7 @@ export function TokenPicker({
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
     }
-  }, [resizing, useBrowser, panelPos.left, panelPos.top])
+  }, [resizing, useBrowser])
 
   const onHeaderDown = (e: ReactMouseEvent) => {
     if ((e.target as HTMLElement).closest('button')) return

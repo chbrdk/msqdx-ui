@@ -345,7 +345,8 @@ describe('TokenPicker', () => {
       expect(option.querySelector('.ds-token-picker__path')).toHaveTextContent('padding.sm')
       const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../css/components.css'), 'utf8')
       expect(css).toContain('.ds-token-picker__option--columns')
-      expect(css).toContain('grid-template-columns: 1rem minmax(3.25rem, 4.75rem) minmax(0, 1fr)')
+      expect(css).toContain('grid-template-columns: 1rem 4.75rem minmax(0, 1fr)')
+      expect(css).toContain('align-content: start')
     })
 
     it('exposes resize handles and grows width on drag', () => {
