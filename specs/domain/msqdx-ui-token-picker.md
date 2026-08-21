@@ -13,6 +13,8 @@ Compact control to **bind a property to a token path**. Default mode: values are
 
 **allowLiteral (hybrid):** Optional Penpot-style strip where the same control accepts a freeform literal via `onLiteralChange` **or** a token path via `onChange`. The picker never stores Brandion/CSS itself — the app maps callbacks (`set_prop` + clear binding vs `set_token_binding`).
 
+**Literal commit (2026-08-21):** WENN `allowLiteral`, DANN MUST typing keep a **local draft** while the strip input is focused and MUST call `onLiteralChange` on **blur** (and Enter → blur). Color-editor / swatch picks MAY call `onLiteralChange` immediately. Token path picks still call `onChange` immediately.
+
 ## Non-goals
 
 - Editing token definitions / DTCG trees.
@@ -48,7 +50,7 @@ Compact control to **bind a property to a token path**. Default mode: values are
 | `aria-label` | Default `Token picker` |
 | `allowLiteral` | When true: strip value is an editable input; typing calls `onLiteralChange` |
 | `literalValue` | App-owned freeform string when no token `value` is set |
-| `onLiteralChange` | `(raw: string) => void` — app writes literal / clears binding |
+| `onLiteralChange` | `(raw: string) => void` — app writes literal / clears binding; for strip typing, fired on **blur** (local draft while focused) |
 | `literalPlaceholder` | Input placeholder when unbound (default `emptyLabel` / `—`) |
 | `literalReadOnly` | When true, literal input is read-only (e.g. mixed multi-select) |
 | `literalTestId` | Optional `data-testid` on the literal input |

@@ -287,6 +287,8 @@ export function TokenPicker({
       ? optionStripLabel(selectedOption)
       : value
     : literalValue
+  const [literalDraft, setLiteralDraft] = useState<string | null>(null)
+  const displayedStripValue = literalDraft != null ? literalDraft : stripInputValue
   const valueStyle = selectedOption
     ? {
         ...(selectedOption.fontPreview ? { fontFamily: selectedOption.fontPreview } : {}),
@@ -939,16 +941,27 @@ export function TokenPicker({
                 fontPreview && 'ds-token-picker__literal--font',
               )}
               style={valueStyle}
-              value={stripInputValue}
+              value={displayedStripValue}
               placeholder={literalPlaceholderText}
               readOnly={literalReadOnly}
               aria-label={label}
               data-testid={literalTestId ?? 'token-picker-value'}
               onFocus={(e) => {
+                setLiteralDraft(stripInputValue)
                 if (value) e.currentTarget.select()
               }}
-              onChange={(e) => onLiteralChange?.(e.target.value)}
-              onBlur={(e) => onLiteralChange?.(e.target.value)}
+              onChange={(e) => setLiteralDraft(e.target.value)}
+              onBlur={(e) => {
+                const raw = e.currentTarget.value
+                setLiteralDraft(null)
+                onLiteralChange?.(raw)
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault()
+                  e.currentTarget.blur()
+                }
+              }}
             />
             {showPromote ? (
               <button

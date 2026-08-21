@@ -75,7 +75,7 @@ describe('TokenPicker', () => {
     expect(container.querySelector('textarea')).toBeNull()
   })
 
-  it('allowLiteral: typing fires onLiteralChange and pick still fires onChange', () => {
+  it('allowLiteral: typing drafts locally; blur fires onLiteralChange; pick still fires onChange', () => {
     const onChange = vi.fn()
     const onLiteralChange = vi.fn()
     const { rerender } = render(
@@ -92,7 +92,11 @@ describe('TokenPicker', () => {
     )
     const input = screen.getByLabelText('Padding')
     expect(input).toBeInstanceOf(HTMLInputElement)
+    fireEvent.focus(input)
     fireEvent.change(input, { target: { value: '12' } })
+    expect(onLiteralChange).not.toHaveBeenCalled()
+    expect(input).toHaveValue('12')
+    fireEvent.blur(input)
     expect(onLiteralChange).toHaveBeenCalledWith('12')
 
     rerender(
