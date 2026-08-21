@@ -189,9 +189,24 @@ function cycleIndex(value: string | null, options: TokenPickerOption[]): number 
   return options.findIndex((opt) => opt.path === value)
 }
 
-const PANEL_W = 300
-const PANEL_H = 380
+const PANEL_W_DEFAULT = 300
+const PANEL_H_DEFAULT = 380
+const PANEL_W_MIN = 240
+const PANEL_H_MIN = 200
+const PANEL_W_MAX = 720
+const PANEL_H_MAX = 720
 const RECENT_MAX = 8
+
+type BrowserResizeEdge = 'e' | 's' | 'se'
+
+function clampPanelSize(w: number, h: number, left: number, top: number) {
+  const maxW = Math.min(PANEL_W_MAX, Math.max(PANEL_W_MIN, window.innerWidth - left - 8))
+  const maxH = Math.min(PANEL_H_MAX, Math.max(PANEL_H_MIN, window.innerHeight - top - 8))
+  return {
+    w: Math.max(PANEL_W_MIN, Math.min(maxW, w)),
+    h: Math.max(PANEL_H_MIN, Math.min(maxH, h)),
+  }
+}
 
 /** Interactive token path picker — paths by default; optional hybrid literal strip. */
 export function TokenPicker({
@@ -256,8 +271,17 @@ export function TokenPicker({
   const [activeIndex, setActiveIndex] = useState(0)
   const [scopeInternal, setScopeInternal] = useState(scopes?.[0]?.id ?? 'suggested')
   const [panelPos, setPanelPos] = useState({ top: 0, left: 0 })
+  const [panelSize, setPanelSize] = useState({ w: PANEL_W_DEFAULT, h: PANEL_H_DEFAULT })
   const [dragging, setDragging] = useState(false)
+  const [resizing, setResizing] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
+  const resizeSession = useRef<{
+    edge: BrowserResizeEdge
+    startX: number
+    startY: number
+    startW: number
+    startH: number
+  } | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
@@ -346,12 +370,13 @@ export function TokenPicker({
     const el = triggerRef.current
     if (!el || typeof window === 'undefined') return
     const r = el.getBoundingClientRect()
+    const { w, h } = panelSize
     let left = r.left
     let top = r.bottom + 6
-    if (left + PANEL_W > window.innerWidth - 8) left = Math.max(8, window.innerWidth - PANEL_W - 8)
-    if (top + PANEL_H > window.innerHeight - 8) top = Math.max(8, r.top - PANEL_H - 6)
+    if (left + w > window.innerWidth - 8) left = Math.max(8, window.innerWidth - w - 8)
+    if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 6)
     setPanelPos({ top, left })
-  }, [])
+  }, [panelSize])
 
   const toggleOpen = useCallback(() => {
     if (!compact) return
@@ -400,8 +425,8 @@ export function TokenPicker({
   useEffect(() => {
     if (!dragging || !useBrowser) return
     const onMove = (e: MouseEvent) => {
-      const maxL = window.innerWidth - PANEL_W - 8
-      const maxT = window.innerHeight - 120
+      const maxL = window.innerWidth - panelSize.w - 8
+      const maxT = window.innerHeight - panelSize.h - 8
       setPanelPos({
         left: Math.max(8, Math.min(maxL, e.clientX - dragOffset.current.x)),
         top: Math.max(8, Math.min(maxT, e.clientY - dragOffset.current.y)),
@@ -414,13 +439,52 @@ export function TokenPicker({
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
     }
-  }, [dragging, useBrowser])
+  }, [dragging, useBrowser, panelSize.w, panelSize.h])
+
+  useEffect(() => {
+    if (!resizing || !useBrowser) return
+    const onMove = (e: MouseEvent) => {
+      const session = resizeSession.current
+      if (!session) return
+      const dw = e.clientX - session.startX
+      const dh = e.clientY - session.startY
+      let nextW = session.startW
+      let nextH = session.startH
+      if (session.edge === 'e' || session.edge === 'se') nextW = session.startW + dw
+      if (session.edge === 's' || session.edge === 'se') nextH = session.startH + dh
+      setPanelSize(clampPanelSize(nextW, nextH, panelPos.left, panelPos.top))
+    }
+    const onUp = () => {
+      resizeSession.current = null
+      setResizing(false)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [resizing, useBrowser, panelPos.left, panelPos.top])
 
   const onHeaderDown = (e: ReactMouseEvent) => {
     if ((e.target as HTMLElement).closest('button')) return
+    if ((e.target as HTMLElement).closest('[data-resize-edge]')) return
     e.preventDefault()
     dragOffset.current = { x: e.clientX - panelPos.left, y: e.clientY - panelPos.top }
     setDragging(true)
+  }
+
+  const onResizeDown = (edge: BrowserResizeEdge) => (e: ReactMouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    resizeSession.current = {
+      edge,
+      startX: e.clientX,
+      startY: e.clientY,
+      startW: panelSize.w,
+      startH: panelSize.h,
+    }
+    setResizing(true)
   }
 
   const step = (direction: -1 | 1) => {
@@ -555,8 +619,14 @@ export function TokenPicker({
             className={cx(
               'ds-token-picker__browser',
               dragging && 'ds-token-picker__browser--dragging',
+              resizing && 'ds-token-picker__browser--resizing',
             )}
-            style={{ top: panelPos.top, left: panelPos.left, width: PANEL_W }}
+            style={{
+              top: panelPos.top,
+              left: panelPos.left,
+              width: panelSize.w,
+              height: panelSize.h,
+            }}
             role="dialog"
             aria-label={`${label} token browser`}
           >
@@ -717,6 +787,27 @@ export function TokenPicker({
                 </button>
               </div>
             ) : null}
+            <div
+              className="ds-token-picker__browser-resize ds-token-picker__browser-resize--e"
+              data-resize-edge="e"
+              data-testid="token-picker-resize-e"
+              onMouseDown={onResizeDown('e')}
+              aria-hidden
+            />
+            <div
+              className="ds-token-picker__browser-resize ds-token-picker__browser-resize--s"
+              data-resize-edge="s"
+              data-testid="token-picker-resize-s"
+              onMouseDown={onResizeDown('s')}
+              aria-hidden
+            />
+            <div
+              className="ds-token-picker__browser-resize ds-token-picker__browser-resize--se"
+              data-resize-edge="se"
+              data-testid="token-picker-resize-se"
+              onMouseDown={onResizeDown('se')}
+              aria-hidden
+            />
           </div>,
           document.body,
         )

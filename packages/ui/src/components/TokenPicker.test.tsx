@@ -348,6 +348,29 @@ describe('TokenPicker', () => {
       expect(css).toContain('grid-template-columns: 1rem minmax(3.25rem, 4.75rem) minmax(0, 1fr)')
     })
 
+    it('exposes resize handles and grows width on drag', () => {
+      render(
+        <TokenPicker
+          label="Min H"
+          browser
+          options={[{ path: 'size.sm', label: 'sm', valueLabel: '24px', preview: '24px', category: 'size' }]}
+          value={null}
+          scopes={[{ id: 'all', label: 'All' }]}
+          previewKind="size"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const panel = screen.getByRole('dialog', { name: /Min H token browser/i })
+      expect(panel).toHaveStyle({ width: '300px', height: '380px' })
+      expect(screen.getByTestId('token-picker-resize-e')).toBeInTheDocument()
+      expect(screen.getByTestId('token-picker-resize-s')).toBeInTheDocument()
+      expect(screen.getByTestId('token-picker-resize-se')).toBeInTheDocument()
+      fireEvent.mouseDown(screen.getByTestId('token-picker-resize-e'), { clientX: 300, clientY: 200 })
+      fireEvent.mouseMove(window, { clientX: 380, clientY: 200 })
+      fireEvent.mouseUp(window)
+      expect(panel).toHaveStyle({ width: '380px' })
+    })
+
     it('filters by scope tab', () => {
       render(
         <TokenPicker

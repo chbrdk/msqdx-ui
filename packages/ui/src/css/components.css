@@ -2846,16 +2846,46 @@ button.ds-marker-canvas__marker:focus-visible {
   z-index: 80;
   display: flex;
   flex-direction: column;
-  max-height: min(380px, calc(100vh - 16px));
+  min-width: 240px;
+  min-height: 200px;
   border: 1px solid var(--line);
   background: var(--bg1);
   box-shadow: 0 12px 36px color-mix(in srgb, var(--ink) 22%, transparent);
   color: var(--ink);
   box-sizing: border-box;
 }
-.ds-token-picker__browser--dragging {
+.ds-token-picker__browser--dragging,
+.ds-token-picker__browser--resizing {
   user-select: none;
+}
+.ds-token-picker__browser--dragging {
   cursor: grabbing;
+}
+.ds-token-picker__browser-resize {
+  position: absolute;
+  z-index: 5;
+  background: transparent;
+}
+.ds-token-picker__browser-resize--e {
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  cursor: ew-resize;
+}
+.ds-token-picker__browser-resize--s {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 6px;
+  cursor: ns-resize;
+}
+.ds-token-picker__browser-resize--se {
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  cursor: nwse-resize;
 }
 .ds-token-picker__browser-header {
   display: flex;
