@@ -129,6 +129,35 @@ describe('TokenPicker', () => {
     expect(onClear).toHaveBeenCalledTimes(1)
   })
 
+  it('allowLiteral: promote control when unbound literal + onPromoteLiteral', () => {
+    const onPromote = vi.fn()
+    const { rerender } = render(
+      <TokenPicker
+        label="Radius"
+        allowLiteral
+        options={[{ path: 'radius.control.md' }]}
+        literalValue="12px"
+        onPromoteLiteral={onPromote}
+        promoteLiteralLabel="Save as token"
+      />,
+    )
+    screen.getByTestId('token-picker-promote').click()
+    expect(onPromote).toHaveBeenCalledTimes(1)
+
+    rerender(
+      <TokenPicker
+        label="Radius"
+        allowLiteral
+        options={[{ path: 'radius.control.md' }]}
+        value="radius.control.md"
+        literalValue="12px"
+        onPromoteLiteral={onPromote}
+        promoteLiteralLabel="Save as token"
+      />,
+    )
+    expect(screen.queryByTestId('token-picker-promote')).toBeNull()
+  })
+
   it('emptyQueryCap truncates until the user searches', () => {
     const options = Array.from({ length: 60 }, (_, i) => ({
       path: `font.${i}`,

@@ -2607,6 +2607,22 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-token-picker__literal--font {
   letter-spacing: 0;
 }
+.ds-token-picker__promote {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm, 3px);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  color: var(--muted);
+}
+.ds-token-picker__promote:hover {
+  color: var(--ink);
+  border-color: color-mix(in srgb, var(--ink) 22%, var(--line));
+}
 .ds-token-picker--literal .ds-token-picker__current {
   gap: 0.35rem;
 }

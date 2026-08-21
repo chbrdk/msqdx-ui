@@ -160,6 +160,13 @@ export type TokenPickerProps = {
   /** Optional `data-testid` on the literal input. */
   literalTestId?: string
   /**
+   * When set with `allowLiteral`: show a promote (+) control while a free literal is set
+   * and no token path is bound. App owns create/bind flow (dialog).
+   */
+  onPromoteLiteral?: () => void
+  /** Accessible name for the promote control (defaults to “Save as token”). */
+  promoteLiteralLabel?: string
+  /**
    * When the search query is empty, cap how many options render (large catalogs).
    * Searching shows the full filtered set.
    */
@@ -242,6 +249,8 @@ export function TokenPicker({
   literalPlaceholder,
   literalReadOnly = false,
   literalTestId,
+  onPromoteLiteral,
+  promoteLiteralLabel = 'Save as token',
   emptyQueryCap,
   ...rest
 }: TokenPickerProps) {
@@ -251,6 +260,9 @@ export function TokenPicker({
     ? optionStripLabel(selectedOption)
     : (value ?? emptyLabel)
   const literalPlaceholderText = literalPlaceholder ?? emptyLabel
+  const showPromote = Boolean(
+    allowLiteral && onPromoteLiteral && !literalReadOnly && !value && String(literalValue).trim(),
+  )
   const stripInputValue = value
     ? selectedOption
       ? optionStripLabel(selectedOption)
@@ -862,6 +874,18 @@ export function TokenPicker({
               onChange={(e) => onLiteralChange?.(e.target.value)}
               onBlur={(e) => onLiteralChange?.(e.target.value)}
             />
+            {showPromote ? (
+              <button
+                type="button"
+                className="ds-token-picker__promote"
+                aria-label={promoteLiteralLabel}
+                title={promoteLiteralLabel}
+                data-testid="token-picker-promote"
+                onClick={() => onPromoteLiteral?.()}
+              >
+                +
+              </button>
+            ) : null}
           </>
         ) : (
           <button
