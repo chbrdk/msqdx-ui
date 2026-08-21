@@ -19,6 +19,11 @@ import { TokenPreview, type TokenPreviewKind } from './TokenPreview'
 export type TokenPickerOption = {
   path: string
   label?: string
+  /**
+   * Resolved display value for browser/list columns (e.g. `0.5rem`, `Geist`).
+   * When set, the strip shows `valueLabel · label` (or path).
+   */
+  valueLabel?: string
   /** Display-only CSS color / length for swatch or TokenPreview; not written as the value. */
   preview?: string
   /** Display-only font-family for the value label (type tokens). */
@@ -33,6 +38,63 @@ export type TokenPickerOption = {
   }
   /** Category for browser scope filtering (e.g. color, space, radius). */
   category?: string
+}
+
+function optionStripLabel(opt: TokenPickerOption): string {
+  const name = opt.label ?? opt.path
+  if (opt.valueLabel) return `${opt.valueLabel} · ${name}`
+  return name
+}
+
+function OptionRowContent({
+  opt,
+  previewKind,
+  showColumns,
+}: {
+  opt: TokenPickerOption
+  previewKind: TokenPreviewKind
+  showColumns: boolean
+}) {
+  const name = opt.label ?? opt.path
+  const preview =
+    opt.preview != null && opt.preview !== '' ? (
+      <TokenPreview kind={previewKind} value={opt.preview} size="sm" />
+    ) : null
+
+  if (!showColumns) {
+    return (
+      <>
+        {preview}
+        <span
+          className={cx(
+            'ds-token-picker__path',
+            (opt.fontPreview || opt.sampleStyle) && 'ds-token-picker__path--font',
+          )}
+          style={optionTextStyle(opt)}
+        >
+          {optionStripLabel(opt)}
+        </span>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <span className="ds-token-picker__preview-slot" aria-hidden>
+        {preview}
+      </span>
+      <span className="ds-token-picker__value">{opt.valueLabel ?? ''}</span>
+      <span
+        className={cx(
+          'ds-token-picker__path',
+          (opt.fontPreview || opt.sampleStyle) && 'ds-token-picker__path--font',
+        )}
+        style={optionTextStyle(opt)}
+      >
+        {name}
+      </span>
+    </>
+  )
 }
 
 export type TokenPickerVariant = 'compact' | 'list'
@@ -170,9 +232,15 @@ export function TokenPicker({
 }: TokenPickerProps) {
   const listId = useId()
   const selectedOption = value ? options.find((opt) => opt.path === value) : undefined
-  const displayText = selectedOption?.label ?? value ?? emptyLabel
+  const displayText = selectedOption
+    ? optionStripLabel(selectedOption)
+    : (value ?? emptyLabel)
   const literalPlaceholderText = literalPlaceholder ?? emptyLabel
-  const stripInputValue = value ? (selectedOption?.label ?? value) : literalValue
+  const stripInputValue = value
+    ? selectedOption
+      ? optionStripLabel(selectedOption)
+      : value
+    : literalValue
   const valueStyle = selectedOption
     ? {
         ...(selectedOption.fontPreview ? { fontFamily: selectedOption.fontPreview } : {}),
@@ -244,6 +312,7 @@ export function TokenPicker({
       (o) =>
         o.path.toLowerCase().includes(q) ||
         (o.label ?? '').toLowerCase().includes(q) ||
+        (o.valueLabel ?? '').toLowerCase().includes(q) ||
         (o.category ?? '').toLowerCase().includes(q),
     )
   }, [useBrowser, scopedOptions, options, query])
@@ -469,7 +538,7 @@ export function TokenPicker({
                 )}
                 style={optionTextStyle(opt)}
               >
-                {opt.label ?? opt.path}
+                {optionStripLabel(opt)}
               </span>
             </button>
           </li>
@@ -610,26 +679,17 @@ export function TokenPicker({
                       type="button"
                       role="option"
                       aria-selected={selected}
+                      aria-label={optionStripLabel(opt)}
                       className={cx(
                         'ds-token-picker__option',
+                        'ds-token-picker__option--columns',
                         selected && 'ds-token-picker__option--selected',
                         highlight && 'ds-token-picker__option--highlight',
                       )}
                       onClick={() => pick(opt.path)}
                       onMouseEnter={() => setActiveIndex(i)}
                     >
-                      {opt.preview ? (
-                        <TokenPreview kind={previewKind} value={opt.preview} size="sm" />
-                      ) : null}
-                      <span
-                        className={cx(
-                          'ds-token-picker__path',
-                          (opt.fontPreview || opt.sampleStyle) && 'ds-token-picker__path--font',
-                        )}
-                        style={optionTextStyle(opt)}
-                      >
-                        {opt.label ?? opt.path}
-                      </span>
+                      <OptionRowContent opt={opt} previewKind={previewKind} showColumns />
                     </button>
                   )
                 })

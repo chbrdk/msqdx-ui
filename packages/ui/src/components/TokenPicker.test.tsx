@@ -319,6 +319,35 @@ describe('TokenPicker', () => {
       expect(onRecent).toHaveBeenCalledWith(['radius.lg'])
     })
 
+    it('renders browser rows as preview / value / name columns', () => {
+      render(
+        <TokenPicker
+          label="Padding"
+          browser
+          options={[
+            {
+              path: 'spacing.padding.sm',
+              label: 'padding.sm',
+              valueLabel: '0.5rem',
+              preview: '0.5rem',
+              category: 'space',
+            },
+          ]}
+          value={null}
+          scopes={[{ id: 'all', label: 'All' }]}
+          previewKind="space"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const option = screen.getByRole('option', { name: /0\.5rem · padding\.sm/i })
+      expect(option).toHaveClass('ds-token-picker__option--columns')
+      expect(option.querySelector('.ds-token-picker__value')).toHaveTextContent('0.5rem')
+      expect(option.querySelector('.ds-token-picker__path')).toHaveTextContent('padding.sm')
+      const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../css/components.css'), 'utf8')
+      expect(css).toContain('.ds-token-picker__option--columns')
+      expect(css).toContain('grid-template-columns: 1rem minmax(3.25rem, 4.75rem) minmax(0, 1fr)')
+    })
+
     it('filters by scope tab', () => {
       render(
         <TokenPicker

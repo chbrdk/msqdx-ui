@@ -24,7 +24,7 @@ Compact control to **bind a property to a token path**. Default mode: values are
 
 | Prop | Notes |
 |------|--------|
-| `options` | `{ path, label?, preview?, category?, … }[]` — `path` is the value; full catalog when browser scopes need All |
+| `options` | `{ path, label?, valueLabel?, preview?, category?, … }[]` — `path` is the value; full catalog when browser scopes need All |
 | `value` | Selected path or `null` |
 | `onChange` | `(path: string) => void` — always a token path |
 | `onClear` | Optional clear affordance; called when user clears binding (and literal when hybrid) |
@@ -60,6 +60,8 @@ Compact control to **bind a property to a token path**. Default mode: values are
 type TokenPickerOption = {
   path: string
   label?: string
+  /** Resolved display value for browser columns; strip shows `valueLabel · label`. */
+  valueLabel?: string
   /** Scope / category id for filtering (e.g. color, space, radius). */
   category?: string
   /** Display-only CSS color or length for previews; not written as the value. */
@@ -81,7 +83,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
    - **Hybrid (`allowLiteral`):** optional preview / browse control opens the option surface; an editable `<input>` shows token label when `value` is set, else `literalValue` / placeholder. Focus on a bound token selects all so the first keystroke replaces via `onLiteralChange`. Optional −/+ cycle (`allowCycle`) + optional clear. Cycle and clear MAY hide until hover.
 3. **Option surface**
    - **compact (default, `browser=false`):** flat list popover from the strip.
-   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, list **or** color swatch grid when `previewKind === 'color'`. Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
+   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, list **or** color swatch grid when `previewKind === 'color'`. List rows use quiet type and a three-column layout (preview · `valueLabel` · name) without visible column rules. Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
    - **list:** always visible under the strip (Storybook / debug).
 
 ### Cycle behaviour (`allowCycle`)
@@ -91,7 +93,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 
 ### Browser filter behaviour
 
-- Search matches `path` and `label` (case-insensitive).
+- Search matches `path`, `label`, and `valueLabel` (case-insensitive).
 - Scope `suggested` → paths in `suggestedPaths` (fallback: all `options` if unset).
 - Scope matching a `category` → `option.category === scope`.
 - Scope `all` → all `options`.
