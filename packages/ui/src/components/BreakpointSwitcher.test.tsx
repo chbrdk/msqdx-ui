@@ -53,4 +53,20 @@ describe('BreakpointSwitcher', () => {
     fireEvent.click(screen.getByTestId('breakpoint-switcher-print'))
     expect(onChange).toHaveBeenCalledWith('print')
   })
+
+  it('icon variant uses aria-labels instead of visible text', () => {
+    render(
+      <BreakpointSwitcher
+        value="desktop"
+        onChange={() => undefined}
+        variant="icon"
+        options={['mobile', 'tablet', 'desktop', 'print']}
+        labels={{ mobile: 'Handy', tablet: 'Pad', desktop: 'Screen', print: 'Papier' }}
+      />,
+    )
+    expect(screen.getByTestId('breakpoint-switcher')).toHaveClass('ds-breakpoint-switcher--icon')
+    expect(screen.getByRole('radio', { name: 'Handy' })).toBeInTheDocument()
+    expect(screen.getByRole('radio', { name: 'Pad' })).toBeInTheDocument()
+    expect(screen.queryByText('Handy')).toBeNull()
+  })
 })

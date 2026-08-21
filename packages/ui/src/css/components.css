@@ -3318,6 +3318,19 @@ button.ds-marker-canvas__marker:focus-visible {
   outline-offset: -2px;
   z-index: 1;
 }
+.ds-breakpoint-switcher--icon .ds-breakpoint-switcher__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  min-width: 1.85rem;
+  height: 1.85rem;
+  padding: 0;
+  font-weight: 500;
+}
+.ds-breakpoint-switcher--icon .ds-breakpoint-switcher__btn .ui-icon {
+  display: block;
+}
 
 /* InspectTabs — dense Design|CSS tablist (no panels) */
 .ds-inspect-tabs {

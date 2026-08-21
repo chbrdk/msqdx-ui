@@ -55,3 +55,12 @@ export const WithPrint: Story = {
     },
   },
 }
+
+export const Icon: Story = {
+  args: {
+    value: 'desktop',
+    onChange: () => undefined,
+    variant: 'icon',
+    options: ['mobile', 'tablet', 'desktop', 'print'],
+  },
+}

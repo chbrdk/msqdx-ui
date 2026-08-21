@@ -1,6 +1,6 @@
 # MSQDX UI — BreakpointSwitcher
 
-**Status:** Accepted (CREATION E7 chrome) · **Amended:** 2026-08-15 (P85 `print`)  
+**Status:** Accepted (CREATION E7 chrome) · **Amended:** 2026-08-15 (P85 `print`) · **Amended:** 2026-08-21 (`variant="icon"`)  
 **Layer:** Molecules  
 **Consumers:** creation-v3 `/editor` canvas toolbar · any composition editor preview width  
 **Related:** `msqdx-ui-creation-editor-chrome.md` · `msqdx-ui-canvas-viewport.md`
@@ -21,7 +21,9 @@ Generic segmented control for editor chrome breakpoint ids. Apps own the preview
 |------|--------|
 | `value` | Current breakpoint: `'mobile' \| 'tablet' \| 'desktop' \| 'print'` |
 | `onChange` | `(value: EditorBreakpoint) => void` |
+| `variant` | `text` (default) \| `icon` — icon uses device glyphs; `labels` become `aria-label` / `title` |
 | `labels` | Optional partial label overrides (`mobile` / `tablet` / `desktop` / `print`) |
+| `icons` | Optional icon overrides when `variant="icon"` |
 | `options` | Optional subset / order (default mobile→tablet→desktop — **no** print unless passed) |
 | `aria-label` | Default `Breakpoint` |
 | `className` | Optional |
@@ -41,6 +43,8 @@ const DEFAULT_LABELS: Record<EditorBreakpoint, string> = {
 }
 ```
 
+WENN `variant="icon"`, DANN MUST each radio show a device glyph (built-in SVG or `icons` override) and MUST set `aria-label` + `title` from `labels` (string) or `DEFAULT_LABELS`.
+
 ## Behaviour
 
 - Controlled only — no internal selected state.
@@ -51,9 +55,10 @@ const DEFAULT_LABELS: Record<EditorBreakpoint, string> = {
 
 - Root `role="radiogroup"` with `aria-label`.
 - Each option is `role="radio"` with `aria-checked`.
+- Icon variant: each radio MUST have an accessible name (`aria-label`).
 
 ## Acceptance
 
-1. Stories: Default, Custom labels, Tablet selected, Print option (when `options` includes `print`).
-2. Tests: `onChange` fires with the clicked breakpoint; custom labels render; radiogroup a11y attrs present; `print` option when provided.
+1. Stories: Default, Icon, Custom labels, Tablet selected, Print option (when `options` includes `print`).
+2. Tests: `onChange` fires with the clicked breakpoint; custom labels render; icon variant exposes aria-labels; radiogroup a11y attrs present; `print` option when provided.
 3. Consuming apps import `BreakpointSwitcher` from `@msqdx/ui` and map value → preview size (CREATION maps `print` + `activePrintPreset` → fixed WxH).
