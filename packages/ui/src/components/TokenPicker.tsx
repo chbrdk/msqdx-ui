@@ -200,10 +200,12 @@ function cycleIndex(value: string | null, options: TokenPickerOption[]): number 
 
 const PANEL_W_DEFAULT = 300
 const PANEL_H_DEFAULT = 380
+const PANEL_W_COLOR = 560
+const PANEL_H_COLOR = 420
 const PANEL_W_MIN = 240
 const PANEL_H_MIN = 200
-const PANEL_W_MAX = 720
-const PANEL_H_MAX = 720
+const PANEL_W_MAX = 960
+const PANEL_H_MAX = 800
 const RECENT_MAX = 8
 
 type BrowserResizeEdge = 'e' | 's' | 'se'
@@ -280,8 +282,6 @@ export function TokenPicker({
     (value && selectedOption?.preview && normalizeHex(selectedOption.preview)) ||
     normalizeHex(literalValue) ||
     '#000000'
-  const [colorOpen, setColorOpen] = useState(false)
-  const colorTriggerRef = useRef<HTMLButtonElement>(null)
   const stripInputValue = value
     ? selectedOption
       ? optionStripLabel(selectedOption)
@@ -302,7 +302,12 @@ export function TokenPicker({
   const [activeIndex, setActiveIndex] = useState(0)
   const [scopeInternal, setScopeInternal] = useState(scopes?.[0]?.id ?? 'suggested')
   const [panelPos, setPanelPos] = useState({ top: 0, left: 0 })
-  const [panelSize, setPanelSize] = useState({ w: PANEL_W_DEFAULT, h: PANEL_H_DEFAULT })
+  const [panelSize, setPanelSize] = useState({
+    w: colorEditor ? PANEL_W_COLOR : PANEL_W_DEFAULT,
+    h: colorEditor ? PANEL_H_COLOR : PANEL_H_DEFAULT,
+  })
+  const colorTriggerRef = useRef<HTMLButtonElement>(null)
+  const [standaloneColorOpen, setStandaloneColorOpen] = useState(false)
   const [dragging, setDragging] = useState(false)
   const [resizing, setResizing] = useState(false)
   const dragOffset = useRef({ x: 0, y: 0 })
@@ -643,6 +648,123 @@ export function TokenPicker({
     </ul>
   )
 
+  const browserTokens = (
+    <>
+      <div className="ds-token-picker__browser-search">
+        <input
+          ref={searchRef}
+          type="search"
+          className="ds-token-picker__search"
+          placeholder={searchPlaceholder}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={onListKeyDown}
+          aria-label="Search tokens"
+          data-testid="token-picker-search"
+        />
+      </div>
+      {scopes && scopes.length > 0 ? (
+        <div className="ds-token-picker__scopes" role="tablist" aria-label="Token scopes">
+          {scopes.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              role="tab"
+              aria-selected={activeScope === s.id}
+              className={cx(
+                'ds-token-picker__scope',
+                activeScope === s.id && 'ds-token-picker__scope--active',
+              )}
+              onClick={() => setScope(s.id)}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
+      {recentPaths.length > 0 && !query ? (
+        <div className="ds-token-picker__recent">
+          <span className="ds-token-picker__recent-label">Recent</span>
+          <div className="ds-token-picker__recent-chips">
+            {recentPaths.map((p) => {
+              const opt = options.find((o) => o.path === p)
+              if (!opt) return null
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  className="ds-token-picker__recent-chip"
+                  onClick={() => pick(p)}
+                >
+                  {opt.preview && previewKind === 'color' ? (
+                    <TokenPreview kind="color" value={opt.preview} size="sm" />
+                  ) : null}
+                  <span>{opt.label ?? opt.path}</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ) : null}
+      <div
+        id={listId}
+        className="ds-token-picker__browser-body"
+        role="listbox"
+        aria-label={ariaLabel}
+      >
+        {filtered.length === 0 ? (
+          <p className="ds-token-picker__empty-msg">No matching tokens</p>
+        ) : (
+          visibleOptions.map((opt, i) => {
+            const selected = value === opt.path
+            const highlight = i === activeIndex
+            return (
+              <button
+                key={opt.path}
+                type="button"
+                role="option"
+                aria-selected={selected}
+                aria-label={optionStripLabel(opt)}
+                className={cx(
+                  'ds-token-picker__option',
+                  'ds-token-picker__option--columns',
+                  selected && 'ds-token-picker__option--selected',
+                  highlight && 'ds-token-picker__option--highlight',
+                )}
+                onClick={() => pick(opt.path)}
+                onMouseEnter={() => setActiveIndex(i)}
+              >
+                <OptionRowContent opt={opt} previewKind={previewKind} showColumns />
+              </button>
+            )
+          })
+        )}
+        {listTruncated ? (
+          <p className="ds-token-picker__empty-msg" data-testid="token-picker-list-cap">
+            Type to search all {filtered.length} options
+          </p>
+        ) : null}
+      </div>
+      {allowNone && onClear ? (
+        <div className="ds-token-picker__browser-footer">
+          <button
+            type="button"
+            role="option"
+            aria-selected={!value}
+            className={cx(
+              'ds-token-picker__option',
+              !value && 'ds-token-picker__option--selected',
+            )}
+            onClick={() => pick(null)}
+          >
+            <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
+            <span className="ds-token-picker__path">{noneLabel}</span>
+          </button>
+        </div>
+      ) : null}
+    </>
+  )
+
   const browserPanel =
     useBrowser && open && typeof document !== 'undefined'
       ? createPortal(
@@ -650,6 +772,7 @@ export function TokenPicker({
             ref={panelRef}
             className={cx(
               'ds-token-picker__browser',
+              colorEditor && 'ds-token-picker__browser--with-color',
               dragging && 'ds-token-picker__browser--dragging',
               resizing && 'ds-token-picker__browser--resizing',
             )}
@@ -661,7 +784,8 @@ export function TokenPicker({
               minHeight: panelSize.h,
             }}
             role="dialog"
-            aria-label={`${label} token browser`}
+            aria-label={colorEditor ? `${label} color and tokens` : `${label} token browser`}
+            data-testid="token-picker-browser"
           >
             <div
               className="ds-token-picker__browser-header"
@@ -686,118 +810,22 @@ export function TokenPicker({
                 ×
               </button>
             </div>
-            <div className="ds-token-picker__browser-search">
-              <input
-                ref={searchRef}
-                type="search"
-                className="ds-token-picker__search"
-                placeholder={searchPlaceholder}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={onListKeyDown}
-                aria-label="Search tokens"
-                data-testid="token-picker-search"
-              />
-            </div>
-            {scopes && scopes.length > 0 ? (
-              <div className="ds-token-picker__scopes" role="tablist" aria-label="Token scopes">
-                {scopes.map((s) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={activeScope === s.id}
-                    className={cx(
-                      'ds-token-picker__scope',
-                      activeScope === s.id && 'ds-token-picker__scope--active',
-                    )}
-                    onClick={() => setScope(s.id)}
-                  >
-                    {s.label}
-                  </button>
-                ))}
+            {colorEditor ? (
+              <div className="ds-token-picker__browser-main">
+                <aside className="ds-token-picker__browser-color" aria-label={`${label} color`}>
+                  <ColorPicker
+                    value={colorValueHex}
+                    embedded
+                    showTrigger={false}
+                    aria-label={`${label} color`}
+                    onChange={(hex) => onLiteralChange?.(hex)}
+                  />
+                </aside>
+                <div className="ds-token-picker__browser-tokens">{browserTokens}</div>
               </div>
-            ) : null}
-            {recentPaths.length > 0 && !query ? (
-              <div className="ds-token-picker__recent">
-                <span className="ds-token-picker__recent-label">Recent</span>
-                <div className="ds-token-picker__recent-chips">
-                  {recentPaths.map((p) => {
-                    const opt = options.find((o) => o.path === p)
-                    if (!opt) return null
-                    return (
-                      <button
-                        key={p}
-                        type="button"
-                        className="ds-token-picker__recent-chip"
-                        onClick={() => pick(p)}
-                      >
-                        {opt.preview && previewKind === 'color' ? (
-                          <TokenPreview kind="color" value={opt.preview} size="sm" />
-                        ) : null}
-                        <span>{opt.label ?? opt.path}</span>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            ) : null}
-            <div
-              id={listId}
-              className="ds-token-picker__browser-body"
-              role="listbox"
-              aria-label={ariaLabel}
-            >
-              {filtered.length === 0 ? (
-                <p className="ds-token-picker__empty-msg">No matching tokens</p>
-              ) : (
-                visibleOptions.map((opt, i) => {
-                  const selected = value === opt.path
-                  const highlight = i === activeIndex
-                  return (
-                    <button
-                      key={opt.path}
-                      type="button"
-                      role="option"
-                      aria-selected={selected}
-                      aria-label={optionStripLabel(opt)}
-                      className={cx(
-                        'ds-token-picker__option',
-                        'ds-token-picker__option--columns',
-                        selected && 'ds-token-picker__option--selected',
-                        highlight && 'ds-token-picker__option--highlight',
-                      )}
-                      onClick={() => pick(opt.path)}
-                      onMouseEnter={() => setActiveIndex(i)}
-                    >
-                      <OptionRowContent opt={opt} previewKind={previewKind} showColumns />
-                    </button>
-                  )
-                })
-              )}
-              {listTruncated ? (
-                <p className="ds-token-picker__empty-msg" data-testid="token-picker-list-cap">
-                  Type to search all {filtered.length} options
-                </p>
-              ) : null}
-            </div>
-            {allowNone && onClear ? (
-              <div className="ds-token-picker__browser-footer">
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={!value}
-                  className={cx(
-                    'ds-token-picker__option',
-                    !value && 'ds-token-picker__option--selected',
-                  )}
-                  onClick={() => pick(null)}
-                >
-                  <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
-                  <span className="ds-token-picker__path">{noneLabel}</span>
-                </button>
-              </div>
-            ) : null}
+            ) : (
+              browserTokens
+            )}
             <div
               className="ds-token-picker__browser-resize ds-token-picker__browser-resize--e"
               data-resize-edge="e"
@@ -857,10 +885,13 @@ export function TokenPicker({
                 className="ds-token-picker__color"
                 data-testid="token-picker-color"
                 aria-label={`${label} color`}
-                aria-expanded={colorOpen}
+                aria-expanded={compact ? open : undefined}
                 aria-haspopup="dialog"
                 disabled={literalReadOnly}
-                onClick={() => setColorOpen((v) => !v)}
+                onClick={() => {
+                  if (useBrowser) toggleOpen()
+                  else setStandaloneColorOpen((v) => !v)
+                }}
               >
                 <span
                   className={cx(
@@ -931,13 +962,13 @@ export function TokenPicker({
                 +
               </button>
             ) : null}
-            {colorEditor ? (
+            {colorEditor && !useBrowser ? (
               <ColorPicker
                 value={colorValueHex}
                 showTrigger={false}
                 anchorRef={colorTriggerRef}
-                open={colorOpen}
-                onOpenChange={setColorOpen}
+                open={standaloneColorOpen}
+                onOpenChange={setStandaloneColorOpen}
                 aria-label={`${label} color`}
                 onChange={(hex) => onLiteralChange?.(hex)}
               />

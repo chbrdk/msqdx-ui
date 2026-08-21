@@ -58,11 +58,13 @@ Compact control to **bind a property to a token path**. Default mode: values are
 
 ### Color editor (hybrid + `previewKind === 'color'`)
 
-WENN `allowLiteral` AND `previewKind === 'color'`, DANN MUST the strip show a dedicated **color swatch** trigger (`data-testid="token-picker-color"`) that opens **ColorPicker** (`msqdx-ui-color-picker.md`).
+WENN `allowLiteral` AND `previewKind === 'color'` AND `browser`, DANN MUST the floating browser be a **combined panel**: left = `ColorPicker` body (HSV · formats · alpha · eyedropper), right = token search/scopes/list. Default size MUST be larger than the token-only browser (≈560×420; still resizable).
 
-WENN the designer picks a color, DANN MUSS TokenPicker call `onLiteralChange` with normalized `#rrggbb` / `#rrggbbaa` (clears token binding in the app).
+WENN the designer activates the **color swatch** OR the **token browse** control, DANN MUST the same combined browser open (one dialog).
 
-The **token browse** control MUST remain a separate button (`token-picker-trigger`) — MUST NOT open ColorPicker.
+WENN the designer picks a color, DANN MUSS TokenPicker call `onLiteralChange` with normalized `#rrggbb` / `#rrggbbaa` (app clears token binding). Token row pick still calls `onChange(path)`.
+
+WENN `browser` is false, DANN MAY the strip keep a standalone ColorPicker popover from the swatch.
 
 Swatch fill: bound token `preview` when `value` is set; else `literalValue` when it parses as hex; else empty.
 
@@ -93,7 +95,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 2. **Current value** strip:
    - **Default (`allowLiteral=false`):** optional preview + **option label** (or path) when bound, else `emptyLabel`; whole strip opens the option surface.
    - **Hybrid (`allowLiteral`):** optional preview / browse control opens the option surface; an editable `<input>` shows token label when `value` is set, else `literalValue` / placeholder. Focus on a bound token selects all so the first keystroke replaces via `onLiteralChange`. Optional −/+ cycle (`allowCycle`) + optional clear. Cycle and clear MAY hide until hover.
-   - **Hybrid + color:** color swatch → ColorPicker; browse → token browser; optional promote Plus.
+   - **Hybrid + color + browser:** one combined floating panel (color editor | token list); swatch and browse both open it.
 3. **Option surface**
    - **compact (default, `browser=false`):** flat list popover from the strip.
    - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, then a **columnar list** for every scope/kind (preview · `valueLabel` · name). Panel size is fixed across scopes (default 300×380; resizable via E/S/SE; clamps ~240–720); list body scrolls inside (`flex: 1 1 0`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.

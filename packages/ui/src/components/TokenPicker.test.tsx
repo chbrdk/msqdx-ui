@@ -179,6 +179,34 @@ describe('TokenPicker', () => {
     expect(onLiteralChange).toHaveBeenCalledWith('#ff0000')
   })
 
+  it('allowLiteral + color + browser: swatch and browse open one combined panel', () => {
+    const onLiteralChange = vi.fn()
+    const onChange = vi.fn()
+    render(
+      <TokenPicker
+        label="Fill"
+        browser
+        allowLiteral
+        previewKind="color"
+        options={[{ path: 'color.action.primary', label: 'Primary', preview: '#0b3d2e' }]}
+        literalValue="#112233"
+        onLiteralChange={onLiteralChange}
+        onChange={onChange}
+        scopes={[{ id: 'all', label: 'All' }]}
+        scope="all"
+      />,
+    )
+    fireEvent.click(screen.getByTestId('token-picker-color'))
+    expect(screen.getByTestId('token-picker-browser')).toHaveClass('ds-token-picker__browser--with-color')
+    expect(screen.getByTestId('color-picker-panel')).toBeInTheDocument()
+    expect(screen.getByTestId('token-picker-search')).toBeInTheDocument()
+    fireEvent.change(screen.getByTestId('color-picker-hex'), { target: { value: '#00ff00' } })
+    fireEvent.blur(screen.getByTestId('color-picker-hex'))
+    expect(onLiteralChange).toHaveBeenCalledWith('#00ff00')
+    fireEvent.click(screen.getByRole('option', { name: /Primary/i }))
+    expect(onChange).toHaveBeenCalledWith('color.action.primary')
+  })
+
   it('emptyQueryCap truncates until the user searches', () => {
     const options = Array.from({ length: 60 }, (_, i) => ({
       path: `font.${i}`,

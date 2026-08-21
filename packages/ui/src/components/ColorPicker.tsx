@@ -35,6 +35,11 @@ export type ColorPickerProps = {
   showTrigger?: boolean
   /** Position panel relative to this element when `showTrigger` is false. */
   anchorRef?: RefObject<HTMLElement | null>
+  /**
+   * Inline body only (no portal / positioning). For hosts that embed the editor
+   * (e.g. TokenPicker combined browser).
+   */
+  embedded?: boolean
   disabled?: boolean
   'aria-label'?: string
   hexLabel?: string
@@ -82,6 +87,7 @@ export function ColorPicker({
   onOpenChange,
   showTrigger = true,
   anchorRef,
+  embedded = false,
   disabled = false,
   'aria-label': ariaLabel = 'Color picker',
   hexLabel = 'Hex',
@@ -138,7 +144,7 @@ export function ColorPicker({
   }, [anchorRef, showTrigger])
 
   useEffect(() => {
-    if (!open) return
+    if (embedded || !open) return
     place()
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
@@ -158,7 +164,7 @@ export function ColorPicker({
       document.removeEventListener('mousedown', onDoc)
       window.removeEventListener('resize', place)
     }
-  }, [open, place, setOpen, anchorRef])
+  }, [open, place, setOpen, anchorRef, embedded])
 
   const pickSv = useCallback(
     (clientX: number, clientY: number) => {
@@ -173,7 +179,7 @@ export function ColorPicker({
   )
 
   useEffect(() => {
-    if (!open) return
+    if (!embedded && !open) return
     let dragging = false
     const onMove = (e: MouseEvent) => {
       if (!dragging) return
@@ -195,7 +201,7 @@ export function ColorPicker({
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
     }
-  }, [open, pickSv])
+  }, [open, pickSv, embedded])
 
   const rgba = hsvaToRgba(hsva)
   const hsla = rgbaToHsla(rgba)
@@ -216,6 +222,222 @@ export function ColorPicker({
     }
   }
 
+  const panelInner = (
+    <>
+      {!embedded ? (
+        <div id={titleId} className="ds-color-picker__title">
+          {ariaLabel}
+        </div>
+      ) : null}
+      <div
+        ref={svRef}
+        className="ds-color-picker__sv"
+        data-testid="color-picker-sv"
+        style={{ backgroundColor: hueColor }}
+      >
+        <div className="ds-color-picker__sv-white" />
+        <div className="ds-color-picker__sv-black" />
+        <span
+          className="ds-color-picker__sv-thumb"
+          style={{ left: `${hsva.s * 100}%`, top: `${(1 - hsva.v) * 100}%` }}
+        />
+      </div>
+      <label className="ds-color-picker__slider-row">
+        <span className="visually-hidden">Hue</span>
+        <input
+          type="range"
+          min={0}
+          max={360}
+          step={1}
+          value={Math.round(hsva.h)}
+          className="ds-color-picker__hue"
+          aria-label="Hue"
+          data-testid="color-picker-hue"
+          onChange={(e) => emit({ ...hsva, h: Number(e.target.value) })}
+        />
+      </label>
+      <label className="ds-color-picker__slider-row ds-color-picker__slider-row--alpha">
+        <span className="visually-hidden">Alpha</span>
+        <input
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={Math.round(hsva.a * 100)}
+          className="ds-color-picker__alpha"
+          aria-label="Alpha"
+          data-testid="color-picker-alpha"
+          style={
+            {
+              ['--ds-color-picker-alpha-fg' as string]: rgbaCss({ ...rgba, a: 1 }),
+            } as CSSProperties
+          }
+          onChange={(e) => emit({ ...hsva, a: Number(e.target.value) / 100 })}
+        />
+      </label>
+      <div className="ds-color-picker__tabs" role="tablist" aria-label="Color format">
+        {(
+          [
+            ['hex', hexLabel],
+            ['rgb', rgbLabel],
+            ['hsl', hslLabel],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={tab === id}
+            className={cx('ds-color-picker__tab', tab === id && 'ds-color-picker__tab--active')}
+            data-testid={`color-picker-tab-${id}`}
+            onClick={() => setTab(id)}
+          >
+            {label}
+          </button>
+        ))}
+        {eyeOk ? (
+          <button
+            type="button"
+            className="ds-color-picker__eyedropper"
+            aria-label={eyedropperLabel}
+            title={eyedropperLabel}
+            data-testid="color-picker-eyedropper"
+            onClick={() => void runEyedropper()}
+          >
+            ⌖
+          </button>
+        ) : null}
+      </div>
+      <div className="ds-color-picker__fields" role="tabpanel">
+        {tab === 'hex' ? (
+          <input
+            className="ds-color-picker__hex"
+            value={hexDraft}
+            aria-label={hexLabel}
+            data-testid="color-picker-hex"
+            onChange={(e) => setHexDraft(e.target.value)}
+            onBlur={() => {
+              const n = normalizeHex(hexDraft)
+              if (n) emit(rgbaToHsva(parseHex(n)!))
+              else setHexDraft(formatHex(rgba))
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') (e.target as HTMLInputElement).blur()
+            }}
+          />
+        ) : null}
+        {tab === 'rgb' ? (
+          <div className="ds-color-picker__triplet">
+            {(['r', 'g', 'b'] as const).map((key) => (
+              <label key={key} className="ds-color-picker__num">
+                <span>{key.toUpperCase()}</span>
+                <input
+                  type="number"
+                  min={0}
+                  max={255}
+                  value={Math.round(rgba[key])}
+                  aria-label={key.toUpperCase()}
+                  data-testid={`color-picker-rgb-${key}`}
+                  onChange={(e) => {
+                    const n = Number(e.target.value)
+                    const next = { ...rgba, [key]: n }
+                    emit(rgbaToHsva(next))
+                  }}
+                />
+              </label>
+            ))}
+            <label className="ds-color-picker__num">
+              <span>A</span>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={Math.round(rgba.a * 100)}
+                aria-label="Alpha percent"
+                data-testid="color-picker-rgb-a"
+                onChange={(e) => emit({ ...hsva, a: Number(e.target.value) / 100 })}
+              />
+            </label>
+          </div>
+        ) : null}
+        {tab === 'hsl' ? (
+          <div className="ds-color-picker__triplet">
+            <label className="ds-color-picker__num">
+              <span>H</span>
+              <input
+                type="number"
+                min={0}
+                max={360}
+                value={Math.round(hsla.h)}
+                aria-label="Hue"
+                data-testid="color-picker-hsl-h"
+                onChange={(e) => {
+                  const next = hslaToRgba({ ...hsla, h: Number(e.target.value) })
+                  emit(rgbaToHsva(next))
+                }}
+              />
+            </label>
+            <label className="ds-color-picker__num">
+              <span>S</span>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={Math.round(hsla.s * 100)}
+                aria-label="Saturation"
+                data-testid="color-picker-hsl-s"
+                onChange={(e) => {
+                  const next = hslaToRgba({ ...hsla, s: Number(e.target.value) / 100 })
+                  emit(rgbaToHsva(next))
+                }}
+              />
+            </label>
+            <label className="ds-color-picker__num">
+              <span>L</span>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={Math.round(hsla.l * 100)}
+                aria-label="Lightness"
+                data-testid="color-picker-hsl-l"
+                onChange={(e) => {
+                  const next = hslaToRgba({ ...hsla, l: Number(e.target.value) / 100 })
+                  emit(rgbaToHsva(next))
+                }}
+              />
+            </label>
+            <label className="ds-color-picker__num">
+              <span>A</span>
+              <input
+                type="number"
+                min={0}
+                max={100}
+                value={Math.round(hsla.a * 100)}
+                aria-label="Alpha percent"
+                data-testid="color-picker-hsl-a"
+                onChange={(e) => emit({ ...hsva, a: Number(e.target.value) / 100 })}
+              />
+            </label>
+          </div>
+        ) : null}
+      </div>
+      <div className="ds-color-picker__preview" style={{ background: rgbaCss(rgba) }} aria-hidden />
+    </>
+  )
+
+  if (embedded) {
+    return (
+      <div
+        className={cx('ds-color-picker', 'ds-color-picker--embedded', className)}
+        data-testid="color-picker-panel"
+        aria-label={ariaLabel}
+      >
+        {panelInner}
+      </div>
+    )
+  }
+
   const panel =
     open && typeof document !== 'undefined'
       ? createPortal(
@@ -228,203 +450,7 @@ export function ColorPicker({
             data-testid="color-picker-panel"
             style={{ top: pos.top, left: pos.left } satisfies CSSProperties}
           >
-            <div id={titleId} className="ds-color-picker__title">
-              {ariaLabel}
-            </div>
-            <div
-              ref={svRef}
-              className="ds-color-picker__sv"
-              data-testid="color-picker-sv"
-              style={{ backgroundColor: hueColor }}
-            >
-              <div className="ds-color-picker__sv-white" />
-              <div className="ds-color-picker__sv-black" />
-              <span
-                className="ds-color-picker__sv-thumb"
-                style={{ left: `${hsva.s * 100}%`, top: `${(1 - hsva.v) * 100}%` }}
-              />
-            </div>
-            <label className="ds-color-picker__slider-row">
-              <span className="visually-hidden">Hue</span>
-              <input
-                type="range"
-                min={0}
-                max={360}
-                step={1}
-                value={Math.round(hsva.h)}
-                className="ds-color-picker__hue"
-                aria-label="Hue"
-                data-testid="color-picker-hue"
-                onChange={(e) => emit({ ...hsva, h: Number(e.target.value) })}
-              />
-            </label>
-            <label className="ds-color-picker__slider-row ds-color-picker__slider-row--alpha">
-              <span className="visually-hidden">Alpha</span>
-              <input
-                type="range"
-                min={0}
-                max={100}
-                step={1}
-                value={Math.round(hsva.a * 100)}
-                className="ds-color-picker__alpha"
-                aria-label="Alpha"
-                data-testid="color-picker-alpha"
-                style={
-                  {
-                    ['--ds-color-picker-alpha-fg' as string]: rgbaCss({ ...rgba, a: 1 }),
-                  } as CSSProperties
-                }
-                onChange={(e) => emit({ ...hsva, a: Number(e.target.value) / 100 })}
-              />
-            </label>
-            <div className="ds-color-picker__tabs" role="tablist" aria-label="Color format">
-              {(
-                [
-                  ['hex', hexLabel],
-                  ['rgb', rgbLabel],
-                  ['hsl', hslLabel],
-                ] as const
-              ).map(([id, label]) => (
-                <button
-                  key={id}
-                  type="button"
-                  role="tab"
-                  aria-selected={tab === id}
-                  className={cx('ds-color-picker__tab', tab === id && 'ds-color-picker__tab--active')}
-                  data-testid={`color-picker-tab-${id}`}
-                  onClick={() => setTab(id)}
-                >
-                  {label}
-                </button>
-              ))}
-              {eyeOk ? (
-                <button
-                  type="button"
-                  className="ds-color-picker__eyedropper"
-                  aria-label={eyedropperLabel}
-                  title={eyedropperLabel}
-                  data-testid="color-picker-eyedropper"
-                  onClick={() => void runEyedropper()}
-                >
-                  ⌖
-                </button>
-              ) : null}
-            </div>
-            <div className="ds-color-picker__fields" role="tabpanel">
-              {tab === 'hex' ? (
-                <input
-                  className="ds-color-picker__hex"
-                  value={hexDraft}
-                  aria-label={hexLabel}
-                  data-testid="color-picker-hex"
-                  onChange={(e) => setHexDraft(e.target.value)}
-                  onBlur={() => {
-                    const n = normalizeHex(hexDraft)
-                    if (n) emit(rgbaToHsva(parseHex(n)!))
-                    else setHexDraft(formatHex(rgba))
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') (e.target as HTMLInputElement).blur()
-                  }}
-                />
-              ) : null}
-              {tab === 'rgb' ? (
-                <div className="ds-color-picker__triplet">
-                  {(['r', 'g', 'b'] as const).map((key) => (
-                    <label key={key} className="ds-color-picker__num">
-                      <span>{key.toUpperCase()}</span>
-                      <input
-                        type="number"
-                        min={0}
-                        max={255}
-                        value={Math.round(rgba[key])}
-                        aria-label={key.toUpperCase()}
-                        data-testid={`color-picker-rgb-${key}`}
-                        onChange={(e) => {
-                          const n = Number(e.target.value)
-                          const next = { ...rgba, [key]: n }
-                          emit(rgbaToHsva(next))
-                        }}
-                      />
-                    </label>
-                  ))}
-                  <label className="ds-color-picker__num">
-                    <span>A</span>
-                    <input
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={Math.round(rgba.a * 100)}
-                      aria-label="Alpha percent"
-                      data-testid="color-picker-rgb-a"
-                      onChange={(e) => emit({ ...hsva, a: Number(e.target.value) / 100 })}
-                    />
-                  </label>
-                </div>
-              ) : null}
-              {tab === 'hsl' ? (
-                <div className="ds-color-picker__triplet">
-                  <label className="ds-color-picker__num">
-                    <span>H</span>
-                    <input
-                      type="number"
-                      min={0}
-                      max={360}
-                      value={Math.round(hsla.h)}
-                      aria-label="Hue"
-                      data-testid="color-picker-hsl-h"
-                      onChange={(e) => {
-                        const next = hslaToRgba({ ...hsla, h: Number(e.target.value) })
-                        emit(rgbaToHsva(next))
-                      }}
-                    />
-                  </label>
-                  <label className="ds-color-picker__num">
-                    <span>S</span>
-                    <input
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={Math.round(hsla.s * 100)}
-                      aria-label="Saturation"
-                      data-testid="color-picker-hsl-s"
-                      onChange={(e) => {
-                        const next = hslaToRgba({ ...hsla, s: Number(e.target.value) / 100 })
-                        emit(rgbaToHsva(next))
-                      }}
-                    />
-                  </label>
-                  <label className="ds-color-picker__num">
-                    <span>L</span>
-                    <input
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={Math.round(hsla.l * 100)}
-                      aria-label="Lightness"
-                      data-testid="color-picker-hsl-l"
-                      onChange={(e) => {
-                        const next = hslaToRgba({ ...hsla, l: Number(e.target.value) / 100 })
-                        emit(rgbaToHsva(next))
-                      }}
-                    />
-                  </label>
-                  <label className="ds-color-picker__num">
-                    <span>A</span>
-                    <input
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={Math.round(hsla.a * 100)}
-                      aria-label="Alpha percent"
-                      data-testid="color-picker-hsl-a"
-                      onChange={(e) => emit({ ...hsva, a: Number(e.target.value) / 100 })}
-                    />
-                  </label>
-                </div>
-              ) : null}
-            </div>
-            <div className="ds-color-picker__preview" style={{ background: rgbaCss(rgba) }} aria-hidden />
+            {panelInner}
           </div>,
           document.body,
         )

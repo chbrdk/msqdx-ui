@@ -24,7 +24,7 @@ Interactive **color editor** for digital hex colors. Controlled value is always 
 | `onChange` | `(hex: string) => void` — normalized lowercase `#` + 6 or 8 hex digits |
 | `open` / `onOpenChange` | Controlled popover (optional; uncontrolled when omitted) |
 | `defaultOpen` | Uncontrolled initial open |
-| `trigger` | Optional custom trigger; default is a swatch button |
+| `embedded` | When true: render panel body inline (no portal/trigger). Host mounts in a layout (e.g. TokenPicker browser). |
 | `disabled` | Disables trigger and panel |
 | `aria-label` | Default `Color picker` |
 | `hexLabel` / `rgbLabel` / `hslLabel` | Tab labels (defaults Hex / RGB / HSL) |
