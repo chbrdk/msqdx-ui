@@ -54,6 +54,16 @@ describe('LayersPanel', () => {
     })
   })
 
+  it('calls onItemContextMenu with id on row contextmenu', () => {
+    const onItemContextMenu = vi.fn()
+    render(
+      <LayersPanel items={TREE} selectedId="root" onItemContextMenu={onItemContextMenu} />,
+    )
+    fireEvent.contextMenu(screen.getByTestId('layers-panel-item-child'))
+    expect(onItemContextMenu).toHaveBeenCalledTimes(1)
+    expect(onItemContextMenu.mock.calls[0]?.[0]).toBe('child')
+  })
+
   it('marks selected row with aria-current', () => {
     render(<LayersPanel items={TREE} selectedId="child" />)
     expect(screen.getByTestId('layers-panel-item-child')).toHaveAttribute('aria-current', 'true')

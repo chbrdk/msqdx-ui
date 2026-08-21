@@ -84,6 +84,11 @@ export type LayersPanelProps = {
   onToggleHidden?: (id: string) => void
   /** Toggle lock for a layer id. */
   onToggleLocked?: (id: string) => void
+  /**
+   * Right-click / context menu on a row. Apps own the menu chrome
+   * (`ContextMenu`); the panel only reports the item id + pointer event.
+   */
+  onItemContextMenu?: (id: string, event: MouseEvent<HTMLElement>) => void
   emptyLabel?: string
   /** When true (default), branches with children start expanded. */
   defaultExpanded?: boolean
@@ -138,6 +143,7 @@ function LayerRow({
   onReorderDrop,
   onToggleHidden,
   onToggleLocked,
+  onItemContextMenu,
   defaultExpanded,
   showReorder,
   showDrag,
@@ -164,6 +170,7 @@ function LayerRow({
   ) => void
   onToggleHidden?: (id: string) => void
   onToggleLocked?: (id: string) => void
+  onItemContextMenu?: (id: string, event: MouseEvent<HTMLElement>) => void
   defaultExpanded: boolean
   showReorder: boolean
   showDrag: boolean
@@ -303,6 +310,11 @@ function LayerRow({
           data-multi-selected={inSelection && !isPrimary ? 'true' : undefined}
           aria-current={isPrimary ? 'true' : undefined}
           onClick={(event) => onSelect?.(item.id, modsFromMouse(event))}
+          onContextMenu={(event) => {
+            if (!onItemContextMenu) return
+            event.preventDefault()
+            onItemContextMenu(item.id, event)
+          }}
         >
           {item.icon ? (
             <span className="ds-layers-panel__glyph" aria-hidden>
@@ -392,6 +404,7 @@ function LayerRow({
               onReorderDrop={onReorderDrop}
               onToggleHidden={onToggleHidden}
               onToggleLocked={onToggleLocked}
+              onItemContextMenu={onItemContextMenu}
               defaultExpanded={defaultExpanded}
               showReorder={showReorder}
               showDrag={showDrag}
@@ -437,6 +450,7 @@ export function LayersPanel({
   onReorderDrop,
   onToggleHidden,
   onToggleLocked,
+  onItemContextMenu,
   emptyLabel = 'No layers',
   defaultExpanded = true,
   'aria-label': ariaLabel = 'Layers panel',
@@ -485,6 +499,7 @@ export function LayersPanel({
               onReorderDrop={onReorderDrop}
               onToggleHidden={onToggleHidden}
               onToggleLocked={onToggleLocked}
+              onItemContextMenu={onItemContextMenu}
               defaultExpanded={defaultExpanded}
               showReorder={showReorder}
               showDrag={showDrag}

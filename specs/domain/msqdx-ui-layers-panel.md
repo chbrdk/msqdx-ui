@@ -31,6 +31,7 @@ Generic **scene / composition layers tree** chrome for design editors. Apps map 
 | `onReorderDrop` | Optional `(id, targetId, position: 'before' \| 'after' \| 'into')` — DnD drop (sibling or cross-parent); enables drag affordances |
 | `onToggleHidden` | Optional `(id: string) => void` — show eye control; apps flip visibility in chrome/state |
 | `onToggleLocked` | Optional `(id: string) => void` — show lock control; apps flip lock in chrome/state |
+| `onItemContextMenu` | Optional `(id, event) => void` — row right-click; panel `preventDefault`s then notifies; apps own `ContextMenu` |
 | `title` | Panel header (default `Layers`) |
 | `emptyLabel` | Shown when `items` is empty (default `No layers`) |
 | `defaultExpanded` | When true (default), branches with children start expanded |
@@ -68,6 +69,7 @@ type LayersPanelReorderDropPosition = 'before' | 'after' | 'into'
 - When `onMoveUp` / `onMoveDown` / `onReorder` is provided, each row shows move affordances; first sibling disables up, last disables down. Prefer directional props when both `onMoveUp`/`onMoveDown` and `onReorder` exist.
 - When `onToggleHidden` is provided, each row shows a visibility toggle; `item.hidden` drives pressed/visual state (`aria-pressed`).
 - When `onToggleLocked` is provided, each row shows a lock toggle; `item.locked` drives pressed/visual state (`aria-pressed`).
+- When `onItemContextMenu` is provided, right-click on the row label button calls `preventDefault` then `onItemContextMenu(id, event)`. Apps reconcile selection and open their own `ContextMenu`.
 - When `onReorderDrop` is provided, non-locked rows are `draggable`. Any row may be a drop target (sibling or cross-parent). Position: `'before'` / `'after'` from pointer Y; when `acceptsChildren`, the middle third is `'into'`. Self-drops are ignored. Locked rows are not draggable. Nest/cycle validation is the app's job.
 - ▲▼ remain the **accessible / single-pointer** reorder path (WCAG 2.5.7); DnD is an accelerator.
 
@@ -83,5 +85,5 @@ type LayersPanelReorderDropPosition = 'before' | 'after' | 'into'
 ## Acceptance
 
 1. Stories: Default tree, Nested, Selected, Empty, WithReorder, WithHideLock, WithDragReorder.
-2. Tests: select calls `onSelect` (with mods); `selectedIds` highlights primary + secondary; nested children render; empty label; expand toggles children visibility; move callbacks fire / edge disabled; hide/lock toggles fire and reflect flags; DnD drop calls `onReorderDrop` with before/after among siblings; locked not draggable.
+2. Tests: select calls `onSelect` (with mods); `selectedIds` highlights primary + secondary; nested children render; empty label; expand toggles children visibility; move callbacks fire / edge disabled; hide/lock toggles fire and reflect flags; DnD drop calls `onReorderDrop` with before/after among siblings; locked not draggable; `onItemContextMenu` fires with id on row contextmenu.
 3. Consuming apps import `LayersPanel` from `@msqdx/ui` and map scene → `items` (including `hidden` / `locked` from chrome).
