@@ -158,6 +158,27 @@ describe('TokenPicker', () => {
     expect(screen.queryByTestId('token-picker-promote')).toBeNull()
   })
 
+  it('allowLiteral + color: swatch opens ColorPicker and emits hex', () => {
+    const onLiteralChange = vi.fn()
+    render(
+      <TokenPicker
+        label="Fill"
+        allowLiteral
+        previewKind="color"
+        options={[{ path: 'color.action.primary', preview: '#0b3d2e' }]}
+        literalValue="#112233"
+        onLiteralChange={onLiteralChange}
+      />,
+    )
+    expect(screen.getByTestId('token-picker-color')).toBeInTheDocument()
+    expect(screen.getByTestId('token-picker-trigger')).toBeInTheDocument()
+    fireEvent.click(screen.getByTestId('token-picker-color'))
+    expect(screen.getByTestId('color-picker-panel')).toBeInTheDocument()
+    fireEvent.change(screen.getByTestId('color-picker-hex'), { target: { value: '#ff0000' } })
+    fireEvent.blur(screen.getByTestId('color-picker-hex'))
+    expect(onLiteralChange).toHaveBeenCalledWith('#ff0000')
+  })
+
   it('emptyQueryCap truncates until the user searches', () => {
     const options = Array.from({ length: 60 }, (_, i) => ({
       path: `font.${i}`,

@@ -116,6 +116,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'EntityCard', layer: 'Molecules', title: 'Molecules/EntityCard', stories: 'components/EntityCard.stories.tsx', mdx: 'components/EntityCard.mdx' },
   { id: 'AddTile', layer: 'Atoms', title: 'Atoms/AddTile', stories: 'components/AddTile.stories.tsx', mdx: 'components/AddTile.mdx' },
   { id: 'SwatchStrip', layer: 'Atoms', title: 'Atoms/SwatchStrip', stories: 'components/SwatchStrip.stories.tsx', mdx: 'components/SwatchStrip.mdx' },
+  { id: 'ColorPicker', layer: 'Molecules', title: 'Molecules/ColorPicker', stories: 'components/ColorPicker.stories.tsx', mdx: 'components/ColorPicker.mdx' },
   { id: 'ChatBlockPanel', layer: 'Molecules', title: 'Molecules/ChatBlockPanel', stories: 'components/ChatBlockPanel.stories.tsx', mdx: 'components/ChatBlockPanel.mdx' },
   { id: 'ChatBlockList', layer: 'Molecules', title: 'Molecules/ChatBlockList', stories: 'components/ChatBlockList.stories.tsx', mdx: 'components/ChatBlockList.mdx' },
   { id: 'ChatMetricGrid', layer: 'Molecules', title: 'Molecules/ChatMetricGrid', stories: 'components/ChatMetricGrid.stories.tsx', mdx: 'components/ChatMetricGrid.mdx' },

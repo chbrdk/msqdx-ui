@@ -1,9 +1,9 @@
 # MSQDX UI — TokenPicker
 
-**Status:** Accepted (inspect density) — 2026-08-12 · **P77 browser** — 2026-08-14 · **allowLiteral hybrid** — 2026-08-20  
+**Status:** Accepted (inspect density) — 2026-08-12 · **P77 browser** — 2026-08-14 · **allowLiteral hybrid** — 2026-08-20 · **color editor** — 2026-08-21  
 **Layer:** Molecules (catalogued under Organisms for editor chrome grouping)  
 **Consumers:** CREATION `/editor` token-bound inspect fields  
-**Related:** `msqdx-ui-property-inspector.md` · `msqdx-ui-inspect-section.md` · `msqdx-ui-swatch-strip.md` · Zaoly Spec 5 S-5 / R115 / R118
+**Related:** `msqdx-ui-property-inspector.md` · `msqdx-ui-inspect-section.md` · `msqdx-ui-swatch-strip.md` · `msqdx-ui-color-picker.md` · Zaoly Spec 5 S-5 / R115 / R118
 
 ## Purpose
 
@@ -53,6 +53,18 @@ Compact control to **bind a property to a token path**. Default mode: values are
 | `literalReadOnly` | When true, literal input is read-only (e.g. mixed multi-select) |
 | `literalTestId` | Optional `data-testid` on the literal input |
 | `emptyQueryCap` | When search is empty, cap visible options (large catalogs); typing shows full filter |
+| `onPromoteLiteral` | Optional Plus control when unbound literal is set (app owns Brandion create/bind) |
+| `promoteLiteralLabel` | Accessible label for promote (default `Save as token`) |
+
+### Color editor (hybrid + `previewKind === 'color'`)
+
+WENN `allowLiteral` AND `previewKind === 'color'`, DANN MUST the strip show a dedicated **color swatch** trigger (`data-testid="token-picker-color"`) that opens **ColorPicker** (`msqdx-ui-color-picker.md`).
+
+WENN the designer picks a color, DANN MUSS TokenPicker call `onLiteralChange` with normalized `#rrggbb` / `#rrggbbaa` (clears token binding in the app).
+
+The **token browse** control MUST remain a separate button (`token-picker-trigger`) — MUST NOT open ColorPicker.
+
+Swatch fill: bound token `preview` when `value` is set; else `literalValue` when it parses as hex; else empty.
 
 ### Option shape
 
@@ -81,6 +93,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 2. **Current value** strip:
    - **Default (`allowLiteral=false`):** optional preview + **option label** (or path) when bound, else `emptyLabel`; whole strip opens the option surface.
    - **Hybrid (`allowLiteral`):** optional preview / browse control opens the option surface; an editable `<input>` shows token label when `value` is set, else `literalValue` / placeholder. Focus on a bound token selects all so the first keystroke replaces via `onLiteralChange`. Optional −/+ cycle (`allowCycle`) + optional clear. Cycle and clear MAY hide until hover.
+   - **Hybrid + color:** color swatch → ColorPicker; browse → token browser; optional promote Plus.
 3. **Option surface**
    - **compact (default, `browser=false`):** flat list popover from the strip.
    - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, then a **columnar list** for every scope/kind (preview · `valueLabel` · name). Panel size is fixed across scopes (default 300×380; resizable via E/S/SE; clamps ~240–720); list body scrolls inside (`flex: 1 1 0`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.

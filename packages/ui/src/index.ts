@@ -294,6 +294,14 @@ export { AddTile } from './components/AddTile'
 export type { AddTileProps } from './components/AddTile'
 export { SwatchStrip } from './components/SwatchStrip'
 export type { SwatchStripProps } from './components/SwatchStrip'
+export { ColorPicker } from './components/ColorPicker'
+export type { ColorPickerProps } from './components/ColorPicker'
+export {
+  formatHex,
+  normalizeHex,
+  parseHex,
+  hasEyeDropper,
+} from './components/color-utils'
 export { ChatBlockPanel } from './components/ChatBlockPanel'
 export type { ChatBlockPanelProps } from './components/ChatBlockPanel'
 export { ChatBlockList } from './components/ChatBlockList'

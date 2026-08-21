@@ -96,6 +96,7 @@ import { StatusDot } from '../components/StatusDot'
 import { StatusMeterPanel } from '../components/StatusMeterPanel'
 import { StepStrip } from '../components/StepStrip'
 import { SwatchStrip } from '../components/SwatchStrip'
+import { ColorPicker } from '../components/ColorPicker'
 import { Switch } from '../components/Switch'
 import { Tabs } from '../components/Tabs'
 import { TagInput } from '../components/TagInput'
@@ -167,6 +168,7 @@ const CATALOG_COMPONENTS = {
   ChatStepList,
   Checkbox,
   Chip,
+  ColorPicker,
   ComponentPalette,
   ConfirmDialog,
   ContextMenu,

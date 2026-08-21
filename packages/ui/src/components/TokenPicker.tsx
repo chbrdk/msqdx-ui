@@ -14,6 +14,8 @@ import {
 } from 'react'
 import { createPortal } from 'react-dom'
 
+import { ColorPicker } from './ColorPicker'
+import { normalizeHex, parseHex, rgbaCss } from './color-utils'
 import { TokenPreview, type TokenPreviewKind } from './TokenPreview'
 
 export type TokenPickerOption = {
@@ -263,6 +265,23 @@ export function TokenPicker({
   const showPromote = Boolean(
     allowLiteral && onPromoteLiteral && !literalReadOnly && !value && String(literalValue).trim(),
   )
+  const colorEditor = Boolean(allowLiteral && previewKind === 'color')
+  const colorFillCss = (() => {
+    if (!colorEditor) return ''
+    if (value && selectedOption?.preview) {
+      const parsed = parseHex(selectedOption.preview)
+      if (parsed) return rgbaCss(parsed)
+      return selectedOption.preview
+    }
+    const lit = parseHex(literalValue)
+    return lit ? rgbaCss(lit) : ''
+  })()
+  const colorValueHex =
+    (value && selectedOption?.preview && normalizeHex(selectedOption.preview)) ||
+    normalizeHex(literalValue) ||
+    '#000000'
+  const [colorOpen, setColorOpen] = useState(false)
+  const colorTriggerRef = useRef<HTMLButtonElement>(null)
   const stripInputValue = value
     ? selectedOption
       ? optionStripLabel(selectedOption)
@@ -831,6 +850,28 @@ export function TokenPicker({
       <div className="ds-token-picker__current">
         {allowLiteral ? (
           <>
+            {colorEditor ? (
+              <button
+                ref={colorTriggerRef}
+                type="button"
+                className="ds-token-picker__color"
+                data-testid="token-picker-color"
+                aria-label={`${label} color`}
+                aria-expanded={colorOpen}
+                aria-haspopup="dialog"
+                disabled={literalReadOnly}
+                onClick={() => setColorOpen((v) => !v)}
+              >
+                <span
+                  className={cx(
+                    'ds-token-picker__swatch',
+                    !colorFillCss && 'ds-token-picker__swatch--empty',
+                  )}
+                  style={colorFillCss ? { background: colorFillCss } : undefined}
+                  aria-hidden
+                />
+              </button>
+            ) : null}
             <button
               ref={triggerRef}
               type="button"
@@ -841,7 +882,11 @@ export function TokenPicker({
               aria-label={`${label} token`}
               onClick={toggleOpen}
             >
-              {selectedOption?.preview ? (
+              {colorEditor ? (
+                <span className="ds-token-picker__browse-glyph" aria-hidden>
+                  ▾
+                </span>
+              ) : selectedOption?.preview ? (
                 stripPreview && previewKind !== 'auto' && previewKind !== 'color' ? (
                   <TokenPreview kind={previewKind} value={selectedOption.preview} size="sm" />
                 ) : (
@@ -885,6 +930,17 @@ export function TokenPicker({
               >
                 +
               </button>
+            ) : null}
+            {colorEditor ? (
+              <ColorPicker
+                value={colorValueHex}
+                showTrigger={false}
+                anchorRef={colorTriggerRef}
+                open={colorOpen}
+                onOpenChange={setColorOpen}
+                aria-label={`${label} color`}
+                onChange={(hex) => onLiteralChange?.(hex)}
+              />
             ) : null}
           </>
         ) : (
