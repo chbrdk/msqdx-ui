@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactNode } from 'react'
+import type { CSSProperties, HTMLAttributes, ReactNode } from 'react'
 import {
   CUTDOWN_DEFS,
   getCutdownVariant,
@@ -18,7 +18,7 @@ export type MsqdxCornerBoxProps = {
   className?: string
   style?: CSSProperties
   children?: ReactNode
-}
+} & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style' | 'children'>
 
 function CutdownPatch({
   corner,
@@ -68,6 +68,7 @@ export function MsqdxCornerBox({
   className,
   style,
   children,
+  ...rest
 }: MsqdxCornerBoxProps) {
   const corners: { key: CornerKey; style: CornerStyle }[] = [
     { key: 'topLeft', style: topLeft },
@@ -92,6 +93,7 @@ export function MsqdxCornerBox({
         borderBottomRightRadius: getRadius(bottomRight, borderRadius),
         ...style,
       }}
+      {...rest}
     >
       {cutdowns.map(({ key, style: cornerStyle }) => (
         <CutdownPatch

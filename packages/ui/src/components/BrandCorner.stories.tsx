@@ -30,3 +30,15 @@ export const WithoutLogo: Story = {
     </div>
   ),
 }
+
+export const AlwaysExpanded: Story = {
+  args: {
+    label: 'PLEXON',
+    labelReveal: 'always',
+  },
+  render: (args) => (
+    <div style={{ minHeight: '10rem', position: 'relative' }}>
+      <BrandCorner {...args} />
+    </div>
+  ),
+}
