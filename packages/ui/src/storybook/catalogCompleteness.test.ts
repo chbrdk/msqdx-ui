@@ -12,6 +12,7 @@ const REQUIRED_BARREL_STORY_IDS = [
   'AppFrame',
   'NavRail',
   'BrandCorner',
+  'BrandCornerProductMenu',
   'TopStatus',
   'KpiStrip',
   'PipelinePanel',

@@ -13,6 +13,7 @@ import { AppFrame } from '../components/AppFrame'
 import { Avatar } from '../components/Avatar'
 import { Badge } from '../components/Badge'
 import { BrandCorner } from '../components/BrandCorner'
+import { BrandCornerProductMenu } from '../components/BrandCornerProductMenu'
 import { BreakpointSwitcher } from '../components/BreakpointSwitcher'
 import { Button } from '../components/Button'
 import { CanvasViewport } from '../components/CanvasViewport'
@@ -145,6 +146,7 @@ const CATALOG_COMPONENTS = {
   Avatar,
   Badge,
   BrandCorner,
+  BrandCornerProductMenu,
   BreakpointSwitcher,
   Button,
   CanvasViewport,

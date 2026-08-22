@@ -8,7 +8,7 @@ Shared workstation shell primitives for products that follow the ECHON V3 compos
 
 - `AppFrame`: atmospheric app frame with reserved floating-rail space and topbar/page body slots
 - `NavRail`: compact floating rail for primary product navigation
-- `BrandCorner`: top-right brand plaque — **default logo-only**; product `label` reveals on hover/focus with a leftward expand animation
+- `BrandCorner`: top-right brand plaque — **default logo-only**; product `label` reveals on hover/focus with a leftward expand animation; optional `onActivate` for product launcher menus (`BrandCornerProductMenu`)
 - `ShellCorners`: viewport cutdown ornaments at top-left, bottom-left, and bottom-right (top-right reserved for `BrandCorner`)
 
 ## BrandCorner (hover expand)

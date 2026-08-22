@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, KeyboardEvent, ReactNode } from 'react'
 import { MsqdxCornerBox } from '../brand/MsqdxCornerBox'
 import { MsqdxLogoMark } from '../brand/MsqdxLogoMark'
 import { TOP_RIGHT_BRAND_CORNERS, MSQDX_SHELL_CORNER_RADIUS, type CornerKey, type CornerStyle } from '../brand/msqdxCutdown'
@@ -15,6 +15,10 @@ export type BrandCornerProps = {
   borderRadius?: number
   corners?: Record<CornerKey, CornerStyle>
   className?: string
+  /** When set, the plaque acts as a menu trigger (click / Enter / Space). */
+  onActivate?: () => void
+  menuExpanded?: boolean
+  menuControlsId?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'>
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -34,11 +38,24 @@ export function BrandCorner({
   borderRadius = MSQDX_SHELL_CORNER_RADIUS,
   corners = TOP_RIGHT_BRAND_CORNERS,
   className,
+  onActivate,
+  menuExpanded = false,
+  menuControlsId,
   ...rest
 }: BrandCornerProps) {
   const logoMark = mark ?? <MsqdxLogoMark size={22} />
-  const collapseLabel = Boolean(showLogo && labelReveal === 'hover')
+  const interactive = Boolean(onActivate)
+  const effectiveLabelReveal = menuExpanded ? 'always' : labelReveal
+  const collapseLabel = Boolean(showLogo && effectiveLabelReveal === 'hover')
   const accessibleName = labelText(label)
+
+  function onKeyDown(event: KeyboardEvent<HTMLDivElement>) {
+    if (!onActivate) return
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      onActivate()
+    }
+  }
 
   return (
     <div
@@ -46,6 +63,8 @@ export function BrandCorner({
         'brand-corner',
         collapseLabel && 'brand-corner--collapse-label',
         !showLogo && 'brand-corner--label-only',
+        interactive && 'brand-corner--interactive',
+        menuExpanded && 'brand-corner--menu-open',
         className,
       )}
       data-testid="brand-corner"
@@ -59,8 +78,14 @@ export function BrandCorner({
         topRight={corners.topRight}
         bottomLeft={corners.bottomLeft}
         bottomRight={corners.bottomRight}
-        tabIndex={collapseLabel ? 0 : undefined}
-        aria-label={collapseLabel ? accessibleName : undefined}
+        tabIndex={collapseLabel || interactive ? 0 : undefined}
+        role={interactive ? 'button' : undefined}
+        aria-label={collapseLabel || interactive ? accessibleName : undefined}
+        aria-haspopup={interactive ? 'menu' : undefined}
+        aria-expanded={interactive ? menuExpanded : undefined}
+        aria-controls={interactive && menuControlsId ? menuControlsId : undefined}
+        onClick={onActivate}
+        onKeyDown={onKeyDown}
       >
         <div className="brand-corner-inner">
           {showLogo ? (

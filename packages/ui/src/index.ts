@@ -99,6 +99,10 @@ export {
 } from './shell/railDock'
 export { BrandCorner } from './components/BrandCorner'
 export type { BrandCornerProps } from './components/BrandCorner'
+export { ProductSwitcherPanel, launchProductSwitcherItem } from './components/ProductSwitcherPanel'
+export type { ProductSwitcherItem, ProductSwitcherPanelProps } from './components/ProductSwitcherPanel'
+export { BrandCornerProductMenu } from './components/BrandCornerProductMenu'
+export type { BrandCornerProductMenuProps } from './components/BrandCornerProductMenu'
 export {
   IconOverview,
   IconPersonas,
