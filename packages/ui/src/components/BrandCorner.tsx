@@ -1,7 +1,7 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { MsqdxCornerBox } from '../brand/MsqdxCornerBox'
 import { MsqdxLogoMark } from '../brand/MsqdxLogoMark'
-import { TOP_RIGHT_BRAND_CORNERS, type CornerKey, type CornerStyle } from '../brand/msqdxCutdown'
+import { TOP_RIGHT_BRAND_CORNERS, MSQDX_SHELL_CORNER_RADIUS, type CornerKey, type CornerStyle } from '../brand/msqdxCutdown'
 
 export type BrandCornerProps = {
   label: ReactNode
@@ -31,7 +31,7 @@ export function BrandCorner({
   mark,
   showLogo = true,
   labelReveal = 'hover',
-  borderRadius = 32,
+  borderRadius = MSQDX_SHELL_CORNER_RADIUS,
   corners = TOP_RIGHT_BRAND_CORNERS,
   className,
   ...rest

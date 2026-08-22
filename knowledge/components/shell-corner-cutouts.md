@@ -11,7 +11,7 @@ Viewport ink corners at **top-left**, **bottom-left**, and **bottom-right**, usi
 
 | Knob | Value |
 |------|--------|
-| Radius | 32px (matches brand corner) |
+| Radius | 24px (matches brand corner; `MSQDX_SHELL_CORNER_RADIUS`) |
 | Fill | `var(--ink)` |
 | Opt-out | `AppFrame` `shellCorners={false}` |
 

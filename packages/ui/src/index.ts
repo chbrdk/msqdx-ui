@@ -84,6 +84,7 @@ export type { MsqdxCornerBoxProps } from './brand/MsqdxCornerBox'
 export { MsqdxLogoMark } from './brand/MsqdxLogoMark'
 export {
   TOP_RIGHT_BRAND_CORNERS,
+  MSQDX_SHELL_CORNER_RADIUS,
   TOP_LEFT_SHELL_CORNERS,
   BOTTOM_LEFT_SHELL_CORNERS,
   BOTTOM_RIGHT_SHELL_CORNERS,

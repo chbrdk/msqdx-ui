@@ -1,5 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { ShellCorners } from './ShellCorners'
+import { MSQDX_SHELL_CORNER_RADIUS } from '../brand/msqdxCutdown'
 
 export type AppFrameRailEdge = 'left' | 'right' | 'top' | 'bottom'
 
@@ -26,7 +27,7 @@ export function AppFrame({
   topbar,
   railEdge = 'left',
   shellCorners = true,
-  shellCornerRadius = 32,
+  shellCornerRadius = MSQDX_SHELL_CORNER_RADIUS,
   className,
   ...rest
 }: AppFrameProps) {

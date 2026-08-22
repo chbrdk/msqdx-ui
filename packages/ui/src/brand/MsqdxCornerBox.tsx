@@ -5,6 +5,7 @@ import {
   getRadius,
   isCutdown,
   cutdownMaskImage,
+  MSQDX_SHELL_CORNER_RADIUS,
   type CornerKey,
   type CornerStyle,
 } from './msqdxCutdown'
@@ -64,7 +65,7 @@ export function MsqdxCornerBox({
   topRight = 'rounded',
   bottomLeft = 'rounded',
   bottomRight = 'rounded',
-  borderRadius = 32,
+  borderRadius = MSQDX_SHELL_CORNER_RADIUS,
   className,
   style,
   children,

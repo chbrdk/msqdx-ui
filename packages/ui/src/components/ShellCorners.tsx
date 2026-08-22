@@ -3,6 +3,7 @@ import { MsqdxCornerBox } from '../brand/MsqdxCornerBox'
 import {
   BOTTOM_LEFT_SHELL_CORNERS,
   BOTTOM_RIGHT_SHELL_CORNERS,
+  MSQDX_SHELL_CORNER_RADIUS,
   TOP_LEFT_SHELL_CORNERS,
 } from '../brand/msqdxCutdown'
 
@@ -20,7 +21,7 @@ function cx(...parts: Array<string | false | null | undefined>): string {
  * Top-right is reserved for `BrandCorner`.
  */
 export function ShellCorners({
-  borderRadius = 32,
+  borderRadius = MSQDX_SHELL_CORNER_RADIUS,
   className,
   ...rest
 }: ShellCornersProps) {

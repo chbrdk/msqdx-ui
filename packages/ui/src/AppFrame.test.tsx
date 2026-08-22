@@ -35,6 +35,7 @@ describe('shared app shell primitives', () => {
     expect(document.querySelectorAll('.shell-corner')).toHaveLength(3)
     for (const box of document.querySelectorAll('.shell-corner-box')) {
       expect((box as HTMLElement).style.width).toBe('0px')
+      expect((box as HTMLElement).style.height).toBe('24px')
     }
     expect(rail).toBeInTheDocument()
     expect(rail).toHaveClass('nav-rail--static-dock')

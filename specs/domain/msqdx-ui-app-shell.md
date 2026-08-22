@@ -30,7 +30,7 @@ The plaque MUST accept pointer events (`pointer-events: auto` on the box) so hov
 - Visual system follows the existing `frame.css` shell language.
 - Routing stays app-owned: rail items receive active state from the consumer.
 - No product-specific copy or route definitions inside shared UI.
-- Shell cutouts reuse `MsqdxCornerBox` (same radius as brand corner, default 32px). Each free corner gets **one** concave `cutdown-a` (not convex `rounded`). Top-right stays open for the brand plaque.
+- Shell cutouts reuse `MsqdxCornerBox` (same radius as brand corner, default 24px). Each free corner gets **one** concave `cutdown-a` (not convex `rounded`). Top-right stays open for the brand plaque.
 
 ## Acceptance
 

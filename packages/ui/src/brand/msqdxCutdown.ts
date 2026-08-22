@@ -6,6 +6,9 @@ export type CornerStyle = 'rounded' | 'square' | 'cutdown-a' | 'cutdown-b'
 export type CutdownVariant = 'a' | 'b'
 export type CornerKey = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
 
+/** Default cutdown radius for BrandCorner + ShellCorners (AppFrame). */
+export const MSQDX_SHELL_CORNER_RADIUS = 24
+
 export interface CornerPatchDef {
   position: (size: number) => {
     top?: number
