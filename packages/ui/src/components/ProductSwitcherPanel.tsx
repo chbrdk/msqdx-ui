@@ -19,6 +19,8 @@ export type ProductSwitcherPanelProps = {
   onSelectItem?: (item: ProductSwitcherItem) => void
   className?: string
   id?: string
+  /** Inside BrandCorner plaque — no outer panel chrome. */
+  embedded?: boolean
 }
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -49,13 +51,19 @@ export function ProductSwitcherPanel({
   onSelectItem,
   className,
   id,
+  embedded = false,
 }: ProductSwitcherPanelProps) {
   const select = onSelectItem ?? defaultSelectItem
 
   return (
     <div
       id={id}
-      className={cx('product-switcher-panel', 'ds-motion-reveal', className)}
+      className={cx(
+        'product-switcher-panel',
+        !embedded && 'ds-motion-reveal',
+        embedded && 'product-switcher-panel--embedded',
+        className,
+      )}
       role="menu"
       aria-label={label}
       data-testid="product-switcher-panel"

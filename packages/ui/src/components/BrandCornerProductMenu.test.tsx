@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { BrandCorner } from './BrandCorner'
 import { BrandCornerProductMenu } from './BrandCornerProductMenu'
 import { ProductSwitcherPanel } from './ProductSwitcherPanel'
 
@@ -40,48 +41,49 @@ describe('ProductSwitcherPanel', () => {
   })
 })
 
-describe('BrandCornerProductMenu', () => {
-  it('opens panel on plaque click', () => {
+describe('BrandCorner product menu', () => {
+  it('opens menu inside the plaque on header click', () => {
     render(
-      <BrandCornerProductMenu label="CREATION" currentProductId="creation" items={ITEMS} />,
+      <BrandCorner label="CREATION" currentProductId="creation" menuItems={ITEMS} />,
     )
     expect(screen.queryByTestId('product-switcher-panel')).toBeNull()
     fireEvent.click(screen.getByRole('button', { name: 'CREATION' }))
     expect(screen.getByTestId('product-switcher-panel')).toBeInTheDocument()
+    expect(screen.getByTestId('product-switcher-panel')).toHaveClass('brand-corner-menu')
   })
 
   it('closes on Escape', () => {
     render(
-      <BrandCornerProductMenu label="CREATION" currentProductId="creation" items={ITEMS} />,
+      <BrandCorner label="CREATION" currentProductId="creation" menuItems={ITEMS} />,
     )
     fireEvent.click(screen.getByRole('button', { name: 'CREATION' }))
     fireEvent.keyDown(window, { key: 'Escape' })
     expect(screen.queryByTestId('product-switcher-panel')).toBeNull()
   })
 
-  it('delegates selection to onSelectItem', () => {
-    const onSelectItem = vi.fn()
+  it('delegates selection to onMenuSelectItem', () => {
+    const onMenuSelectItem = vi.fn()
     render(
-      <BrandCornerProductMenu
+      <BrandCorner
         label="CREATION"
         currentProductId="creation"
-        items={ITEMS}
-        onSelectItem={onSelectItem}
+        menuItems={ITEMS}
+        onMenuSelectItem={onMenuSelectItem}
       />,
     )
     fireEvent.click(screen.getByRole('button', { name: 'CREATION' }))
     fireEvent.click(within(screen.getByTestId('product-switcher-panel')).getByRole('menuitem', { name: 'PLEXON' }))
-    expect(onSelectItem).toHaveBeenCalledWith(expect.objectContaining({ id: 'plexon' }))
+    expect(onMenuSelectItem).toHaveBeenCalledWith(expect.objectContaining({ id: 'plexon' }))
   })
 
-  it('falls back to plain BrandCorner when items are empty', () => {
-    render(<BrandCornerProductMenu label="CREATION" currentProductId="creation" items={[]} />)
-    expect(screen.getByTestId('brand-corner')).toBeInTheDocument()
-    expect(screen.queryByTestId('brand-corner-product-menu')).toBeNull()
+  it('BrandCornerProductMenu alias forwards to BrandCorner', () => {
+    render(<BrandCornerProductMenu label="CREATION" currentProductId="creation" items={ITEMS} />)
+    expect(screen.getByTestId('brand-corner')).toHaveClass('brand-corner--has-menu')
   })
 
-  it('CSS anchors panel under fixed top-right corner', () => {
-    expect(frameCss).toMatch(/\.brand-corner-product-menu\s*\{[^}]*position:\s*fixed/)
-    expect(frameCss).toMatch(/\.brand-corner-product-menu__panel/)
+  it('CSS keeps product list inside brand-corner-box', () => {
+    expect(frameCss).toMatch(/\.brand-corner-menu\s*\{/)
+    expect(frameCss).toMatch(/\.product-switcher-panel--embedded/)
+    expect(frameCss).not.toMatch(/\.brand-corner-product-menu__panel/)
   })
 })

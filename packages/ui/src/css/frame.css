@@ -362,7 +362,8 @@
 
 .brand-corner-box {
   display: inline-flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: stretch;
   gap: 0;
   padding: 0.75rem 1rem;
   /* No border/shadow — a 1px stroke reads as a gap at the viewport edge */
@@ -375,7 +376,47 @@
   transition: padding 0.28s ease;
 }
 
+.brand-corner-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  cursor: default;
+  outline: none;
+}
+
+.brand-corner--has-menu .brand-corner-header {
+  cursor: pointer;
+}
+
+.brand-corner-header:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--bg0) 55%, transparent);
+  outline-offset: -4px;
+  border-radius: calc(var(--radius, 0px) * 0.5);
+}
+
+.brand-corner-box--menu-open {
+  padding-bottom: 0.55rem;
+  min-width: min(14rem, calc(100vw - 2rem));
+}
+
+.brand-corner-menu {
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid color-mix(in srgb, var(--bg0) 22%, transparent);
+}
+
 .brand-corner-box:focus-visible {
+  outline: none;
+}
+
+.brand-corner-header--static:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--bg0) 55%, transparent);
   outline-offset: -4px;
 }
@@ -425,7 +466,10 @@
 
 .brand-corner--collapse-label .brand-corner-box:hover .brand-corner-reveal,
 .brand-corner--collapse-label .brand-corner-box:focus-within .brand-corner-reveal,
-.brand-corner--collapse-label .brand-corner-box:focus-visible .brand-corner-reveal {
+.brand-corner--collapse-label .brand-corner-box:focus-visible .brand-corner-reveal,
+.brand-corner--collapse-label .brand-corner-header:hover .brand-corner-reveal,
+.brand-corner--collapse-label .brand-corner-header:focus-visible .brand-corner-reveal,
+.brand-corner--collapse-label .brand-corner-header:focus-within .brand-corner-reveal {
   grid-template-columns: 1fr;
   opacity: 1;
 }
@@ -436,7 +480,10 @@
 
 .brand-corner--collapse-label .brand-corner-box:hover .brand-corner-reveal-inner,
 .brand-corner--collapse-label .brand-corner-box:focus-within .brand-corner-reveal-inner,
-.brand-corner--collapse-label .brand-corner-box:focus-visible .brand-corner-reveal-inner {
+.brand-corner--collapse-label .brand-corner-box:focus-visible .brand-corner-reveal-inner,
+.brand-corner--collapse-label .brand-corner-header:hover .brand-corner-reveal-inner,
+.brand-corner--collapse-label .brand-corner-header:focus-visible .brand-corner-reveal-inner,
+.brand-corner--collapse-label .brand-corner-header:focus-within .brand-corner-reveal-inner {
   padding-inline-start: 0.65rem;
 }
 
@@ -463,37 +510,44 @@
   }
 }
 
-.brand-corner--interactive .brand-corner-box {
-  cursor: pointer;
+.product-switcher-panel--embedded {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  box-shadow: none;
 }
 
-.brand-corner-product-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 45;
-  pointer-events: none;
+.product-switcher-panel--embedded .product-switcher-panel__item {
+  padding: 0.42rem 0.35rem;
+  border-radius: calc(var(--radius, 0px) * 0.45);
+  color: var(--muted);
 }
 
-.brand-corner-product-menu .brand-corner {
-  position: static;
-  pointer-events: none;
+.product-switcher-panel--embedded .product-switcher-panel__item:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--bg0) 8%, transparent);
+  color: var(--bg0);
 }
 
-.brand-corner-product-menu__panel {
-  position: absolute;
-  top: calc(100% + 0.35rem);
-  right: 0;
-  z-index: 50;
-  pointer-events: auto;
-  min-width: min(16rem, calc(100vw - 2rem));
-  max-width: min(22rem, calc(100vw - 2rem));
-  padding: 0.65rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--surface, var(--bg1, var(--bg0)));
-  color: var(--ink);
-  box-shadow: 0 12px 40px color-mix(in srgb, var(--ink) 14%, transparent);
+.product-switcher-panel--embedded .product-switcher-panel__item--current {
+  background: color-mix(in srgb, var(--bg0) 12%, transparent);
+  color: var(--bg0);
+}
+
+.product-switcher-panel--embedded .product-switcher-panel__footer {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top-color: color-mix(in srgb, var(--bg0) 22%, transparent);
+}
+
+.product-switcher-panel--embedded .product-switcher-panel__footer a {
+  color: var(--muted);
+}
+
+.product-switcher-panel--embedded .product-switcher-panel__footer a:hover {
+  color: var(--bg0);
 }
 
 .product-switcher-panel__list {

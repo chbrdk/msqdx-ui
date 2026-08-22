@@ -2,8 +2,8 @@
 
 **Status:** Accepted — 2026-08-22  
 **Layer:** Molecules  
-**Implements:** `ProductSwitcherPanel` · `BrandCornerProductMenu`  
-**Related:** [`msqdx-ui-app-shell.md`](./msqdx-ui-app-shell.md) · [`msqdx-ui-flyout.md`](./msqdx-ui-flyout.md) · Plexon `GET /api/platform/products`
+**Implements:** `BrandCorner` (integrated menu) · `ProductSwitcherPanel` · `BrandCornerProductMenu` (alias)  
+**Related:** [`msqdx-ui-app-shell.md`](./msqdx-ui-app-shell.md) · Plexon `GET /api/platform/products`
 
 ## Purpose
 
@@ -31,20 +31,21 @@ type ProductSwitcherPanelProps = {
   className?: string
 }
 
-type BrandCornerProductMenuProps = BrandCornerProps & {
-  currentProductId: string
-  items: ProductSwitcherItem[]
+type BrandCornerProps = {
+  // ...existing BrandCorner props
+  menuItems?: ProductSwitcherItem[]
+  currentProductId?: string
   menuLabel?: string
-  footer?: ReactNode
-  onSelectItem?: (item: ProductSwitcherItem) => void
+  menuFooter?: ReactNode
+  onMenuSelectItem?: (item: ProductSwitcherItem) => void
 }
 ```
 
 ## Behaviour
 
-WENN `items.length > 0`, DANN MUSS `BrandCornerProductMenu` die Plaque als Menü-Trigger rendern (`role="button"`, `aria-haspopup="menu"`, `aria-expanded`).
+WENN `menuItems.length > 0`, DANN MUSS `BrandCorner` die Header-Zeile als Menü-Trigger rendern (`role="button"`, `aria-haspopup="menu"`, `aria-expanded`).
 
-WENN der Nutzer die Plaque klickt oder Enter/Space drückt (fokussiert), DANN MUSS das Panel unter der Ecke (nach unten, rechts ausgerichtet) ein-/ausgeblendet werden.
+WENN der Nutzer die Plaque-Header-Zeile klickt oder Enter/Space drückt (fokussiert), DANN MUSS die Produktliste **innerhalb derselben BrandCorner-Plaque** nach unten ein-/ausgeblendet werden (kein separates Flyout, keine zweite Surface).
 
 WENN das Panel offen ist, DANN MUSS das Label sichtbar bleiben (`labelReveal="always"` bis Schließen).
 
