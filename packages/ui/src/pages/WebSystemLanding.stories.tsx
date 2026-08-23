@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Button } from './components/Button'
-import { Card } from './components/Card'
-import { Heading } from './components/Heading'
-import { Stack } from './components/Stack'
+import { Button } from '../components/Button'
+import { Card } from '../components/Card'
+import { Heading } from '../components/Heading'
+import { Stack } from '../components/Stack'
 
 /**
  * Landing proof: one composition painted only with Layer-0 web-system semantics
