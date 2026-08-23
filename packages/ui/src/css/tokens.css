@@ -79,6 +79,27 @@
   --responsive-lg-min: 1200px;
   --responsive-gutter: 1rem;
 
+  /* Web-system breakpoints (shadcn / Tailwind-aligned names) — specs/domain/web-system-tokens.md */
+  --breakpoint-sm: var(--responsive-sm-max);
+  --breakpoint-md: var(--responsive-md-max);
+  --breakpoint-lg: var(--responsive-lg-min);
+  --breakpoint-xl: 1600px;
+  --breakpoint-2xl: 1920px;
+
+  /* Elevation — SoT: tokens/shadows.ts */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* Stacking — SoT: tokens/zIndex.ts */
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-modal: 1400;
+  --z-popover: 1500;
+  --z-toast: 1600;
+
   /* Scrollbars — hairline, theme-aware via --ink */
   --scrollbar-size: 4px;
   --scrollbar-radius: 999px;
@@ -375,6 +396,9 @@
  * Chrome aliases. Inspect/editor CSS used --surface-1 / --border with light-only
  * fallbacks (#fff, black 12%). Those vars were never on the theme, so dark
  * rails painted grey/white boxes. Map them to the real semantic tokens.
+ *
+ * Web-system (shadcn-near) pairs — specs/domain/web-system-tokens.md.
+ * Do not reassign --muted (text) or --accent (brand fill).
  */
 :root,
 [data-theme='msqdx'],
@@ -391,6 +415,27 @@
   --success: var(--ok);
   --warning: var(--warn);
   --bad: var(--danger);
+
+  /* Semantic color pairs */
+  --background: var(--bg0);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--bg1);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--ink);
+  --muted-surface: color-mix(in srgb, var(--ink) 6%, var(--bg1));
+  --muted-foreground: var(--muted);
+  --accent-surface: color-mix(in srgb, var(--accent) 12%, var(--bg1));
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --destructive-foreground: #ffffff;
+  --input: var(--field);
+  --ring: color-mix(in srgb, var(--accent) 55%, transparent);
+  --ring-offset: var(--background);
 }
 
 :root,

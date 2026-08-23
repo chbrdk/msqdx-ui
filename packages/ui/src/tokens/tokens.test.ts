@@ -87,4 +87,18 @@ describe('design-system CSS layers', () => {
     expect(tokensCss).toContain('--surface-1: var(--bg1)')
     expect(tokensCss).toContain('--border: var(--line)')
   })
+
+  it('defines web-system semantic aliases and scales', () => {
+    const tokensCss = readFileSync(join(here, '../css/tokens.css'), 'utf8')
+    expect(tokensCss).toContain('--background: var(--bg0)')
+    expect(tokensCss).toContain('--foreground: var(--ink)')
+    expect(tokensCss).toContain('--primary: var(--accent)')
+    expect(tokensCss).toContain('--muted-foreground: var(--muted)')
+    expect(tokensCss).toContain('--muted-surface:')
+    expect(tokensCss).toContain('--ring:')
+    expect(tokensCss).toContain('--shadow-md:')
+    expect(tokensCss).toContain('--z-modal:')
+    expect(tokensCss).toContain('--breakpoint-sm:')
+    expect(tokensCss).toContain('--breakpoint-2xl:')
+  })
 })
