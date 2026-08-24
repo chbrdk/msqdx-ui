@@ -44,6 +44,7 @@ export const WC_MANIFEST = [
   { catalogId: "EventFooter", tagName: "msqdx-event-footer", layer: "Molecules", title: "Molecules/EventFooter" },
   { catalogId: "CardActions", tagName: "msqdx-card-actions", layer: "Molecules", title: "Molecules/CardActions" },
   { catalogId: "Lede", tagName: "msqdx-lede", layer: "Molecules", title: "Molecules/Lede" },
+  { catalogId: "MarkdownProse", tagName: "msqdx-markdown-prose", layer: "Molecules", title: "Molecules/MarkdownProse" },
   { catalogId: "SectionChrome", tagName: "msqdx-section-chrome", layer: "Molecules", title: "Molecules/SectionChrome" },
   { catalogId: "RankedRow", tagName: "msqdx-ranked-row", layer: "Molecules", title: "Molecules/RankedRow" },
   { catalogId: "BrandCorner", tagName: "msqdx-brand-corner", layer: "Molecules", title: "Molecules/BrandCorner" },

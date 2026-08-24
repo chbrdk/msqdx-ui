@@ -76,6 +76,7 @@ import { Lede } from '../components/Lede'
 import { Link } from '../components/Link'
 import { MagazineContentsNav } from '../components/MagazineContentsNav'
 import { MarkerCanvas } from '../components/MarkerCanvas'
+import { MarkdownProse } from '../components/MarkdownProse'
 import { Meter } from '../components/Meter'
 import { MetricChip } from '../components/MetricChip'
 import { NavRail } from '../components/NavRail'
@@ -212,6 +213,7 @@ const CATALOG_COMPONENTS = {
   LoadingText,
   MagazineContentsNav,
   MarkerCanvas,
+  MarkdownProse,
   Meter,
   MetricChip,
   NavRail,

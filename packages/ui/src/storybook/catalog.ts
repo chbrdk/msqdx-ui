@@ -76,6 +76,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'EventFooter', layer: 'Molecules', title: 'Molecules/EventFooter', stories: 'components/EventFooter.stories.tsx', mdx: 'components/EventFooter.mdx' },
   { id: 'CardActions', layer: 'Molecules', title: 'Molecules/CardActions', stories: 'components/CardActions.stories.tsx', mdx: 'components/CardActions.mdx' },
   { id: 'Lede', layer: 'Molecules', title: 'Molecules/Lede', stories: 'components/Lede.stories.tsx', mdx: 'components/Lede.mdx' },
+  { id: 'MarkdownProse', layer: 'Molecules', title: 'Molecules/MarkdownProse', stories: 'components/MarkdownProse.stories.tsx', mdx: 'components/MarkdownProse.mdx' },
   { id: 'SectionChrome', layer: 'Molecules', title: 'Molecules/SectionChrome', stories: 'SectionChrome.stories.tsx', mdx: 'SectionChrome.mdx' },
   { id: 'RankedRow', layer: 'Molecules', title: 'Molecules/RankedRow', stories: 'components/RankedRow.stories.tsx', mdx: 'components/RankedRow.mdx' },
   { id: 'BrandCorner', layer: 'Molecules', title: 'Molecules/BrandCorner', stories: 'components/BrandCorner.stories.tsx', mdx: 'components/BrandCorner.mdx' },
