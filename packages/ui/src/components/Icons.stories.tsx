@@ -23,6 +23,7 @@ import {
   IconStrikethrough,
   IconGhost,
   IconBan,
+  IconStorybook,
 } from './icons'
 import { Text } from './Text'
 
@@ -50,6 +51,7 @@ const ICONS = [
   { name: 'IconStrikethrough', Node: IconStrikethrough },
   { name: 'IconGhost', Node: IconGhost },
   { name: 'IconBan', Node: IconBan },
+  { name: 'IconStorybook', Node: IconStorybook },
 ] as const
 
 const meta = {

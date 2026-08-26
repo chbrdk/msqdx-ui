@@ -198,6 +198,7 @@ export {
   IconLink,
   IconBadge,
   IconSpacer,
+  IconStorybook,
 } from './components/icons'
 export type { IconProps } from './components/icons'
 export { KpiStrip } from './components/KpiStrip'

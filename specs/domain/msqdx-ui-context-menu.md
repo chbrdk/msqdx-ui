@@ -49,6 +49,8 @@ Controlled only. Portal-free: `position: fixed` at `(x, y)` (clamp later if need
 
 - Classes: `.ds-context-menu`, `.ds-context-menu-item`, modifiers `--danger`, `--disabled`
 - Surface: solid `--paper` / `--surface`, hairline `--line`, soft lift (same magazine language as Flyout panel — no glass glow)
+- Corners: soft panel radius (`--radius-panel`, not theme `--radius` which can be 0 / hairline)
+- Type: compact body (`~0.75rem`); shortcuts slightly smaller / muted; denser item padding than default body text
 
 ## Non-goals
 

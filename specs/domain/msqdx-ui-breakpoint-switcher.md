@@ -43,7 +43,7 @@ const DEFAULT_LABELS: Record<EditorBreakpoint, string> = {
 }
 ```
 
-WENN `variant="icon"`, DANN MUST each radio show a device glyph (built-in SVG or `icons` override) and MUST set `aria-label` + `title` from `labels` (string) or `DEFAULT_LABELS`.
+WENN `variant="icon"`, DANN MUST each radio show a device / medium glyph (built-in SVG or `icons` override) and MUST set `aria-label` + `title` from `labels` (string) or `DEFAULT_LABELS`. Built-in `print` glyph is a **page/sheet** (not a printer).
 
 ## Behaviour
 
