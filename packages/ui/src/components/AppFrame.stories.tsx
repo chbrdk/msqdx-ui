@@ -3,6 +3,7 @@ import { AppFrame } from './AppFrame'
 import { BrandCorner } from './BrandCorner'
 import { IconOverview, IconPersonas, IconProjects } from './icons'
 import { NavRail } from './NavRail'
+import { ShellBackButton } from './ShellBackButton'
 import { Text } from './Text'
 import { TopStatus } from './TopStatus'
 
@@ -21,6 +22,7 @@ export const Default: Story = {
   render: () => (
     <AppFrame
       style={{ minHeight: '28rem' }}
+      backCorner={<ShellBackButton label="Back" onClick={() => undefined} />}
       brandCorner={<BrandCorner label="AUDION" />}
       rail={
         <NavRail
@@ -40,8 +42,8 @@ export const Default: Story = {
         Page body
       </Text>
       <Text role="body" as="p">
-        AppFrame composes atmosphere, shell cutout corners (TL/BL/BR), brand corner,
-        nav rail, optional topbar, and page content.
+        AppFrame composes atmosphere, shell cutout corners (BL/BR; TL reserved for back),
+        brand corner, nav rail, optional topbar, and page content.
       </Text>
     </AppFrame>
   ),

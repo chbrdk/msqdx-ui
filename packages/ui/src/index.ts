@@ -86,6 +86,7 @@ export type { MsqdxCornerBoxProps } from './brand/MsqdxCornerBox'
 export { MsqdxLogoMark } from './brand/MsqdxLogoMark'
 export {
   TOP_RIGHT_BRAND_CORNERS,
+  TOP_LEFT_BACK_CORNERS,
   MSQDX_SHELL_CORNER_RADIUS,
   TOP_LEFT_SHELL_CORNERS,
   BOTTOM_LEFT_SHELL_CORNERS,
@@ -101,6 +102,8 @@ export {
 } from './shell/railDock'
 export { BrandCorner } from './components/BrandCorner'
 export type { BrandCornerProps } from './components/BrandCorner'
+export { ShellBackButton } from './components/ShellBackButton'
+export type { ShellBackButtonProps } from './components/ShellBackButton'
 export { ProductSwitcherPanel, launchProductSwitcherItem } from './components/ProductSwitcherPanel'
 export type { ProductSwitcherItem, ProductSwitcherPanelProps } from './components/ProductSwitcherPanel'
 export { BrandCornerProductMenu } from './components/BrandCornerProductMenu'

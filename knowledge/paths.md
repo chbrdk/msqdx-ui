@@ -83,6 +83,7 @@
 - Shared app frame primitive: `packages/ui/src/components/AppFrame.tsx`
 - Shared nav rail primitive: `packages/ui/src/components/NavRail.tsx`
 - Shared brand corner primitive: `packages/ui/src/components/BrandCorner.tsx` · hover expand `knowledge/components/brand-corner-hover-expand.md`
+- Shared shell back plaque: `packages/ui/src/components/ShellBackButton.tsx` · spec `specs/domain/msqdx-ui-shell-back-button.md` · `AppFrame.backCorner`
 - Product launcher: `BrandCornerProductMenu` · `ProductSwitcherPanel` · spec `specs/domain/msqdx-ui-product-switcher.md`
 - Shared shell cutouts: `packages/ui/src/components/ShellCorners.tsx` · `knowledge/components/shell-corner-cutouts.md`
 

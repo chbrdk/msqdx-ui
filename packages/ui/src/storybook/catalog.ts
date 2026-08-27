@@ -80,6 +80,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'SectionChrome', layer: 'Molecules', title: 'Molecules/SectionChrome', stories: 'SectionChrome.stories.tsx', mdx: 'SectionChrome.mdx' },
   { id: 'RankedRow', layer: 'Molecules', title: 'Molecules/RankedRow', stories: 'components/RankedRow.stories.tsx', mdx: 'components/RankedRow.mdx' },
   { id: 'BrandCorner', layer: 'Molecules', title: 'Molecules/BrandCorner', stories: 'components/BrandCorner.stories.tsx', mdx: 'components/BrandCorner.mdx' },
+  { id: 'ShellBackButton', layer: 'Molecules', title: 'Molecules/ShellBackButton', stories: 'components/ShellBackButton.stories.tsx', mdx: 'components/ShellBackButton.mdx' },
   { id: 'BrandCornerProductMenu', layer: 'Molecules', title: 'Molecules/BrandCornerProductMenu', stories: 'components/BrandCornerProductMenu.stories.tsx', mdx: 'components/BrandCornerProductMenu.mdx' },
   { id: 'TopStatus', layer: 'Molecules', title: 'Molecules/TopStatus', stories: 'components/TopStatus.stories.tsx', mdx: 'components/TopStatus.mdx' },
   { id: 'DivergingBar', layer: 'Molecules', title: 'Molecules/DivergingBar', stories: 'components/DivergingBar.stories.tsx', mdx: 'components/DivergingBar.mdx' },

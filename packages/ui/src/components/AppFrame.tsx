@@ -8,9 +8,11 @@ export type AppFrameProps = {
   children: ReactNode
   rail?: ReactNode
   brandCorner?: ReactNode
+  /** Fixed top-left history-back plaque (`ShellBackButton`). */
+  backCorner?: ReactNode
   topbar?: ReactNode
   railEdge?: AppFrameRailEdge
-  /** Viewport cutdowns at TL / BL / BR (TR reserved for brand corner). Default on. */
+  /** Viewport cutdowns at TL / BL / BR (TR reserved for brand; TL skipped when `backCorner` set). */
   shellCorners?: boolean
   shellCornerRadius?: number
   className?: string
@@ -24,6 +26,7 @@ export function AppFrame({
   children,
   rail,
   brandCorner,
+  backCorner,
   topbar,
   railEdge = 'left',
   shellCorners = true,
@@ -34,7 +37,10 @@ export function AppFrame({
   return (
     <main className={cx('app-frame', className)} data-rail-edge={railEdge} {...rest}>
       <div className="atmosphere" aria-hidden />
-      {shellCorners ? <ShellCorners borderRadius={shellCornerRadius} /> : null}
+      {shellCorners ? (
+        <ShellCorners borderRadius={shellCornerRadius} omitTopLeft={Boolean(backCorner)} />
+      ) : null}
+      {backCorner}
       {brandCorner}
       {rail}
       <div className="app-main">

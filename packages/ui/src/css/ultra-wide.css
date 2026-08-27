@@ -33,6 +33,25 @@
   }
 }
 
+/* MSQ DX cutout back corner — always viewport top-left */
+.shell-back-corner {
+  --shell-back-pad-x: 1.1rem;
+  --shell-back-pad-y: 0.85rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.shell-back-corner-box {
+  background: var(--ink);
+  color: var(--bg0);
+  border: 0;
+  box-shadow: none;
+  padding: var(--shell-back-pad-y) var(--shell-back-pad-x);
+}
+
 /* MSQ DX cutout brand corner — always viewport top-right (independent of rail dock) */
 .brand-corner {
   --brand-corner-pad-x: 1.1rem;

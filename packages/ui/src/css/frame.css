@@ -351,6 +351,56 @@
   box-shadow: none;
 }
 
+/* Top-left history-back plaque — mirror of BrandCorner */
+.shell-back-corner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.shell-back-corner-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border: 0;
+  box-shadow: none;
+  background: var(--ink);
+  color: var(--bg0);
+  pointer-events: auto;
+  outline: none;
+}
+
+.shell-back-corner-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 0;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+
+.shell-back-corner-btn:disabled,
+.shell-back-corner-btn[aria-disabled='true'] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.shell-back-corner-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--bg0) 55%, transparent);
+  outline-offset: 2px;
+  border-radius: calc(var(--radius, 0px) * 0.5);
+}
+
 /* Top-right brand plaque — flush to viewport (cutdown via MsqdxCornerBox) */
 .brand-corner {
   position: fixed;
@@ -699,6 +749,13 @@
 
   .rail-spacer {
     display: none;
+  }
+
+  .shell-back-corner {
+    position: relative;
+    top: auto;
+    left: auto;
+    margin-bottom: 1rem;
   }
 
   .brand-corner {

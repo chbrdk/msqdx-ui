@@ -64,6 +64,14 @@ export const TOP_RIGHT_BRAND_CORNERS = {
   bottomRight: 'cutdown-b',
 } as const satisfies Record<CornerKey, CornerStyle>
 
+/** Flush top-left back plaque — mirror of BrandCorner (scoop into the page). */
+export const TOP_LEFT_BACK_CORNERS = {
+  topLeft: 'square',
+  topRight: 'cutdown-a',
+  bottomLeft: 'cutdown-b',
+  bottomRight: 'rounded',
+} as const satisfies Record<CornerKey, CornerStyle>
+
 /** Flush top-left — scoop along the top edge into the page. */
 export const TOP_LEFT_SHELL_CORNERS = {
   topLeft: 'square',
