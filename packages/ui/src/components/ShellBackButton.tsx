@@ -3,6 +3,7 @@
 import type {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
+  MouseEvent,
   ReactNode,
 } from 'react'
 import { MsqdxCornerBox } from '../brand/MsqdxCornerBox'
@@ -14,7 +15,7 @@ import {
 } from '../brand/msqdxCutdown'
 import { IconArrowLeft } from './icons'
 
-export type ShellBackButtonProps = {
+type SharedProps = {
   /** Accessible name — required for the icon-only control. */
   label?: string
   /** Leading icon override (default `IconArrowLeft`). */
@@ -23,22 +24,23 @@ export type ShellBackButtonProps = {
   corners?: Record<CornerKey, CornerStyle>
   className?: string
   disabled?: boolean
-} & (
-  | ({
+}
+
+export type ShellBackButtonProps =
+  | (SharedProps & {
       href?: undefined
       onClick?: ButtonHTMLAttributes<HTMLButtonElement>['onClick']
     } & Omit<
       ButtonHTMLAttributes<HTMLButtonElement>,
       'className' | 'children' | 'onClick' | 'disabled' | 'type'
     >)
-  | ({
+  | (SharedProps & {
       href: string
       onClick?: AnchorHTMLAttributes<HTMLAnchorElement>['onClick']
     } & Omit<
       AnchorHTMLAttributes<HTMLAnchorElement>,
       'className' | 'children' | 'onClick' | 'href'
     >)
-)
 
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
@@ -48,47 +50,46 @@ function cx(...parts: Array<string | false | null | undefined>): string {
  * Fixed top-left shell history-back plaque — mirror of BrandCorner.
  * Spec: specs/domain/msqdx-ui-shell-back-button.md
  */
-export function ShellBackButton({
-  label = 'Back',
-  icon,
-  borderRadius = MSQDX_SHELL_CORNER_RADIUS,
-  corners = TOP_LEFT_BACK_CORNERS,
-  className,
-  disabled,
-  ...rest
-}: ShellBackButtonProps) {
+export function ShellBackButton(props: ShellBackButtonProps) {
+  const {
+    label = 'Back',
+    icon,
+    borderRadius = MSQDX_SHELL_CORNER_RADIUS,
+    corners = TOP_LEFT_BACK_CORNERS,
+    className,
+    disabled,
+  } = props
   const mark = icon ?? <IconArrowLeft size={18} strokeWidth={2} aria-hidden />
-  const href = 'href' in rest ? rest.href : undefined
 
-  const control = href ? (
-    <a
-      {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
-      href={href}
-      className="shell-back-corner-btn"
-      aria-label={label}
-      aria-disabled={disabled || undefined}
-      tabIndex={disabled ? -1 : undefined}
-      onClick={(event) => {
-        if (disabled) {
-          event.preventDefault()
-          return
-        }
-        rest.onClick?.(event)
-      }}
-    >
-      {mark}
-    </a>
-  ) : (
-    <button
-      type="button"
-      {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
-      className="shell-back-corner-btn"
-      aria-label={label}
-      disabled={disabled}
-    >
-      {mark}
-    </button>
-  )
+  const control =
+    props.href != null ? (
+      <a
+        href={props.href}
+        className="shell-back-corner-btn"
+        aria-label={label}
+        aria-disabled={disabled || undefined}
+        tabIndex={disabled ? -1 : undefined}
+        onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+          if (disabled) {
+            event.preventDefault()
+            return
+          }
+          props.onClick?.(event)
+        }}
+      >
+        {mark}
+      </a>
+    ) : (
+      <button
+        type="button"
+        className="shell-back-corner-btn"
+        aria-label={label}
+        disabled={disabled}
+        onClick={props.onClick}
+      >
+        {mark}
+      </button>
+    )
 
   return (
     <div
