@@ -48,6 +48,7 @@ export const WC_MANIFEST = [
   { catalogId: "SectionChrome", tagName: "msqdx-section-chrome", layer: "Molecules", title: "Molecules/SectionChrome" },
   { catalogId: "RankedRow", tagName: "msqdx-ranked-row", layer: "Molecules", title: "Molecules/RankedRow" },
   { catalogId: "BrandCorner", tagName: "msqdx-brand-corner", layer: "Molecules", title: "Molecules/BrandCorner" },
+  { catalogId: "ShellBackButton", tagName: "msqdx-shell-back-button", layer: "Molecules", title: "Molecules/ShellBackButton" },
   { catalogId: "BrandCornerProductMenu", tagName: "msqdx-brand-corner-product-menu", layer: "Molecules", title: "Molecules/BrandCornerProductMenu" },
   { catalogId: "TopStatus", tagName: "msqdx-top-status", layer: "Molecules", title: "Molecules/TopStatus" },
   { catalogId: "DivergingBar", tagName: "msqdx-diverging-bar", layer: "Molecules", title: "Molecules/DivergingBar" },
@@ -135,4 +136,5 @@ export const WC_MANIFEST = [
   { catalogId: "LayersPanel", tagName: "msqdx-layers-panel", layer: "Organisms", title: "Organisms/LayersPanel" },
   { catalogId: "TokenPicker", tagName: "msqdx-token-picker", layer: "Organisms", title: "Organisms/TokenPicker" },
   { catalogId: "TokenPreview", tagName: "msqdx-token-preview", layer: "Molecules", title: "Molecules/TokenPreview" },
+  { catalogId: "EasingCurveEditor", tagName: "msqdx-easing-curve-editor", layer: "Molecules", title: "Molecules/EasingCurveEditor" },
 ] satisfies WcManifestEntry[]

@@ -172,6 +172,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'LayersPanel', layer: 'Organisms', title: 'Organisms/LayersPanel', stories: 'components/LayersPanel.stories.tsx', mdx: 'components/LayersPanel.mdx' },
   { id: 'TokenPicker', layer: 'Organisms', title: 'Organisms/TokenPicker', stories: 'components/TokenPicker.stories.tsx', mdx: 'components/TokenPicker.mdx' },
   { id: 'TokenPreview', layer: 'Molecules', title: 'Molecules/TokenPreview', stories: 'components/TokenPreview.stories.tsx', mdx: 'components/TokenPreview.mdx' },
+  { id: 'EasingCurveEditor', layer: 'Molecules', title: 'Molecules/EasingCurveEditor', stories: 'components/EasingCurveEditor.stories.tsx', mdx: 'components/EasingCurveEditor.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

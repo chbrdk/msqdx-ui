@@ -89,6 +89,7 @@ import { SchemaTree } from '../components/SchemaTree'
 import { ScrollArea } from '../components/ScrollArea'
 import { Select } from '../components/Select'
 import { SelectionHandles } from '../components/SelectionHandles'
+import { ShellBackButton } from '../components/ShellBackButton'
 import { Skeleton } from '../components/Skeleton'
 import { Slider } from '../components/Slider'
 import { Spacer } from '../components/Spacer'
@@ -106,6 +107,7 @@ import { Text } from '../components/Text'
 import { Textarea } from '../components/Textarea'
 import { Toast } from '../components/Toast'
 import { ToggleGroup } from '../components/ToggleGroup'
+import { EasingCurveEditor } from '../components/EasingCurveEditor'
 import { TokenPicker } from '../components/TokenPicker'
 import { TokenPreview } from '../components/TokenPreview'
 import { Tooltip } from '../components/Tooltip'
@@ -242,6 +244,7 @@ const CATALOG_COMPONENTS = {
   ScrollArea,
   Select,
   SelectionHandles,
+  ShellBackButton,
   Skeleton,
   Slider,
   Spacer,
@@ -258,6 +261,7 @@ const CATALOG_COMPONENTS = {
   Textarea,
   Toast,
   ToggleGroup,
+  EasingCurveEditor,
   TokenPicker,
   TokenPreview,
   Tooltip,

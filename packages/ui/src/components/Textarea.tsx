@@ -4,6 +4,8 @@ import type { FieldSize } from './Field'
 export type TextareaProps = {
   size?: FieldSize
   block?: boolean
+  /** Monospace face for JSON / code values. */
+  mono?: boolean
   className?: string
 } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className'>
 
@@ -15,6 +17,7 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 export function Textarea({
   size = 'sm',
   block = false,
+  mono = false,
   className,
   rows = 3,
   ...rest
@@ -29,6 +32,7 @@ export function Textarea({
         `ds-input--${size}`,
         block && 'ds-textarea--block',
         block && 'ds-input--block',
+        mono && 'ds-textarea--mono',
         className,
       )}
       {...rest}

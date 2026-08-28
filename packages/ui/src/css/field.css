@@ -230,6 +230,12 @@
   width: 100%;
 }
 
+.ds-textarea--mono {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
 .search-input {
   display: block;
   width: 100%;

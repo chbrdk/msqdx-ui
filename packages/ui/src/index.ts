@@ -441,6 +441,17 @@ export type {
 } from './components/TokenPicker'
 export { TokenPreview } from './components/TokenPreview'
 export type { TokenPreviewProps, TokenPreviewKind } from './components/TokenPreview'
+export { EasingCurveEditor } from './components/EasingCurveEditor'
+export type {
+  EasingCurveEditorLabels,
+  EasingCurveEditorProps,
+} from './components/EasingCurveEditor'
+export type { CubicBezierTuple } from './lib/easing-curve'
+export {
+  parseCubicBezier,
+  formatCubicBezier,
+  defaultMaterialBezier,
+} from './lib/easing-curve'
 export { CATALOG, VIEWPORT_CRITICAL, CATALOG_LAYER_ORDER } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer, CatalogInsert } from './storybook/catalog'
 export {
