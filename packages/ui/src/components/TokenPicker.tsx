@@ -207,8 +207,10 @@ function cycleIndex(value: string | null, options: TokenPickerOption[]): number 
 export function resolveBrowserPortalTarget(
   root: HTMLElement | null,
   explicit?: HTMLElement | null,
-): HTMLElement | null {
-  if (typeof document === 'undefined') return null
+): HTMLElement {
+  if (typeof document === 'undefined') {
+    return null as unknown as HTMLElement
+  }
   if (explicit) return explicit
   let el: HTMLElement | null = root
   while (el) {
