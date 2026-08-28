@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ComponentType, CSSProperties, HTMLAttributes, MouseEventHandler, ReactNode } from 'react'
 import {
+  NAV_RAIL_COMPACT_MEDIA,
+  railOrientationFromEdge,
   readRailDockFromStorage,
   remToPx,
   serializeRailDock,
@@ -154,6 +156,19 @@ function RailBody({
   )
 }
 
+function useCompactViewport(): boolean {
+  const [compact, setCompact] = useState(false)
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return
+    const mq = window.matchMedia(NAV_RAIL_COMPACT_MEDIA)
+    const apply = () => setCompact(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
+  return compact
+}
+
 export function NavRail({
   items,
   footerItems = [],
@@ -176,6 +191,9 @@ export function NavRail({
   const [edge, setEdge] = useState<RailDockEdge>(initial.edge)
   const [offset, setOffset] = useState(initial.offset)
   const [SnapDock, setSnapDock] = useState<SnapDockLike | null>(null)
+  const compact = useCompactViewport()
+  const effectiveEdge: RailDockEdge = compact ? 'bottom' : edge
+  const orientation = railOrientationFromEdge(effectiveEdge)
 
   useEffect(() => {
     if (!dockable) return
@@ -191,6 +209,11 @@ export function NavRail({
       active = false
     }
   }, [dockable])
+
+  useEffect(() => {
+    if (!compact) return
+    onDockEdgeChange?.('bottom')
+  }, [compact, onDockEdgeChange])
 
   const persist = useCallback(
     (nextEdge: RailDockEdge, nextOffset: number) => {
@@ -217,12 +240,20 @@ export function NavRail({
     />
   )
 
-  if (!dockable || !SnapDock) {
+  const railClass = cx(
+    'nav-rail',
+    compact && 'nav-rail--compact-bottom',
+    (!dockable || !SnapDock || compact) && 'nav-rail--static-dock',
+    className,
+  )
+
+  /* Compact: lock bottom bar (no SnapDock fight with inline position). */
+  if (compact || !dockable || !SnapDock) {
     return (
       <nav
-        className={cx('nav-rail', 'nav-rail--static-dock', className)}
-        data-orientation="vertical"
-        data-edge={edge}
+        className={railClass}
+        data-orientation={orientation}
+        data-edge={effectiveEdge}
         aria-label="Primary"
         {...rest}
       >
@@ -233,6 +264,7 @@ export function NavRail({
 
   return (
     <SnapDock
+      key={`dock-${effectiveEdge}`}
       className={cx('nav-rail', className)}
       defaultEdge={initial.edge}
       defaultOffset={initial.offset}

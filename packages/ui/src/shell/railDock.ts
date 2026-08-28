@@ -13,6 +13,14 @@ export function isRailDockEdge(value: string | null | undefined): value is RailD
   return !!value && (EDGES as readonly string[]).includes(value)
 }
 
+/** Vertical on left/right; horizontal on top/bottom. */
+export function railOrientationFromEdge(edge: RailDockEdge): 'vertical' | 'horizontal' {
+  return edge === 'top' || edge === 'bottom' ? 'horizontal' : 'vertical'
+}
+
+/** Compact viewport: force bottom dock (match `frame.css` / ultra-wide 900px band). */
+export const NAV_RAIL_COMPACT_MEDIA = '(max-width: 900px)' as const
+
 export function clampOffset(value: number): number {
   if (!Number.isFinite(value)) return 0.5
   return Math.min(1, Math.max(0, value))

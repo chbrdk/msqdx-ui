@@ -47,3 +47,17 @@ export const HorizontalTop: Story = {
     </div>
   ),
 }
+
+export const HorizontalBottom: Story = {
+  render: () => (
+    <div style={{ minHeight: '12rem', position: 'relative' }}>
+      <NavRail
+        dockable={false}
+        defaultDockEdge="bottom"
+        logo={<span>PX</span>}
+        items={items}
+        footerItems={[{ id: 'settings', label: 'Settings', href: '#settings' }]}
+      />
+    </div>
+  ),
+}

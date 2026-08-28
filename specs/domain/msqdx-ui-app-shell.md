@@ -12,6 +12,14 @@ Shared workstation shell primitives for products that follow the ECHON V3 compos
 - `ShellBackButton`: top-left history-back plaque (icon-only arrow); mount via `AppFrame.backCorner` — see `msqdx-ui-shell-back-button.md`
 - `ShellCorners`: viewport cutdown ornaments at top-left, bottom-left, and bottom-right (top-right reserved for `BrandCorner`; top-left omitted when `backCorner` is set)
 
+## NavRail orientation + compact dock
+
+WENN the dock edge is `left` or `right`, DANN MUST the rail use `data-orientation="vertical"`, fixed capsule **width** `--rail-w`, and **height** shrink-wrapped to content (`height: auto` / `max-content`).
+
+WENN the dock edge is `top` or `bottom`, DANN MUST the rail use `data-orientation="horizontal"`, fixed capsule **height** `--rail-w`, and **width** shrink-wrapped to content (`width: max-content`, capped by viewport). Flex direction MUST be row so items lay out along the long axis.
+
+WENN the viewport matches the compact breakpoint (`max-width: 900px`), DANN MUST the rail dock to `bottom`, stay horizontal, use elevated z-index (`--z-nav-rail-compact`, above BrandCorner / shell corners), and MUST NOT leave bottom for free edge snap (drag disabled or locked to bottom). `onDockEdgeChange('bottom')` MUST fire so `AppFrame` reserves bottom padding.
+
 ## BrandCorner (hover expand)
 
 WENN `showLogo` is true (default) AND `labelReveal` is `hover` (default), DANN MUST the plaque show only the mark at rest.

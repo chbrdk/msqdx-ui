@@ -136,6 +136,8 @@
 
 .nav-rail {
   /* Floating capsule: SnapDock may override position/edge via inline styles */
+  --z-nav-rail: 40;
+  --z-nav-rail-compact: 200;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -151,23 +153,67 @@
     0 1px 0 color-mix(in srgb, var(--ink) 6%, transparent),
     0 12px 40px color-mix(in srgb, var(--ink) 10%, transparent);
   box-sizing: border-box;
+  z-index: var(--z-nav-rail);
 }
 
 .nav-rail--static-dock {
   position: fixed;
+  z-index: var(--z-nav-rail);
+}
+
+.nav-rail--static-dock[data-edge='left'] {
   left: var(--rail-inset, 1rem);
+  right: auto;
   top: 50%;
+  bottom: auto;
   transform: translateY(-50%);
-  z-index: 40;
+}
+
+.nav-rail--static-dock[data-edge='right'] {
+  right: var(--rail-inset, 1rem);
+  left: auto;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+
+.nav-rail--static-dock[data-edge='top'] {
+  top: var(--rail-inset, 1rem);
+  bottom: auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.nav-rail--static-dock[data-edge='bottom'],
+.nav-rail--compact-bottom {
+  bottom: var(--rail-inset, 1rem);
+  top: auto;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.nav-rail--compact-bottom {
+  z-index: var(--z-nav-rail-compact);
 }
 
 .nav-rail[data-orientation='vertical'] {
+  flex-direction: column;
+  align-items: stretch;
   width: var(--rail-w);
+  height: auto;
+  max-height: calc(100vh - 2 * var(--rail-inset, 1rem));
   border-radius: calc(var(--rail-w) / 2);
 }
 
 .nav-rail[data-orientation='horizontal'] {
+  flex-direction: row;
+  align-items: center;
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--rail-inset, 1rem));
   height: var(--rail-w);
+  min-height: var(--rail-w);
   border-radius: calc(var(--rail-w) / 2);
   padding: 0.4rem 0.65rem;
 }
@@ -722,32 +768,18 @@
   .app-frame[data-rail-edge='bottom'] {
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: calc(var(--rail-inset) + var(--rail-w) + 1.5rem);
-    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: calc(var(--rail-inset) + var(--rail-w) + 1.5rem);
   }
 
-  .nav-rail,
-  .nav-rail--static-dock {
-    left: 1rem;
-    right: 1rem;
-    top: var(--rail-inset, 1rem);
-    transform: none;
-    width: auto;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 999px;
-    overflow-x: auto;
-  }
-
-  .rail-logo,
-  .rail-link {
+  .nav-rail[data-orientation='horizontal'] .rail-link,
+  .nav-rail--compact-bottom .rail-link {
     flex-direction: row;
     min-height: auto;
     padding: 0.55rem 0.75rem;
   }
 
-  .rail-spacer {
+  .nav-rail--compact-bottom .rail-spacer {
     display: none;
   }
 
