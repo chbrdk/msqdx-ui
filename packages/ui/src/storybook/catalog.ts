@@ -94,6 +94,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'KpiStrip', layer: 'Organisms', title: 'Organisms/KpiStrip', stories: 'components/KpiStrip.stories.tsx', mdx: 'components/KpiStrip.mdx' },
   { id: 'PipelinePanel', layer: 'Organisms', title: 'Organisms/PipelinePanel', stories: 'components/PipelinePanel.stories.tsx', mdx: 'components/PipelinePanel.mdx' },
   { id: 'StatusMeterPanel', layer: 'Organisms', title: 'Organisms/StatusMeterPanel', stories: 'components/StatusMeterPanel.stories.tsx', mdx: 'components/StatusMeterPanel.mdx' },
+  { id: 'SettingsShell', layer: 'Organisms', title: 'Organisms/SettingsShell', stories: 'components/SettingsShell.stories.tsx', mdx: 'components/SettingsShell.mdx', viewportCritical: true },
   // Templates
   { id: 'AppFrame', layer: 'Templates', title: 'Templates/AppFrame', stories: 'components/AppFrame.stories.tsx', mdx: 'components/AppFrame.mdx' },
   { id: 'InfoTip', layer: 'Molecules', title: 'Molecules/InfoTip', stories: 'components/InfoTip.stories.tsx', mdx: 'components/InfoTip.mdx' },

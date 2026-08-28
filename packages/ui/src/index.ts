@@ -208,6 +208,20 @@ export { KpiStrip } from './components/KpiStrip'
 export type { KpiItem, KpiStripProps } from './components/KpiStrip'
 export { NavRail } from './components/NavRail'
 export type { NavRailItem, NavRailProps } from './components/NavRail'
+export { SettingsShell, SettingsBand } from './components/SettingsShell'
+export type {
+  SettingsShellProps,
+  SettingsShellLabels,
+  SettingsBandProps,
+} from './components/SettingsShell'
+export {
+  THEME_PREFERENCE_CHOICES,
+  isThemePreference,
+  migrateLegacyThemeId,
+  resolveThemeId,
+  applyThemePreference,
+} from './themePreference'
+export type { ThemePreference, ResolvedThemeId } from './themePreference'
 export { PipelinePanel } from './components/PipelinePanel'
 export type {
   PipelineLane,

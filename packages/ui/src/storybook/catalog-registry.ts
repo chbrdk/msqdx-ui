@@ -80,6 +80,7 @@ import { MarkdownProse } from '../components/MarkdownProse'
 import { Meter } from '../components/Meter'
 import { MetricChip } from '../components/MetricChip'
 import { NavRail } from '../components/NavRail'
+import { SettingsShell } from '../components/SettingsShell'
 import { PageTitle } from '../components/PageTitle'
 import { Panel } from '../components/Panel'
 import { PipelinePanel } from '../components/PipelinePanel'
@@ -222,6 +223,7 @@ const CATALOG_COMPONENTS = {
   Meter,
   MetricChip,
   NavRail,
+  SettingsShell,
   PageTitle,
   Panel,
   PipelinePanel,
