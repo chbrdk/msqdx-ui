@@ -15,6 +15,7 @@ describe('web-system foundation', () => {
       '--ring:',
       '--shadow-md:',
       '--z-sticky:',
+      '--z-nav-rail:',
     ]) {
       expect(css).toContain(token)
     }

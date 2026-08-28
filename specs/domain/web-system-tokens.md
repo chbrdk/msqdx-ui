@@ -77,6 +77,7 @@ Defined on `:root` (theme-agnostic). Dark themes MAY later tint via `color-mix`;
 |-----|-------|
 | `--z-dropdown` | `1000` |
 | `--z-sticky` | `1100` |
+| `--z-nav-rail` | `1200` |
 | `--z-modal` | `1400` |
 | `--z-toast` | `1600` |
 | `--z-popover` | `1500` |

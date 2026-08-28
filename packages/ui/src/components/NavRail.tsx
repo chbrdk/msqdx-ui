@@ -280,7 +280,7 @@ export function NavRail({
         setOffset(nextOffset)
         persist(edge, nextOffset)
       }}
-      style={{ zIndex: 40 }}
+      style={{ zIndex: 'var(--z-nav-rail)' }}
     >
       {body}
     </SnapDock>

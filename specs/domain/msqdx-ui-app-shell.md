@@ -18,7 +18,13 @@ WENN the dock edge is `left` or `right`, DANN MUST the rail use `data-orientatio
 
 WENN the dock edge is `top` or `bottom`, DANN MUST the rail use `data-orientation="horizontal"`, fixed capsule **height** `--rail-w`, and **width** shrink-wrapped to content (`width: max-content`, capped by viewport). Flex direction MUST be row so items lay out along the long axis.
 
-WENN the viewport matches the compact breakpoint (`max-width: 900px`), DANN MUST the rail dock to `bottom`, stay horizontal, use elevated z-index (`--z-nav-rail-compact`, above BrandCorner / shell corners), and MUST NOT leave bottom for free edge snap (drag disabled or locked to bottom). `onDockEdgeChange('bottom')` MUST fire so `AppFrame` reserves bottom padding.
+WENN the viewport matches the compact breakpoint (`max-width: 900px`), DANN MUST the rail dock to `bottom`, stay horizontal, keep shell z-index (`--z-nav-rail`), and MUST NOT leave bottom for free edge snap (drag disabled or locked to bottom). `onDockEdgeChange('bottom')` MUST fire so `AppFrame` reserves bottom padding.
+
+## NavRail surface + stacking
+
+WENN the rail is painted, DANN MUST the capsule use a translucent surface plus `backdrop-filter` blur so page content behind the rail reads frosted (disabled under `prefers-reduced-transparency` / `prefers-reduced-motion`).
+
+WENN stacking against page content, DANN MUST the rail use `--z-nav-rail` (above sticky page chrome, below `--z-modal` / native dialog top layer / toast / popover). Dialogs, chat overlays, and equivalent modal layers MUST remain able to paint above the rail.
 
 ## BrandCorner (hover expand)
 

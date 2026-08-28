@@ -98,6 +98,7 @@ describe('design-system CSS layers', () => {
     expect(tokensCss).toContain('--ring:')
     expect(tokensCss).toContain('--shadow-md:')
     expect(tokensCss).toContain('--z-modal:')
+    expect(tokensCss).toContain('--z-nav-rail:')
     expect(tokensCss).toContain('--breakpoint-sm:')
     expect(tokensCss).toContain('--breakpoint-2xl:')
   })

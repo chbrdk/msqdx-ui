@@ -16,6 +16,7 @@ describe('ui tokens', () => {
   it('exposes web-system scales', () => {
     expect(shadows.sm).toContain('rgba')
     expect(zIndex.modal).toBe(1400)
+    expect(zIndex.navRail).toBe(1200)
     expect(breakpoints.sm).toBe('640px')
     expect(breakpoints['2xl']).toBe('1920px')
     expect(webSystemAliases.background).toBe('var(--bg0)')

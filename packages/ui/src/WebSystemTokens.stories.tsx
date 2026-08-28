@@ -181,11 +181,14 @@ function WebSystemTokensBoard() {
             fontSize: '0.7rem',
           }}
         >
-          {(Object.entries(zIndex) as [string, number][]).map(([name, value]) => (
+          {(Object.entries(zIndex) as [string, number][]).map(([name, value]) => {
+            const cssName = name.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`)
+            return (
             <li key={name}>
-              --z-{name}: {value}
+              --z-{cssName}: {value}
             </li>
-          ))}
+            )
+          })}
         </ul>
       </section>
 
