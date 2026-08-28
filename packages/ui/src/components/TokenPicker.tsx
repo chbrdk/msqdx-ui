@@ -173,6 +173,11 @@ export type TokenPickerProps = {
    * Searching shows the full filtered set.
    */
   emptyQueryCap?: number
+  /**
+   * Portal mount for browser mode (default: nearest `<dialog>` ancestor, else `document.body`).
+   * Keeps the browser in the modal top layer when used inside `Dialog`.
+   */
+  browserPortalTarget?: HTMLElement | null
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'onChange'>
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -196,6 +201,21 @@ function optionTextStyle(opt: TokenPickerOption): {
 function cycleIndex(value: string | null, options: TokenPickerOption[]): number {
   if (!value) return -1
   return options.findIndex((opt) => opt.path === value)
+}
+
+/** Browser panels must mount inside modal `<dialog>` to stay above `showModal()` top layer. */
+export function resolveBrowserPortalTarget(
+  root: HTMLElement | null,
+  explicit?: HTMLElement | null,
+): HTMLElement | null {
+  if (typeof document === 'undefined') return null
+  if (explicit) return explicit
+  let el: HTMLElement | null = root
+  while (el) {
+    if (el instanceof HTMLDialogElement) return el
+    el = el.parentElement
+  }
+  return document.body
 }
 
 const PANEL_W_DEFAULT = 300
@@ -256,6 +276,7 @@ export function TokenPicker({
   onPromoteLiteral,
   promoteLiteralLabel = 'Save as token',
   emptyQueryCap,
+  browserPortalTarget,
   ...rest
 }: TokenPickerProps) {
   const listId = useId()
@@ -850,7 +871,7 @@ export function TokenPicker({
               aria-hidden
             />
           </div>,
-          document.body,
+          resolveBrowserPortalTarget(rootRef.current, browserPortalTarget),
         )
       : null
 

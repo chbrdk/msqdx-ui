@@ -530,5 +530,27 @@ describe('TokenPicker', () => {
       fireEvent.keyDown(search, { key: 'Enter' })
       expect(onChange).toHaveBeenCalledWith('radius.md')
     })
+
+    it('portals browser into nearest dialog ancestor (modal top layer)', () => {
+      render(
+        <dialog open className="ds-dialog">
+          <div className="ds-dialog-sheet">
+            <div className="ds-dialog-body">
+              <TokenPicker
+                label="Subject"
+                browser
+                options={options}
+                value="radius.md"
+                onChange={() => {}}
+                scopes={[{ id: 'all', label: 'All' }]}
+              />
+            </div>
+          </div>
+        </dialog>,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const browser = screen.getByTestId('token-picker-browser')
+      expect(browser.parentElement?.classList.contains('ds-dialog')).toBe(true)
+    })
   })
 })

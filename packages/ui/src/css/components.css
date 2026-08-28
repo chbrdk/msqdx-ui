@@ -2900,6 +2900,10 @@ button.ds-marker-canvas__marker:focus-visible {
   color: var(--ink);
   box-sizing: border-box;
 }
+
+.ds-dialog > .ds-token-picker__browser {
+  z-index: 2;
+}
 .ds-token-picker__browser--with-color {
   min-width: 480px;
 }
