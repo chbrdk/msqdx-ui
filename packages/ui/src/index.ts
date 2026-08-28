@@ -446,6 +446,48 @@ export type {
   EasingCurveEditorLabels,
   EasingCurveEditorProps,
 } from './components/EasingCurveEditor'
+export { GridEditor } from './components/GridEditor'
+export type {
+  GridEditorLabels,
+  GridEditorProps,
+  GridEditorMetrics,
+  GridEditorChannel,
+} from './components/GridEditor'
+export { BreakpointEditor } from './components/BreakpointEditor'
+export type {
+  BreakpointEditorLabels,
+  BreakpointEditorProps,
+  BreakpointEditorChannel,
+  BreakpointPreset,
+} from './components/BreakpointEditor'
+export { FontFamilyPicker } from './components/FontFamilyPicker'
+export type {
+  FontFamilyPickerLabels,
+  FontFamilyPickerProps,
+  GoogleFontCatalogEntry,
+} from './components/FontFamilyPicker'
+export {
+  patchGridMetrics,
+  clampColumns,
+  gridPreviewPctForChannel,
+  DEFAULT_COLUMN_PRESETS,
+  GRID_EDITOR_REFERENCE_PX,
+  GRID_EDITOR_REFERENCE_MM,
+} from './lib/grid-editor'
+export {
+  breakpointPresetsForChannel,
+  DEFAULT_DIGITAL_BREAKPOINT_PRESETS,
+  DEFAULT_PRINT_BREAKPOINT_PRESETS,
+} from './lib/breakpoint-editor'
+export {
+  GOOGLE_FONTS_CATALOG,
+  filterGoogleFontsCatalog,
+} from './lib/google-fonts-catalog'
+export {
+  ensureGoogleFontStylesheet,
+  googleFontStylesheetHref,
+  resolveGoogleFontFamily,
+} from './lib/google-font-loader'
 export type { CubicBezierTuple } from './lib/easing-curve'
 export {
   parseCubicBezier,

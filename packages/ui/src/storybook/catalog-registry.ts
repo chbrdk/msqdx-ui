@@ -108,6 +108,9 @@ import { Textarea } from '../components/Textarea'
 import { Toast } from '../components/Toast'
 import { ToggleGroup } from '../components/ToggleGroup'
 import { EasingCurveEditor } from '../components/EasingCurveEditor'
+import { BreakpointEditor } from '../components/BreakpointEditor'
+import { FontFamilyPicker } from '../components/FontFamilyPicker'
+import { GridEditor } from '../components/GridEditor'
 import { TokenPicker } from '../components/TokenPicker'
 import { TokenPreview } from '../components/TokenPreview'
 import { Tooltip } from '../components/Tooltip'
@@ -262,6 +265,9 @@ const CATALOG_COMPONENTS = {
   Toast,
   ToggleGroup,
   EasingCurveEditor,
+  GridEditor,
+  BreakpointEditor,
+  FontFamilyPicker,
   TokenPicker,
   TokenPreview,
   Tooltip,

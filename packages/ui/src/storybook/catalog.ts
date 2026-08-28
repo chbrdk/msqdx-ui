@@ -173,6 +173,9 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'TokenPicker', layer: 'Organisms', title: 'Organisms/TokenPicker', stories: 'components/TokenPicker.stories.tsx', mdx: 'components/TokenPicker.mdx' },
   { id: 'TokenPreview', layer: 'Molecules', title: 'Molecules/TokenPreview', stories: 'components/TokenPreview.stories.tsx', mdx: 'components/TokenPreview.mdx' },
   { id: 'EasingCurveEditor', layer: 'Molecules', title: 'Molecules/EasingCurveEditor', stories: 'components/EasingCurveEditor.stories.tsx', mdx: 'components/EasingCurveEditor.mdx' },
+  { id: 'GridEditor', layer: 'Molecules', title: 'Molecules/GridEditor', stories: 'components/GridEditor.stories.tsx', mdx: 'components/GridEditor.mdx' },
+  { id: 'BreakpointEditor', layer: 'Molecules', title: 'Molecules/BreakpointEditor', stories: 'components/BreakpointEditor.stories.tsx', mdx: 'components/BreakpointEditor.mdx' },
+  { id: 'FontFamilyPicker', layer: 'Molecules', title: 'Molecules/FontFamilyPicker', stories: 'components/FontFamilyPicker.stories.tsx', mdx: 'components/FontFamilyPicker.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

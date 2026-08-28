@@ -3661,3 +3661,352 @@ button.ds-marker-canvas__marker:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* —— GridEditor —— */
+.ds-grid-editor {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ds-grid-editor__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
+}
+
+.ds-grid-editor__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ds-grid-editor__preset {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg0, #fff);
+  padding: 0.35rem 0.65rem;
+  font: inherit;
+  font-size: var(--type-sm);
+  cursor: pointer;
+}
+
+.ds-grid-editor__preset--active {
+  border-color: var(--accent, #2563eb);
+  color: var(--accent, #2563eb);
+  background: color-mix(in srgb, var(--accent, #2563eb) 8%, var(--bg0, #fff));
+}
+
+.ds-grid-editor__stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+
+.ds-grid-editor__step {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg0, #fff);
+  font: inherit;
+  font-size: 1.125rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.ds-grid-editor__step:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ds-grid-editor__step-value {
+  min-width: 2rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-grid-editor__stage {
+  position: relative;
+  width: 100%;
+  min-height: 8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--bg0, #fff) 94%, var(--line));
+  padding: 0.75rem;
+  overflow: hidden;
+}
+
+.ds-grid-editor__page {
+  position: relative;
+  margin-inline: auto;
+  box-sizing: border-box;
+  min-height: 6rem;
+  border: 1px dashed var(--line);
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--bg0, #fff) 88%, var(--line));
+}
+
+.ds-grid-editor__columns {
+  display: flex;
+  align-items: stretch;
+  min-height: 5rem;
+  height: 100%;
+}
+
+.ds-grid-editor__col {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-block: 0.35rem;
+}
+
+.ds-grid-editor__col-fill {
+  flex: 1;
+  min-height: 0.75rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent, #2563eb) 22%, transparent);
+}
+
+.ds-grid-editor__handle {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--accent, #2563eb);
+  border-radius: 999px;
+  background: var(--bg0, #fff);
+  transform: translate(-50%, -50%);
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.ds-grid-editor__handle--gutter {
+  top: auto;
+  bottom: 0.35rem;
+  transform: translate(-50%, 0);
+}
+
+.ds-grid-editor__fields {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .ds-grid-editor__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* —— BreakpointEditor —— */
+.ds-breakpoint-editor {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.ds-breakpoint-editor__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.ds-breakpoint-editor__preset {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--bg0, #fff);
+  padding: 0.35rem 0.65rem;
+  font: inherit;
+  font-size: var(--type-sm);
+  cursor: pointer;
+}
+
+.ds-breakpoint-editor__preset--active {
+  border-color: var(--accent, #2563eb);
+  color: var(--accent, #2563eb);
+  background: color-mix(in srgb, var(--accent, #2563eb) 8%, var(--bg0, #fff));
+}
+
+.ds-breakpoint-editor__stage {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--bg0, #fff) 94%, var(--line));
+  padding: 0.75rem;
+  min-height: 7rem;
+}
+
+.ds-breakpoint-editor__track {
+  position: relative;
+  min-height: 5.5rem;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ds-breakpoint-editor__device {
+  position: relative;
+  min-width: 3rem;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 6px 6px 2px 2px;
+  background: var(--bg0, #fff);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--ink, #111) 8%, transparent);
+}
+
+.ds-breakpoint-editor__device-bar {
+  height: 0.35rem;
+  margin: 0.35rem auto 0;
+  width: 28%;
+  border-radius: 999px;
+  background: var(--line);
+}
+
+.ds-breakpoint-editor__device-body {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.45rem;
+}
+
+.ds-breakpoint-editor__block {
+  display: block;
+  height: 0.55rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent, #2563eb) 20%, var(--line));
+}
+
+.ds-breakpoint-editor__block--hero {
+  height: 1rem;
+}
+
+.ds-breakpoint-editor__cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+}
+
+.ds-breakpoint-editor__handle {
+  position: absolute;
+  bottom: 0.5rem;
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--accent, #2563eb);
+  border-radius: 999px;
+  background: var(--bg0, #fff);
+  transform: translate(-50%, 0);
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.ds-breakpoint-editor__caption {
+  margin: 0.5rem 0 0;
+  font-size: var(--type-sm);
+  color: var(--muted);
+}
+
+.ds-breakpoint-editor__stage--print {
+  display: grid;
+  place-items: center;
+}
+
+.ds-breakpoint-editor__print-sheet {
+  width: min(72%, 12rem);
+  aspect-ratio: 210 / 148;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--bg0, #fff);
+  display: grid;
+  place-items: center;
+}
+
+.ds-breakpoint-editor__print-label {
+  font-size: var(--type-sm);
+  color: var(--muted);
+}
+
+/* —— FontFamilyPicker —— */
+.ds-font-family-picker {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ds-font-family-picker__list {
+  display: grid;
+  gap: 0.35rem;
+  max-height: 14rem;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.35rem;
+  background: color-mix(in srgb, var(--bg0, #fff) 96%, var(--line));
+}
+
+.ds-font-family-picker__row {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  padding: 0.5rem 0.65rem;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+
+.ds-font-family-picker__row:hover,
+.ds-font-family-picker__row--active {
+  border-color: var(--line);
+  background: color-mix(in srgb, var(--accent, #2563eb) 6%, var(--bg0, #fff));
+}
+
+.ds-font-family-picker__row--active {
+  border-color: var(--accent, #2563eb);
+}
+
+.ds-font-family-picker__row-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.ds-font-family-picker__row-name {
+  font-size: var(--type-sm);
+  font-weight: 600;
+}
+
+.ds-font-family-picker__row-category {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: capitalize;
+}
+
+.ds-font-family-picker__row-sample {
+  font-size: 1.125rem;
+  line-height: 1.25;
+  color: var(--ink, var(--fg));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-font-family-picker__empty {
+  margin: 0;
+  padding: 0.75rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.ds-font-family-picker__current {
+  margin: 0;
+  font-size: var(--type-sm);
+  color: var(--muted);
+}
+

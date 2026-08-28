@@ -137,4 +137,7 @@ export const WC_MANIFEST = [
   { catalogId: "TokenPicker", tagName: "msqdx-token-picker", layer: "Organisms", title: "Organisms/TokenPicker" },
   { catalogId: "TokenPreview", tagName: "msqdx-token-preview", layer: "Molecules", title: "Molecules/TokenPreview" },
   { catalogId: "EasingCurveEditor", tagName: "msqdx-easing-curve-editor", layer: "Molecules", title: "Molecules/EasingCurveEditor" },
+  { catalogId: "GridEditor", tagName: "msqdx-grid-editor", layer: "Molecules", title: "Molecules/GridEditor" },
+  { catalogId: "BreakpointEditor", tagName: "msqdx-breakpoint-editor", layer: "Molecules", title: "Molecules/BreakpointEditor" },
+  { catalogId: "FontFamilyPicker", tagName: "msqdx-font-family-picker", layer: "Molecules", title: "Molecules/FontFamilyPicker" },
 ] satisfies WcManifestEntry[]
