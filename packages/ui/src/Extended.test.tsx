@@ -1,5 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   Checkbox,
   Dialog,
@@ -11,6 +11,10 @@ import {
   Tooltip,
   Button,
 } from './index'
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('Extended primitives', () => {
   it('Checkbox toggles', () => {
@@ -71,6 +75,12 @@ describe('Extended primitives', () => {
 
   it('Dialog showModal when open', () => {
     const onClose = vi.fn()
+    HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
+      this.setAttribute('open', '')
+    })
+    HTMLDialogElement.prototype.close = vi.fn(function (this: HTMLDialogElement) {
+      this.removeAttribute('open')
+    })
     const { rerender } = render(
       <Dialog open={false} onClose={onClose} title="T">
         Body
@@ -86,5 +96,29 @@ describe('Extended primitives', () => {
     expect(screen.getByText('Body')).toBeTruthy()
     fireEvent.click(screen.getByRole('button', { name: 'Close' }))
     expect(onClose).toHaveBeenCalled()
+    rerender(
+      <Dialog open={false} onClose={onClose} title="T">
+        Body
+      </Dialog>,
+    )
+  })
+
+  it('Dialog close() on unmount while still open (no stuck modal layer)', () => {
+    const onClose = vi.fn()
+    const closeFn = vi.fn(function (this: HTMLDialogElement) {
+      this.removeAttribute('open')
+    })
+    HTMLDialogElement.prototype.close = closeFn
+    HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
+      this.setAttribute('open', '')
+    })
+    const { unmount } = render(
+      <Dialog open onClose={onClose} title="T">
+        Body
+      </Dialog>,
+    )
+    expect(screen.getByRole('dialog')).toBeTruthy()
+    unmount()
+    expect(closeFn).toHaveBeenCalled()
   })
 })

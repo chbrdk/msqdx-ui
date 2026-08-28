@@ -46,6 +46,14 @@ export function Dialog({
       if (typeof node.close === 'function') node.close()
       else node.removeAttribute('open')
     }
+    return () => {
+      // Unmounting an open showModal() dialog without close() leaves the browser
+      // top-layer inert — clicks appear "locked" until a full page refresh.
+      if (node.open) {
+        if (typeof node.close === 'function') node.close()
+        else node.removeAttribute('open')
+      }
+    }
   }, [open])
 
   return (
