@@ -15,6 +15,8 @@ export type FontFamilyPickerLabels = {
   search: string
   family: string
   custom: string
+  /** Shown when search results exceed maxListResults (TP-2). */
+  moreResults?: string
 }
 
 export type FontFamilyPickerProps = {
@@ -23,6 +25,8 @@ export type FontFamilyPickerProps = {
   labels?: FontFamilyPickerLabels
   previewText?: string
   catalog?: readonly GoogleFontCatalogEntry[]
+  /** Cap visible rows after search (large remote catalogs). */
+  maxListResults?: number
   size?: FieldSize
   className?: string
   controlClassName?: string
@@ -89,6 +93,7 @@ export function FontFamilyPicker({
   labels = DEFAULT_LABELS,
   previewText = DEFAULT_PREVIEW,
   catalog = GOOGLE_FONTS_CATALOG,
+  maxListResults,
   size = 'md',
   className,
   controlClassName,
@@ -97,6 +102,11 @@ export function FontFamilyPicker({
 }: FontFamilyPickerProps) {
   const [query, setQuery] = useState('')
   const filtered = useMemo(() => filterGoogleFontsCatalog(query, catalog), [catalog, query])
+  const visible = useMemo(() => {
+    if (maxListResults == null || filtered.length <= maxListResults) return filtered
+    return filtered.slice(0, maxListResults)
+  }, [filtered, maxListResults])
+  const truncated = maxListResults != null && filtered.length > maxListResults
   const tid = (suffix: string) => (testId ? `${testId}-${suffix}` : undefined)
 
   useEffect(() => {
@@ -127,7 +137,7 @@ export function FontFamilyPicker({
         aria-label={labels.family}
         data-testid={tid('list')}
       >
-        {filtered.map((entry) => (
+        {visible.map((entry) => (
           <FontRow
             key={entry.family}
             entry={entry}
@@ -139,6 +149,11 @@ export function FontFamilyPicker({
         ))}
         {filtered.length === 0 ? (
           <p className="ds-font-family-picker__empty">—</p>
+        ) : null}
+        {truncated && labels.moreResults ? (
+          <p className="ds-font-family-picker__more" data-testid={tid('more-results')}>
+            {labels.moreResults}
+          </p>
         ) : null}
       </div>
 

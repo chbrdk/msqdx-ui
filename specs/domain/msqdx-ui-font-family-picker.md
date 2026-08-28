@@ -20,7 +20,11 @@ Searchable font picker with curated Google Fonts catalog, live specimen preview 
 />
 ```
 
-## Non-goals (TP-1)
+## Large catalogs (TP-2)
 
-- Full Google Web Fonts API catalog (curated list only).
+- Optional `maxListResults` (default **80**) caps visible rows after search filter.
+- **WENN** Ergebnisse gekappt **DANN MUSS** ein Hinweis „Weitere Treffer — Suche verfeinern“ erscheinen.
+
+## Non-goals
+
 - Font file upload / `source` URL field (Brandion advanced).

@@ -4004,6 +4004,14 @@ button.ds-marker-canvas__marker:focus-visible {
   color: var(--muted);
 }
 
+.ds-font-family-picker__more {
+  margin: 0;
+  padding: 0.5rem 0.75rem 0.75rem;
+  font-size: var(--type-sm);
+  color: var(--muted);
+  text-align: center;
+}
+
 .ds-font-family-picker__current {
   margin: 0;
   font-size: var(--type-sm);
