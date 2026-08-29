@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { AccentSwatchGroup } from './AccentSwatchGroup'
 import {
@@ -9,11 +8,10 @@ import {
 } from '../accentPreference'
 
 describe('AccentSwatchGroup', () => {
-  it('fires onChange for a swatch', async () => {
-    const user = userEvent.setup()
+  it('fires onChange for a swatch', () => {
     const onChange = vi.fn()
     render(<AccentSwatchGroup value="green" onChange={onChange} />)
-    await user.click(screen.getByRole('button', { name: 'purple' }))
+    fireEvent.click(screen.getByRole('button', { name: 'purple' }))
     expect(onChange).toHaveBeenCalledWith('purple')
   })
 })
