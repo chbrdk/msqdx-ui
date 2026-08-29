@@ -13,10 +13,13 @@ type HubIndexCardShared = {
 export type HubIndexCardProps =
   | (HubIndexCardShared & {
       href: string
-    } & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children' | 'title' | 'href'>)
+    } & Omit<
+      AnchorHTMLAttributes<HTMLAnchorElement>,
+      'className' | 'children' | 'title' | 'href' | 'media'
+    >)
   | (HubIndexCardShared & {
       href?: undefined
-    } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children' | 'title'>)
+    } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className' | 'children' | 'title' | 'media'>)
 
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
