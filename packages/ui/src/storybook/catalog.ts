@@ -119,6 +119,8 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'InspectTabs', layer: 'Molecules', title: 'Molecules/InspectTabs', stories: 'components/InspectTabs.stories.tsx', mdx: 'components/InspectTabs.mdx' },
   { id: 'BreakpointSwitcher', layer: 'Molecules', title: 'Molecules/BreakpointSwitcher', stories: 'components/BreakpointSwitcher.stories.tsx', mdx: 'components/BreakpointSwitcher.mdx' },
   { id: 'EntityCard', layer: 'Molecules', title: 'Molecules/EntityCard', stories: 'components/EntityCard.stories.tsx', mdx: 'components/EntityCard.mdx' },
+  { id: 'HubIndexCard', layer: 'Molecules', title: 'Molecules/HubIndexCard', stories: 'components/HubIndexCard.stories.tsx', mdx: 'components/HubIndexCard.mdx' },
+  { id: 'HubIndexLayoutSwitch', layer: 'Molecules', title: 'Molecules/HubIndexLayoutSwitch', stories: 'components/HubIndexLayoutSwitch.stories.tsx', mdx: 'components/HubIndexLayoutSwitch.mdx' },
   { id: 'AddTile', layer: 'Atoms', title: 'Atoms/AddTile', stories: 'components/AddTile.stories.tsx', mdx: 'components/AddTile.mdx' },
   { id: 'SwatchStrip', layer: 'Atoms', title: 'Atoms/SwatchStrip', stories: 'components/SwatchStrip.stories.tsx', mdx: 'components/SwatchStrip.mdx' },
   { id: 'ColorPicker', layer: 'Molecules', title: 'Molecules/ColorPicker', stories: 'components/ColorPicker.stories.tsx', mdx: 'components/ColorPicker.mdx' },

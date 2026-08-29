@@ -327,6 +327,13 @@ export { FormSection } from './components/FormSection'
 export type { FormSectionProps } from './components/FormSection'
 export { EntityCard } from './components/EntityCard'
 export type { EntityCardProps } from './components/EntityCard'
+export { HubIndexCard } from './components/HubIndexCard'
+export type { HubIndexCardProps } from './components/HubIndexCard'
+export { HubIndexLayoutSwitch } from './components/HubIndexLayoutSwitch'
+export type {
+  HubIndexLayout,
+  HubIndexLayoutSwitchProps,
+} from './components/HubIndexLayoutSwitch'
 export { AddTile } from './components/AddTile'
 export type { AddTileProps } from './components/AddTile'
 export { SwatchStrip } from './components/SwatchStrip'

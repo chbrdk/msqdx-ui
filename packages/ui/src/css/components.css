@@ -4018,3 +4018,186 @@ button.ds-marker-canvas__marker:focus-visible {
   color: var(--muted);
 }
 
+/* HubIndexLayoutSwitch — Audion hub cards/list pill */
+.ds-hub-index-layout-switch {
+  display: inline-flex;
+  gap: 0.15rem;
+  padding: 0.15rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper, var(--surface-1, #fff)) 88%, var(--ink, #111) 12%);
+}
+
+.ds-hub-index-layout-switch button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-family: var(--font-body, inherit);
+  font-size: var(--type-xs, 0.75rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.ds-hub-index-layout-switch button.is-active {
+  background: color-mix(in srgb, var(--ink, #111) 88%, transparent);
+  color: var(--paper, #fff);
+}
+
+/* HubIndexCard — Audion hub index tile */
+.ds-hub-index-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: stretch;
+}
+
+.ds-hub-index-grid > li {
+  min-width: 0;
+  display: flex;
+}
+
+.ds-hub-index-grid--list {
+  grid-template-columns: 1fr;
+}
+
+.ds-hub-index-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+.ds-hub-index-card:focus-visible {
+  outline: none;
+}
+
+.ds-hub-index-card:focus-visible .ds-hub-index-card__panel {
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent, var(--ink)) 45%, transparent);
+}
+
+.ds-hub-index-card__panel.ds-panel.ds-panel--card {
+  margin-top: 0;
+  min-height: 22rem;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-3, 0.75rem);
+  padding: clamp(3.5rem, 8vw, 5.5rem) 1.25rem 1.15rem;
+  border-radius: 0;
+  background: transparent;
+  transition:
+    border-color var(--motion-hover, 160ms) ease,
+    background var(--motion-hover, 160ms) ease;
+}
+
+.ds-hub-index-card__panel--create.ds-panel.ds-panel--card {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent, var(--ink)) 28%, var(--line));
+  background: color-mix(in srgb, var(--accent, var(--ink)) 12%, var(--surface-2, transparent));
+  min-height: 22rem;
+  justify-content: flex-end;
+}
+
+.ds-hub-index-card:hover .ds-hub-index-card__panel,
+.ds-hub-index-card:focus-visible .ds-hub-index-card__panel {
+  border-color: color-mix(in srgb, var(--accent, var(--ink)) 35%, var(--line));
+  background: color-mix(in srgb, var(--surface-2, transparent) 88%, var(--accent, var(--ink)));
+}
+
+.ds-hub-index-card--create:hover .ds-hub-index-card__panel--create,
+.ds-hub-index-card--create:focus-visible .ds-hub-index-card__panel--create {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--accent, var(--ink)) 45%, var(--line));
+  background: color-mix(in srgb, var(--accent, var(--ink)) 18%, var(--surface-2, transparent));
+}
+
+.ds-hub-index-card:hover .ds-hub-index-card__title,
+.ds-hub-index-card:focus-visible .ds-hub-index-card__title {
+  color: var(--accent, var(--ink));
+}
+
+.ds-hub-index-card__title {
+  margin: 0;
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1.85rem, 3.2vw, 2.65rem);
+  font-weight: var(--weight-thin, 200);
+  letter-spacing: var(--track-label, 0.01em);
+  line-height: 1.05;
+  max-width: 14ch;
+  word-break: break-word;
+}
+
+.ds-hub-index-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.45rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--type-xs, 0.75rem);
+  letter-spacing: var(--track-meta, 0.04em);
+  line-height: 1.35;
+}
+
+.ds-hub-index-card__meta [data-status='active'],
+.ds-hub-index-card__meta [data-status='ready'],
+.ds-hub-index-card__meta [data-status='published'] {
+  color: var(--ok, #7dcea0);
+}
+
+.ds-hub-index-card__meta [data-status='draft'] {
+  color: var(--warn, #c9a227);
+}
+
+.ds-hub-index-card__meta [data-status='archived'] {
+  color: var(--muted);
+}
+
+.ds-hub-index-card__media {
+  margin: -clamp(3.5rem, 8vw, 5.5rem) -1.25rem auto;
+  margin-bottom: var(--space-3, 0.75rem);
+  width: calc(100% + 2.5rem);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ds-hub-index-card__media > * {
+  display: block;
+  width: 100%;
+}
+
+.ds-hub-index-card:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ds-hub-index-card:disabled:hover .ds-hub-index-card__panel,
+.ds-hub-index-card:disabled:hover .ds-hub-index-card__title {
+  border-color: inherit;
+  background: inherit;
+  color: inherit;
+}
+
+.ds-hub-index-card--create:disabled:hover .ds-hub-index-card__panel--create {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--accent, var(--ink)) 28%, var(--line));
+  background: color-mix(in srgb, var(--accent, var(--ink)) 12%, var(--surface-2, transparent));
+}
+

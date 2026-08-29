@@ -45,6 +45,8 @@ import { Divider } from '../components/Divider'
 import { DivergingBarList } from '../components/DivergingBar'
 import { EmptyState, LoadingText } from '../components/LoadingText'
 import { EntityCard } from '../components/EntityCard'
+import { HubIndexCard } from '../components/HubIndexCard'
+import { HubIndexLayoutSwitch } from '../components/HubIndexLayoutSwitch'
 import { EventFooter } from '../components/EventFooter'
 import { ExpressionField } from '../components/ExpressionField'
 import { Field } from '../components/Field'
@@ -202,6 +204,8 @@ const CATALOG_COMPONENTS = {
   FlowRunStrip,
   Flyout,
   FormSection,
+  HubIndexCard,
+  HubIndexLayoutSwitch,
   Grid,
   Heading,
   Hint,
