@@ -297,6 +297,11 @@
   vertical-align: middle;
 }
 
+.ds-avatar--accented {
+  background: var(--avatar-accent, var(--accent));
+  color: var(--avatar-accent-contrast, var(--accent-contrast, #fff));
+}
+
 /* Magazine portraits (default) — sharp corners */
 .ds-avatar--square {
   border-radius: var(--radius);

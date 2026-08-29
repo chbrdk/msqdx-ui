@@ -25,12 +25,14 @@ export function SettingsBand({
 }: SettingsBandProps) {
   return (
     <section className={cx('ds-settings-band', className)} data-testid={testId} {...rest}>
-      <SectionChrome quiet title={title} as="h2" />
-      {help != null ? (
-        <Text role="body" className="ds-settings-band__help">
-          {help}
-        </Text>
-      ) : null}
+      <div className="ds-settings-band__chrome">
+        <SectionChrome quiet title={title} as="h2" />
+        {help != null ? (
+          <Text role="meta" className="ds-settings-band__help">
+            {help}
+          </Text>
+        ) : null}
+      </div>
       <div className="ds-settings-band__body">{children}</div>
     </section>
   )

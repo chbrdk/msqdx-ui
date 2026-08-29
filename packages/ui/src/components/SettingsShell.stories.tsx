@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Hint } from './Hint'
+import { useState } from 'react'
+import type { AccentPreference } from '../accentPreference'
+import { AccentSwatchGroup } from './AccentSwatchGroup'
 import { ToggleGroup } from './ToggleGroup'
 import { SettingsBand, SettingsShell } from './SettingsShell'
 import { Text } from './Text'
@@ -12,6 +14,26 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
+function AppearanceDemo() {
+  const [theme, setTheme] = useState('dark')
+  const [accent, setAccent] = useState<AccentPreference>('green')
+  return (
+    <div className="ds-settings-appearance-stack">
+      <ToggleGroup
+        aria-label="Theme"
+        value={theme}
+        onChange={setTheme}
+        options={[
+          { value: 'light', label: 'Light' },
+          { value: 'dark', label: 'Dark' },
+          { value: 'auto', label: 'Auto' },
+        ]}
+      />
+      <AccentSwatchGroup value={accent} onChange={setAccent} />
+    </div>
+  )
+}
+
 export const MagazineCore: Story = {
   args: {
     labels: {
@@ -20,21 +42,9 @@ export const MagazineCore: Story = {
       appearance: 'Appearance',
       language: 'Language',
     },
-    lede: <Hint panel>Preferences sync across MSQ DX apps when you are signed in.</Hint>,
-    account: <Text role="body">Signed in as demo@msqdx.local</Text>,
-    profile: <Text role="body">Display name field lives here</Text>,
-    appearance: (
-      <ToggleGroup
-        aria-label="Theme"
-        value="dark"
-        onChange={() => undefined}
-        options={[
-          { value: 'light', label: 'Light' },
-          { value: 'dark', label: 'Dark' },
-          { value: 'auto', label: 'Auto' },
-        ]}
-      />
-    ),
+    account: <Text role="meta">demo@msqdx.local</Text>,
+    profile: <Text role="body">Display name</Text>,
+    appearance: <AppearanceDemo />,
     language: (
       <ToggleGroup
         aria-label="Language"
@@ -47,7 +57,7 @@ export const MagazineCore: Story = {
       />
     ),
     extras: (
-      <SettingsBand title="Federation" help="Read-only ops">
+      <SettingsBand title="Federation">
         <Text role="meta">2026-05-plexon-federation-v3</Text>
       </SettingsBand>
     ),

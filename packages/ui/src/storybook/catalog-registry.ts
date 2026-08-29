@@ -81,6 +81,7 @@ import { Meter } from '../components/Meter'
 import { MetricChip } from '../components/MetricChip'
 import { NavRail } from '../components/NavRail'
 import { SettingsShell } from '../components/SettingsShell'
+import { AccentSwatchGroup } from '../components/AccentSwatchGroup'
 import { PageTitle } from '../components/PageTitle'
 import { Panel } from '../components/Panel'
 import { PipelinePanel } from '../components/PipelinePanel'
@@ -224,6 +225,7 @@ const CATALOG_COMPONENTS = {
   MetricChip,
   NavRail,
   SettingsShell,
+  AccentSwatchGroup,
   PageTitle,
   Panel,
   PipelinePanel,

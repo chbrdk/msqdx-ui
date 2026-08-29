@@ -24,4 +24,10 @@ describe('Avatar', () => {
     expect(img).toHaveAttribute('src', 'https://example.com/a.png')
     expect(img.className).toContain('ds-avatar-img')
   })
+
+  it('applies accent class for initials', () => {
+    render(<Avatar name="Ada" accent="#00ca55" accentContrast="#000" />)
+    const el = screen.getByRole('img', { name: 'Ada' })
+    expect(el.className).toContain('ds-avatar--accented')
+  })
 })

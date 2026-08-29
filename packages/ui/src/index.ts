@@ -214,6 +214,8 @@ export type {
   SettingsShellLabels,
   SettingsBandProps,
 } from './components/SettingsShell'
+export { AccentSwatchGroup } from './components/AccentSwatchGroup'
+export type { AccentSwatchGroupProps } from './components/AccentSwatchGroup'
 export {
   THEME_PREFERENCE_CHOICES,
   isThemePreference,
@@ -222,6 +224,16 @@ export {
   applyThemePreference,
 } from './themePreference'
 export type { ThemePreference, ResolvedThemeId } from './themePreference'
+export {
+  ACCENT_PREFERENCE_CHOICES,
+  ACCENT_OPTIONS,
+  ACCENT_PREFERENCE_DEFAULT,
+  isAccentPreference,
+  resolveAccentOption,
+  migrateLegacyAccent,
+  applyAccentPreference,
+} from './accentPreference'
+export type { AccentPreference, AccentOption } from './accentPreference'
 export { PipelinePanel } from './components/PipelinePanel'
 export type {
   PipelineLane,

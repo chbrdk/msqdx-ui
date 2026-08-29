@@ -63,6 +63,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'Toast', layer: 'Molecules', title: 'Molecules/Toast', stories: 'components/Toast.stories.tsx', mdx: 'components/Toast.mdx' },
   { id: 'FilterRow', layer: 'Molecules', title: 'Molecules/FilterRow', stories: 'components/FilterRow.stories.tsx', mdx: 'components/FilterRow.mdx', viewportCritical: true },
   { id: 'ToggleGroup', layer: 'Molecules', title: 'Molecules/ToggleGroup', stories: 'components/ToggleGroup.stories.tsx', mdx: 'components/ToggleGroup.mdx' },
+  { id: 'AccentSwatchGroup', layer: 'Molecules', title: 'Molecules/AccentSwatchGroup', stories: 'components/AccentSwatchGroup.stories.tsx', mdx: 'components/AccentSwatchGroup.mdx' },
   { id: 'Tabs', layer: 'Molecules', title: 'Molecules/Tabs', stories: 'components/Tabs.stories.tsx', mdx: 'components/Tabs.mdx' },
   { id: 'Accordion', layer: 'Molecules', title: 'Molecules/Accordion', stories: 'components/Accordion.stories.tsx', mdx: 'components/Accordion.mdx' },
   { id: 'Panel', layer: 'Molecules', title: 'Molecules/Panel', stories: 'components/Panel.stories.tsx', mdx: 'components/Panel.mdx' },

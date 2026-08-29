@@ -82,7 +82,7 @@
 - Shared shell spec: `specs/domain/msqdx-ui-app-shell.md`
 - Shared app frame primitive: `packages/ui/src/components/AppFrame.tsx`
 - Shared nav rail primitive: `packages/ui/src/components/NavRail.tsx` — horizontal docks shrink-wrap width; frosted `backdrop-filter`; stack via `--z-nav-rail` (below `--z-modal`); compact ≤900px locks bottom
-- Shared settings layout: `packages/ui/src/components/SettingsShell.tsx` + `themePreference.ts` (`light`/`dark`/`auto`)
+- Shared settings layout: `packages/ui/src/components/SettingsShell.tsx` + `themePreference.ts` + `accentPreference.ts` + `AccentSwatchGroup`
 - Shared brand corner primitive: `packages/ui/src/components/BrandCorner.tsx` · hover expand `knowledge/components/brand-corner-hover-expand.md`
 - Shared shell back plaque: `packages/ui/src/components/ShellBackButton.tsx` · spec `specs/domain/msqdx-ui-shell-back-button.md` · `AppFrame.backCorner`
 - Product launcher: `BrandCornerProductMenu` · `ProductSwitcherPanel` · spec `specs/domain/msqdx-ui-product-switcher.md`
