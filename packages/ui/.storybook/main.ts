@@ -1,13 +1,14 @@
 import type { StorybookConfig } from '@storybook/react-vite'
 
 /**
- * Storybook for ECHON product UI (msqdx-v2 design system).
- * Port / URL: config/paths.yaml → web.storybook_* · knowledge/storybook-web-ui.md
+ * Storybook for @msqdx/ui.
+ * Staging: knowledge/staging-coolify-storybook.md · ds.projects-a.plygrnd.tech
  */
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: ['@storybook/addon-a11y', '@storybook/addon-docs'],
   framework: '@storybook/react-vite',
+  staticDirs: ['../public'],
   core: {
     disableTelemetry: true,
   },
