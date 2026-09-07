@@ -180,6 +180,14 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'GridEditor', layer: 'Molecules', title: 'Molecules/GridEditor', stories: 'components/GridEditor.stories.tsx', mdx: 'components/GridEditor.mdx' },
   { id: 'BreakpointEditor', layer: 'Molecules', title: 'Molecules/BreakpointEditor', stories: 'components/BreakpointEditor.stories.tsx', mdx: 'components/BreakpointEditor.mdx' },
   { id: 'FontFamilyPicker', layer: 'Molecules', title: 'Molecules/FontFamilyPicker', stories: 'components/FontFamilyPicker.stories.tsx', mdx: 'components/FontFamilyPicker.mdx' },
+  { id: 'ToolButton', layer: 'Atoms', title: 'Atoms/ToolButton', stories: 'components/ToolButton.stories.tsx', mdx: 'components/ToolButton.mdx' },
+  { id: 'Timecode', layer: 'Atoms', title: 'Atoms/Timecode', stories: 'components/Timecode.stories.tsx', mdx: 'components/Timecode.mdx' },
+  { id: 'TransportBar', layer: 'Molecules', title: 'Molecules/TransportBar', stories: 'components/TransportBar.stories.tsx', mdx: 'components/TransportBar.mdx' },
+  { id: 'MediaMonitor', layer: 'Organisms', title: 'Organisms/MediaMonitor', stories: 'components/MediaMonitor.stories.tsx', mdx: 'components/MediaMonitor.mdx' },
+  { id: 'TimelineRuler', layer: 'Molecules', title: 'Molecules/TimelineRuler', stories: 'components/TimelineRuler.stories.tsx', mdx: 'components/TimelineRuler.mdx' },
+  { id: 'TimelineTrack', layer: 'Molecules', title: 'Molecules/TimelineTrack', stories: 'components/TimelineTrack.stories.tsx', mdx: 'components/TimelineTrack.mdx' },
+  { id: 'TimelineClip', layer: 'Molecules', title: 'Molecules/TimelineClip', stories: 'components/TimelineClip.stories.tsx', mdx: 'components/TimelineClip.mdx' },
+  { id: 'Waveform', layer: 'Molecules', title: 'Molecules/Waveform', stories: 'components/Waveform.stories.tsx', mdx: 'components/Waveform.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)

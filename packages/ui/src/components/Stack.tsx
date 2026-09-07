@@ -1,4 +1,8 @@
 import type { CSSProperties, HTMLAttributes, ReactNode } from 'react'
+import {
+  clipPathFromCornerInsets,
+  type CornerInsets,
+} from '../lib/clip-path-from-corner-insets'
 
 export type StackDirection = 'row' | 'column'
 export type StackGap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -11,6 +15,8 @@ export type StackProps = {
   align?: CSSProperties['alignItems']
   justify?: CSSProperties['justifyContent']
   wrap?: boolean
+  /** Corner insets → CSS clip-path (see `clipPathFromCornerInsets`). */
+  clipInset?: CornerInsets
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'>
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -26,9 +32,11 @@ export function Stack({
   align,
   justify,
   wrap = false,
+  clipInset,
   style,
   ...rest
 }: StackProps) {
+  const clipPath = clipPathFromCornerInsets(clipInset)
   return (
     <div
       className={cx(
@@ -41,6 +49,7 @@ export function Stack({
       style={{
         alignItems: align,
         justifyContent: justify,
+        ...(clipPath ? { clipPath } : null),
         ...style,
       }}
       {...rest}
@@ -49,3 +58,5 @@ export function Stack({
     </div>
   )
 }
+
+export type { CornerInsets }

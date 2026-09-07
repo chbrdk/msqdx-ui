@@ -137,6 +137,14 @@ import {
   PrintTwoColumn,
 } from '../print/PrintPrimitives'
 import { SectionChrome } from '../SectionChrome'
+import { ToolButton } from '../components/ToolButton'
+import { Timecode } from '../components/Timecode'
+import { TransportBar } from '../components/TransportBar'
+import { MediaMonitor } from '../components/MediaMonitor'
+import { TimelineRuler } from '../components/TimelineRuler'
+import { TimelineTrack } from '../components/TimelineTrack'
+import { TimelineClip } from '../components/TimelineClip'
+import { Waveform } from '../components/Waveform'
 import {
   CATALOG,
   catalogComponentName,
@@ -281,6 +289,14 @@ const CATALOG_COMPONENTS = {
   Tooltip,
   TopStatus,
   SectionChrome,
+  ToolButton,
+  Timecode,
+  TransportBar,
+  MediaMonitor,
+  TimelineRuler,
+  TimelineTrack,
+  TimelineClip,
+  Waveform,
 } as unknown as Record<string, CatalogComponent>
 
 export {

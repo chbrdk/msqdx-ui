@@ -19,6 +19,7 @@
 - Pin-bump CREATION: `.github/workflows/pin-bump-creation.yml` · script `scripts/pin-bump-creation.mjs` · consumer `chbrdk/creation-v3` · secret `CREATION_GITHUB_TOKEN` (never in git)
 - CREATION keep-tag mapping: `knowledge/ds-keep-mapping.md`
 - Editor chrome spec: `specs/domain/msqdx-ui-creation-editor-chrome.md`
+- Surface clip / slant (corner insets → `clip-path`): `specs/domain/msqdx-ui-surface-clip.md` · helper `packages/ui/src/lib/clip-path-from-corner-insets.ts` · Stack/Card `clipInset` · consumer CREATION `surface-clip-slant.md`
 - CREATION inspect density bump (MSQDX_UI_REF note): `knowledge/creation-inspect-chrome-bump.md`
 - CREATION layers panel bump (MSQDX_UI_REF note): `knowledge/creation-layers-panel-bump.md`
 - CREATION editor chrome E7 bump (BreakpointSwitcher / InspectTabs / Layers reorder): `knowledge/creation-editor-chrome-e7-bump.md`
@@ -110,6 +111,11 @@
 - InfoTip (ghost IconInfo + Tooltip): `packages/ui/src/components/InfoTip.tsx` · CSS `.ds-infotip` · spec `specs/domain/msqdx-ui-infotip.md` · knowledge `knowledge/components/infotip.md` · `IconInfo` in `packages/ui/src/components/icons.tsx`
 
 - CardActions (equal-width magazine card footers): `packages/ui/src/components/CardActions.tsx` · CSS `.ds-card-actions` in `packages/ui/src/css/components.css` · spec `specs/domain/msqdx-ui-card-actions.md` · knowledge `knowledge/components/card-actions.md`
+
+- Media / NLE chrome (domain-free; VIDEON consumer):
+  - ToolButton · Timecode · TransportBar · MediaMonitor · TimelineRuler · TimelineTrack · TimelineClip · Waveform
+  - Specs: `specs/domain/msqdx-ui-tool-button.md`, `msqdx-ui-timecode.md`, `msqdx-ui-transport-bar.md`, `msqdx-ui-media-monitor.md`, `msqdx-ui-timeline-ruler.md`, `msqdx-ui-waveform.md`
+  - CSS: `.ds-tool-button`, `.ds-timecode`, `.ds-transport-bar`, `.ds-media-monitor`, `.ds-timeline-*`, `.ds-waveform` in `packages/ui/src/css/components.css`
 
 - Shared overview surfaces spec: `specs/domain/msqdx-ui-overview-surfaces.md`
 - Shared top status primitive: `packages/ui/src/components/TopStatus.tsx`

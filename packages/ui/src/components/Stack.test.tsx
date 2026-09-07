@@ -7,4 +7,12 @@ describe('Stack', () => {
     render(<Stack>Stack</Stack>)
     expect(screen.getByText('Stack')).toBeInTheDocument()
   })
+
+  it('applies clip-path from clipInset', () => {
+    const { container } = render(
+      <Stack clipInset={{ bottomLeft: { y: '12%' } }}>Slant</Stack>,
+    )
+    const el = container.firstElementChild as HTMLElement
+    expect(el.style.clipPath).toBe('polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 12%))')
+  })
 })

@@ -144,4 +144,12 @@ export const WC_MANIFEST = [
   { catalogId: "GridEditor", tagName: "msqdx-grid-editor", layer: "Molecules", title: "Molecules/GridEditor" },
   { catalogId: "BreakpointEditor", tagName: "msqdx-breakpoint-editor", layer: "Molecules", title: "Molecules/BreakpointEditor" },
   { catalogId: "FontFamilyPicker", tagName: "msqdx-font-family-picker", layer: "Molecules", title: "Molecules/FontFamilyPicker" },
+  { catalogId: "ToolButton", tagName: "msqdx-tool-button", layer: "Atoms", title: "Atoms/ToolButton" },
+  { catalogId: "Timecode", tagName: "msqdx-timecode", layer: "Atoms", title: "Atoms/Timecode" },
+  { catalogId: "TransportBar", tagName: "msqdx-transport-bar", layer: "Molecules", title: "Molecules/TransportBar" },
+  { catalogId: "MediaMonitor", tagName: "msqdx-media-monitor", layer: "Organisms", title: "Organisms/MediaMonitor" },
+  { catalogId: "TimelineRuler", tagName: "msqdx-timeline-ruler", layer: "Molecules", title: "Molecules/TimelineRuler" },
+  { catalogId: "TimelineTrack", tagName: "msqdx-timeline-track", layer: "Molecules", title: "Molecules/TimelineTrack" },
+  { catalogId: "TimelineClip", tagName: "msqdx-timeline-clip", layer: "Molecules", title: "Molecules/TimelineClip" },
+  { catalogId: "Waveform", tagName: "msqdx-waveform", layer: "Molecules", title: "Molecules/Waveform" },
 ] satisfies WcManifestEntry[]

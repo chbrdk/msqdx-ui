@@ -112,7 +112,7 @@ export function scaffoldComponent(rootDir, name, layer) {
   const indexPrev = readFileSync(indexPath, 'utf8')
   if (!indexPrev.includes(`./components/${name}`)) {
     const block = `export { ${name} } from './components/${name}'\nexport type { ${name}Props } from './components/${name}'\n`
-    writeFileSync(indexPath, insertBeforeLast(indexPrev, "export { CATALOG, VIEWPORT_CRITICAL } from './storybook/catalog'\n", block))
+    writeFileSync(indexPath, insertBeforeLast(indexPrev, "export { CATALOG, VIEWPORT_CRITICAL, CATALOG_LAYER_ORDER } from './storybook/catalog'\n", block))
   }
 
   const catalogPrev = readFileSync(catalogPath, 'utf8')
