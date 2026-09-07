@@ -12,7 +12,7 @@ function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
-/** Compact status / count badge (not a Chip). */
+/** Compact status / category label — not a filter Chip. specs/domain/msqdx-ui-badge.md */
 export function Badge({
   children,
   className,

@@ -2261,33 +2261,45 @@ button.ds-marker-canvas__marker:focus-visible {
   min-width: 0;
 }
 
-/* Badge */
+/* Badge — status labels (filters stay on Chip) */
 .ds-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  padding: 0.1rem 0.45rem;
-  font-size: 0.75rem;
+  padding: 0.12rem 0.45rem;
+  font-size: var(--type-xs, 0.75rem);
   line-height: 1.2;
-  border: 1px solid var(--border, rgba(0, 0, 0, 0.14));
-  background: var(--surface-2, #f4f4f4);
-  color: var(--fg, inherit);
+  letter-spacing: var(--track-meta, 0.02em);
+  border-radius: var(--radius-sm, 0.3rem);
+  border: 1px solid var(--line, var(--border, rgba(0, 0, 0, 0.14)));
+  background: color-mix(in srgb, var(--muted, #888) 10%, transparent);
+  color: var(--muted, #666);
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular, 400);
+}
+.ds-badge--neutral {
+  /* default face; class kept explicit for tone API symmetry */
 }
 .ds-badge--accent {
-  border-color: var(--accent, #336);
-  color: var(--accent, #336);
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
 }
 .ds-badge--success {
-  border-color: var(--success, #2a6);
-  color: var(--success, #2a6);
+  border-color: color-mix(in srgb, var(--ok, var(--success, #2a6)) 55%, var(--line));
+  color: var(--ok, var(--success, #2a6));
+  background: color-mix(in srgb, var(--ok, var(--success, #2a6)) 16%, transparent);
 }
 .ds-badge--warning {
-  border-color: var(--warning, #a60);
-  color: var(--warning, #a60);
+  border-color: color-mix(in srgb, var(--warn, var(--warning, #a60)) 55%, var(--line));
+  /* --warn can be a bright yellow; mix toward ink for readable label */
+  color: color-mix(in srgb, var(--warn, var(--warning, #a60)) 45%, var(--ink, #111));
+  background: color-mix(in srgb, var(--warn, var(--warning, #a60)) 22%, transparent);
 }
 .ds-badge--danger {
-  border-color: var(--danger, #c33);
+  border-color: color-mix(in srgb, var(--danger, #c33) 55%, var(--line));
   color: var(--danger, #c33);
+  background: color-mix(in srgb, var(--danger, #c33) 14%, transparent);
 }
 
 /* Heading */
