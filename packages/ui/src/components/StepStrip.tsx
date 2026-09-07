@@ -9,6 +9,8 @@ import {
   type ReactNode,
 } from 'react'
 
+export type StepStripOrientation = 'horizontal' | 'vertical'
+
 export type StepStripProps = {
   children?: ReactNode
   header?: ReactNode
@@ -16,6 +18,8 @@ export type StepStripProps = {
   empty?: ReactNode
   /** Centers this card in the scroller when set */
   scrollToIndex?: number | null
+  /** Horizontal magazine strip (default) or vertical stack for narrow drawers */
+  orientation?: StepStripOrientation
   scrollerLabel?: string
   className?: string
   'aria-label'?: string
@@ -37,13 +41,14 @@ function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
-/** Horizontal selectable step cards — specs/domain/msqdx-ui-step-strip.md */
+/** Selectable step cards — specs/domain/msqdx-ui-step-strip.md */
 export function StepStrip({
   children,
   header,
   hint,
   empty,
   scrollToIndex = null,
+  orientation = 'horizontal',
   scrollerLabel = 'Step cards',
   className,
   'aria-label': ariaLabel = 'Steps',
@@ -51,22 +56,34 @@ export function StepStrip({
 }: StepStripProps) {
   const scrollerRef = useRef<HTMLDivElement>(null)
   const hasItems = Boolean(children)
+  const vertical = orientation === 'vertical'
 
   useEffect(() => {
     const el = scrollerRef.current
     if (!el || scrollToIndex == null || scrollToIndex < 0) return
     const card = el.querySelector<HTMLElement>(`[data-step-index="${scrollToIndex}"]`)
     if (!card) return
+    if (vertical) {
+      const top = card.offsetTop - (el.clientHeight - card.offsetHeight) / 2
+      if (typeof el.scrollTo === 'function') {
+        el.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+      }
+      return
+    }
     const left = card.offsetLeft - (el.clientWidth - card.offsetWidth) / 2
     if (typeof el.scrollTo === 'function') {
       el.scrollTo({ left: Math.max(0, left), behavior: 'smooth' })
     }
-  }, [scrollToIndex, children])
+  }, [scrollToIndex, children, vertical])
 
   if (!hasItems) {
     if (!empty) return null
     return (
-      <section className={cx('ds-step-strip', className)} aria-label={ariaLabel} {...rest}>
+      <section
+        className={cx('ds-step-strip', `ds-step-strip--${orientation}`, className)}
+        aria-label={ariaLabel}
+        {...rest}
+      >
         {header}
         {hint != null ? <div className="ds-step-strip-hint">{hint}</div> : null}
         <div className="ds-step-strip-empty">{empty}</div>
@@ -75,7 +92,11 @@ export function StepStrip({
   }
 
   return (
-    <section className={cx('ds-step-strip', className)} aria-label={ariaLabel} {...rest}>
+    <section
+      className={cx('ds-step-strip', `ds-step-strip--${orientation}`, className)}
+      aria-label={ariaLabel}
+      {...rest}
+    >
       {header}
       {hint != null ? <div className="ds-step-strip-hint">{hint}</div> : null}
       <div
@@ -83,6 +104,7 @@ export function StepStrip({
         ref={scrollerRef}
         tabIndex={0}
         aria-label={scrollerLabel}
+        data-orientation={orientation}
       >
         {children}
       </div>

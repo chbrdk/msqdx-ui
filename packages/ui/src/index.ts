@@ -266,7 +266,7 @@ export type { ScrollAreaOrientation, ScrollAreaProps } from './components/Scroll
 export { InspectDock } from './components/InspectDock'
 export type { InspectDockProps } from './components/InspectDock'
 export { StepStrip, StepStripItem } from './components/StepStrip'
-export type { StepStripItemProps, StepStripProps } from './components/StepStrip'
+export type { StepStripItemProps, StepStripProps, StepStripOrientation } from './components/StepStrip'
 export { ChannelLane, ChannelStack } from './components/ChannelStack'
 export type { ChannelLaneProps, ChannelStackProps } from './components/ChannelStack'
 export { EventFooter } from './components/EventFooter'

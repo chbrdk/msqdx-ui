@@ -21,4 +21,16 @@ describe('StepStrip', () => {
     fireEvent.click(screen.getByLabelText('Step 01'))
     expect(onActivate).toHaveBeenCalled()
   })
+
+  it('applies vertical orientation class', () => {
+    const { container } = render(
+      <StepStrip orientation="vertical">
+        <StepStripItem index={0} label="Step 01">
+          A
+        </StepStripItem>
+      </StepStrip>,
+    )
+    expect(container.querySelector('.ds-step-strip')).toHaveClass('ds-step-strip--vertical')
+    expect(container.querySelector('.ds-step-strip-scroller')).toHaveAttribute('data-orientation', 'vertical')
+  })
 })

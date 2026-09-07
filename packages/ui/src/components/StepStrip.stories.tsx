@@ -48,3 +48,20 @@ function Demo() {
 export const Default: Story = {
   render: () => <Demo />,
 }
+
+export const Vertical: Story = {
+  render: () => (
+    <div style={{ width: '20rem', border: '1px solid var(--line)', padding: '0.75rem' }}>
+      <StepStrip orientation="vertical" hint="Drawer / inspect stack" scrollToIndex={1}>
+        {['Import', 'Metadaten', 'Szenen', 'Audio'].map((label, i) => (
+          <StepStripItem key={label} index={i} label={label} selected={i === 1} active={i === 2}>
+            <Panel as="div" style={{ padding: '0.55rem 0.65rem' }}>
+              <strong>{label}</strong>
+              <p style={{ margin: '0.25rem 0 0', color: 'var(--muted)', fontSize: '0.8rem' }}>Fertig</p>
+            </Panel>
+          </StepStripItem>
+        ))}
+      </StepStrip>
+    </div>
+  ),
+}

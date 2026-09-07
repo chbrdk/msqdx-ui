@@ -8,7 +8,7 @@
 
 ## Purpose
 
-Horizontal, scroll-snap strip of selectable/expandable step cards. Shell only: products fill card bodies (screenshots, channels, observations).
+Scroll-snap strip of selectable/expandable step cards. Default is **horizontal** (magazine / journey). **Vertical** stacks cards full-width for narrow inspect drawers.
 
 ## API — `StepStrip`
 
@@ -18,7 +18,8 @@ Horizontal, scroll-snap strip of selectable/expandable step cards. Shell only: p
 | `header` | `ReactNode` | Optional chrome (e.g. `SectionChrome`) |
 | `hint` | `ReactNode` | Muted helper under header |
 | `empty` | `ReactNode` | When no items |
-| `scrollToIndex` | `number \| null` | Centers that card |
+| `orientation` | `'horizontal' \| 'vertical'` | Default `horizontal`; vertical = column stack, no x-scroll |
+| `scrollToIndex` | `number \| null` | Centers that card (x or y by orientation) |
 | `scrollerLabel` | `string` | Default `Step cards` |
 | `aria-label` | `string` | Section label |
 
@@ -32,7 +33,8 @@ Horizontal, scroll-snap strip of selectable/expandable step cards. Shell only: p
 | `label` | `string` | Accessible name |
 | `children` | `ReactNode` | Card body |
 
-CSS vars: `--ds-step-strip-compact`, `--ds-step-strip-expanded`.
+CSS: `.ds-step-strip--horizontal` (default face) · `.ds-step-strip--vertical`  
+Vars: `--ds-step-strip-compact`, `--ds-step-strip-expanded` (horizontal card width).
 
 ## Non-goals
 
@@ -40,6 +42,7 @@ CSS vars: `--ds-step-strip-compact`, `--ds-step-strip-expanded`.
 
 ## Acceptance
 
-1. Stories: compact / selected / expanded.  
-2. Tests: activate callback + scroll target attribute.  
+1. Stories: compact / selected / expanded / vertical.  
+2. Tests: activate callback + scroll target attribute + vertical class.  
 3. Products keep domain content inside items.
+4. Narrow inspect drawers MUST prefer `orientation="vertical"`.
