@@ -1,8 +1,17 @@
 # Card
 
-Scaffolded as a atoms primitive in `msqdx-ui`.
+Atom composition surface (`ds-card`).
 
-## Follow-up
+## When to use
 
-- Capture usage examples once the primitive ships in a consuming app.
-- Note migrations or API decisions here.
+- Browse / media tiles → `media` + `title` + `meta` + `actions` (`CardActions`)
+- Generic content blocks → `children` only
+
+## When not to use
+
+- Magazine hub headlines → `HubIndexCard`
+- Brandion token/catalog specimens → `EntityCard`
+
+## Spec
+
+`specs/domain/msqdx-ui-card.md`
