@@ -1284,8 +1284,8 @@
 .ds-context-menu {
   position: fixed;
   z-index: 80;
-  min-width: 11rem;
-  max-width: min(20rem, calc(100vw - 1.5rem));
+  min-width: 12rem;
+  max-width: min(22rem, calc(100vw - 1.5rem));
   margin: 0;
   padding: 0.25rem;
   list-style: none;
@@ -1297,6 +1297,26 @@
   line-height: 1.35;
   overflow: hidden;
   box-shadow: 0 10px 28px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.ds-context-menu-row {
+  display: grid;
+}
+
+.ds-context-menu-separator {
+  height: 1px;
+  margin: 0.25rem 0.35rem;
+  background: var(--line);
+}
+
+.ds-context-menu-section {
+  margin: 0.2rem 0 0.1rem;
+  padding: 0.25rem 0.55rem 0.15rem;
+  color: var(--muted);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .ds-context-menu-item {
@@ -1314,6 +1334,27 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+}
+
+.ds-context-menu-item__main {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.ds-context-menu-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  color: var(--accent, currentColor);
+}
+
+.ds-context-menu-item__icon .ui-icon {
+  display: block;
 }
 
 .ds-context-menu-item:hover:not(:disabled),

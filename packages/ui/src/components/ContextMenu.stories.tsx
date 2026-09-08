@@ -8,8 +8,14 @@ function Demo() {
   const [last, setLast] = useState<string | null>(null)
 
   const items: ContextMenuItem[] = [
+    { id: 'sec', label: 'Clip', section: true, onSelect: () => undefined },
     { id: 'dup', label: 'Duplizieren', shortcut: '⌘D', onSelect: () => setLast('dup') },
-    { id: 'inspect', label: 'Inspector öffnen', onSelect: () => setLast('inspect') },
+    {
+      id: 'inspect',
+      label: 'Inspector öffnen',
+      separator: true,
+      onSelect: () => setLast('inspect'),
+    },
     {
       id: 'del',
       label: 'Löschen',

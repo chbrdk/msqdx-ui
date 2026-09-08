@@ -5,6 +5,7 @@ import {
   useId,
   useRef,
   type KeyboardEvent as ReactKeyboardEvent,
+  type ReactNode,
 } from 'react'
 
 export type ContextMenuItem = {
@@ -13,6 +14,12 @@ export type ContextMenuItem = {
   shortcut?: string
   disabled?: boolean
   danger?: boolean
+  /** Optional leading icon (app supplies `@msqdx/ui` Icon*). */
+  icon?: ReactNode
+  /** Hairline rule before this row. */
+  separator?: boolean
+  /** Non-interactive group label (uses `label`; skips keyboard activation). */
+  section?: boolean
   onSelect: () => void
 }
 
@@ -29,6 +36,10 @@ export type ContextMenuProps = {
 
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
+}
+
+function isActionItem(item: ContextMenuItem): boolean {
+  return item.section !== true
 }
 
 /**
@@ -52,7 +63,7 @@ export function ContextMenu({
     if (!open) return
 
     const enabledIndexes = items
-      .map((item, index) => (item.disabled ? -1 : index))
+      .map((item, index) => (isActionItem(item) && !item.disabled ? index : -1))
       .filter((index) => index >= 0)
     const first = enabledIndexes[0]
     if (first != null) {
@@ -80,14 +91,13 @@ export function ContextMenu({
 
   function focusEnabled(delta: number) {
     const enabled = items
-      .map((item, index) => (item.disabled ? -1 : index))
+      .map((item, index) => (isActionItem(item) && !item.disabled ? index : -1))
       .filter((index) => index >= 0)
     if (enabled.length === 0) return
     const active = document.activeElement
     const current = itemRefs.current.findIndex((el) => el === active)
     const pos = enabled.indexOf(current)
-    const nextPos =
-      pos < 0 ? 0 : (pos + delta + enabled.length) % enabled.length
+    const nextPos = pos < 0 ? 0 : (pos + delta + enabled.length) % enabled.length
     itemRefs.current[enabled[nextPos]]?.focus()
   }
 
@@ -100,12 +110,13 @@ export function ContextMenu({
       focusEnabled(-1)
     } else if (event.key === 'Home') {
       event.preventDefault()
-      const first = items.findIndex((item) => !item.disabled)
+      const first = items.findIndex((item) => isActionItem(item) && !item.disabled)
       if (first >= 0) itemRefs.current[first]?.focus()
     } else if (event.key === 'End') {
       event.preventDefault()
       for (let i = items.length - 1; i >= 0; i -= 1) {
-        if (!items[i]?.disabled) {
+        const item = items[i]
+        if (item && isActionItem(item) && !item.disabled) {
           itemRefs.current[i]?.focus()
           break
         }
@@ -124,30 +135,43 @@ export function ContextMenu({
       onKeyDown={onMenuKeyDown}
     >
       {items.map((item, index) => (
-        <button
-          key={item.id}
-          ref={(el) => {
-            itemRefs.current[index] = el
-          }}
-          type="button"
-          role="menuitem"
-          disabled={item.disabled}
-          className={cx(
-            'ds-context-menu-item',
-            item.danger && 'ds-context-menu-item--danger',
-            item.disabled && 'ds-context-menu-item--disabled',
+        <div key={item.id} className="ds-context-menu-row">
+          {item.separator ? <div className="ds-context-menu-separator" role="separator" /> : null}
+          {item.section ? (
+            <div className="ds-context-menu-section">{item.label}</div>
+          ) : (
+            <button
+              ref={(el) => {
+                itemRefs.current[index] = el
+              }}
+              type="button"
+              role="menuitem"
+              disabled={item.disabled}
+              className={cx(
+                'ds-context-menu-item',
+                item.danger && 'ds-context-menu-item--danger',
+                item.disabled && 'ds-context-menu-item--disabled',
+              )}
+              onClick={() => {
+                if (item.disabled) return
+                item.onSelect()
+                onClose()
+              }}
+            >
+              <span className="ds-context-menu-item__main">
+                {item.icon ? (
+                  <span className="ds-context-menu-item__icon" aria-hidden>
+                    {item.icon}
+                  </span>
+                ) : null}
+                <span>{item.label}</span>
+              </span>
+              {item.shortcut ? (
+                <span className="ds-context-menu-shortcut">{item.shortcut}</span>
+              ) : null}
+            </button>
           )}
-          onClick={() => {
-            if (item.disabled) return
-            item.onSelect()
-            onClose()
-          }}
-        >
-          <span>{item.label}</span>
-          {item.shortcut ? (
-            <span className="ds-context-menu-shortcut">{item.shortcut}</span>
-          ) : null}
-        </button>
+        </div>
       ))}
     </div>
   )

@@ -69,4 +69,30 @@ describe('ContextMenu', () => {
     expect(onSelect).not.toHaveBeenCalled()
     expect(onClose).not.toHaveBeenCalled()
   })
+
+  it('renders icon, separator, and section rows', () => {
+    render(
+      <ContextMenu
+        open
+        x={0}
+        y={0}
+        onClose={() => undefined}
+        items={[
+          { id: 'sec', label: 'Szene', section: true, onSelect: vi.fn() },
+          {
+            id: 'open',
+            label: 'Infos',
+            separator: true,
+            icon: <span data-testid="cm-icon">i</span>,
+            onSelect: vi.fn(),
+          },
+        ]}
+      />,
+    )
+    expect(screen.getByText('Szene')).toBeInTheDocument()
+    expect(screen.queryByRole('menuitem', { name: 'Szene' })).not.toBeInTheDocument()
+    expect(screen.getByTestId('cm-icon')).toBeInTheDocument()
+    expect(screen.getByRole('separator')).toBeInTheDocument()
+    expect(screen.getByRole('menuitem', { name: 'Infos' })).toBeInTheDocument()
+  })
 })
