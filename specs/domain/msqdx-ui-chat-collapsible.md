@@ -16,6 +16,8 @@ Single **disclosure** for long assistant detail (markdown body as `children` —
 type ChatCollapsibleProps = {
   title: string
   defaultOpen?: boolean
+  /** `compact` for inspect/property rails — sm trigger + inline padding. Default stays chat-flush. */
+  density?: 'default' | 'compact'
   children?: ReactNode
   className?: string
 }
@@ -26,3 +28,4 @@ type ChatCollapsibleProps = {
 1. Stories: Closed, Open. ✅  
 2. Tests: expands on click. ✅  
 3. Exported from `@msqdx/ui`. ✅  
+4. WHEN `density="compact"` THEN the trigger MUST use `Button` size `sm`, keep readable left/right padding, and MUST NOT use title/`xl` type — for property/inspect rails.

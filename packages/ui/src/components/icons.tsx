@@ -25,6 +25,7 @@ import {
   Blend,
   Bold,
   BoxSelect,
+  Car,
   CaseLower,
   CaseSensitive,
   CaseUpper,
@@ -61,6 +62,8 @@ import {
   Move,
   MoveHorizontal,
   MoveVertical,
+  Package,
+  PawPrint,
   Pencil,
   Radius,
   Redo2,
@@ -84,10 +87,12 @@ import {
   Underline,
   Undo2,
   Unlock,
+  User,
   Users,
   Video,
   WrapText,
   X,
+  Zap,
   ZoomIn,
   ZoomOut,
 } from 'lucide-react'
@@ -114,6 +119,7 @@ function wrap(Icon: ComponentType<LucideProps>) {
 
 export const IconOverview = wrap(LayoutDashboard)
 export const IconPersonas = wrap(Users)
+export const IconUser = wrap(User)
 export const IconResearch = wrap(Search)
 export const IconProjects = wrap(FolderKanban)
 export const IconJourneys = wrap(Map)
@@ -161,6 +167,10 @@ export const IconHeight = wrap(MoveVertical)
 export const IconGap = wrap(BetweenHorizontalStart)
 export const IconPadding = wrap(SquareDashed)
 export const IconBox = wrap(BoxSelect)
+export const IconPackage = wrap(Package)
+export const IconCar = wrap(Car)
+export const IconPaw = wrap(PawPrint)
+export const IconZap = wrap(Zap)
 export const IconType = wrap(Type)
 export const IconBold = wrap(Bold)
 export const IconItalic = wrap(Italic)

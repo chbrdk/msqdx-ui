@@ -1329,13 +1329,42 @@
   padding-inline: 0;
 }
 
+.ds-chat-collapsible--compact .ds-chat-collapsible__trigger {
+  gap: 0.4rem;
+  padding-block: 0.3rem;
+  padding-inline: 0.55rem;
+  min-height: 0;
+  justify-content: flex-start;
+}
+
+.ds-chat-collapsible--compact .ds-chat-collapsible__trigger .ds-btn__label {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
 .ds-chat-collapsible__title {
   font-weight: var(--weight-medium, 500);
+}
+
+.ds-chat-collapsible--compact .ds-chat-collapsible__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--fg, var(--ink));
 }
 
 .ds-chat-collapsible__body {
   margin-top: 0.65rem;
   min-width: 0;
+}
+
+.ds-chat-collapsible--compact .ds-chat-collapsible__body {
+  margin-top: 0.35rem;
+  padding-inline: 0.55rem;
 }
 
 /* ——— ChatEntityGrid ——— */

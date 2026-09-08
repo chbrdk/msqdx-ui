@@ -111,6 +111,7 @@ export type { BrandCornerProductMenuProps } from './components/BrandCornerProduc
 export {
   IconOverview,
   IconPersonas,
+  IconUser,
   IconProjects,
   IconJourneys,
   IconResearch,
@@ -155,6 +156,10 @@ export {
   IconGap,
   IconPadding,
   IconBox,
+  IconPackage,
+  IconCar,
+  IconPaw,
+  IconZap,
   IconType,
   IconBold,
   IconItalic,
