@@ -16,6 +16,8 @@ Compact **label → value** rows for assistant detail blocks. Compose inside `Ch
 type ChatKeyValueItem = {
   label: string
   value: string | number
+  /** Optional leading icon (e.g. `@msqdx/ui` Icon*). */
+  icon?: ReactNode
 }
 ```
 
@@ -40,3 +42,4 @@ type ChatKeyValueItem = {
 1. Stories: Default, InPanel. ✅  
 2. Tests: renders labels + values. ✅  
 3. Exported from `@msqdx/ui`. ✅  
+4. WHEN `item.icon` is set THEN it MUST render before the label in `.ds-chat-kv__icon` (decorative, `aria-hidden`).  

@@ -26,6 +26,7 @@ import {
   Bold,
   BoxSelect,
   Car,
+  Camera,
   CaseLower,
   CaseSensitive,
   CaseUpper,
@@ -38,6 +39,7 @@ import {
   CircleCheck,
   CircleDot,
   CircleHelp,
+  Clock,
   Columns3,
   Contrast,
   Droplet,
@@ -129,6 +131,8 @@ export const IconHistory = wrap(History)
 export const IconMoodboard = wrap(LayoutGrid)
 export const IconMic = wrap(Mic)
 export const IconVideo = wrap(Video)
+export const IconCamera = wrap(Camera)
+export const IconClock = wrap(Clock)
 export const IconInfo = wrap(CircleHelp)
 export const IconEdit = wrap(Pencil)
 export const IconTrash = wrap(Trash2)

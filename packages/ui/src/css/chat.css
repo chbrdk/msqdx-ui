@@ -1181,6 +1181,25 @@
   gap: 0.75rem;
 }
 
+.ds-chat-kv__key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.ds-chat-kv__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  color: var(--accent, currentColor);
+}
+
+.ds-chat-kv__icon .ui-icon {
+  display: block;
+}
+
 .ds-chat-kv__label {
   color: var(--muted);
 }

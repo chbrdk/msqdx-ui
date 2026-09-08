@@ -121,6 +121,8 @@ export {
   IconMoodboard,
   IconMic,
   IconVideo,
+  IconCamera,
+  IconClock,
   IconInfo,
   IconEdit,
   IconTrash,

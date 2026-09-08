@@ -1,9 +1,11 @@
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 import { Text } from './Text'
 
 export type ChatKeyValueItem = {
   label: string
   value: string | number
+  /** Optional leading icon (app supplies `@msqdx/ui` Icon*). */
+  icon?: ReactNode
 }
 
 export type ChatKeyValueListProps = {
@@ -34,9 +36,16 @@ export function ChatKeyValueList({
           className={cx('ds-chat-kv__item', alternating && index % 2 === 1 && 'is-alt')}
         >
           <div className="ds-chat-kv__row">
-            <Text role="meta" as="span" className="ds-chat-kv__label">
-              {item.label}
-            </Text>
+            <span className="ds-chat-kv__key">
+              {item.icon ? (
+                <span className="ds-chat-kv__icon" aria-hidden>
+                  {item.icon}
+                </span>
+              ) : null}
+              <Text role="meta" as="span" className="ds-chat-kv__label">
+                {item.label}
+              </Text>
+            </span>
             <Text role="body" as="span" className="ds-chat-kv__value">
               {item.value}
             </Text>
