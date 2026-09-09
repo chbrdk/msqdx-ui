@@ -542,6 +542,16 @@ export type {
   CornerInsetAxes,
 } from './lib/clip-path-from-corner-insets'
 export {
+  CLIP_POLYGON_MAX_POINTS,
+  CLIP_POLYGON_MIN_POINTS,
+  clipPathFromPolygonPoints,
+  defaultClipPolygonPoints,
+  formatClipPolygonPoints,
+  parseClipPolygonPoints,
+  splitClipPolygonVertex,
+} from './lib/clip-path-from-polygon-points'
+export type { ClipPolygonPoint } from './lib/clip-path-from-polygon-points'
+export {
   CLIP_PRESET_IDS,
   DEFAULT_CLIP_PRESET_AMOUNT,
   cornerInsetsFromClipPreset,
