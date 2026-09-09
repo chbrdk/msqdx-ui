@@ -1,48 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ComponentType } from 'react'
 import { INSPECT_GLYPH_SIZE } from './InspectLayoutGlyphs'
-import {
-  IconAlignLeft,
-  IconBell,
-  IconBold,
-  IconBot,
-  IconChat,
-  IconClose,
-  IconFolderPlus,
-  IconGroup,
-  IconHamburger,
-  IconMenu,
-  IconMessage,
-  IconMessageCircle,
-  IconMessagePlus,
-  IconOverview,
-  IconPlay,
-  IconPlus,
-  IconScissors,
-  IconSpaceBetween,
-  IconSparkles,
-  IconStar,
-  IconStorybook,
-  IconVideo,
-  IconWarning,
-  IconXCircle,
-} from './icons'
+import * as IconExports from './icons'
+import { IconAlignLeft, IconPlus, IconSpaceBetween, IconWarning } from './icons'
 import { Text } from './Text'
 
-const ALIGN_ICONS = [
-  { name: 'IconAlignLeft', Node: IconAlignLeft },
-  { name: 'IconSpaceBetween', Node: IconSpaceBetween },
-] as const
+type IconComponent = ComponentType<{ size?: number }>
 
-const WAVE5_ICONS = [
-  { name: 'IconPlay', Node: IconPlay },
-  { name: 'IconScissors', Node: IconScissors },
-  { name: 'IconMessage', Node: IconMessage },
-  { name: 'IconGroup', Node: IconGroup },
-  { name: 'IconFolderPlus', Node: IconFolderPlus },
-  { name: 'IconStar', Node: IconStar },
-  { name: 'IconBell', Node: IconBell },
-] as const
+const ALL_ICONS = Object.entries(IconExports)
+  .filter(([name, value]) => name.startsWith('Icon') && typeof value === 'function')
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([name, Node]) => ({ name, Node: Node as IconComponent }))
 
 const meta = {
   title: 'Foundation/Icons',
@@ -63,7 +31,7 @@ function IconGrid({
   items,
   size = 20,
 }: {
-  items: readonly { name: string; Node: ComponentType<{ size?: number }> }[]
+  items: readonly { name: string; Node: IconComponent }[]
   size?: number
 }) {
   return (
@@ -99,94 +67,16 @@ function IconGrid({
   )
 }
 
-export const CustomLanguage: Story = {
-  name: 'Custom sample',
+/** Full catalog — every `Icon*` export from `@msqdx/ui`. */
+export const All: Story = {
+  name: 'All icons',
   render: () => (
-    <IconGrid
-      items={[
-        { name: 'IconPlus', Node: IconPlus },
-        { name: 'IconBold', Node: IconBold },
-        { name: 'IconOverview', Node: IconOverview },
-        { name: 'IconVideo', Node: IconVideo },
-        { name: 'IconWarning', Node: IconWarning },
-        { name: 'IconSparkles', Node: IconSparkles },
-        { name: 'IconStorybook', Node: IconStorybook },
-      ]}
-      size={20}
-    />
-  ),
-}
-
-export const CustomWave2: Story = {
-  name: 'Custom language (Wave 2 sample)',
-  render: () => (
-    <IconGrid
-      items={[
-        { name: 'IconBold', Node: IconBold },
-        { name: 'IconWarning', Node: IconWarning },
-      ]}
-      size={20}
-    />
-  ),
-}
-
-export const CustomWave3: Story = {
-  name: 'Custom language (Wave 3 sample)',
-  render: () => (
-    <IconGrid
-      items={[
-        { name: 'IconOverview', Node: IconOverview },
-        { name: 'IconVideo', Node: IconVideo },
-        { name: 'IconSparkles', Node: IconSparkles },
-      ]}
-      size={20}
-    />
-  ),
-}
-
-export const CustomWave4: Story = {
-  name: 'Custom language (Wave 4 Align sample)',
-  render: () => <IconGrid items={ALIGN_ICONS} size={20} />,
-}
-
-export const CustomWave5: Story = {
-  name: 'Custom language (Wave 5 platform)',
-  render: () => <IconGrid items={WAVE5_ICONS} size={20} />,
-}
-
-export const CustomWave6: Story = {
-  name: 'Custom language (Wave 6 chat/chrome)',
-  render: () => (
-    <IconGrid
-      items={[
-        { name: 'IconClose', Node: IconClose },
-        { name: 'IconMenu', Node: IconMenu },
-        { name: 'IconHamburger', Node: IconHamburger },
-        { name: 'IconMessage', Node: IconMessage },
-        { name: 'IconChat', Node: IconChat },
-        { name: 'IconMessageCircle', Node: IconMessageCircle },
-        { name: 'IconMessagePlus', Node: IconMessagePlus },
-        { name: 'IconBot', Node: IconBot },
-        { name: 'IconXCircle', Node: IconXCircle },
-      ]}
-      size={20}
-    />
-  ),
-}
-
-export const CustomLarge: Story = {
-  name: 'Custom large (48px)',
-  render: () => (
-    <IconGrid
-      items={[
-        { name: 'IconPlus', Node: IconPlus },
-        { name: 'IconAlignLeft', Node: IconAlignLeft },
-        { name: 'IconPlay', Node: IconPlay },
-        { name: 'IconSpaceBetween', Node: IconSpaceBetween },
-        { name: 'IconVideo', Node: IconVideo },
-      ]}
-      size={INSPECT_GLYPH_SIZE.xl}
-    />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <Text role="meta">
+        {ALL_ICONS.length} icons · size {INSPECT_GLYPH_SIZE.md}px
+      </Text>
+      <IconGrid items={ALL_ICONS} size={INSPECT_GLYPH_SIZE.md} />
+    </div>
   ),
 }
 
@@ -218,9 +108,4 @@ export const SizeLadder: Story = {
       </div>
     )
   },
-}
-
-export const Gallery: Story = {
-  name: 'Align matrix (Wave 4)',
-  render: () => <IconGrid items={ALIGN_ICONS} size={20} />,
 }
