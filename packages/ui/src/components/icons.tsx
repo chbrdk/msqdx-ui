@@ -169,6 +169,14 @@ import {
   IconTable,
   IconUngroup,
 } from './UiIconsWave5'
+import {
+  IconBot,
+  IconChat,
+  IconHamburger,
+  IconMessageCircle,
+  IconMessagePlus,
+  IconXCircle,
+} from './UiIconsWave6'
 
 export type { IconProps }
 
@@ -326,6 +334,12 @@ export {
   IconBuilding,
   IconGlobe,
   IconLoader,
+  IconHamburger,
+  IconChat,
+  IconMessageCircle,
+  IconMessagePlus,
+  IconBot,
+  IconXCircle,
 }
 
 /** Official Storybook mark (book + S) — filled brand silhouette for small toolbar use. */

@@ -262,6 +262,12 @@ export {
   IconBuilding,
   IconGlobe,
   IconLoader,
+  IconHamburger,
+  IconChat,
+  IconMessageCircle,
+  IconMessagePlus,
+  IconBot,
+  IconXCircle,
   IconStorybook,
 } from './components/icons'
 export type { IconProps } from './components/icons'

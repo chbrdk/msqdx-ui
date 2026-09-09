@@ -2,7 +2,7 @@
 
 **Package:** `@msqdx/ui`  
 **Spec:** `specs/domain/msqdx-ui-icon-language.md`  
-**Status:** Vision D + Wave 5 platform gaps — no `lucide-react`.
+**Status:** Vision D + Wave 6 chat/chrome — no `lucide-react`.
 
 Status: `custom` | `brand`
 
@@ -14,7 +14,8 @@ Status: `custom` | `brand`
 | 2 | `UiIconsWave2.tsx` | Typography, editor, status |
 | 3 | `UiIconsWave3.tsx` | Nav/org, media, layout props, effects |
 | 4 | `UiIconsWave4.tsx` | Align / Justify matrix |
-| 5 | `UiIconsWave5.tsx` | Platform gaps (nav, files, media transport, editor group, auth) |
+| 5 | `UiIconsWave5.tsx` | Platform gaps |
+| 6 | `UiIconsWave6.tsx` | Aliases `IconHamburger`/`IconChat`; `IconMessageCircle`, `IconMessagePlus`, `IconBot`, `IconXCircle` |
 
 | Special | Status |
 |---------|--------|

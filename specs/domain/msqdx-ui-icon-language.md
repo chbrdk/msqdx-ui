@@ -1,6 +1,6 @@
 # MSQDX UI icon language
 
-**Status:** Accepted · 2026-09-09 · Wave 5 (platform gaps)  
+**Status:** Accepted · 2026-09-09 · Wave 6 (chrome aliases + chat)  
 **Layer:** Foundation  
 **Vision:** Curated custom icon language shared with inspect layout glyphs — not Lucide-scale completeness.
 
@@ -29,8 +29,9 @@
 | 3 | `UiIconsWave3.tsx` | Nav, media, layout props, effects |
 | 4 | `UiIconsWave4.tsx` | Align / Justify matrix |
 | 5 | `UiIconsWave5.tsx` | Platform gaps: ChevronLeft, panels, grip, pin/star/bookmark, list/table/calendar/bell, files/folders, play/pause/scissors/crop/hand, message/code/import/scan, group/ungroup/diamond, bring/send, auth (logout/key/shield/building/globe), loader |
+| 6 | `UiIconsWave6.tsx` | `IconHamburger` (=Menu), `IconChat` (=Message), `IconMessageCircle`, `IconMessagePlus`, `IconBot`, `IconXCircle` |
 
-Further icons: **on-demand** when an app control needs them — audit app `lucide-react` imports first.
+Further icons: **on-demand** when an app control needs them — audit app icon imports first.
 
 ## Layout glyph add-ons
 

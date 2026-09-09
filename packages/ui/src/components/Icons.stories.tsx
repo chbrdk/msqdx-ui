@@ -5,9 +5,16 @@ import {
   IconAlignLeft,
   IconBell,
   IconBold,
+  IconBot,
+  IconChat,
+  IconClose,
   IconFolderPlus,
   IconGroup,
+  IconHamburger,
+  IconMenu,
   IconMessage,
+  IconMessageCircle,
+  IconMessagePlus,
   IconOverview,
   IconPlay,
   IconPlus,
@@ -18,6 +25,7 @@ import {
   IconStorybook,
   IconVideo,
   IconWarning,
+  IconXCircle,
 } from './icons'
 import { Text } from './Text'
 
@@ -144,6 +152,26 @@ export const CustomWave4: Story = {
 export const CustomWave5: Story = {
   name: 'Custom language (Wave 5 platform)',
   render: () => <IconGrid items={WAVE5_ICONS} size={20} />,
+}
+
+export const CustomWave6: Story = {
+  name: 'Custom language (Wave 6 chat/chrome)',
+  render: () => (
+    <IconGrid
+      items={[
+        { name: 'IconClose', Node: IconClose },
+        { name: 'IconMenu', Node: IconMenu },
+        { name: 'IconHamburger', Node: IconHamburger },
+        { name: 'IconMessage', Node: IconMessage },
+        { name: 'IconChat', Node: IconChat },
+        { name: 'IconMessageCircle', Node: IconMessageCircle },
+        { name: 'IconMessagePlus', Node: IconMessagePlus },
+        { name: 'IconBot', Node: IconBot },
+        { name: 'IconXCircle', Node: IconXCircle },
+      ]}
+      size={20}
+    />
+  ),
 }
 
 export const CustomLarge: Story = {
