@@ -36,7 +36,7 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 
 | Family | File | Consumers |
 |--------|------|-----------|
-| TokenKindGlyph | `TokenKindGlyph.tsx` | CREATION Token Studio; Brandion chapter / type chips / card meta |
+| TokenKindGlyph | `TokenKindGlyph.tsx` | CREATION Token Studio + TokenPicker fields; Brandion chapter / type chips / card meta / lab raw |
 | TokenPreview | `TokenPreview.tsx` | TokenPicker / Studio value chips |
 
 ## Out of scope (intentionally)
