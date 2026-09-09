@@ -1,6 +1,6 @@
 # MSQDX UI icon language
 
-**Status:** Accepted · 2026-09-09 · Wave 1  
+**Status:** Accepted · 2026-09-09 · Wave 2  
 **Layer:** Foundation  
 **Vision:** Replace Lucide wrappers with one custom optical language shared with inspect layout glyphs.
 
@@ -18,13 +18,23 @@
 4. Strokes MUST stay hairline at large sizes (`vector-effect: non-scaling-stroke`). No `#fff` / `#000` / brand hex in SVG or CSS.
 5. Align/Justify matrix stays under `IconAlign*` / `IconJustify*` (custom redraw later — **not** replaced by layout glyphs).
 6. No new direct `lucide-react` imports in package components or stories. Residual Lucide only inside `icons.tsx` wraps until migrated.
-7. Storybook **Foundation / Icons** MUST show custom wave, size ladder, and residual Lucide gallery. Inventory: `knowledge/icon-catalog.md`.
+7. Storybook **Foundation / Icons** MUST show custom waves, size ladder, and residual Lucide gallery. Inventory: `knowledge/icon-catalog.md`.
 
 ## Wave 1 catalog (custom)
 
 **New:** Plus, MoreHorizontal, MoreVertical, Settings, Sliders, Copy, Clipboard, Download, Upload, ExternalLink, Layers, Refresh, Filter, Home, Menu, PanelLeft.
 
 **Redrawn (same export names):** Research/Search, Check, Close, ChevronUp/Down/Right, Edit, Trash, Eye/EyeOff, Lock/Unlock.
+
+## Wave 2 catalog (custom)
+
+**Typography toolbar:** Type/Text, Bold, Italic, Underline, Strikethrough, CaseUpper/Lower/Title, Baseline, Heading, Link.
+
+**Editor chrome:** Undo, Redo, ZoomIn/Out, Save, ArrowLeft/Right/Up/Down, Minus/Spacer, Circle.
+
+**Status:** Info, Success, Warning, Danger, Ban.
+
+Source: `UiIconsWave2.tsx`.
 
 ## Layout glyph add-ons (Wave 1)
 
@@ -35,8 +45,8 @@
 
 ## Migration (Vision D)
 
-Track every `Icon*` as `custom` or `lucide-wrap` in `knowledge/icon-catalog.md`. Follow-up waves redraw remaining wraps (typo toolbar, media, nav, align matrix, domain oddities). Drop `lucide-react` only when inventory is all `custom` and no direct imports remain.
+Track every `Icon*` as `custom` or `lucide-wrap` in `knowledge/icon-catalog.md`. Follow-up waves: media/transport, nav/org, layout-prop icons, align matrix, domain oddities. Drop `lucide-react` only when inventory is all `custom` and no direct imports remain.
 
 ## Dual-ship
 
-Ship `@msqdx/ui` first. Apps pick up via `MSQDX_UI_REF` pin; no forced app bump in Wave 1.
+Ship `@msqdx/ui` first. Apps pick up via `MSQDX_UI_REF` pin; no forced app bump per wave.

@@ -1,5 +1,5 @@
 /**
- * Named Icon* barrel — custom Wave 1 + residual Lucide wraps.
+ * Named Icon* barrel — custom Waves 1–2 + residual Lucide wraps.
  * Spec: specs/domain/msqdx-ui-icon-language.md
  * Inventory: knowledge/icon-catalog.md
  */
@@ -20,45 +20,24 @@ import {
   AlignHorizontalSpaceAround,
   AlignHorizontalSpaceBetween,
   AlignHorizontalJustifyStart,
-  ArrowDown,
-  ArrowLeft,
-  ArrowRight,
-  ArrowUp,
   Badge,
-  Ban,
-  Baseline,
   BetweenHorizontalStart,
   Blend,
-  Bold,
   BoxSelect,
   Car,
   Camera,
-  CaseLower,
-  CaseSensitive,
-  CaseUpper,
-  Circle,
-  CircleAlert,
-  CircleCheck,
-  CircleDot,
-  CircleHelp,
-  Clock,
-  Columns3,
   Contrast,
   Droplet,
   FolderKanban,
   Ghost,
-  Heading1,
   History,
   Image,
-  Italic,
   LayoutDashboard,
   LayoutGrid,
-  Link,
   Map,
   Maximize2,
   Mic,
   Minimize2,
-  Minus,
   MousePointerClick,
   Move,
   MoveHorizontal,
@@ -66,10 +45,8 @@ import {
   Package,
   PawPrint,
   Radius,
-  Redo2,
   RotateCw,
   Rows3,
-  Save,
   ScrollText,
   Send,
   Share2,
@@ -78,19 +55,15 @@ import {
   SquareDashed,
   SquareStack,
   StretchHorizontal,
-  Strikethrough,
   TextCursorInput,
-  TriangleAlert,
-  Type,
-  Underline,
-  Undo2,
   User,
   Users,
   Video,
   WrapText,
   Zap,
-  ZoomIn,
-  ZoomOut,
+  Columns3,
+  CircleDot,
+  Clock,
 } from 'lucide-react'
 import type { IconProps } from './ui-icon-track'
 import { resolveIconSize } from './ui-icon-track'
@@ -125,6 +98,37 @@ import {
   IconUnlock,
   IconUpload,
 } from './UiIconsCore'
+import {
+  IconArrowDown,
+  IconArrowLeft,
+  IconArrowRight,
+  IconArrowUp,
+  IconBan,
+  IconBaseline,
+  IconBold,
+  IconCaseLower,
+  IconCaseTitle,
+  IconCaseUpper,
+  IconCircle,
+  IconDanger,
+  IconHeading,
+  IconInfo,
+  IconItalic,
+  IconLink,
+  IconMinus,
+  IconRedo,
+  IconSave,
+  IconSpacer,
+  IconStrikethrough,
+  IconSuccess,
+  IconText,
+  IconType,
+  IconUnderline,
+  IconUndo,
+  IconWarning,
+  IconZoomIn,
+  IconZoomOut,
+} from './UiIconsWave2'
 
 export type { IconProps }
 
@@ -183,6 +187,35 @@ export {
   IconEyeOff,
   IconLock,
   IconUnlock,
+  IconType,
+  IconText,
+  IconBold,
+  IconItalic,
+  IconUnderline,
+  IconStrikethrough,
+  IconCaseUpper,
+  IconCaseLower,
+  IconCaseTitle,
+  IconBaseline,
+  IconHeading,
+  IconLink,
+  IconUndo,
+  IconRedo,
+  IconZoomIn,
+  IconZoomOut,
+  IconSave,
+  IconArrowLeft,
+  IconArrowRight,
+  IconArrowUp,
+  IconArrowDown,
+  IconMinus,
+  IconSpacer,
+  IconCircle,
+  IconInfo,
+  IconSuccess,
+  IconWarning,
+  IconDanger,
+  IconBan,
 }
 
 export const IconOverview = wrap(LayoutDashboard)
@@ -198,17 +231,6 @@ export const IconMic = wrap(Mic)
 export const IconVideo = wrap(Video)
 export const IconCamera = wrap(Camera)
 export const IconClock = wrap(Clock)
-export const IconInfo = wrap(CircleHelp)
-
-export const IconUndo = wrap(Undo2)
-export const IconRedo = wrap(Redo2)
-export const IconZoomIn = wrap(ZoomIn)
-export const IconZoomOut = wrap(ZoomOut)
-export const IconSave = wrap(Save)
-export const IconArrowLeft = wrap(ArrowLeft)
-export const IconArrowRight = wrap(ArrowRight)
-export const IconArrowUp = wrap(ArrowUp)
-export const IconArrowDown = wrap(ArrowDown)
 
 export const IconAlignLeft = wrap(AlignLeft)
 export const IconAlignCenter = wrap(AlignCenter)
@@ -236,29 +258,14 @@ export const IconPackage = wrap(Package)
 export const IconCar = wrap(Car)
 export const IconPaw = wrap(PawPrint)
 export const IconZap = wrap(Zap)
-export const IconType = wrap(Type)
-export const IconBold = wrap(Bold)
-export const IconItalic = wrap(Italic)
-export const IconUnderline = wrap(Underline)
-export const IconStrikethrough = wrap(Strikethrough)
-export const IconCaseUpper = wrap(CaseUpper)
-export const IconCaseLower = wrap(CaseLower)
-export const IconCaseTitle = wrap(CaseSensitive)
-export const IconBaseline = wrap(Baseline)
 export const IconFill = wrap(Droplet)
-export const IconBan = wrap(Ban)
 export const IconGhost = wrap(Ghost)
 export const IconMinimize = wrap(Minimize2)
 export const IconMaximize = wrap(Maximize2)
 export const IconScroll = wrap(ScrollText)
 export const IconDotted = wrap(CircleDot)
 export const IconMove = wrap(Move)
-export const IconMinus = wrap(Minus)
-export const IconCircle = wrap(Circle)
 export const IconSparkles = wrap(Sparkles)
-export const IconSuccess = wrap(CircleCheck)
-export const IconWarning = wrap(TriangleAlert)
-export const IconDanger = wrap(CircleAlert)
 export const IconRotate = wrap(RotateCw)
 export const IconRadius = wrap(Radius)
 export const IconOpacity = wrap(Contrast)
@@ -267,15 +274,11 @@ export const IconShadow = wrap(Blend)
 
 export const IconStack = wrap(SquareStack)
 export const IconButton = wrap(MousePointerClick)
-export const IconText = wrap(Type)
 export const IconInput = wrap(TextCursorInput)
 export const IconCard = wrap(Square)
 export const IconImage = wrap(Image)
-export const IconHeading = wrap(Heading1)
 export const IconGrid = wrap(LayoutGrid)
-export const IconLink = wrap(Link)
 export const IconBadge = wrap(Badge)
-export const IconSpacer = wrap(Minus)
 
 /** Official Storybook mark (book + S) — filled brand silhouette for small toolbar use. */
 export function IconStorybook({

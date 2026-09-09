@@ -41,9 +41,43 @@ Status: `custom` | `lucide-wrap` | `brand` (non-Lucide special)
 | IconUnlock | custom |
 | IconStorybook | brand |
 
+## Wave 2 — custom
+
+| Export | Status |
+|--------|--------|
+| IconType | custom |
+| IconText | custom (alias Type) |
+| IconBold | custom |
+| IconItalic | custom |
+| IconUnderline | custom |
+| IconStrikethrough | custom |
+| IconCaseUpper | custom |
+| IconCaseLower | custom |
+| IconCaseTitle | custom |
+| IconBaseline | custom |
+| IconHeading | custom |
+| IconLink | custom |
+| IconUndo | custom |
+| IconRedo | custom |
+| IconZoomIn | custom |
+| IconZoomOut | custom |
+| IconSave | custom |
+| IconArrowLeft | custom |
+| IconArrowRight | custom |
+| IconArrowUp | custom |
+| IconArrowDown | custom |
+| IconMinus | custom |
+| IconSpacer | custom (alias Minus) |
+| IconCircle | custom |
+| IconInfo | custom |
+| IconSuccess | custom |
+| IconWarning | custom |
+| IconDanger | custom |
+| IconBan | custom |
+
 ## Residual — lucide-wrap (later waves)
 
-IconOverview, IconPersonas, IconUser, IconProjects, IconJourneys, IconSend, IconShare, IconHistory, IconMoodboard, IconMic, IconVideo, IconCamera, IconClock, IconInfo, IconUndo, IconRedo, IconZoomIn, IconZoomOut, IconSave, IconArrowLeft/Right/Up/Down, IconAlign*, IconJustify*, IconSpaceBetween, IconSpaceAround, IconRows, IconColumns, IconWrap, IconStretch, IconWidth, IconHeight, IconGap, IconPadding, IconBox, IconPackage, IconCar, IconPaw, IconZap, IconType, IconBold, IconItalic, IconUnderline, IconStrikethrough, IconCase*, IconBaseline, IconFill, IconBan, IconGhost, IconMinimize, IconMaximize, IconScroll, IconDotted, IconMove, IconMinus, IconCircle, IconSparkles, IconSuccess, IconWarning, IconDanger, IconRotate, IconRadius, IconOpacity, IconBlur, IconShadow, IconStack, IconButton, IconText, IconInput, IconCard, IconImage, IconHeading, IconGrid, IconLink, IconBadge, IconSpacer.
+IconOverview, IconPersonas, IconUser, IconProjects, IconJourneys, IconSend, IconShare, IconHistory, IconMoodboard, IconMic, IconVideo, IconCamera, IconClock, IconAlign*, IconJustify*, IconSpaceBetween, IconSpaceAround, IconRows, IconColumns, IconWrap, IconStretch, IconWidth, IconHeight, IconGap, IconPadding, IconBox, IconPackage, IconCar, IconPaw, IconZap, IconFill, IconGhost, IconMinimize, IconMaximize, IconScroll, IconDotted, IconMove, IconSparkles, IconRotate, IconRadius, IconOpacity, IconBlur, IconShadow, IconStack, IconButton, IconInput, IconCard, IconImage, IconGrid, IconBadge.
 
 ## Layout glyphs (related)
 

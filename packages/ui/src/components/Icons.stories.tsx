@@ -3,11 +3,13 @@ import type { ComponentType } from 'react'
 import { INSPECT_GLYPH_SIZE } from './InspectLayoutGlyphs'
 import {
   IconAlignLeft,
-  IconBan,
+  IconArrowLeft,
+  IconBold,
   IconCheck,
   IconChevronDown,
   IconClose,
   IconCopy,
+  IconDanger,
   IconDownload,
   IconEdit,
   IconExternalLink,
@@ -31,21 +33,26 @@ import {
   IconProjects,
   IconRefresh,
   IconResearch,
+  IconSave,
   IconSend,
   IconSettings,
   IconShare,
   IconSparkles,
   IconStorybook,
   IconStrikethrough,
+  IconSuccess,
   IconTrash,
+  IconType,
   IconUnderline,
   IconUndo,
   IconUpload,
   IconVideo,
+  IconWarning,
+  IconZoomIn,
 } from './icons'
 import { Text } from './Text'
 
-const CUSTOM_ICONS = [
+const CUSTOM_WAVE1 = [
   { name: 'IconPlus', Node: IconPlus },
   { name: 'IconMoreHorizontal', Node: IconMoreHorizontal },
   { name: 'IconSettings', Node: IconSettings },
@@ -68,6 +75,22 @@ const CUSTOM_ICONS = [
   { name: 'IconLock', Node: IconLock },
 ] as const
 
+const CUSTOM_WAVE2 = [
+  { name: 'IconType', Node: IconType },
+  { name: 'IconBold', Node: IconBold },
+  { name: 'IconItalic', Node: IconItalic },
+  { name: 'IconUnderline', Node: IconUnderline },
+  { name: 'IconStrikethrough', Node: IconStrikethrough },
+  { name: 'IconUndo', Node: IconUndo },
+  { name: 'IconSave', Node: IconSave },
+  { name: 'IconZoomIn', Node: IconZoomIn },
+  { name: 'IconArrowLeft', Node: IconArrowLeft },
+  { name: 'IconInfo', Node: IconInfo },
+  { name: 'IconSuccess', Node: IconSuccess },
+  { name: 'IconWarning', Node: IconWarning },
+  { name: 'IconDanger', Node: IconDanger },
+] as const
+
 const RESIDUAL_ICONS = [
   { name: 'IconOverview', Node: IconOverview },
   { name: 'IconPersonas', Node: IconPersonas },
@@ -79,14 +102,8 @@ const RESIDUAL_ICONS = [
   { name: 'IconMoodboard', Node: IconMoodboard },
   { name: 'IconMic', Node: IconMic },
   { name: 'IconVideo', Node: IconVideo },
-  { name: 'IconInfo', Node: IconInfo },
-  { name: 'IconUndo', Node: IconUndo },
   { name: 'IconAlignLeft', Node: IconAlignLeft },
-  { name: 'IconItalic', Node: IconItalic },
-  { name: 'IconUnderline', Node: IconUnderline },
-  { name: 'IconStrikethrough', Node: IconStrikethrough },
   { name: 'IconGhost', Node: IconGhost },
-  { name: 'IconBan', Node: IconBan },
   { name: 'IconSparkles', Node: IconSparkles },
   { name: 'IconStorybook', Node: IconStorybook },
 ] as const
@@ -97,7 +114,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Wave 1 custom icons share the inspect-glyph stroke language. Residual Icon* exports remain Lucide wraps until later migration waves. Spec: msqdx-ui-icon-language.md',
+          'Custom Wave 1–2 icons share the inspect-glyph stroke language. Residual Icon* exports remain Lucide wraps until later migration waves. Spec: msqdx-ui-icon-language.md',
       },
     },
   },
@@ -148,25 +165,23 @@ function IconGrid({
 
 export const CustomLanguage: Story = {
   name: 'Custom language (Wave 1)',
-  render: () => <IconGrid items={CUSTOM_ICONS} size={20} />,
+  render: () => <IconGrid items={CUSTOM_WAVE1} size={20} />,
+}
+
+export const CustomWave2: Story = {
+  name: 'Custom language (Wave 2)',
+  render: () => <IconGrid items={CUSTOM_WAVE2} size={20} />,
 }
 
 export const CustomLarge: Story = {
   name: 'Custom large (48px)',
-  render: () => <IconGrid items={CUSTOM_ICONS} size={INSPECT_GLYPH_SIZE.xl} />,
+  render: () => <IconGrid items={[...CUSTOM_WAVE1, ...CUSTOM_WAVE2]} size={INSPECT_GLYPH_SIZE.xl} />,
 }
 
 export const SizeLadder: Story = {
   name: 'Size ladder (16 → 48)',
   render: () => {
-    const samples = [
-      IconPlus,
-      IconCheck,
-      IconSettings,
-      IconLayers,
-      IconResearch,
-      IconTrash,
-    ] as const
+    const samples = [IconPlus, IconBold, IconUndo, IconWarning, IconType, IconCheck] as const
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, color: 'var(--ink)' }}>
         {(
