@@ -46,12 +46,19 @@ App-local inspect glyphs used hardcoded `#ffffff` fills. That reads on dark chro
 | `TextAlignGlyph` | `start` \| `center` \| `end` \| `justify` |
 | `AspectRatioGlyph` | `free` \| `1-1` \| `16-9` \| `4-3` \| `3-2` \| `9-16` \| `21-9` |
 | `GapAxisGlyph` | `both` \| `row` \| `column` |
-| `DisplayModeGlyph` | `block` \| `flex` \| `grid` \| `inline` \| `inline-flex` \| `none` |
+| `DisplayModeGlyph` | `block` \| `inline-block` \| `inline` \| `flex` \| `inline-flex` \| `grid` \| `inline-grid` \| `table` \| `list-item` \| `contents` \| `none` |
+| `VisibilityGlyph` | `visible` \| `hidden` \| `collapse` |
+| `BoxSizingGlyph` | `content-box` \| `border-box` |
+| `WhiteSpaceGlyph` | `normal` \| `nowrap` \| `pre` \| `pre-wrap` |
+| `FloatGlyph` | `none` \| `left` \| `right` |
+| `WritingModeGlyph` | `horizontal` \| `vertical` |
 
-Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`, `selfParkGlyphId`, `ninePointGlyphId`, `objectPositionGlyphId`, `transformOriginGlyphId`, `textAlignGlyphId`, `aspectRatioGlyphId`, `gapAxisGlyphId`, `displayModeGlyphId`, `ninePointWriteValue`.
+Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`, `selfParkGlyphId`, `ninePointGlyphId`, `objectPositionGlyphId`, `transformOriginGlyphId`, `textAlignGlyphId`, `aspectRatioGlyphId`, `gapAxisGlyphId`, `displayModeGlyphId`, `ninePointWriteValue`, `visibilityGlyphId`, `boxSizingGlyphId`, `whiteSpaceGlyphId`, `floatGlyphId`, `writingModeGlyphId`.
 
-Source files: `InspectLayoutGlyphs.tsx`, `InspectLayoutGlyphsExtra.tsx`, `InspectLayoutGlyphsMore.tsx`. Inventory: `knowledge/glyph-library.md`.
+Source files: `InspectLayoutGlyphs.tsx`, `InspectLayoutGlyphsExtra.tsx`, `InspectLayoutGlyphsMore.tsx`, `InspectLayoutGlyphsCatalog.tsx`. Inventory: `knowledge/glyph-library.md`.
+
+**Rule:** Catalog glyphs MAY ship in `@msqdx/ui` before any app wires them. Consumer wiring is optional and tracked separately.
 
 ## Dual-ship
 
-CREATION Web consumes from `@msqdx/ui`. Inspect wires Extra families plus SelfPark / ObjectPosition / TextAlign (and related segmented enums). macOS mirrors with native SVG/Swift paths where the control exists. Do not duplicate Lucide Align/Justify matrices.
+CREATION Web consumes from `@msqdx/ui`. Inspect wires Extra families plus SelfPark / ObjectPosition / TextAlign (and related segmented enums). macOS mirrors with native SVG/Swift paths where the control exists. Do not duplicate Lucide Align/Justify matrices. Catalog-reserve families (`Visibility`, `BoxSizing`, `WhiteSpace`, `Float`, `WritingMode`, expanded `DisplayMode`) are DS-complete without a required consumer.

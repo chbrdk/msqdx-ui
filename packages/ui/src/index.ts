@@ -269,6 +269,25 @@ export {
   displayModeGlyphId,
   ninePointWriteValue,
 } from './components/InspectLayoutGlyphsMore'
+export {
+  VisibilityGlyph,
+  BoxSizingGlyph,
+  WhiteSpaceGlyph,
+  FloatGlyph,
+  WritingModeGlyph,
+  visibilityGlyphId,
+  boxSizingGlyphId,
+  whiteSpaceGlyphId,
+  floatGlyphId,
+  writingModeGlyphId,
+} from './components/InspectLayoutGlyphsCatalog'
+export type {
+  VisibilityGlyphId,
+  BoxSizingGlyphId,
+  WhiteSpaceGlyphId,
+  FloatGlyphId,
+  WritingModeGlyphId,
+} from './components/InspectLayoutGlyphsCatalog'
 export type {
   SelfParkGlyphId,
   NinePointGlyphId,

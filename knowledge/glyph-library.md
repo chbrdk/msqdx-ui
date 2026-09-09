@@ -2,22 +2,23 @@
 
 **Date:** 2026-09-09  
 **Package:** `@msqdx/ui`  
-**Rule:** App shells re-export only — no app-local SVG copies of these families.
+**Rule:** App shells re-export only — no app-local SVG copies of these families.  
+**Rule:** Catalog glyphs MAY exist without a consumer. Wire when a control appears.
 
 ## Layers
 
 | Layer | Role | Examples |
 |-------|------|----------|
-| **Foundation layout glyphs** | Diagrammatic inspect chrome (spatial / CSS layout metaphors) | `SizeModeGlyph`, `SelfParkGlyph`, `NinePointGlyph`, … |
+| **Foundation layout glyphs** | Diagrammatic inspect chrome (spatial / CSS layout metaphors) | `SizeModeGlyph`, `SelfParkGlyph`, `DisplayModeGlyph`, … |
 | **Molecules token glyphs** | Token Studio / picker kind metaphors (not layout) | `TokenKindGlyph`, `TokenPreview` |
 | **Foundation Lucide wraps** | Generic UI icons; keep for Align/Justify matrices | `IconAlign*`, `IconColumns`, … |
 
 Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 
-## Layout families (complete catalog)
+## Layout families (wired)
 
-| Family | File | Wire priority |
-|--------|------|----------------|
+| Family | File | Typical consumer |
+|--------|------|------------------|
 | SizeMode | `InspectLayoutGlyphs.tsx` | CREATION size box |
 | MediaFit | same | CREATION media / bg-size |
 | GridColumn / GridSpan | same | CREATION grid presets |
@@ -30,7 +31,17 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 | TextAlign | More | typography segmented |
 | AspectRatio | More | CREATION constraints; VIDEON reframe / cut canvas |
 | GapAxis | More | CREATION gap expand + axis rows |
-| DisplayMode | More | display enum (when exposed) |
+
+## Layout families (catalog reserve — DS only OK)
+
+| Family | File | Notes |
+|--------|------|-------|
+| DisplayMode | More | Full CSS display set (`block`…`none`, table, contents, …) |
+| Visibility | `InspectLayoutGlyphsCatalog.tsx` | visible / hidden / collapse |
+| BoxSizing | Catalog | content-box / border-box |
+| WhiteSpace | Catalog | normal / nowrap / pre / pre-wrap |
+| Float | Catalog | none / left / right |
+| WritingMode | Catalog | horizontal / vertical |
 
 ## Token families
 
@@ -44,8 +55,9 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 - Blend-mode / filter effect glyphs
 - Product mascots / brand marks
 - Per-app one-off SVG fills (`#fff` / brand hex)
+- Checkion/Audion/Plexon report/chat chrome (no CSS layout enums)
 
 ## Storybook
 
-**Foundation / Inspect Layout Glyphs** — full Catalog + Vs Icons.  
+**Foundation / Inspect Layout Glyphs** — Catalog + DisplayModes + Catalog reserve + Vs Icons.  
 **Molecules / TokenKindGlyph** — kind metaphors.

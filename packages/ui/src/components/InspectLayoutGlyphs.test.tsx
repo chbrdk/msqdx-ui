@@ -30,7 +30,20 @@ import {
   selfParkGlyphId,
   textAlignGlyphId,
   aspectRatioGlyphId,
+  displayModeGlyphId,
 } from './InspectLayoutGlyphsMore'
+import {
+  VisibilityGlyph,
+  BoxSizingGlyph,
+  WhiteSpaceGlyph,
+  FloatGlyph,
+  WritingModeGlyph,
+  visibilityGlyphId,
+  boxSizingGlyphId,
+  whiteSpaceGlyphId,
+  floatGlyphId,
+  writingModeGlyphId,
+} from './InspectLayoutGlyphsCatalog'
 
 describe('InspectLayoutGlyphs', () => {
   it('renders size mode glyphs with ui-icon + ds-inspect-glyph and no hardcoded fills', () => {
@@ -90,5 +103,20 @@ describe('InspectLayoutGlyphs', () => {
     expect(textAlignGlyphId('right')).toBe('end')
     expect(aspectRatioGlyphId('9:16')).toBe('9-16')
     expect(aspectRatioGlyphId('16:9')).toBe('16-9')
+    expect(displayModeGlyphId('inline-grid')).toBe('inline-grid')
+    expect(displayModeGlyphId('contents')).toBe('contents')
+  })
+
+  it('renders catalog-reserve families and maps helpers', () => {
+    expect(render(<VisibilityGlyph id="hidden" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<BoxSizingGlyph id="border-box" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<WhiteSpaceGlyph id="pre" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<FloatGlyph id="left" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<WritingModeGlyph id="vertical" />).container.querySelector('svg')).toBeTruthy()
+    expect(visibilityGlyphId('collapse')).toBe('collapse')
+    expect(boxSizingGlyphId('border-box')).toBe('border-box')
+    expect(whiteSpaceGlyphId('nowrap')).toBe('nowrap')
+    expect(floatGlyphId('right')).toBe('right')
+    expect(writingModeGlyphId('vertical-rl')).toBe('vertical')
   })
 })

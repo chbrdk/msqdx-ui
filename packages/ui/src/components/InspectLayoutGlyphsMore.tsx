@@ -257,10 +257,15 @@ export function GapAxisGlyph({ id, size }: { id: GapAxisGlyphId; size?: number }
 
 export type DisplayModeGlyphId =
   | 'block'
+  | 'inline-block'
   | 'flex'
-  | 'grid'
-  | 'inline'
   | 'inline-flex'
+  | 'grid'
+  | 'inline-grid'
+  | 'inline'
+  | 'contents'
+  | 'table'
+  | 'list-item'
   | 'none'
 
 export function DisplayModeGlyph({ id, size }: { id: DisplayModeGlyphId; size?: number }) {
@@ -273,7 +278,17 @@ export function DisplayModeGlyph({ id, size }: { id: DisplayModeGlyphId; size?: 
       </Track>
     )
   }
-  if (id === 'grid') {
+  if (id === 'contents') {
+    return (
+      <Track size={size}>
+        <OuterFrame />
+        <Pillar x={3.5} y={4} w={4} h={8} tone="soft" />
+        <Pillar x={8.5} y={4} w={4} h={8} tone="soft" />
+        <line x1="1.25" y1="1.25" x2="14.75" y2="14.75" className="ds-inspect-glyph__dash" />
+      </Track>
+    )
+  }
+  if (id === 'grid' || id === 'inline-grid') {
     return (
       <Track size={size}>
         <OuterFrame />
@@ -281,6 +296,9 @@ export function DisplayModeGlyph({ id, size }: { id: DisplayModeGlyphId; size?: 
         <Pillar x={8.5} y={3} w={4.5} h={4.5} tone="soft" />
         <Pillar x={3} y={8.5} w={4.5} h={4.5} tone="soft" />
         <Pillar x={8.5} y={8.5} w={4.5} h={4.5} />
+        {id === 'inline-grid' ? (
+          <line x1="2.5" y1="13.5" x2="13.5" y2="13.5" className="ds-inspect-glyph__dash" />
+        ) : null}
       </Track>
     )
   }
@@ -297,11 +315,42 @@ export function DisplayModeGlyph({ id, size }: { id: DisplayModeGlyphId; size?: 
       </Track>
     )
   }
-  if (id === 'inline') {
+  if (id === 'table') {
     return (
       <Track size={size}>
         <OuterFrame />
-        <Pillar x={4} y={6} w={8} h={4} tone="soft" />
+        <Pillar x={3} y={3.5} w={10} h={2.5} />
+        <Pillar x={3} y={6.75} w={4.5} h={2.5} tone="soft" />
+        <Pillar x={8.5} y={6.75} w={4.5} h={2.5} tone="soft" />
+        <Pillar x={3} y={10} w={4.5} h={2.5} tone="soft" />
+        <Pillar x={8.5} y={10} w={4.5} h={2.5} tone="soft" />
+      </Track>
+    )
+  }
+  if (id === 'list-item') {
+    return (
+      <Track size={size}>
+        <OuterFrame />
+        <circle cx="4.5" cy="5" r="1.1" className="ds-inspect-glyph__pip" />
+        <Pillar x={7} y={4} w={6} h={2} />
+        <circle cx="4.5" cy="8.5" r="1.1" className="ds-inspect-glyph__pip" />
+        <Pillar x={7} y={7.5} w={5} h={2} tone="soft" />
+        <circle cx="4.5" cy="12" r="1.1" className="ds-inspect-glyph__pip" />
+        <Pillar x={7} y={11} w={6} h={2} tone="soft" />
+      </Track>
+    )
+  }
+  if (id === 'inline' || id === 'inline-block') {
+    return (
+      <Track size={size}>
+        <OuterFrame />
+        <Pillar
+          x={id === 'inline-block' ? 3.5 : 4}
+          y={id === 'inline-block' ? 4 : 6}
+          w={id === 'inline-block' ? 9 : 8}
+          h={id === 'inline-block' ? 8 : 4}
+          tone="soft"
+        />
         <line x1="2.5" y1="13.5" x2="13.5" y2="13.5" className="ds-inspect-glyph__dash" />
       </Track>
     )
@@ -374,11 +423,17 @@ export function gapAxisGlyphId(value: string): GapAxisGlyphId {
 }
 
 export function displayModeGlyphId(value: string): DisplayModeGlyphId {
-  if (value === 'flex') return 'flex'
-  if (value === 'grid') return 'grid'
-  if (value === 'inline') return 'inline'
-  if (value === 'inline-flex') return 'inline-flex'
-  if (value === 'none') return 'none'
+  const v = value.trim().toLowerCase()
+  if (v === 'flex') return 'flex'
+  if (v === 'inline-flex') return 'inline-flex'
+  if (v === 'grid') return 'grid'
+  if (v === 'inline-grid') return 'inline-grid'
+  if (v === 'inline') return 'inline'
+  if (v === 'inline-block') return 'inline-block'
+  if (v === 'contents') return 'contents'
+  if (v === 'table' || v === 'table-cell' || v === 'table-row') return 'table'
+  if (v === 'list-item') return 'list-item'
+  if (v === 'none') return 'none'
   return 'block'
 }
 

@@ -27,6 +27,13 @@ import {
   GapAxisGlyph,
   DisplayModeGlyph,
 } from './InspectLayoutGlyphsMore'
+import {
+  VisibilityGlyph,
+  BoxSizingGlyph,
+  WhiteSpaceGlyph,
+  FloatGlyph,
+  WritingModeGlyph,
+} from './InspectLayoutGlyphsCatalog'
 import { IconBox, IconColumns, IconMaximize, IconMinimize, IconStretch } from './icons'
 import { Text } from './Text'
 
@@ -371,6 +378,11 @@ export const Catalog: Story = {
       <TextAlignGlyph id="justify" />
       <AspectRatioGlyph id="16-9" />
       <DisplayModeGlyph id="grid" />
+      <VisibilityGlyph id="hidden" />
+      <BoxSizingGlyph id="border-box" />
+      <FloatGlyph id="left" />
+      <WhiteSpaceGlyph id="nowrap" />
+      <WritingModeGlyph id="vertical" />
       <GapAxisGlyph id="both" />
       <GridColumnGlyph id="cols-3" />
       <GridSpanGlyph id="span-2" axis="col" />
@@ -425,16 +437,76 @@ export const TextAspectDisplay: Story = {
           <AspectRatioGlyph id={id} />
         </Tile>
       ))}
-      {(['block', 'flex', 'grid', 'none'] as const).map((id) => (
-        <Tile key={`d-${id}`} label={id}>
-          <DisplayModeGlyph id={id} />
-        </Tile>
-      ))}
       {(['both', 'row', 'column'] as const).map((id) => (
         <Tile key={`g-${id}`} label={`gap ${id}`}>
           <GapAxisGlyph id={id} />
         </Tile>
       ))}
+    </div>
+  ),
+}
+
+export const DisplayModes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {(
+        [
+          'block',
+          'inline-block',
+          'inline',
+          'flex',
+          'inline-flex',
+          'grid',
+          'inline-grid',
+          'table',
+          'list-item',
+          'contents',
+          'none',
+        ] as const
+      ).map((id) => (
+        <Tile key={id} label={id}>
+          <DisplayModeGlyph id={id} />
+        </Tile>
+      ))}
+    </div>
+  ),
+}
+
+export const CatalogReserve: Story = {
+  name: 'Catalog reserve (unused consumers OK)',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {(['visible', 'hidden', 'collapse'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <VisibilityGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {(['content-box', 'border-box'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <BoxSizingGlyph id={id} />
+          </Tile>
+        ))}
+        {(['none', 'left', 'right'] as const).map((id) => (
+          <Tile key={`f-${id}`} label={`float ${id}`}>
+            <FloatGlyph id={id} />
+          </Tile>
+        ))}
+        {(['horizontal', 'vertical'] as const).map((id) => (
+          <Tile key={`w-${id}`} label={id}>
+            <WritingModeGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {(['normal', 'nowrap', 'pre', 'pre-wrap'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <WhiteSpaceGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
     </div>
   ),
 }

@@ -15,8 +15,8 @@
 
 ## Families
 
-Size · MediaFit · GridColumn · GridSpan · Distribute · CellPark · FlowDirection · Wrap · AutoFlow · Position · Overflow · BorderStyle · BgPosition · ClipPreset · **SelfPark** · **NinePoint** (ObjectPosition / TransformOrigin) · **TextAlign** · **AspectRatio** · **GapAxis** · **DisplayMode**
+Size · MediaFit · GridColumn · GridSpan · Distribute · CellPark · FlowDirection · Wrap · AutoFlow · Position · Overflow · BorderStyle · BgPosition · ClipPreset · **SelfPark** · **NinePoint** (ObjectPosition / TransformOrigin) · **TextAlign** · **AspectRatio** · **GapAxis** · **DisplayMode** · **Visibility** · **BoxSizing** · **WhiteSpace** · **Float** · **WritingMode**
 
 Inventory / cross-app reuse: `knowledge/glyph-library.md`.
 
-CREATION wires Extra + SelfPark / ObjectPosition / TextAlign (and related segmented enums via helpers). AspectRatio / GapAxis / DisplayMode are catalog-ready for the next Inspect pass.
+Catalog-reserve families ship in DS without waiting for app wires. CREATION consumes wired families; DisplayMode + Catalog reserve are available for later Inspect / other products.
