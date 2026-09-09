@@ -250,6 +250,35 @@ export {
   bgPositionGlyphId,
   clipPresetGlyphId,
 } from './components/InspectLayoutGlyphsExtra'
+export {
+  SelfParkGlyph,
+  NinePointGlyph,
+  ObjectPositionGlyph,
+  TransformOriginGlyph,
+  TextAlignGlyph,
+  AspectRatioGlyph,
+  GapAxisGlyph,
+  DisplayModeGlyph,
+  selfParkGlyphId,
+  ninePointGlyphId,
+  objectPositionGlyphId,
+  transformOriginGlyphId,
+  textAlignGlyphId,
+  aspectRatioGlyphId,
+  gapAxisGlyphId,
+  displayModeGlyphId,
+  ninePointWriteValue,
+} from './components/InspectLayoutGlyphsMore'
+export type {
+  SelfParkGlyphId,
+  NinePointGlyphId,
+  ObjectPositionGlyphId,
+  TransformOriginGlyphId,
+  TextAlignGlyphId,
+  AspectRatioGlyphId,
+  GapAxisGlyphId,
+  DisplayModeGlyphId,
+} from './components/InspectLayoutGlyphsMore'
 export type {
   DistributeGlyphId,
   CellParkGlyphId,

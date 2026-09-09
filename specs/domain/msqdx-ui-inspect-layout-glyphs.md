@@ -41,9 +41,17 @@ App-local inspect glyphs used hardcoded `#ffffff` fills. That reads on dark chro
 | `BorderStyleGlyph` | `solid` \| `dashed` \| `dotted` \| `none` |
 | `BgPositionGlyph` | `center` \| `top` \| `bottom` \| `left` \| `right` |
 | `ClipPresetGlyph` | `none` \| `slant-bottom` \| `slant-bottom-flip` \| `slant-top` \| `trapezoid` \| `parallelogram` |
+| `SelfParkGlyph` | `auto` \| `start` \| `center` \| `end` \| `stretch` (+ `axis` h\|v) — alignSelf / justifySelf |
+| `NinePointGlyph` (`ObjectPositionGlyph` / `TransformOriginGlyph`) | 9-pip anchors |
+| `TextAlignGlyph` | `start` \| `center` \| `end` \| `justify` |
+| `AspectRatioGlyph` | `free` \| `1-1` \| `16-9` \| `4-3` \| `3-2` \| `9-16` \| `21-9` |
+| `GapAxisGlyph` | `both` \| `row` \| `column` |
+| `DisplayModeGlyph` | `block` \| `flex` \| `grid` \| `inline` \| `inline-flex` \| `none` |
 
-Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`.
+Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`, `selfParkGlyphId`, `ninePointGlyphId`, `objectPositionGlyphId`, `transformOriginGlyphId`, `textAlignGlyphId`, `aspectRatioGlyphId`, `gapAxisGlyphId`, `displayModeGlyphId`, `ninePointWriteValue`.
+
+Source files: `InspectLayoutGlyphs.tsx`, `InspectLayoutGlyphsExtra.tsx`, `InspectLayoutGlyphsMore.tsx`. Inventory: `knowledge/glyph-library.md`.
 
 ## Dual-ship
 
-CREATION Web consumes from `@msqdx/ui`. Top-3 wired inspect surfaces: Packed/Even, Grid cell park, Clip presets. macOS mirrors those three with native paths.
+CREATION Web consumes from `@msqdx/ui`. Inspect wires Extra families plus SelfPark / ObjectPosition / TextAlign (and related segmented enums). macOS mirrors with native SVG/Swift paths where the control exists. Do not duplicate Lucide Align/Justify matrices.

@@ -93,3 +93,16 @@
   stroke-width: 1.25;
   stroke-linejoin: round;
 }
+
+.ds-inspect-glyph__pip {
+  fill: color-mix(in srgb, var(--ink) 88%, transparent);
+  stroke: none;
+}
+
+.ds-inspect-glyph__dash {
+  fill: none;
+  stroke: color-mix(in srgb, var(--ink) 45%, transparent);
+  stroke-width: 1.25;
+  stroke-dasharray: 1.5 1.25;
+  stroke-linecap: round;
+}

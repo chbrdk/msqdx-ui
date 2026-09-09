@@ -18,6 +18,18 @@ import {
   clipPresetGlyphId,
   distributeGlyphId,
 } from './InspectLayoutGlyphsExtra'
+import {
+  AspectRatioGlyph,
+  DisplayModeGlyph,
+  GapAxisGlyph,
+  NinePointGlyph,
+  SelfParkGlyph,
+  TextAlignGlyph,
+  ninePointGlyphId,
+  ninePointWriteValue,
+  selfParkGlyphId,
+  textAlignGlyphId,
+} from './InspectLayoutGlyphsMore'
 
 describe('InspectLayoutGlyphs', () => {
   it('renders size mode glyphs with ui-icon + ds-inspect-glyph and no hardcoded fills', () => {
@@ -62,5 +74,18 @@ describe('InspectLayoutGlyphs', () => {
     expect(distributeGlyphId('space-between')).toBe('even')
     expect(cellParkGlyphId('flex-end')).toBe('end')
     expect(clipPresetGlyphId('parallelogram')).toBe('parallelogram')
+  })
+
+  it('renders More families and maps helpers', () => {
+    expect(render(<SelfParkGlyph id="stretch" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<NinePointGlyph id="top-left" />).container.querySelector('.ds-inspect-glyph__pip')).toBeTruthy()
+    expect(render(<TextAlignGlyph id="justify" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<AspectRatioGlyph id="16-9" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<DisplayModeGlyph id="grid" />).container.querySelectorAll('rect').length).toBeGreaterThan(3)
+    expect(render(<GapAxisGlyph id="both" />).container.querySelector('.ds-inspect-glyph__accent')).toBeTruthy()
+    expect(selfParkGlyphId('flex-end')).toBe('end')
+    expect(ninePointGlyphId('top left')).toBe('top-left')
+    expect(ninePointWriteValue('bottom-right')).toBe('bottom right')
+    expect(textAlignGlyphId('right')).toBe('end')
   })
 })

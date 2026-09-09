@@ -19,6 +19,14 @@ import {
   PositionGlyph,
   WrapGlyph,
 } from './InspectLayoutGlyphsExtra'
+import {
+  SelfParkGlyph,
+  NinePointGlyph,
+  TextAlignGlyph,
+  AspectRatioGlyph,
+  GapAxisGlyph,
+  DisplayModeGlyph,
+} from './InspectLayoutGlyphsMore'
 import { IconBox, IconColumns, IconMaximize, IconMinimize, IconStretch } from './icons'
 import { Text } from './Text'
 
@@ -358,8 +366,75 @@ export const Catalog: Story = {
       <BorderStyleGlyph id="dashed" />
       <BgPositionGlyph id="top" />
       <ClipPresetGlyph id="trapezoid" />
+      <SelfParkGlyph id="stretch" />
+      <NinePointGlyph id="center" />
+      <TextAlignGlyph id="justify" />
+      <AspectRatioGlyph id="16-9" />
+      <DisplayModeGlyph id="grid" />
+      <GapAxisGlyph id="both" />
       <GridColumnGlyph id="cols-3" />
       <GridSpanGlyph id="span-2" axis="col" />
+    </div>
+  ),
+}
+
+
+export const SelfParkAndNinePoint: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {(['auto', 'start', 'center', 'end', 'stretch'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <SelfParkGlyph id={id} axis="v" />
+          </Tile>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {(
+          [
+            'top-left',
+            'top',
+            'top-right',
+            'left',
+            'center',
+            'right',
+            'bottom-left',
+            'bottom',
+            'bottom-right',
+          ] as const
+        ).map((id) => (
+          <Tile key={id} label={id}>
+            <NinePointGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
+    </div>
+  ),
+}
+
+export const TextAspectDisplay: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {(['start', 'center', 'end', 'justify'] as const).map((id) => (
+        <Tile key={id} label={id}>
+          <TextAlignGlyph id={id} />
+        </Tile>
+      ))}
+      {(['free', '1-1', '16-9', '9-16'] as const).map((id) => (
+        <Tile key={id} label={id}>
+          <AspectRatioGlyph id={id} />
+        </Tile>
+      ))}
+      {(['block', 'flex', 'grid', 'none'] as const).map((id) => (
+        <Tile key={`d-${id}`} label={id}>
+          <DisplayModeGlyph id={id} />
+        </Tile>
+      ))}
+      {(['both', 'row', 'column'] as const).map((id) => (
+        <Tile key={`g-${id}`} label={`gap ${id}`}>
+          <GapAxisGlyph id={id} />
+        </Tile>
+      ))}
     </div>
   ),
 }

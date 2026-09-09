@@ -35,6 +35,8 @@
 - PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`
 - TokenPreview: `packages/ui/src/components/TokenPreview.tsx` · Storybook `Molecules/TokenPreview` · used by TokenPicker browser (P77)
+- TokenKindGlyph: `packages/ui/src/components/TokenKindGlyph.tsx` · Storybook `Molecules/TokenKindGlyph` · Token Studio kind metaphors
+- Inspect layout glyphs: `InspectLayoutGlyphs.tsx` + `Extra` + `More` · Storybook `Foundation/Inspect Layout Glyphs` · spec `specs/domain/msqdx-ui-inspect-layout-glyphs.md` · inventory `knowledge/glyph-library.md` · notes `knowledge/inspect-layout-glyphs.md`
 - CanvasViewport / SelectionHandles: `packages/ui/src/components/CanvasViewport.tsx` · `SelectionHandles.tsx`
 - Library ↔ Composition round-trip (Storybook catalog SSOT, CREATION migrate/promote, Phase 6 auto fan-out, Phase 7 catalog palette): spec `specs/domain/library-composition-roundtrip.md` · knowledge `knowledge/library-composition-roundtrip.md` · consumer `creation-v3/knowledge/library-composition-roundtrip.md`
 - WC compile (catalog → Custom Elements): spec `specs/domain/wc-compile.md` · knowledge `knowledge/wc-compile.md` · job `pnpm wc:compile` · output `packages/ui/src/wc/generated/manifest.ts` · import `@msqdx/ui/wc`

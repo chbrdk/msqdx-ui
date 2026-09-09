@@ -15,6 +15,8 @@
 
 ## Families
 
-Size · MediaFit · GridColumn · GridSpan · Distribute · CellPark · FlowDirection · Wrap · AutoFlow · Position · Overflow · BorderStyle · BgPosition · ClipPreset
+Size · MediaFit · GridColumn · GridSpan · Distribute · CellPark · FlowDirection · Wrap · AutoFlow · Position · Overflow · BorderStyle · BgPosition · ClipPreset · **SelfPark** · **NinePoint** (ObjectPosition / TransformOrigin) · **TextAlign** · **AspectRatio** · **GapAxis** · **DisplayMode**
 
-CREATION wires Distribute, CellPark, ClipPreset in Inspect; others are catalog-ready.
+Inventory / cross-app reuse: `knowledge/glyph-library.md`.
+
+CREATION wires Extra + SelfPark / ObjectPosition / TextAlign (and related segmented enums via helpers). AspectRatio / GapAxis / DisplayMode are catalog-ready for the next Inspect pass.
