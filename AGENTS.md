@@ -7,4 +7,4 @@
 5. Every primitive change ships with stories and tests.
 6. Keep `@msqdx/ui` generic. App/domain pages, charts, product routing, and data hooks stay in the consuming app.
 7. Always-on Storybook staging: static image via root `Dockerfile` (port **6006**); operator notes in `knowledge/staging-coolify-storybook.md`; live FQDN `https://ds.projects-a.plygrnd.tech` (`URL_MSQDX_UI_STORYBOOK`).
-8. Icons: prefer custom Wave language (`specs/domain/msqdx-ui-icon-language.md`); no new direct `lucide-react` imports outside residual wraps in `icons.tsx`. Inventory: `knowledge/icon-catalog.md`.
+8. Icons: custom Wave language only (`specs/domain/msqdx-ui-icon-language.md`). Do not add `lucide-react`. Inventory: `knowledge/icon-catalog.md`.

@@ -1,25 +1,9 @@
 /**
- * Named Icon* barrel — custom Waves 1–3 + residual Align Lucide wraps (Wave 4).
+ * Named Icon* barrel — fully custom icon language (Vision D complete for Icon*).
  * Spec: specs/domain/msqdx-ui-icon-language.md
  * Inventory: knowledge/icon-catalog.md
  */
 
-import type { LucideProps } from 'lucide-react'
-import type { ComponentType } from 'react'
-import {
-  AlignCenter,
-  AlignJustify,
-  AlignLeft,
-  AlignRight,
-  AlignVerticalJustifyCenter,
-  AlignVerticalJustifyEnd,
-  AlignVerticalJustifyStart,
-  AlignHorizontalJustifyCenter,
-  AlignHorizontalJustifyEnd,
-  AlignHorizontalSpaceAround,
-  AlignHorizontalSpaceBetween,
-  AlignHorizontalJustifyStart,
-} from 'lucide-react'
 import type { IconProps } from './ui-icon-track'
 import { resolveIconSize } from './ui-icon-track'
 import {
@@ -132,33 +116,22 @@ import {
   IconWrap,
   IconZap,
 } from './UiIconsWave3'
+import {
+  IconAlignCenter,
+  IconAlignEnd,
+  IconAlignJustify,
+  IconAlignLeft,
+  IconAlignMiddle,
+  IconAlignRight,
+  IconAlignStart,
+  IconJustifyCenter,
+  IconJustifyEnd,
+  IconJustifyStart,
+  IconSpaceAround,
+  IconSpaceBetween,
+} from './UiIconsWave4'
 
 export type { IconProps }
-
-function wrap(Icon: ComponentType<LucideProps>) {
-  return function Wrapped({
-    size = 16,
-    className,
-    strokeWidth = 1.75,
-    absoluteStrokeWidth,
-    color,
-    'aria-hidden': ariaHidden = true,
-    ...rest
-  }: IconProps) {
-    const px = resolveIconSize(size)
-    return (
-      <Icon
-        size={px}
-        strokeWidth={strokeWidth}
-        absoluteStrokeWidth={absoluteStrokeWidth}
-        color={color}
-        aria-hidden={ariaHidden}
-        className={['ui-icon', className].filter(Boolean).join(' ')}
-        {...rest}
-      />
-    )
-  }
-}
 
 export {
   IconPlus,
@@ -265,21 +238,19 @@ export {
   IconInput,
   IconCard,
   IconBadge,
+  IconAlignLeft,
+  IconAlignCenter,
+  IconAlignRight,
+  IconAlignJustify,
+  IconAlignStart,
+  IconAlignMiddle,
+  IconAlignEnd,
+  IconJustifyStart,
+  IconJustifyCenter,
+  IconJustifyEnd,
+  IconSpaceBetween,
+  IconSpaceAround,
 }
-
-/** Residual Lucide — Align/Justify matrix (Wave 4). */
-export const IconAlignLeft = wrap(AlignLeft)
-export const IconAlignCenter = wrap(AlignCenter)
-export const IconAlignRight = wrap(AlignRight)
-export const IconAlignJustify = wrap(AlignJustify)
-export const IconAlignStart = wrap(AlignVerticalJustifyStart)
-export const IconAlignMiddle = wrap(AlignVerticalJustifyCenter)
-export const IconAlignEnd = wrap(AlignVerticalJustifyEnd)
-export const IconJustifyStart = wrap(AlignHorizontalJustifyStart)
-export const IconJustifyCenter = wrap(AlignHorizontalJustifyCenter)
-export const IconJustifyEnd = wrap(AlignHorizontalJustifyEnd)
-export const IconSpaceBetween = wrap(AlignHorizontalSpaceBetween)
-export const IconSpaceAround = wrap(AlignHorizontalSpaceAround)
 
 /** Official Storybook mark (book + S) — filled brand silhouette for small toolbar use. */
 export function IconStorybook({

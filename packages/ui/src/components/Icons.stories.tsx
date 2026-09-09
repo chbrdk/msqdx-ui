@@ -2,43 +2,33 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ComponentType } from 'react'
 import { INSPECT_GLYPH_SIZE } from './InspectLayoutGlyphs'
 import {
+  IconAlignCenter,
+  IconAlignJustify,
   IconAlignLeft,
+  IconAlignRight,
+  IconAlignStart,
   IconBold,
-  IconCamera,
-  IconCheck,
   IconJustifyCenter,
-  IconMic,
   IconOverview,
-  IconPersonas,
   IconPlus,
-  IconSend,
+  IconSpaceAround,
   IconSpaceBetween,
   IconSparkles,
   IconStorybook,
-  IconType,
-  IconUndo,
   IconVideo,
   IconWarning,
-  IconWidth,
 } from './icons'
 import { Text } from './Text'
 
-const CUSTOM_WAVE3 = [
-  { name: 'IconOverview', Node: IconOverview },
-  { name: 'IconPersonas', Node: IconPersonas },
-  { name: 'IconSend', Node: IconSend },
-  { name: 'IconMic', Node: IconMic },
-  { name: 'IconVideo', Node: IconVideo },
-  { name: 'IconCamera', Node: IconCamera },
-  { name: 'IconWidth', Node: IconWidth },
-  { name: 'IconSparkles', Node: IconSparkles },
-] as const
-
-const RESIDUAL_ICONS = [
+const ALIGN_ICONS = [
   { name: 'IconAlignLeft', Node: IconAlignLeft },
+  { name: 'IconAlignCenter', Node: IconAlignCenter },
+  { name: 'IconAlignRight', Node: IconAlignRight },
+  { name: 'IconAlignJustify', Node: IconAlignJustify },
+  { name: 'IconAlignStart', Node: IconAlignStart },
   { name: 'IconJustifyCenter', Node: IconJustifyCenter },
   { name: 'IconSpaceBetween', Node: IconSpaceBetween },
-  { name: 'IconStorybook', Node: IconStorybook },
+  { name: 'IconSpaceAround', Node: IconSpaceAround },
 ] as const
 
 const meta = {
@@ -47,7 +37,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Custom Waves 1–3 share the inspect-glyph stroke language. Residual Lucide wraps are Align/Justify only (Wave 4). Spec: msqdx-ui-icon-language.md',
+          'All Icon* exports are custom (`ds-ui-icon`). Lucide dependency removed. Spec: msqdx-ui-icon-language.md',
       },
     },
   },
@@ -97,16 +87,17 @@ function IconGrid({
 }
 
 export const CustomLanguage: Story = {
-  name: 'Custom language (Wave 1–2 sample)',
+  name: 'Custom sample',
   render: () => (
     <IconGrid
       items={[
         { name: 'IconPlus', Node: IconPlus },
-        { name: 'IconCheck', Node: IconCheck },
-        { name: 'IconType', Node: IconType },
         { name: 'IconBold', Node: IconBold },
-        { name: 'IconUndo', Node: IconUndo },
+        { name: 'IconOverview', Node: IconOverview },
+        { name: 'IconVideo', Node: IconVideo },
         { name: 'IconWarning', Node: IconWarning },
+        { name: 'IconSparkles', Node: IconSparkles },
+        { name: 'IconStorybook', Node: IconStorybook },
       ]}
       size={20}
     />
@@ -119,8 +110,6 @@ export const CustomWave2: Story = {
     <IconGrid
       items={[
         { name: 'IconBold', Node: IconBold },
-        { name: 'IconType', Node: IconType },
-        { name: 'IconUndo', Node: IconUndo },
         { name: 'IconWarning', Node: IconWarning },
       ]}
       size={20}
@@ -129,8 +118,22 @@ export const CustomWave2: Story = {
 }
 
 export const CustomWave3: Story = {
-  name: 'Custom language (Wave 3)',
-  render: () => <IconGrid items={CUSTOM_WAVE3} size={20} />,
+  name: 'Custom language (Wave 3 sample)',
+  render: () => (
+    <IconGrid
+      items={[
+        { name: 'IconOverview', Node: IconOverview },
+        { name: 'IconVideo', Node: IconVideo },
+        { name: 'IconSparkles', Node: IconSparkles },
+      ]}
+      size={20}
+    />
+  ),
+}
+
+export const CustomWave4: Story = {
+  name: 'Custom language (Wave 4 Align)',
+  render: () => <IconGrid items={ALIGN_ICONS} size={20} />,
 }
 
 export const CustomLarge: Story = {
@@ -139,11 +142,10 @@ export const CustomLarge: Story = {
     <IconGrid
       items={[
         { name: 'IconPlus', Node: IconPlus },
-        { name: 'IconBold', Node: IconBold },
-        { name: 'IconOverview', Node: IconOverview },
+        { name: 'IconAlignLeft', Node: IconAlignLeft },
+        { name: 'IconJustifyCenter', Node: IconJustifyCenter },
+        { name: 'IconSpaceBetween', Node: IconSpaceBetween },
         { name: 'IconVideo', Node: IconVideo },
-        { name: 'IconWidth', Node: IconWidth },
-        { name: 'IconSparkles', Node: IconSparkles },
       ]}
       size={INSPECT_GLYPH_SIZE.xl}
     />
@@ -153,7 +155,7 @@ export const CustomLarge: Story = {
 export const SizeLadder: Story = {
   name: 'Size ladder (16 → 48)',
   render: () => {
-    const samples = [IconPlus, IconBold, IconOverview, IconVideo, IconWarning] as const
+    const samples = [IconPlus, IconAlignLeft, IconSpaceBetween, IconWarning] as const
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 20, color: 'var(--ink)' }}>
         {(
@@ -181,6 +183,6 @@ export const SizeLadder: Story = {
 }
 
 export const Gallery: Story = {
-  name: 'Residual Lucide (Align matrix)',
-  render: () => <IconGrid items={RESIDUAL_ICONS} size={20} />,
+  name: 'Align matrix (Wave 4)',
+  render: () => <IconGrid items={ALIGN_ICONS} size={20} />,
 }

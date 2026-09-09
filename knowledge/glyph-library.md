@@ -10,11 +10,10 @@
 | Layer | Role | Examples |
 |-------|------|----------|
 | **Foundation layout glyphs** | Diagrammatic inspect chrome (spatial / CSS layout metaphors) | `SizeModeGlyph`, `SelfParkGlyph`, `DisplayModeGlyph`, … |
-| **Foundation UI icons** | General chrome metaphors — Wave 1 custom, residual Lucide wraps | `IconPlus`, `IconCheck`, … — see `knowledge/icon-catalog.md` |
+| **Foundation UI icons** | General chrome metaphors — fully custom (Waves 1–4) | `IconPlus`, `IconAlignLeft`, … — see `knowledge/icon-catalog.md` |
 | **Molecules token glyphs** | Token Studio / picker kind metaphors (not layout) | `TokenKindGlyph`, `TokenPreview` |
-| **Foundation Lucide wraps** | Residual until Vision D; Align/Justify stay Icon* (custom later) | `IconAlign*`, … |
 
-Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
+Do **not** replace the Align/Justify `Icon*` matrix with layout glyphs — they are custom UI icons in Wave 4.
 
 ## Layout families (wired)
 
