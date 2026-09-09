@@ -426,6 +426,7 @@
   --popover-foreground: var(--ink);
   --primary: var(--accent);
   --primary-foreground: #ffffff;
+  --brand-primary: var(--accent);
   --secondary: var(--surface-2);
   --secondary-foreground: var(--ink);
   --muted-surface: color-mix(in srgb, var(--ink) 6%, var(--bg1));

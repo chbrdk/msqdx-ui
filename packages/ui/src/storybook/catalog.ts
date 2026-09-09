@@ -36,6 +36,13 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'typography', layer: 'Foundation', title: 'Foundation/Typography', stories: 'Typography.stories.tsx', mdx: 'Typography.mdx' },
   { id: 'motion', layer: 'Foundation', title: 'Foundation/Motion', stories: 'Motion.stories.tsx', mdx: 'Motion.mdx' },
   { id: 'Icons', layer: 'Foundation', title: 'Foundation/Icons', stories: 'components/Icons.stories.tsx', mdx: 'components/Icons.mdx' },
+  {
+    id: 'InspectLayoutGlyphs',
+    layer: 'Foundation',
+    title: 'Foundation/Inspect Layout Glyphs',
+    stories: 'components/InspectLayoutGlyphs.stories.tsx',
+    mdx: 'components/InspectLayoutGlyphs.mdx',
+  },
   // Atoms
   { id: 'Text', layer: 'Atoms', title: 'Atoms/Text', stories: 'components/Text.stories.tsx', mdx: 'components/Text.mdx' },
   { id: 'Button', layer: 'Atoms', title: 'Atoms/Button', stories: 'components/Button.stories.tsx', mdx: 'components/Button.mdx' },
@@ -216,6 +223,7 @@ const TEMPLATE_IDS = new Set(['PrintQuickCheck'])
 const COMPONENT_ALIASES: Record<string, string> = {
   DivergingBar: 'DivergingBarList',
   Icons: 'IconOverview',
+  InspectLayoutGlyphs: 'SizeModeGlyph',
   PrintQuickCheck: 'PrintPage',
 }
 

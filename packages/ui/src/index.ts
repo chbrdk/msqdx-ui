@@ -211,6 +211,23 @@ export {
   IconStorybook,
 } from './components/icons'
 export type { IconProps } from './components/icons'
+export {
+  SizeModeGlyph,
+  MediaFitGlyph,
+  GridColumnGlyph,
+  GridSpanGlyph,
+  sizeModeGlyphId,
+  mediaFitGlyphId,
+  mediaFitLabel,
+  columnGlyphForPresetLabel,
+  spanGlyphForPresetLabel,
+} from './components/InspectLayoutGlyphs'
+export type {
+  SizeModeGlyphId,
+  MediaFitGlyphId,
+  GridColumnGlyphId,
+  GridSpanGlyphId,
+} from './components/InspectLayoutGlyphs'
 export { KpiStrip } from './components/KpiStrip'
 export type { KpiItem, KpiStripProps } from './components/KpiStrip'
 export { NavRail } from './components/NavRail'

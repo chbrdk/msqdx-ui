@@ -1,0 +1,34 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks'
+import * as Stories from './InspectLayoutGlyphs.stories'
+
+<Meta of={Stories} />
+
+# Inspect Layout Glyphs
+
+Layer: `Foundation`
+
+Theme-aware SVG diagrams for inspect chrome: size modes (Hug / Fill / Fixed), media fit (Cover / Contain / …), and grid column / span presets.
+
+Fills use `--ink` (readable on light and dark). Accents use `--accent`. Frames use `--line`. Do not hardcode `#fff` or brand hex in consumers.
+
+Spec: `specs/domain/msqdx-ui-inspect-layout-glyphs.md`
+
+## Size modes
+
+<Canvas of={Stories.SizeModes} />
+
+## Media fit
+
+<Canvas of={Stories.MediaFit} />
+
+## Grid columns
+
+<Canvas of={Stories.GridColumns} />
+
+## Grid span
+
+<Canvas of={Stories.GridSpan} />
+
+## All families
+
+<Canvas of={Stories.AllFamilies} />
