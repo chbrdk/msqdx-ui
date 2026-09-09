@@ -1,8 +1,8 @@
 # MSQDX UI icon language
 
-**Status:** Accepted · 2026-09-09 · Wave 4 (Vision D for `Icon*`)  
+**Status:** Accepted · 2026-09-09 · Wave 5 (platform gaps)  
 **Layer:** Foundation  
-**Vision:** Replace Lucide wrappers with one custom optical language shared with inspect layout glyphs.
+**Vision:** Curated custom icon language shared with inspect layout glyphs — not Lucide-scale completeness.
 
 ## Problem
 
@@ -28,6 +28,9 @@
 | 2 | `UiIconsWave2.tsx` | Typography, editor, status |
 | 3 | `UiIconsWave3.tsx` | Nav, media, layout props, effects |
 | 4 | `UiIconsWave4.tsx` | Align / Justify matrix |
+| 5 | `UiIconsWave5.tsx` | Platform gaps: ChevronLeft, panels, grip, pin/star/bookmark, list/table/calendar/bell, files/folders, play/pause/scissors/crop/hand, message/code/import/scan, group/ungroup/diamond, bring/send, auth (logout/key/shield/building/globe), loader |
+
+Further icons: **on-demand** when an app control needs them — audit app `lucide-react` imports first.
 
 ## Layout glyph add-ons
 

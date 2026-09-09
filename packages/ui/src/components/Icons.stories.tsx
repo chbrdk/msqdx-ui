@@ -2,18 +2,19 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import type { ComponentType } from 'react'
 import { INSPECT_GLYPH_SIZE } from './InspectLayoutGlyphs'
 import {
-  IconAlignCenter,
-  IconAlignJustify,
   IconAlignLeft,
-  IconAlignRight,
-  IconAlignStart,
+  IconBell,
   IconBold,
-  IconJustifyCenter,
+  IconFolderPlus,
+  IconGroup,
+  IconMessage,
   IconOverview,
+  IconPlay,
   IconPlus,
-  IconSpaceAround,
+  IconScissors,
   IconSpaceBetween,
   IconSparkles,
+  IconStar,
   IconStorybook,
   IconVideo,
   IconWarning,
@@ -22,13 +23,17 @@ import { Text } from './Text'
 
 const ALIGN_ICONS = [
   { name: 'IconAlignLeft', Node: IconAlignLeft },
-  { name: 'IconAlignCenter', Node: IconAlignCenter },
-  { name: 'IconAlignRight', Node: IconAlignRight },
-  { name: 'IconAlignJustify', Node: IconAlignJustify },
-  { name: 'IconAlignStart', Node: IconAlignStart },
-  { name: 'IconJustifyCenter', Node: IconJustifyCenter },
   { name: 'IconSpaceBetween', Node: IconSpaceBetween },
-  { name: 'IconSpaceAround', Node: IconSpaceAround },
+] as const
+
+const WAVE5_ICONS = [
+  { name: 'IconPlay', Node: IconPlay },
+  { name: 'IconScissors', Node: IconScissors },
+  { name: 'IconMessage', Node: IconMessage },
+  { name: 'IconGroup', Node: IconGroup },
+  { name: 'IconFolderPlus', Node: IconFolderPlus },
+  { name: 'IconStar', Node: IconStar },
+  { name: 'IconBell', Node: IconBell },
 ] as const
 
 const meta = {
@@ -132,8 +137,13 @@ export const CustomWave3: Story = {
 }
 
 export const CustomWave4: Story = {
-  name: 'Custom language (Wave 4 Align)',
+  name: 'Custom language (Wave 4 Align sample)',
   render: () => <IconGrid items={ALIGN_ICONS} size={20} />,
+}
+
+export const CustomWave5: Story = {
+  name: 'Custom language (Wave 5 platform)',
+  render: () => <IconGrid items={WAVE5_ICONS} size={20} />,
 }
 
 export const CustomLarge: Story = {
@@ -143,7 +153,7 @@ export const CustomLarge: Story = {
       items={[
         { name: 'IconPlus', Node: IconPlus },
         { name: 'IconAlignLeft', Node: IconAlignLeft },
-        { name: 'IconJustifyCenter', Node: IconJustifyCenter },
+        { name: 'IconPlay', Node: IconPlay },
         { name: 'IconSpaceBetween', Node: IconSpaceBetween },
         { name: 'IconVideo', Node: IconVideo },
       ]}
