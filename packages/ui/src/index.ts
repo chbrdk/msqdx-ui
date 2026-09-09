@@ -541,6 +541,12 @@ export type {
   CornerInsets,
   CornerInsetAxes,
 } from './lib/clip-path-from-corner-insets'
+export {
+  CLIP_PRESET_IDS,
+  DEFAULT_CLIP_PRESET_AMOUNT,
+  cornerInsetsFromClipPreset,
+} from './lib/clip-presets'
+export type { ClipPresetId } from './lib/clip-presets'
 export { ToolButton } from './components/ToolButton'
 export type { ToolButtonProps } from './components/ToolButton'
 export { Timecode } from './components/Timecode'
