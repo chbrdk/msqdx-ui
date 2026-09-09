@@ -1,5 +1,5 @@
 /**
- * Named Icon* barrel — custom Waves 1–2 + residual Lucide wraps.
+ * Named Icon* barrel — custom Waves 1–3 + residual Align Lucide wraps (Wave 4).
  * Spec: specs/domain/msqdx-ui-icon-language.md
  * Inventory: knowledge/icon-catalog.md
  */
@@ -7,7 +7,6 @@
 import type { LucideProps } from 'lucide-react'
 import type { ComponentType } from 'react'
 import {
-  Aperture,
   AlignCenter,
   AlignJustify,
   AlignLeft,
@@ -20,50 +19,6 @@ import {
   AlignHorizontalSpaceAround,
   AlignHorizontalSpaceBetween,
   AlignHorizontalJustifyStart,
-  Badge,
-  BetweenHorizontalStart,
-  Blend,
-  BoxSelect,
-  Car,
-  Camera,
-  Contrast,
-  Droplet,
-  FolderKanban,
-  Ghost,
-  History,
-  Image,
-  LayoutDashboard,
-  LayoutGrid,
-  Map,
-  Maximize2,
-  Mic,
-  Minimize2,
-  MousePointerClick,
-  Move,
-  MoveHorizontal,
-  MoveVertical,
-  Package,
-  PawPrint,
-  Radius,
-  RotateCw,
-  Rows3,
-  ScrollText,
-  Send,
-  Share2,
-  Sparkles,
-  Square,
-  SquareDashed,
-  SquareStack,
-  StretchHorizontal,
-  TextCursorInput,
-  User,
-  Users,
-  Video,
-  WrapText,
-  Zap,
-  Columns3,
-  CircleDot,
-  Clock,
 } from 'lucide-react'
 import type { IconProps } from './ui-icon-track'
 import { resolveIconSize } from './ui-icon-track'
@@ -129,6 +84,54 @@ import {
   IconZoomIn,
   IconZoomOut,
 } from './UiIconsWave2'
+import {
+  IconBadge,
+  IconBlur,
+  IconBox,
+  IconButton,
+  IconCamera,
+  IconCar,
+  IconCard,
+  IconClock,
+  IconColumns,
+  IconDotted,
+  IconFill,
+  IconGap,
+  IconGhost,
+  IconGrid,
+  IconHeight,
+  IconHistory,
+  IconImage,
+  IconInput,
+  IconJourneys,
+  IconMaximize,
+  IconMic,
+  IconMinimize,
+  IconMoodboard,
+  IconMove,
+  IconOpacity,
+  IconOverview,
+  IconPackage,
+  IconPadding,
+  IconPaw,
+  IconPersonas,
+  IconProjects,
+  IconRadius,
+  IconRotate,
+  IconRows,
+  IconScroll,
+  IconSend,
+  IconShadow,
+  IconShare,
+  IconSparkles,
+  IconStack,
+  IconStretch,
+  IconUser,
+  IconVideo,
+  IconWidth,
+  IconWrap,
+  IconZap,
+} from './UiIconsWave3'
 
 export type { IconProps }
 
@@ -216,22 +219,55 @@ export {
   IconWarning,
   IconDanger,
   IconBan,
+  IconOverview,
+  IconPersonas,
+  IconUser,
+  IconProjects,
+  IconJourneys,
+  IconSend,
+  IconShare,
+  IconHistory,
+  IconMoodboard,
+  IconGrid,
+  IconMic,
+  IconVideo,
+  IconCamera,
+  IconClock,
+  IconImage,
+  IconWidth,
+  IconHeight,
+  IconGap,
+  IconPadding,
+  IconBox,
+  IconRows,
+  IconColumns,
+  IconWrap,
+  IconStretch,
+  IconPackage,
+  IconCar,
+  IconPaw,
+  IconZap,
+  IconFill,
+  IconGhost,
+  IconMinimize,
+  IconMaximize,
+  IconScroll,
+  IconDotted,
+  IconMove,
+  IconSparkles,
+  IconRotate,
+  IconRadius,
+  IconOpacity,
+  IconBlur,
+  IconShadow,
+  IconStack,
+  IconButton,
+  IconInput,
+  IconCard,
+  IconBadge,
 }
 
-export const IconOverview = wrap(LayoutDashboard)
-export const IconPersonas = wrap(Users)
-export const IconUser = wrap(User)
-export const IconProjects = wrap(FolderKanban)
-export const IconJourneys = wrap(Map)
-export const IconSend = wrap(Send)
-export const IconShare = wrap(Share2)
-export const IconHistory = wrap(History)
-export const IconMoodboard = wrap(LayoutGrid)
-export const IconMic = wrap(Mic)
-export const IconVideo = wrap(Video)
-export const IconCamera = wrap(Camera)
-export const IconClock = wrap(Clock)
-
+/** Residual Lucide — Align/Justify matrix (Wave 4). */
 export const IconAlignLeft = wrap(AlignLeft)
 export const IconAlignCenter = wrap(AlignCenter)
 export const IconAlignRight = wrap(AlignRight)
@@ -244,41 +280,6 @@ export const IconJustifyCenter = wrap(AlignHorizontalJustifyCenter)
 export const IconJustifyEnd = wrap(AlignHorizontalJustifyEnd)
 export const IconSpaceBetween = wrap(AlignHorizontalSpaceBetween)
 export const IconSpaceAround = wrap(AlignHorizontalSpaceAround)
-export const IconRows = wrap(Rows3)
-export const IconColumns = wrap(Columns3)
-export const IconWrap = wrap(WrapText)
-export const IconStretch = wrap(StretchHorizontal)
-
-export const IconWidth = wrap(MoveHorizontal)
-export const IconHeight = wrap(MoveVertical)
-export const IconGap = wrap(BetweenHorizontalStart)
-export const IconPadding = wrap(SquareDashed)
-export const IconBox = wrap(BoxSelect)
-export const IconPackage = wrap(Package)
-export const IconCar = wrap(Car)
-export const IconPaw = wrap(PawPrint)
-export const IconZap = wrap(Zap)
-export const IconFill = wrap(Droplet)
-export const IconGhost = wrap(Ghost)
-export const IconMinimize = wrap(Minimize2)
-export const IconMaximize = wrap(Maximize2)
-export const IconScroll = wrap(ScrollText)
-export const IconDotted = wrap(CircleDot)
-export const IconMove = wrap(Move)
-export const IconSparkles = wrap(Sparkles)
-export const IconRotate = wrap(RotateCw)
-export const IconRadius = wrap(Radius)
-export const IconOpacity = wrap(Contrast)
-export const IconBlur = wrap(Aperture)
-export const IconShadow = wrap(Blend)
-
-export const IconStack = wrap(SquareStack)
-export const IconButton = wrap(MousePointerClick)
-export const IconInput = wrap(TextCursorInput)
-export const IconCard = wrap(Square)
-export const IconImage = wrap(Image)
-export const IconGrid = wrap(LayoutGrid)
-export const IconBadge = wrap(Badge)
 
 /** Official Storybook mark (book + S) — filled brand silhouette for small toolbar use. */
 export function IconStorybook({

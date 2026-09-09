@@ -1,6 +1,6 @@
 # MSQDX UI icon language
 
-**Status:** Accepted · 2026-09-09 · Wave 2  
+**Status:** Accepted · 2026-09-09 · Wave 3  
 **Layer:** Foundation  
 **Vision:** Replace Lucide wrappers with one custom optical language shared with inspect layout glyphs.
 
@@ -36,6 +36,18 @@
 
 Source: `UiIconsWave2.tsx`.
 
+## Wave 3 catalog (custom)
+
+**Nav/org:** Overview, Personas, User, Projects, Journeys, History, Moodboard/Grid.
+
+**Media/transport:** Mic, Video, Camera, Clock, Image, Send, Share.
+
+**Layout props:** Width, Height, Gap, Padding, Box, Rows, Columns, Wrap, Stretch.
+
+**Effects / chrome:** Package, Car, Paw, Zap, Fill, Ghost, Minimize, Maximize, Scroll, Dotted, Move, Sparkles, Rotate, Radius, Opacity, Blur, Shadow, Stack, Button, Input, Card, Badge.
+
+Source: `UiIconsWave3.tsx`. Residual Lucide = Align/Justify matrix only (Wave 4).
+
 ## Layout glyph add-ons (Wave 1)
 
 | Export | IDs |
@@ -45,7 +57,7 @@ Source: `UiIconsWave2.tsx`.
 
 ## Migration (Vision D)
 
-Track every `Icon*` as `custom` or `lucide-wrap` in `knowledge/icon-catalog.md`. Follow-up waves: media/transport, nav/org, layout-prop icons, align matrix, domain oddities. Drop `lucide-react` only when inventory is all `custom` and no direct imports remain.
+Track every `Icon*` as `custom` or `lucide-wrap` in `knowledge/icon-catalog.md`. Next: Align/Justify matrix (Wave 4), then drop `lucide-react`.
 
 ## Dual-ship
 

@@ -6,79 +6,26 @@
 
 Status: `custom` | `lucide-wrap` | `brand` (non-Lucide special)
 
-## Wave 1 — custom
+## Waves 1–3 — custom
 
-| Export | Status |
-|--------|--------|
-| IconPlus | custom |
-| IconMoreHorizontal | custom |
-| IconMoreVertical | custom |
-| IconSettings | custom |
-| IconSliders | custom |
-| IconCopy | custom |
-| IconClipboard | custom |
-| IconDownload | custom |
-| IconUpload | custom |
-| IconExternalLink | custom |
-| IconLayers | custom |
-| IconRefresh | custom |
-| IconFilter | custom |
-| IconHome | custom |
-| IconMenu | custom |
-| IconPanelLeft | custom |
-| IconResearch | custom |
-| IconSearch | custom (alias of Research geometry) |
-| IconCheck | custom |
-| IconClose | custom |
-| IconChevronUp | custom |
-| IconChevronDown | custom |
-| IconChevronRight | custom |
-| IconEdit | custom |
-| IconTrash | custom |
-| IconEye | custom |
-| IconEyeOff | custom |
-| IconLock | custom |
-| IconUnlock | custom |
+See `UiIconsCore.tsx`, `UiIconsWave2.tsx`, `UiIconsWave3.tsx`.
+
+**Wave 1:** Plus, More*, Settings, Sliders, Copy, Clipboard, Download, Upload, ExternalLink, Layers, Refresh, Filter, Home, Menu, PanelLeft, Research/Search, Check, Close, Chevron*, Edit, Trash, Eye*, Lock*.
+
+**Wave 2:** Type/Text, Bold, Italic, Underline, Strikethrough, Case*, Baseline, Heading, Link, Undo, Redo, Zoom*, Save, Arrow*, Minus/Spacer, Circle, Info, Success, Warning, Danger, Ban.
+
+**Wave 3:** Overview, Personas, User, Projects, Journeys, Send, Share, History, Moodboard/Grid, Mic, Video, Camera, Clock, Image, Width, Height, Gap, Padding, Box, Rows, Columns, Wrap, Stretch, Package, Car, Paw, Zap, Fill, Ghost, Minimize, Maximize, Scroll, Dotted, Move, Sparkles, Rotate, Radius, Opacity, Blur, Shadow, Stack, Button, Input, Card, Badge.
+
+| Special | Status |
+|---------|--------|
 | IconStorybook | brand |
 
-## Wave 2 — custom
+## Residual — lucide-wrap (Wave 4)
 
-| Export | Status |
-|--------|--------|
-| IconType | custom |
-| IconText | custom (alias Type) |
-| IconBold | custom |
-| IconItalic | custom |
-| IconUnderline | custom |
-| IconStrikethrough | custom |
-| IconCaseUpper | custom |
-| IconCaseLower | custom |
-| IconCaseTitle | custom |
-| IconBaseline | custom |
-| IconHeading | custom |
-| IconLink | custom |
-| IconUndo | custom |
-| IconRedo | custom |
-| IconZoomIn | custom |
-| IconZoomOut | custom |
-| IconSave | custom |
-| IconArrowLeft | custom |
-| IconArrowRight | custom |
-| IconArrowUp | custom |
-| IconArrowDown | custom |
-| IconMinus | custom |
-| IconSpacer | custom (alias Minus) |
-| IconCircle | custom |
-| IconInfo | custom |
-| IconSuccess | custom |
-| IconWarning | custom |
-| IconDanger | custom |
-| IconBan | custom |
+Align/Justify matrix only:
 
-## Residual — lucide-wrap (later waves)
-
-IconOverview, IconPersonas, IconUser, IconProjects, IconJourneys, IconSend, IconShare, IconHistory, IconMoodboard, IconMic, IconVideo, IconCamera, IconClock, IconAlign*, IconJustify*, IconSpaceBetween, IconSpaceAround, IconRows, IconColumns, IconWrap, IconStretch, IconWidth, IconHeight, IconGap, IconPadding, IconBox, IconPackage, IconCar, IconPaw, IconZap, IconFill, IconGhost, IconMinimize, IconMaximize, IconScroll, IconDotted, IconMove, IconSparkles, IconRotate, IconRadius, IconOpacity, IconBlur, IconShadow, IconStack, IconButton, IconInput, IconCard, IconImage, IconGrid, IconBadge.
+IconAlignLeft, IconAlignCenter, IconAlignRight, IconAlignJustify, IconAlignStart, IconAlignMiddle, IconAlignEnd, IconJustifyStart, IconJustifyCenter, IconJustifyEnd, IconSpaceBetween, IconSpaceAround.
 
 ## Layout glyphs (related)
 
-See `knowledge/glyph-library.md`. Wave 1 adds `MarginPaddingGlyph`, `StackOrderGlyph`.
+See `knowledge/glyph-library.md`.
