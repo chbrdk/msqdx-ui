@@ -532,6 +532,8 @@ export type {
 } from './components/TokenPicker'
 export { TokenPreview } from './components/TokenPreview'
 export type { TokenPreviewProps, TokenPreviewKind } from './components/TokenPreview'
+export { TokenKindGlyph, tokenKindGlyphId } from './components/TokenKindGlyph'
+export type { TokenKindGlyphId } from './components/TokenKindGlyph'
 export { EasingCurveEditor } from './components/EasingCurveEditor'
 export type {
   EasingCurveEditorLabels,

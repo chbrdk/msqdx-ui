@@ -136,4 +136,8 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 
 1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle, FontFamily, **Browser**, **BrowserColorList**, **WithLiteral**.
 2. Tests: select path; clear; none; cycle; compact popover; browser search/scope/pick; color columnar list; keyboard; drag header present; empty strip shows `emptyLabel`; with `allowLiteral`: typing fires `onLiteralChange`, pick still fires `onChange`, default mode still has no free-text input.
-3. Consuming apps import `TokenPicker` / `TokenPreview` from `@msqdx/ui`.
+3. Consuming apps import `TokenPicker` / `TokenPreview` / `TokenKindGlyph` from `@msqdx/ui`.
+
+## TokenKindGlyph (studio chrome)
+
+WENN Token Studio (or similar) shows **type filters** / add-type chips / structured rows without a paint-ready digital value, DANN MUST it use `TokenKindGlyph` (`color` / `space` / `radius` / `opacity` / `size` / `type` / `shadow` / `asset` / `all`) — Lucide-adjacent 16px, `--ink` / `--accent`, no hardcoded fills. WENN a resolved digital value exists for color/space/radius/opacity/size/type/shadow, DANN Prefer `TokenPreview` for the row swatch. Map Brandion types via `tokenKindGlyphId` (`spacing`→`space`, `typography`→`type`).
