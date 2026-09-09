@@ -10,8 +10,9 @@
 | Layer | Role | Examples |
 |-------|------|----------|
 | **Foundation layout glyphs** | Diagrammatic inspect chrome (spatial / CSS layout metaphors) | `SizeModeGlyph`, `SelfParkGlyph`, `DisplayModeGlyph`, … |
+| **Foundation UI icons** | General chrome metaphors — Wave 1 custom, residual Lucide wraps | `IconPlus`, `IconCheck`, … — see `knowledge/icon-catalog.md` |
 | **Molecules token glyphs** | Token Studio / picker kind metaphors (not layout) | `TokenKindGlyph`, `TokenPreview` |
-| **Foundation Lucide wraps** | Generic UI icons; keep for Align/Justify matrices | `IconAlign*`, `IconColumns`, … |
+| **Foundation Lucide wraps** | Residual until Vision D; Align/Justify stay Icon* (custom later) | `IconAlign*`, … |
 
 Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 
@@ -42,6 +43,8 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 | WhiteSpace | Catalog | normal / nowrap / pre / pre-wrap |
 | Float | Catalog | none / left / right |
 | WritingMode | Catalog | horizontal / vertical |
+| MarginPadding | Catalog | margin / padding / both |
+| StackOrder | Catalog | front / forward / backward / back |
 
 ## Token families
 

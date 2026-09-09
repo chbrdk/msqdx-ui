@@ -40,11 +40,15 @@ import {
   WhiteSpaceGlyph,
   FloatGlyph,
   WritingModeGlyph,
+  MarginPaddingGlyph,
+  StackOrderGlyph,
   visibilityGlyphId,
   boxSizingGlyphId,
   whiteSpaceGlyphId,
   floatGlyphId,
   writingModeGlyphId,
+  marginPaddingGlyphId,
+  stackOrderGlyphId,
 } from './InspectLayoutGlyphsCatalog'
 
 describe('InspectLayoutGlyphs', () => {
@@ -129,10 +133,16 @@ describe('InspectLayoutGlyphs', () => {
     expect(render(<WhiteSpaceGlyph id="pre" />).container.querySelector('svg')).toBeTruthy()
     expect(render(<FloatGlyph id="left" />).container.querySelector('svg')).toBeTruthy()
     expect(render(<WritingModeGlyph id="vertical" />).container.querySelector('svg')).toBeTruthy()
+    expect(render(<MarginPaddingGlyph id="both" />).container.querySelector('svg')).toBeTruthy()
+    expect(
+      render(<StackOrderGlyph id="forward" />).container.querySelector('.ds-inspect-glyph__accent'),
+    ).toBeTruthy()
     expect(visibilityGlyphId('collapse')).toBe('collapse')
     expect(boxSizingGlyphId('border-box')).toBe('border-box')
     expect(whiteSpaceGlyphId('nowrap')).toBe('nowrap')
     expect(floatGlyphId('right')).toBe('right')
     expect(writingModeGlyphId('vertical-rl')).toBe('vertical')
+    expect(marginPaddingGlyphId('padding')).toBe('padding')
+    expect(stackOrderGlyphId('send-to-back')).toBe('back')
   })
 })

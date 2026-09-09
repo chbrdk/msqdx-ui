@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { BellRing, Search } from 'lucide-react'
 import { Button } from './Button'
+import { IconResearch, IconSparkles } from './icons'
 
 const meta = {
   title: 'Atoms/Button',
@@ -60,7 +60,7 @@ export const ChatPill: Story = {
 export const WithIcon: Story = {
   args: {
     variant: 'primary',
-    icon: <Search size={16} />,
+    icon: <IconResearch size={16} />,
     children: 'Research',
   },
 }
@@ -104,7 +104,7 @@ export const AllVariants: Story = {
           <Button variant={variant} size="lg">
             lg
           </Button>
-          <Button variant={variant} shape="pill" icon={<BellRing size={16} />}>
+          <Button variant={variant} shape="pill" icon={<IconSparkles size={16} />}>
             pill
           </Button>
           <Button variant={variant} shape="rounded">

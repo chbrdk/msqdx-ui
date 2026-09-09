@@ -52,8 +52,10 @@ App-local inspect glyphs used hardcoded `#ffffff` fills. That reads on dark chro
 | `WhiteSpaceGlyph` | `normal` \| `nowrap` \| `pre` \| `pre-wrap` |
 | `FloatGlyph` | `none` \| `left` \| `right` |
 | `WritingModeGlyph` | `horizontal` \| `vertical` |
+| `MarginPaddingGlyph` | `margin` \| `padding` \| `both` |
+| `StackOrderGlyph` | `front` \| `forward` \| `backward` \| `back` |
 
-Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`, `selfParkGlyphId`, `ninePointGlyphId`, `objectPositionGlyphId`, `transformOriginGlyphId`, `textAlignGlyphId`, `aspectRatioGlyphId`, `gapAxisGlyphId`, `displayModeGlyphId`, `ninePointWriteValue`, `visibilityGlyphId`, `boxSizingGlyphId`, `whiteSpaceGlyphId`, `floatGlyphId`, `writingModeGlyphId`.
+Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`, `selfParkGlyphId`, `ninePointGlyphId`, `objectPositionGlyphId`, `transformOriginGlyphId`, `textAlignGlyphId`, `aspectRatioGlyphId`, `gapAxisGlyphId`, `displayModeGlyphId`, `ninePointWriteValue`, `visibilityGlyphId`, `boxSizingGlyphId`, `whiteSpaceGlyphId`, `floatGlyphId`, `writingModeGlyphId`, `marginPaddingGlyphId`, `stackOrderGlyphId`.
 
 Source files: `InspectLayoutGlyphs.tsx`, `InspectLayoutGlyphsExtra.tsx`, `InspectLayoutGlyphsMore.tsx`, `InspectLayoutGlyphsCatalog.tsx`. Inventory: `knowledge/glyph-library.md`.
 

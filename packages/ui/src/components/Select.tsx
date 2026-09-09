@@ -10,8 +10,8 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from 'react'
-import { ChevronDown } from 'lucide-react'
 import type { FieldSize } from './Field'
+import { IconChevronDown } from './icons'
 
 export type SelectOption = {
   value: string
@@ -195,12 +195,7 @@ export function Select({
         <span className="ds-select-value">
           {selected ? selected.label : placeholder}
         </span>
-        <ChevronDown
-          className="ds-select-caret"
-          size={14}
-          strokeWidth={1.75}
-          aria-hidden
-        />
+        <IconChevronDown className="ds-select-caret" size={14} aria-hidden />
       </button>
       {open ? (
         <ul

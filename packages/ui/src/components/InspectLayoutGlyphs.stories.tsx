@@ -34,6 +34,8 @@ import {
   WhiteSpaceGlyph,
   FloatGlyph,
   WritingModeGlyph,
+  MarginPaddingGlyph,
+  StackOrderGlyph,
 } from './InspectLayoutGlyphsCatalog'
 import { IconBox, IconColumns, IconMaximize, IconMinimize, IconStretch } from './icons'
 import { Text } from './Text'
@@ -531,6 +533,18 @@ export const CatalogReserve: Story = {
           </Tile>
         ))}
       </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {(['margin', 'padding', 'both'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <MarginPaddingGlyph id={id} />
+          </Tile>
+        ))}
+        {(['front', 'forward', 'backward', 'back'] as const).map((id) => (
+          <Tile key={`z-${id}`} label={id}>
+            <StackOrderGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
     </div>
   ),
 }
@@ -713,6 +727,16 @@ export const Large: Story = {
           {(['normal', 'nowrap', 'pre'] as const).map((id) => (
             <Tile key={id} label={id} minWidth={72}>
               <WhiteSpaceGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['margin', 'padding', 'both'] as const).map((id) => (
+            <Tile key={`mp-${id}`} label={id} minWidth={72}>
+              <MarginPaddingGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['front', 'forward', 'back'] as const).map((id) => (
+            <Tile key={`z-${id}`} label={id} minWidth={72}>
+              <StackOrderGlyph id={id} size={s} />
             </Tile>
           ))}
         </SizeRow>

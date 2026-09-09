@@ -245,3 +245,107 @@ export function writingModeGlyphId(value: string): WritingModeGlyphId {
   if (value.includes('vertical') || value === 'tb' || value === 'tb-rl') return 'vertical'
   return 'horizontal'
 }
+
+/** Box-model emphasis: margin ring, padding ring, or both. */
+export type MarginPaddingGlyphId = 'margin' | 'padding' | 'both'
+
+export function MarginPaddingGlyph({ id, size }: { id: MarginPaddingGlyphId; size?: number }) {
+  if (id === 'padding') {
+    return (
+      <Track size={size}>
+        <OuterFrame />
+        <rect x="4" y="4" width="8" height="8" rx="1" className="ds-inspect-glyph__frame ds-inspect-glyph__frame--dashed" />
+        <Pillar x={5.5} y={5.5} w={5} h={5} tone="soft" />
+      </Track>
+    )
+  }
+  if (id === 'both') {
+    return (
+      <Track size={size}>
+        <rect
+          x="1.25"
+          y="1.25"
+          width="13.5"
+          height="13.5"
+          rx="2"
+          className="ds-inspect-glyph__frame ds-inspect-glyph__frame--dashed"
+        />
+        <rect x="3.5" y="3.5" width="9" height="9" rx="1.25" className="ds-inspect-glyph__frame" />
+        <Pillar x={5.5} y={5.5} w={5} h={5} tone="soft" />
+      </Track>
+    )
+  }
+  return (
+    <Track size={size}>
+      <rect
+        x="1.25"
+        y="1.25"
+        width="13.5"
+        height="13.5"
+        rx="2"
+        className="ds-inspect-glyph__frame ds-inspect-glyph__frame--dashed"
+      />
+      <Pillar x={4} y={4} w={8} h={8} />
+    </Track>
+  )
+}
+
+/** Stack / z-order metaphors. */
+export type StackOrderGlyphId = 'front' | 'forward' | 'backward' | 'back'
+
+export function StackOrderGlyph({ id, size }: { id: StackOrderGlyphId; size?: number }) {
+  if (id === 'forward') {
+    return (
+      <Track size={size}>
+        <Pillar x={3} y={5.5} w={7} h={7} tone="soft" />
+        <Pillar x={5.5} y={3} w={7} h={7} />
+        <line x1="8" y1="11.5" x2="8" y2="4.5" className="ds-inspect-glyph__accent" />
+        <line x1="6.5" y1="6" x2="8" y2="4.5" className="ds-inspect-glyph__accent" />
+        <line x1="9.5" y1="6" x2="8" y2="4.5" className="ds-inspect-glyph__accent" />
+      </Track>
+    )
+  }
+  if (id === 'backward') {
+    return (
+      <Track size={size}>
+        <Pillar x={5.5} y={3} w={7} h={7} tone="soft" />
+        <Pillar x={3} y={5.5} w={7} h={7} />
+        <line x1="8" y1="4.5" x2="8" y2="11.5" className="ds-inspect-glyph__accent" />
+        <line x1="6.5" y1="10" x2="8" y2="11.5" className="ds-inspect-glyph__accent" />
+        <line x1="9.5" y1="10" x2="8" y2="11.5" className="ds-inspect-glyph__accent" />
+      </Track>
+    )
+  }
+  if (id === 'back') {
+    return (
+      <Track size={size}>
+        <Pillar x={5.75} y={2.75} w={7.5} h={7.5} tone="empty" />
+        <Pillar x={4.25} y={4.25} w={7.5} h={7.5} tone="soft" />
+        <Pillar x={2.75} y={5.75} w={7.5} h={7.5} />
+      </Track>
+    )
+  }
+  return (
+    <Track size={size}>
+      <Pillar x={2.75} y={5.75} w={7.5} h={7.5} tone="empty" />
+      <Pillar x={4.25} y={4.25} w={7.5} h={7.5} tone="soft" />
+      <Pillar x={5.75} y={2.75} w={7.5} h={7.5} />
+    </Track>
+  )
+}
+
+export function marginPaddingGlyphId(value: string): MarginPaddingGlyphId {
+  const v = value.toLowerCase()
+  if (v === 'padding' || v === 'pad') return 'padding'
+  if (v === 'both' || v === 'box' || v === 'box-model') return 'both'
+  return 'margin'
+}
+
+export function stackOrderGlyphId(value: string): StackOrderGlyphId {
+  const v = value.toLowerCase().replace(/[_\s]+/g, '-')
+  if (v === 'forward' || v === 'bring-forward' || v === 'up') return 'forward'
+  if (v === 'backward' || v === 'send-backward' || v === 'down') return 'backward'
+  if (v === 'back' || v === 'send-to-back' || v === 'bottom') return 'back'
+  return 'front'
+}
+

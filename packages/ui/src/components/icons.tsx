@@ -1,3 +1,9 @@
+/**
+ * Named Icon* barrel — custom Wave 1 + residual Lucide wraps.
+ * Spec: specs/domain/msqdx-ui-icon-language.md
+ * Inventory: knowledge/icon-catalog.md
+ */
+
 import type { LucideProps } from 'lucide-react'
 import type { ComponentType } from 'react'
 import {
@@ -30,10 +36,6 @@ import {
   CaseLower,
   CaseSensitive,
   CaseUpper,
-  Check,
-  ChevronDown,
-  ChevronRight,
-  ChevronUp,
   Circle,
   CircleAlert,
   CircleCheck,
@@ -43,8 +45,6 @@ import {
   Columns3,
   Contrast,
   Droplet,
-  Eye,
-  EyeOff,
   FolderKanban,
   Ghost,
   Heading1,
@@ -54,7 +54,6 @@ import {
   LayoutDashboard,
   LayoutGrid,
   Link,
-  Lock,
   Map,
   Maximize2,
   Mic,
@@ -66,14 +65,12 @@ import {
   MoveVertical,
   Package,
   PawPrint,
-  Pencil,
   Radius,
   Redo2,
   RotateCw,
   Rows3,
   Save,
   ScrollText,
-  Search,
   Send,
   Share2,
   Sparkles,
@@ -83,46 +80,114 @@ import {
   StretchHorizontal,
   Strikethrough,
   TextCursorInput,
-  Trash2,
   TriangleAlert,
   Type,
   Underline,
   Undo2,
-  Unlock,
   User,
   Users,
   Video,
   WrapText,
-  X,
   Zap,
   ZoomIn,
   ZoomOut,
 } from 'lucide-react'
+import type { IconProps } from './ui-icon-track'
+import { resolveIconSize } from './ui-icon-track'
+import {
+  IconCheck,
+  IconChevronDown,
+  IconChevronRight,
+  IconChevronUp,
+  IconClipboard,
+  IconClose,
+  IconCopy,
+  IconDownload,
+  IconEdit,
+  IconExternalLink,
+  IconEye,
+  IconEyeOff,
+  IconFilter,
+  IconHome,
+  IconLayers,
+  IconLock,
+  IconMenu,
+  IconMoreHorizontal,
+  IconMoreVertical,
+  IconPanelLeft,
+  IconPlus,
+  IconRefresh,
+  IconResearch,
+  IconSearch,
+  IconSettings,
+  IconSliders,
+  IconTrash,
+  IconUnlock,
+  IconUpload,
+} from './UiIconsCore'
 
-export type IconProps = LucideProps
-
-const defaults: LucideProps = {
-  size: 16,
-  strokeWidth: 1.75,
-  'aria-hidden': true,
-}
+export type { IconProps }
 
 function wrap(Icon: ComponentType<LucideProps>) {
-  return function Wrapped(props: IconProps) {
+  return function Wrapped({
+    size = 16,
+    className,
+    strokeWidth = 1.75,
+    absoluteStrokeWidth,
+    color,
+    'aria-hidden': ariaHidden = true,
+    ...rest
+  }: IconProps) {
+    const px = resolveIconSize(size)
     return (
       <Icon
-        {...defaults}
-        {...props}
-        className={['ui-icon', props.className].filter(Boolean).join(' ')}
+        size={px}
+        strokeWidth={strokeWidth}
+        absoluteStrokeWidth={absoluteStrokeWidth}
+        color={color}
+        aria-hidden={ariaHidden}
+        className={['ui-icon', className].filter(Boolean).join(' ')}
+        {...rest}
       />
     )
   }
 }
 
+export {
+  IconPlus,
+  IconMoreHorizontal,
+  IconMoreVertical,
+  IconSettings,
+  IconSliders,
+  IconCopy,
+  IconClipboard,
+  IconDownload,
+  IconUpload,
+  IconExternalLink,
+  IconLayers,
+  IconRefresh,
+  IconFilter,
+  IconHome,
+  IconMenu,
+  IconPanelLeft,
+  IconResearch,
+  IconSearch,
+  IconCheck,
+  IconClose,
+  IconChevronUp,
+  IconChevronDown,
+  IconChevronRight,
+  IconEdit,
+  IconTrash,
+  IconEye,
+  IconEyeOff,
+  IconLock,
+  IconUnlock,
+}
+
 export const IconOverview = wrap(LayoutDashboard)
 export const IconPersonas = wrap(Users)
 export const IconUser = wrap(User)
-export const IconResearch = wrap(Search)
 export const IconProjects = wrap(FolderKanban)
 export const IconJourneys = wrap(Map)
 export const IconSend = wrap(Send)
@@ -134,10 +199,6 @@ export const IconVideo = wrap(Video)
 export const IconCamera = wrap(Camera)
 export const IconClock = wrap(Clock)
 export const IconInfo = wrap(CircleHelp)
-export const IconEdit = wrap(Pencil)
-export const IconTrash = wrap(Trash2)
-export const IconCheck = wrap(Check)
-export const IconClose = wrap(X)
 
 export const IconUndo = wrap(Undo2)
 export const IconRedo = wrap(Redo2)
@@ -204,14 +265,6 @@ export const IconOpacity = wrap(Contrast)
 export const IconBlur = wrap(Aperture)
 export const IconShadow = wrap(Blend)
 
-export const IconEye = wrap(Eye)
-export const IconEyeOff = wrap(EyeOff)
-export const IconLock = wrap(Lock)
-export const IconUnlock = wrap(Unlock)
-export const IconChevronUp = wrap(ChevronUp)
-export const IconChevronDown = wrap(ChevronDown)
-export const IconChevronRight = wrap(ChevronRight)
-
 export const IconStack = wrap(SquareStack)
 export const IconButton = wrap(MousePointerClick)
 export const IconText = wrap(Type)
@@ -230,9 +283,11 @@ export function IconStorybook({
   className,
   absoluteStrokeWidth: _absoluteStrokeWidth,
   strokeWidth: _strokeWidth,
+  color,
+  style,
   ...props
 }: IconProps) {
-  const px = typeof size === 'number' ? size : Number.parseInt(String(size), 10) || 16
+  const px = resolveIconSize(size)
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -242,6 +297,7 @@ export function IconStorybook({
       fill="currentColor"
       aria-hidden
       className={['ui-icon', className].filter(Boolean).join(' ')}
+      style={color ? { ...style, color } : style}
       {...props}
     >
       <path d="M16.71.243l-.12 2.71a.18.18 0 00.29.15l1.06-.8.9.7a.18.18 0 00.28-.14l-.1-2.76 1.33-.1a1.2 1.2 0 011.279 1.2v21.596a1.2 1.2 0 01-1.26 1.2l-16.096-.72a1.2 1.2 0 01-1.15-1.16l-.75-19.797a1.2 1.2 0 011.13-1.27L16.7.222zM13.64 9.3c0 .47 3.16.24 3.59-.08 0-3.2-1.72-4.89-4.859-4.89-3.15 0-4.899 1.72-4.899 4.29 0 4.45 5.999 4.53 5.999 6.959 0 .7-.32 1.1-1.05 1.1-.96 0-1.35-.49-1.3-2.16 0-.36-3.649-.48-3.769 0-.27 4.03 2.23 5.2 5.099 5.2 2.79 0 4.969-1.49 4.969-4.18 0-4.77-6.099-4.64-6.099-6.999 0-.97.72-1.1 1.13-1.1.45 0 1.25.07 1.19 1.87z" />
