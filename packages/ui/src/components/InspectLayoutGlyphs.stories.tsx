@@ -7,6 +7,7 @@ import {
   columnGlyphForPresetLabel,
   mediaFitLabel,
 } from './InspectLayoutGlyphs'
+import { IconBox, IconColumns, IconMaximize, IconMinimize, IconStretch } from './icons'
 import { Text } from './Text'
 
 const meta = {
@@ -15,7 +16,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Theme-aware inspect diagrams. Strong fills use `--ink` (readable on light and dark). Accents use `--accent`. Switch the Storybook theme toolbar to verify.',
+          'Inspect diagrams tuned to Foundation Lucide icons (16px, ~1.5 stroke, soft ink fills). Accents use `--accent`. Compare with Icons via the Vs Icons story; switch the theme toolbar for light/dark.',
       },
     },
   },
@@ -172,6 +173,59 @@ export const AllFamilies: Story = {
           <GridSpanGlyph id="span-2" axis="col" />
         </div>
       </div>
+    </div>
+  ),
+}
+
+/** Side-by-side with Foundation Lucide icons — optical parity check. */
+export const VsIcons: Story = {
+  render: () => (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))',
+        gap: 16,
+        color: 'var(--ink)',
+      }}
+    >
+      {[
+        {
+          label: 'Columns',
+          icons: [<IconColumns key="i" />, <GridColumnGlyph key="g" id="cols-3" />],
+        },
+        {
+          label: 'Stretch / Fill',
+          icons: [<IconStretch key="i" />, <SizeModeGlyph key="g" id="fill" axis="width" />],
+        },
+        {
+          label: 'Box / Fixed',
+          icons: [<IconBox key="i" />, <SizeModeGlyph key="g" id="fixed" axis="width" />],
+        },
+        {
+          label: 'Min / Hug',
+          icons: [<IconMinimize key="i" />, <SizeModeGlyph key="g" id="hug" axis="width" />],
+        },
+        {
+          label: 'Max / Cover',
+          icons: [<IconMaximize key="i" />, <MediaFitGlyph key="g" id="cover" />],
+        },
+      ].map((row) => (
+        <div
+          key={row.label}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+            padding: 12,
+            border: '1px solid var(--line)',
+            borderRadius: 8,
+            background: 'var(--bg1)',
+          }}
+        >
+          <Text role="meta">{row.label}</Text>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>{row.icons}</div>
+        </div>
+      ))}
     </div>
   ),
 }

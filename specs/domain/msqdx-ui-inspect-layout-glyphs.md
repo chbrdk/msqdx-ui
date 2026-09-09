@@ -12,14 +12,15 @@ App-local inspect glyphs used hardcoded `#ffffff` fills. That reads on dark chro
 
 1. Glyph geometry is shared presentation only — no scene writes, no CREATION domain props.
 2. Colors MUST come from theme tokens only:
-   - **Fill (strong cells / “pillars”):** `var(--ink)` — dark on light, light on dark
-   - **Empty / soft cells:** `color-mix` of `--ink` at low opacity
-   - **Frame / hairline:** `var(--line)`
-   - **Accent strokes** (fixed ruler, fill arrows, active emphasis): `var(--accent)`
-3. MUST NOT hardcode `#fff`, `#000`, or brand hex in glyph SVG/CSS.
-4. CSS class prefix: `ds-inspect-glyph` (not `creation-*`).
-5. Storybook MUST show the full set under **Foundation / Inspect Layout Glyphs** and remain readable when switching light ↔ dark themes in the toolbar.
-6. Apps compose tiles/buttons; they MUST NOT re-skin glyph fills with theme-breaking overrides.
+   - **Pillars / cells:** soft `--ink` fill (~16%) + `--ink` stroke (Lucide-adjacent, not solid blocks)
+   - **Empty slots:** dashed hairline in ink mix
+   - **Frame:** rounded square stroke (~1.5), optional dashed for Hug / Auto
+   - **Accent strokes** (fixed ruler, fill arrows): `var(--accent)`
+3. Optical language MUST stay close to Foundation Lucide icons: default **16×16**, stroke ≈ **1.5–1.75**, class `ui-icon` + `ds-inspect-glyph`.
+4. MUST NOT hardcode `#fff`, `#000`, or brand hex in glyph SVG/CSS.
+5. CSS class prefix: `ds-inspect-glyph` (not `creation-*`).
+6. Storybook MUST show the full set under **Foundation / Inspect Layout Glyphs**, include a **vs Icons** comparison, and remain readable when switching light ↔ dark themes.
+7. Apps compose tiles/buttons; they MUST NOT re-skin glyph fills with theme-breaking overrides.
 
 ## API
 

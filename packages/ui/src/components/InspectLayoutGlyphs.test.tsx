@@ -12,10 +12,12 @@ import {
 } from './InspectLayoutGlyphs'
 
 describe('InspectLayoutGlyphs', () => {
-  it('renders size mode glyphs with ds-inspect-glyph and no hardcoded fills', () => {
+  it('renders size mode glyphs with ui-icon + ds-inspect-glyph and no hardcoded fills', () => {
     const { container } = render(<SizeModeGlyph id="fixed" axis="width" />)
     const svg = container.querySelector('svg')
     expect(svg?.classList.contains('ds-inspect-glyph')).toBe(true)
+    expect(svg?.classList.contains('ui-icon')).toBe(true)
+    expect(svg?.getAttribute('width')).toBe('16')
     expect(container.innerHTML).not.toMatch(/#fff|#ffffff|#000/i)
     expect(container.querySelector('.ds-inspect-glyph__accent')).toBeTruthy()
   })

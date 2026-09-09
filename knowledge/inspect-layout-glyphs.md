@@ -6,15 +6,15 @@
 
 ## Tokens
 
-| Role | Token |
-|------|--------|
-| Strong fill (pillars) | `--ink` |
-| Soft / empty | ink mixes |
-| Frame | `--line` |
-| Accent strokes | `--accent` |
+| Role | Token / treatment |
+|------|-------------------|
+| Pillars | soft `--ink` fill + `--ink` stroke (Lucide-adjacent) |
+| Frame | ink mix stroke ~1.5; dashed for Hug/Auto |
+| Accent | `--accent` (rulers / stretch arrows) |
+| Size | default **16×16**, class `ui-icon` |
 | Brand alias | `--brand-primary` → `--accent` |
 
-Never hardcode `#fff` for glyph fills — breaks light theme.
+Never hardcode `#fff` for glyph fills — breaks light theme. Prefer stroke language over solid blocks.
 
 ## Consumer
 

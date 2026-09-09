@@ -1,7 +1,6 @@
 /**
- * Theme-aware inspect layout glyphs (size modes, media fit, grid columns/span).
- * Spec: specs/domain/msqdx-ui-inspect-layout-glyphs.md
- * Colors via CSS tokens only (--ink / --line / --accent / --muted).
+ * Theme-aware inspect layout glyphs — optical kin to Foundation Lucide icons
+ * (16px, ~1.5–1.75 stroke, hairline frames). Spec: msqdx-ui-inspect-layout-glyphs.md
  */
 
 import type { ReactNode } from 'react'
@@ -40,47 +39,60 @@ export type GridSpanGlyphId =
   | 'span-12'
   | 'span-full'
 
-const VIEW = 20
+/** Match Foundation `Icon*` default size. */
+const VIEW = 16
 
-function Track({
-  children,
-  className,
-}: {
+type TrackProps = {
   children: ReactNode
   className?: string
-}) {
+  size?: number
+}
+
+function Track({ children, className, size = VIEW }: TrackProps) {
   return (
     <svg
-      className={className ?? 'ds-inspect-glyph'}
-      width={VIEW}
-      height={VIEW}
+      className={['ui-icon', 'ds-inspect-glyph', className].filter(Boolean).join(' ')}
+      width={size}
+      height={size}
       viewBox={`0 0 ${VIEW} ${VIEW}`}
       aria-hidden="true"
       focusable="false"
     >
-      <rect
-        x="0.5"
-        y="0.5"
-        width={VIEW - 1}
-        height={VIEW - 1}
-        rx="2"
-        className="ds-inspect-glyph__frame"
-      />
       {children}
     </svg>
   )
 }
 
-function SoftFrame({
+/** Outer chrome — Lucide-like rounded square. */
+function OuterFrame({ dashed = false }: { dashed?: boolean }) {
+  return (
+    <rect
+      x="1.25"
+      y="1.25"
+      width="13.5"
+      height="13.5"
+      rx="2"
+      className={
+        dashed
+          ? 'ds-inspect-glyph__frame ds-inspect-glyph__frame--dashed'
+          : 'ds-inspect-glyph__frame'
+      }
+    />
+  )
+}
+
+function Pillar({
   x,
   y,
   w,
   h,
+  tone = 'strong',
 }: {
   x: number
   y: number
   w: number
   h: number
+  tone?: 'strong' | 'soft' | 'empty'
 }) {
   return (
     <rect
@@ -88,14 +100,14 @@ function SoftFrame({
       y={y}
       width={w}
       height={h}
-      rx="1"
-      className="ds-inspect-glyph__cell ds-inspect-glyph__cell--empty"
+      rx="0.75"
+      className={`ds-inspect-glyph__cell ds-inspect-glyph__cell--${tone}`}
     />
   )
 }
 
-function ColBars({ widths, gap = 1 }: { widths: number[]; gap?: number }) {
-  const pad = 2
+function ColBars({ widths, gap = 1.1 }: { widths: number[]; gap?: number }) {
+  const pad = 3
   const inner = VIEW - pad * 2
   const totalGap = gap * Math.max(0, widths.length - 1)
   const unit = (inner - totalGap) / widths.reduce((a, b) => a + b, 0)
@@ -103,18 +115,8 @@ function ColBars({ widths, gap = 1 }: { widths: number[]; gap?: number }) {
   return (
     <>
       {widths.map((w, i) => {
-        const width = Math.max(1.2, w * unit)
-        const el = (
-          <rect
-            key={i}
-            x={x}
-            y={pad}
-            width={width}
-            height={inner}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
-        )
+        const width = Math.max(1.1, w * unit)
+        const el = <Pillar key={i} x={x} y={pad} w={width} h={inner} />
         x += width + gap
         return el
       })}
@@ -124,122 +126,119 @@ function ColBars({ widths, gap = 1 }: { widths: number[]; gap?: number }) {
 
 function equalCols(n: number): number[] {
   if (n <= 4) return Array.from({ length: n }, () => 1)
-  if (n === 6) return [1, 1, 1, 1, 1, 1]
   return [1, 1, 1, 1, 1, 1]
 }
 
 export function SizeModeGlyph({
   id,
   axis = 'both',
+  size,
 }: {
   id: SizeModeGlyphId
   axis?: 'width' | 'height' | 'both'
+  size?: number
 }) {
   switch (id) {
     case 'hug':
       return (
-        <Track className="ds-inspect-glyph ds-inspect-glyph--size">
-          <SoftFrame x={3} y={3} w={14} h={14} />
-          <rect
-            x={axis === 'height' ? 5 : 6}
-            y={axis === 'width' ? 5 : 7}
-            width={axis === 'height' ? 10 : 8}
-            height={axis === 'width' ? 10 : 6}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
+        <Track className="ds-inspect-glyph--size" size={size}>
+          <OuterFrame dashed />
+          <Pillar
+            x={axis === 'height' ? 4.5 : 5.5}
+            y={axis === 'width' ? 4.5 : 6}
+            w={axis === 'height' ? 7 : 5}
+            h={axis === 'width' ? 7 : 4}
           />
         </Track>
       )
     case 'fill':
       return (
-        <Track className="ds-inspect-glyph ds-inspect-glyph--size">
-          <rect
-            x={3}
-            y={3}
-            width={14}
-            height={14}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
+        <Track className="ds-inspect-glyph--size" size={size}>
+          <OuterFrame />
+          <Pillar x={3.25} y={3.25} w={9.5} h={9.5} tone="soft" />
           {axis !== 'height' ? (
             <>
-              <line x1="5" y1="10" x2="15" y2="10" className="ds-inspect-glyph__accent" />
-              <polyline points="7,8 5,10 7,12" className="ds-inspect-glyph__accent" fill="none" />
-              <polyline points="13,8 15,10 13,12" className="ds-inspect-glyph__accent" fill="none" />
+              <line x1="4.5" y1="8" x2="11.5" y2="8" className="ds-inspect-glyph__accent" />
+              <polyline
+                points="6,6.5 4.5,8 6,9.5"
+                className="ds-inspect-glyph__accent"
+                fill="none"
+              />
+              <polyline
+                points="10,6.5 11.5,8 10,9.5"
+                className="ds-inspect-glyph__accent"
+                fill="none"
+              />
             </>
           ) : (
             <>
-              <line x1="10" y1="5" x2="10" y2="15" className="ds-inspect-glyph__accent" />
-              <polyline points="8,7 10,5 12,7" className="ds-inspect-glyph__accent" fill="none" />
-              <polyline points="8,13 10,15 12,13" className="ds-inspect-glyph__accent" fill="none" />
+              <line x1="8" y1="4.5" x2="8" y2="11.5" className="ds-inspect-glyph__accent" />
+              <polyline
+                points="6.5,6 8,4.5 9.5,6"
+                className="ds-inspect-glyph__accent"
+                fill="none"
+              />
+              <polyline
+                points="6.5,10 8,11.5 9.5,10"
+                className="ds-inspect-glyph__accent"
+                fill="none"
+              />
             </>
           )}
         </Track>
       )
     case 'fixed':
       return (
-        <Track className="ds-inspect-glyph ds-inspect-glyph--size">
-          <rect
-            x={5}
-            y={5}
-            width={10}
-            height={10}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
+        <Track className="ds-inspect-glyph--size" size={size}>
+          <OuterFrame />
+          <Pillar x={4.5} y={4.5} w={7} h={7} />
           {axis !== 'height' ? (
             <>
-              <line x1="5" y1="17" x2="15" y2="17" className="ds-inspect-glyph__accent" />
-              <line x1="5" y1="16" x2="5" y2="18" className="ds-inspect-glyph__accent" />
-              <line x1="15" y1="16" x2="15" y2="18" className="ds-inspect-glyph__accent" />
+              <line x1="4.5" y1="13.5" x2="11.5" y2="13.5" className="ds-inspect-glyph__accent" />
+              <line x1="4.5" y1="12.75" x2="4.5" y2="14.25" className="ds-inspect-glyph__accent" />
+              <line x1="11.5" y1="12.75" x2="11.5" y2="14.25" className="ds-inspect-glyph__accent" />
             </>
           ) : (
             <>
-              <line x1="17" y1="5" x2="17" y2="15" className="ds-inspect-glyph__accent" />
-              <line x1="16" y1="5" x2="18" y2="5" className="ds-inspect-glyph__accent" />
-              <line x1="16" y1="15" x2="18" y2="15" className="ds-inspect-glyph__accent" />
+              <line x1="13.5" y1="4.5" x2="13.5" y2="11.5" className="ds-inspect-glyph__accent" />
+              <line x1="12.75" y1="4.5" x2="14.25" y2="4.5" className="ds-inspect-glyph__accent" />
+              <line x1="12.75" y1="11.5" x2="14.25" y2="11.5" className="ds-inspect-glyph__accent" />
             </>
           )}
         </Track>
       )
     default:
       return (
-        <Track className="ds-inspect-glyph ds-inspect-glyph--size">
-          <SoftFrame x={4} y={4} w={12} h={12} />
+        <Track className="ds-inspect-glyph--size" size={size}>
+          <OuterFrame />
         </Track>
       )
   }
 }
 
-export function MediaFitGlyph({ id }: { id: MediaFitGlyphId }) {
+export function MediaFitGlyph({ id, size }: { id: MediaFitGlyphId; size?: number }) {
   const clipId = useId().replace(/:/g, '')
 
   if (id === 'cover') {
     return (
-      <Track>
+      <Track size={size}>
         <defs>
           <clipPath id={clipId}>
-            <rect x="3" y="4" width="14" height="12" rx="1" />
+            <rect x="3" y="3.5" width="10" height="9" rx="1" />
           </clipPath>
         </defs>
+        <OuterFrame />
+        <g clipPath={`url(#${clipId})`}>
+          <Pillar x={0.5} y={2} w={15} h={12} />
+        </g>
         <rect
           x="3"
-          y="4"
-          width="14"
-          height="12"
+          y="3.5"
+          width="10"
+          height="9"
           rx="1"
-          className="ds-inspect-glyph__cell ds-inspect-glyph__cell--empty"
+          className="ds-inspect-glyph__frame ds-inspect-glyph__frame--inset"
         />
-        <g clipPath={`url(#${clipId})`}>
-          <rect
-            x="0.5"
-            y="2"
-            width="19"
-            height="16"
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
-        </g>
       </Track>
     )
   }
@@ -247,163 +246,155 @@ export function MediaFitGlyph({ id }: { id: MediaFitGlyphId }) {
   switch (id) {
     case 'contain':
       return (
-        <Track>
-          <SoftFrame x={3} y={3} w={14} h={14} />
-          <rect
-            x={5}
-            y={6}
-            width={10}
-            height={8}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
+        <Track size={size}>
+          <OuterFrame />
+          <Pillar x={4.5} y={5} w={7} h={6} />
         </Track>
       )
     case 'auto':
     case 'none':
       return (
-        <Track>
-          <SoftFrame x={3} y={3} w={14} h={14} />
-          <rect
-            x={4}
-            y={5}
-            width={9}
-            height={7}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
+        <Track size={size}>
+          <OuterFrame dashed />
+          <Pillar x={3.5} y={4.5} w={6.5} h={5} />
         </Track>
       )
     case 'fill':
       return (
-        <Track>
-          <rect
-            x={3}
-            y={3}
-            width={14}
-            height={14}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--strong"
-          />
-          <line x1="5" y1="7" x2="15" y2="13" className="ds-inspect-glyph__dash" />
+        <Track size={size}>
+          <OuterFrame />
+          <Pillar x={3.25} y={3.25} w={9.5} h={9.5} tone="soft" />
+          <line x1="4.5" y1="5.5" x2="11.5" y2="10.5" className="ds-inspect-glyph__dash" />
         </Track>
       )
     case 'scale-down':
       return (
-        <Track>
-          <SoftFrame x={3} y={3} w={14} h={14} />
-          <rect
-            x={6}
-            y={7}
-            width={8}
-            height={6}
-            rx="1"
-            className="ds-inspect-glyph__cell ds-inspect-glyph__cell--soft"
-          />
+        <Track size={size}>
+          <OuterFrame />
+          <Pillar x={5.5} y={6} w={5} h={4} tone="soft" />
         </Track>
       )
     default:
       return (
-        <Track>
-          <SoftFrame x={4} y={4} w={12} h={12} />
+        <Track size={size}>
+          <OuterFrame />
         </Track>
       )
   }
 }
 
-export function GridColumnGlyph({ id }: { id: GridColumnGlyphId }) {
+export function GridColumnGlyph({
+  id,
+  size,
+}: {
+  id: GridColumnGlyphId
+  size?: number
+}) {
   switch (id) {
     case 'cols-1':
       return (
-        <Track>
+        <Track size={size}>
+          <OuterFrame />
           <ColBars widths={[1]} />
         </Track>
       )
     case 'cols-2':
       return (
-        <Track>
+        <Track size={size}>
+          <OuterFrame />
           <ColBars widths={equalCols(2)} />
         </Track>
       )
     case 'cols-3':
       return (
-        <Track>
-          <ColBars widths={equalCols(3)} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={equalCols(3)} gap={1} />
         </Track>
       )
     case 'cols-4':
       return (
-        <Track>
-          <ColBars widths={equalCols(4)} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={equalCols(4)} gap={0.9} />
         </Track>
       )
     case 'cols-6':
       return (
-        <Track>
-          <ColBars widths={equalCols(6)} gap={0.6} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={equalCols(6)} gap={0.7} />
         </Track>
       )
     case 'cols-12':
       return (
-        <Track>
-          <ColBars widths={equalCols(12)} gap={0.45} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={equalCols(12)} gap={0.55} />
         </Track>
       )
     case 'auto-fit':
       return (
-        <Track>
-          <ColBars widths={[1, 1, 1]} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={[1, 1, 1]} gap={1} />
           <line
-            x1="2"
-            y1="17.5"
-            x2="18"
-            y2="17.5"
+            x1="3"
+            y1="13.75"
+            x2="13"
+            y2="13.75"
             className="ds-inspect-glyph__dash"
-            strokeDasharray="1.5 1.5"
+            strokeDasharray="1.2 1.2"
           />
         </Track>
       )
     case 'auto-fill':
       return (
-        <Track>
-          <ColBars widths={[1, 1, 1, 1]} gap={0.7} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={[1, 1, 1, 1]} gap={0.85} />
           <line
-            x1="2"
-            y1="17.5"
-            x2="18"
-            y2="17.5"
+            x1="3"
+            y1="13.75"
+            x2="13"
+            y2="13.75"
             className="ds-inspect-glyph__dash"
-            strokeDasharray="1.5 1.5"
+            strokeDasharray="1.2 1.2"
           />
         </Track>
       )
     case 'split-1-2':
       return (
-        <Track>
+        <Track size={size}>
+          <OuterFrame />
           <ColBars widths={[1, 2]} />
         </Track>
       )
     case 'split-2-1':
       return (
-        <Track>
+        <Track size={size}>
+          <OuterFrame />
           <ColBars widths={[2, 1]} />
         </Track>
       )
     case 'sidebar':
       return (
-        <Track>
-          <ColBars widths={[1, 3]} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={[1, 3.2]} />
         </Track>
       )
     case 'three-pane':
       return (
-        <Track>
-          <ColBars widths={[1, 2, 1]} />
+        <Track size={size}>
+          <OuterFrame />
+          <ColBars widths={[1, 2.2, 1]} gap={1} />
         </Track>
       )
     default:
       return (
-        <Track>
+        <Track size={size}>
+          <OuterFrame />
           <ColBars widths={[1, 1]} />
         </Track>
       )
@@ -413,11 +404,13 @@ export function GridColumnGlyph({ id }: { id: GridColumnGlyphId }) {
 export function GridSpanGlyph({
   id,
   axis,
+  size,
 }: {
   id: GridSpanGlyphId
   axis: 'col' | 'row'
+  size?: number
 }) {
-  const pad = 2
+  const pad = 3
   const inner = VIEW - pad * 2
   const slots = 4
   const gap = 1
@@ -452,37 +445,32 @@ export function GridSpanGlyph({
   }
 
   return (
-    <Track>
+    <Track size={size}>
+      <OuterFrame />
       {Array.from({ length: slots }, (_, i) => {
         const active = full || i < fillCount
-        const className =
-          mutedAll && active
-            ? 'ds-inspect-glyph__cell ds-inspect-glyph__cell--soft'
-            : active
-              ? 'ds-inspect-glyph__cell ds-inspect-glyph__cell--strong'
-              : 'ds-inspect-glyph__cell ds-inspect-glyph__cell--empty'
+        const tone: 'strong' | 'soft' | 'empty' =
+          mutedAll && active ? 'soft' : active ? 'strong' : 'empty'
         if (axis === 'col') {
           return (
-            <rect
+            <Pillar
               key={i}
               x={pad + i * (slot + gap)}
               y={pad}
-              width={slot}
-              height={inner}
-              rx="1"
-              className={className}
+              w={slot}
+              h={inner}
+              tone={tone}
             />
           )
         }
         return (
-          <rect
+          <Pillar
             key={i}
             x={pad}
             y={pad + i * (slot + gap)}
-            width={inner}
-            height={slot}
-            rx="1"
-            className={className}
+            w={inner}
+            h={slot}
+            tone={tone}
           />
         )
       })}
