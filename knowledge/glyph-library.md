@@ -29,14 +29,14 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 | NinePoint (`ObjectPosition` / `TransformOrigin`) | More | media + transform origin |
 | TextAlign | More | typography segmented |
 | AspectRatio | More | constraints segmented |
-| GapAxis | More | optional gap-axis chips |
+| GapAxis | More | CREATION gap expand + axis rows |
 | DisplayMode | More | display enum (when exposed) |
 
 ## Token families
 
 | Family | File | Consumers |
 |--------|------|-----------|
-| TokenKindGlyph | `TokenKindGlyph.tsx` | CREATION Token Studio; Brandion barrel |
+| TokenKindGlyph | `TokenKindGlyph.tsx` | CREATION Token Studio; Brandion chapter / type chips / card meta |
 | TokenPreview | `TokenPreview.tsx` | TokenPicker / Studio value chips |
 
 ## Out of scope (intentionally)

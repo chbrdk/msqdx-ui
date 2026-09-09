@@ -20,5 +20,8 @@ describe('TokenKindGlyph', () => {
     expect(tokenKindGlyphId('typography')).toBe('type')
     expect(tokenKindGlyphId('asset')).toBe('asset')
     expect(tokenKindGlyphId('all')).toBe('all')
+    expect(tokenKindGlyphId('layout.grid')).toBe('size')
+    expect(tokenKindGlyphId('border')).toBe('radius')
+    expect(tokenKindGlyphId('clearspace')).toBe('space')
   })
 })

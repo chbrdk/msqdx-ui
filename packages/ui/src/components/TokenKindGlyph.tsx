@@ -125,16 +125,22 @@ export function tokenKindGlyphId(type: string): TokenKindGlyphId {
       return 'color'
     case 'spacing':
     case 'space':
+    case 'clearspace':
       return 'space'
     case 'radius':
+    case 'border':
       return 'radius'
     case 'opacity':
       return 'opacity'
     case 'size':
+    case 'layout.grid':
+    case 'layout.breakpoint':
+    case 'layout.container':
       return 'size'
     case 'typography':
     case 'type':
     case 'font':
+    case 'content':
       return 'type'
     case 'shadow':
       return 'shadow'
@@ -142,6 +148,9 @@ export function tokenKindGlyphId(type: string): TokenKindGlyphId {
     case 'logo':
     case 'image':
       return 'asset'
+    case 'motion.duration':
+    case 'motion.easing':
+      return 'all'
     default:
       return 'all'
   }
