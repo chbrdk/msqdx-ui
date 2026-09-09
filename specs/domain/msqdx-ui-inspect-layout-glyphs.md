@@ -1,8 +1,8 @@
 # Inspect layout glyphs — MSQDX UI
 
-**Status:** Accepted · 2026-09-09  
+**Status:** Accepted · 2026-09-09 · **Catalog complete**  
 **Layer:** Foundation (custom SVG glyphs, not Lucide wraps)  
-**Consumers:** CREATION Inspect (size modes, media fit, grid presets/span)
+**Consumers:** CREATION Inspect (and any product needing layout diagrams)
 
 ## Problem
 
@@ -19,19 +19,31 @@ App-local inspect glyphs used hardcoded `#ffffff` fills. That reads on dark chro
 3. Optical language MUST stay close to Foundation Lucide icons: default **16×16**, stroke ≈ **1.5–1.75**, class `ui-icon` + `ds-inspect-glyph`.
 4. MUST NOT hardcode `#fff`, `#000`, or brand hex in glyph SVG/CSS.
 5. CSS class prefix: `ds-inspect-glyph` (not `creation-*`).
-6. Storybook MUST show the full set under **Foundation / Inspect Layout Glyphs**, include a **vs Icons** comparison, and remain readable when switching light ↔ dark themes.
+6. Storybook MUST show the full set under **Foundation / Inspect Layout Glyphs**, include **Vs Icons** and a **Catalog** overview, and remain readable light ↔ dark.
 7. Apps compose tiles/buttons; they MUST NOT re-skin glyph fills with theme-breaking overrides.
+8. Do **not** duplicate Lucide Align/Justify/SpaceBetween wraps — those stay in `icons.tsx`. Layout glyphs cover diagrammatic cases Lucide does not.
 
-## API
+## Catalog (families)
 
-| Export | Role |
-|--------|------|
-| `SizeModeGlyph` | `hug` \| `fill` \| `fixed` (+ optional `axis`) |
+| Export | IDs |
+|--------|-----|
+| `SizeModeGlyph` | `hug` \| `fill` \| `fixed` (+ `axis`) |
 | `MediaFitGlyph` | `cover` \| `contain` \| `auto` \| `fill` \| `none` \| `scale-down` |
-| `GridColumnGlyph` | equal / responsive / split column diagrams |
-| `GridSpanGlyph` | col/row span 4-slot track |
-| Helpers | `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel` |
+| `GridColumnGlyph` | equal / responsive / splits |
+| `GridSpanGlyph` | `span-auto` … `span-full` (`axis` col\|row) |
+| `DistributeGlyph` | `packed` \| `even` |
+| `CellParkGlyph` | `start` \| `center` \| `end` \| `stretch` (+ `axis` h\|v) |
+| `FlowDirectionGlyph` | `row` \| `column` \| `row-reverse` \| `column-reverse` |
+| `WrapGlyph` | `nowrap` \| `wrap` |
+| `AutoFlowGlyph` | `row` \| `column` \| `dense` |
+| `PositionGlyph` | `static` \| `relative` \| `absolute` \| `fixed` \| `sticky` |
+| `OverflowGlyph` | `visible` \| `hidden` \| `scroll` \| `auto` |
+| `BorderStyleGlyph` | `solid` \| `dashed` \| `dotted` \| `none` |
+| `BgPositionGlyph` | `center` \| `top` \| `bottom` \| `left` \| `right` |
+| `ClipPresetGlyph` | `none` \| `slant-bottom` \| `slant-bottom-flip` \| `slant-top` \| `trapezoid` \| `parallelogram` |
+
+Helpers: `sizeModeGlyphId`, `mediaFitGlyphId`, `mediaFitLabel`, `columnGlyphForPresetLabel`, `spanGlyphForPresetLabel`, `distributeGlyphId`, `cellParkGlyphId`, `flowDirectionGlyphId`, `wrapGlyphId`, `autoFlowGlyphId`, `positionGlyphId`, `overflowGlyphId`, `borderStyleGlyphId`, `bgPositionGlyphId`, `clipPresetGlyphId`.
 
 ## Dual-ship
 
-CREATION Web consumes these from `@msqdx/ui`. macOS may mirror geometry with native fills mapped to the same semantic roles (ink / accent / line).
+CREATION Web consumes from `@msqdx/ui`. Top-3 wired inspect surfaces: Packed/Even, Grid cell park, Clip presets. macOS mirrors those three with native paths.

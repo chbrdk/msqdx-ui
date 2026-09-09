@@ -1,4 +1,4 @@
-# Inspect layout glyphs (theme-aware)
+# Inspect layout glyphs (theme-aware catalog)
 
 **Date:** 2026-09-09  
 **Spec:** `specs/domain/msqdx-ui-inspect-layout-glyphs.md`  
@@ -6,16 +6,15 @@
 
 ## Tokens
 
-| Role | Token / treatment |
-|------|-------------------|
-| Pillars | soft `--ink` fill + `--ink` stroke (Lucide-adjacent) |
-| Frame | ink mix stroke ~1.5; dashed for Hug/Auto |
-| Accent | `--accent` (rulers / stretch arrows) |
-| Size | default **16×16**, class `ui-icon` |
-| Brand alias | `--brand-primary` → `--accent` |
+| Role | Treatment |
+|------|-----------|
+| Pillars | soft `--ink` fill + `--ink` stroke |
+| Frame | ink mix ~1.5; dashed for hug/auto |
+| Accent | `--accent` |
+| Size | default 16×16, `ui-icon` |
 
-Never hardcode `#fff` for glyph fills — breaks light theme. Prefer stroke language over solid blocks.
+## Families
 
-## Consumer
+Size · MediaFit · GridColumn · GridSpan · Distribute · CellPark · FlowDirection · Wrap · AutoFlow · Position · Overflow · BorderStyle · BgPosition · ClipPreset
 
-CREATION Inspect imports `SizeModeGlyph`, `MediaFitGlyph`, `GridColumnGlyph`, `GridSpanGlyph` from `@msqdx/ui`.
+CREATION wires Distribute, CellPark, ClipPreset in Inspect; others are catalog-ready.

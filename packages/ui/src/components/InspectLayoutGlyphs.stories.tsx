@@ -7,6 +7,18 @@ import {
   columnGlyphForPresetLabel,
   mediaFitLabel,
 } from './InspectLayoutGlyphs'
+import {
+  AutoFlowGlyph,
+  BgPositionGlyph,
+  BorderStyleGlyph,
+  CellParkGlyph,
+  ClipPresetGlyph,
+  DistributeGlyph,
+  FlowDirectionGlyph,
+  OverflowGlyph,
+  PositionGlyph,
+  WrapGlyph,
+} from './InspectLayoutGlyphsExtra'
 import { IconBox, IconColumns, IconMaximize, IconMinimize, IconStretch } from './icons'
 import { Text } from './Text'
 
@@ -226,6 +238,128 @@ export const VsIcons: Story = {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>{row.icons}</div>
         </div>
       ))}
+    </div>
+  ),
+}
+
+
+export const DistributeAndPark: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <Tile label="Packed">
+          <DistributeGlyph id="packed" />
+        </Tile>
+        <Tile label="Even" active>
+          <DistributeGlyph id="even" />
+        </Tile>
+      </div>
+      <Text role="meta">Cell park (horizontal)</Text>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {(['start', 'center', 'end', 'stretch'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <CellParkGlyph id={id} axis="h" />
+          </Tile>
+        ))}
+      </div>
+    </div>
+  ),
+}
+
+export const FlowWrapAutoFlow: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {(['row', 'column', 'row-reverse', 'column-reverse'] as const).map((id) => (
+        <Tile key={id} label={id}>
+          <FlowDirectionGlyph id={id} />
+        </Tile>
+      ))}
+      <Tile label="nowrap">
+        <WrapGlyph id="nowrap" />
+      </Tile>
+      <Tile label="wrap">
+        <WrapGlyph id="wrap" />
+      </Tile>
+      {(['row', 'column', 'dense'] as const).map((id) => (
+        <Tile key={`af-${id}`} label={`flow ${id}`}>
+          <AutoFlowGlyph id={id} />
+        </Tile>
+      ))}
+    </div>
+  ),
+}
+
+export const PositionOverflowBorder: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {(['static', 'relative', 'absolute', 'fixed', 'sticky'] as const).map((id) => (
+        <Tile key={id} label={id}>
+          <PositionGlyph id={id} />
+        </Tile>
+      ))}
+      {(['visible', 'hidden', 'scroll', 'auto'] as const).map((id) => (
+        <Tile key={`o-${id}`} label={id}>
+          <OverflowGlyph id={id} />
+        </Tile>
+      ))}
+      {(['solid', 'dashed', 'dotted', 'none'] as const).map((id) => (
+        <Tile key={`b-${id}`} label={id}>
+          <BorderStyleGlyph id={id} />
+        </Tile>
+      ))}
+    </div>
+  ),
+}
+
+export const BgPosAndClip: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {(['center', 'top', 'bottom', 'left', 'right'] as const).map((id) => (
+          <Tile key={id} label={id}>
+            <BgPositionGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        {(
+          [
+            'none',
+            'slant-bottom',
+            'slant-bottom-flip',
+            'slant-top',
+            'trapezoid',
+            'parallelogram',
+          ] as const
+        ).map((id) => (
+          <Tile key={id} label={id}>
+            <ClipPresetGlyph id={id} />
+          </Tile>
+        ))}
+      </div>
+    </div>
+  ),
+}
+
+export const Catalog: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, color: 'var(--ink)' }}>
+      <SizeModeGlyph id="hug" />
+      <SizeModeGlyph id="fill" />
+      <SizeModeGlyph id="fixed" />
+      <MediaFitGlyph id="cover" />
+      <DistributeGlyph id="even" />
+      <CellParkGlyph id="center" axis="h" />
+      <FlowDirectionGlyph id="row" />
+      <WrapGlyph id="wrap" />
+      <AutoFlowGlyph id="dense" />
+      <PositionGlyph id="sticky" />
+      <OverflowGlyph id="hidden" />
+      <BorderStyleGlyph id="dashed" />
+      <BgPositionGlyph id="top" />
+      <ClipPresetGlyph id="trapezoid" />
+      <GridColumnGlyph id="cols-3" />
+      <GridSpanGlyph id="span-2" axis="col" />
     </div>
   ),
 }

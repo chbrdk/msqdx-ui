@@ -228,6 +228,40 @@ export type {
   GridColumnGlyphId,
   GridSpanGlyphId,
 } from './components/InspectLayoutGlyphs'
+export {
+  DistributeGlyph,
+  CellParkGlyph,
+  FlowDirectionGlyph,
+  WrapGlyph,
+  AutoFlowGlyph,
+  PositionGlyph,
+  OverflowGlyph,
+  BorderStyleGlyph,
+  BgPositionGlyph,
+  ClipPresetGlyph,
+  distributeGlyphId,
+  cellParkGlyphId,
+  flowDirectionGlyphId,
+  wrapGlyphId,
+  autoFlowGlyphId,
+  positionGlyphId,
+  overflowGlyphId,
+  borderStyleGlyphId,
+  bgPositionGlyphId,
+  clipPresetGlyphId,
+} from './components/InspectLayoutGlyphsExtra'
+export type {
+  DistributeGlyphId,
+  CellParkGlyphId,
+  FlowDirectionGlyphId,
+  WrapGlyphId,
+  AutoFlowGlyphId,
+  PositionGlyphId,
+  OverflowGlyphId,
+  BorderStyleGlyphId,
+  BgPositionGlyphId,
+  ClipPresetGlyphId,
+} from './components/InspectLayoutGlyphsExtra'
 export { KpiStrip } from './components/KpiStrip'
 export type { KpiItem, KpiStripProps } from './components/KpiStrip'
 export { NavRail } from './components/NavRail'
