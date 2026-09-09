@@ -59,5 +59,16 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 
 ## Storybook
 
-**Foundation / Inspect Layout Glyphs** — Catalog + DisplayModes + Catalog reserve + Vs Icons.  
+**Foundation / Inspect Layout Glyphs** — Catalog + DisplayModes + Catalog reserve + Vs Icons + **Size ladder** + **Large (32/48)**.  
 **Molecules / TokenKindGlyph** — kind metaphors.
+
+## Sizes
+
+| Token | px | Use |
+|-------|----|-----|
+| `INSPECT_GLYPH_SIZE.sm` | 16 | Inspect chrome / Lucide parity (default) |
+| `INSPECT_GLYPH_SIZE.md` | 24 | Compact toolbars |
+| `INSPECT_GLYPH_SIZE.lg` | 32 | Segmented controls / chips |
+| `INSPECT_GLYPH_SIZE.xl` | 48 | Docs tiles / Storybook review |
+
+Pass as `<SizeModeGlyph id="fill" size={INSPECT_GLYPH_SIZE.xl} />`. Geometry stays 16×16 viewBox.

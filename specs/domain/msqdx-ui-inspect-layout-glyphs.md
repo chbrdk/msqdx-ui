@@ -16,10 +16,10 @@ App-local inspect glyphs used hardcoded `#ffffff` fills. That reads on dark chro
    - **Empty slots:** dashed hairline in ink mix
    - **Frame:** rounded square stroke (~1.5), optional dashed for Hug / Auto
    - **Accent strokes** (fixed ruler, fill arrows): `var(--accent)`
-3. Optical language MUST stay close to Foundation Lucide icons: default **16×16**, stroke ≈ **1.5–1.75**, class `ui-icon` + `ds-inspect-glyph`.
+3. Optical language MUST stay close to Foundation Lucide icons: default **16×16** (`INSPECT_GLYPH_SIZE.sm`), stroke ≈ **1.5–1.75**, class `ui-icon` + `ds-inspect-glyph`. Larger renders use the same viewBox via the `size` prop — recommended tokens **md 24 / lg 32 / xl 48**. Strokes MUST scale with `size` (no `non-scaling-stroke` on frames).
 4. MUST NOT hardcode `#fff`, `#000`, or brand hex in glyph SVG/CSS.
 5. CSS class prefix: `ds-inspect-glyph` (not `creation-*`).
-6. Storybook MUST show the full set under **Foundation / Inspect Layout Glyphs**, include **Vs Icons** and a **Catalog** overview, and remain readable light ↔ dark.
+6. Storybook MUST show the full set under **Foundation / Inspect Layout Glyphs**, include **Vs Icons**, a **Catalog** overview, a **Size ladder**, and **Large** (32/48) previews, and remain readable light ↔ dark.
 7. Apps compose tiles/buttons; they MUST NOT re-skin glyph fills with theme-breaking overrides.
 8. Do **not** duplicate Lucide Align/Justify/SpaceBetween wraps — those stay in `icons.tsx`. Layout glyphs cover diagrammatic cases Lucide does not.
 

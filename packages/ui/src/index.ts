@@ -216,6 +216,8 @@ export {
   MediaFitGlyph,
   GridColumnGlyph,
   GridSpanGlyph,
+  INSPECT_GLYPH_SIZE,
+  INSPECT_GLYPH_SIZE_DEFAULT,
   sizeModeGlyphId,
   mediaFitGlyphId,
   mediaFitLabel,
@@ -227,6 +229,7 @@ export type {
   MediaFitGlyphId,
   GridColumnGlyphId,
   GridSpanGlyphId,
+  InspectGlyphSizeToken,
 } from './components/InspectLayoutGlyphs'
 export {
   DistributeGlyph,

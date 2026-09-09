@@ -39,8 +39,23 @@ export type GridSpanGlyphId =
   | 'span-12'
   | 'span-full'
 
-/** Match Foundation `Icon*` default size. */
+/** Match Foundation `Icon*` default size (viewBox + chrome default). */
 const VIEW = 16
+
+/** Recommended rendered sizes — geometry stays 16×16 viewBox; `size` scales the SVG. */
+export const INSPECT_GLYPH_SIZE = {
+  /** Inspect chrome / Lucide parity */
+  sm: 16,
+  /** Compact toolbars / denser chips */
+  md: 24,
+  /** Storybook review / segmented controls */
+  lg: 32,
+  /** Docs / picker tiles / large chrome */
+  xl: 48,
+} as const
+
+export type InspectGlyphSizeToken = keyof typeof INSPECT_GLYPH_SIZE
+export const INSPECT_GLYPH_SIZE_DEFAULT = INSPECT_GLYPH_SIZE.sm
 
 type TrackProps = {
   children: ReactNode

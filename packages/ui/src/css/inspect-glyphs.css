@@ -1,6 +1,6 @@
 /* Inspect layout glyphs — Lucide-adjacent optical language
  * Spec: specs/domain/msqdx-ui-inspect-layout-glyphs.md
- * Matches Foundation icons: 16px, ~1.5 stroke, soft fills (not solid blocks).
+ * Default 16px; strokes scale with SVG `size` (md/lg/xl). Soft fills (not solid blocks).
  */
 
 .ds-inspect-glyph {
@@ -12,8 +12,8 @@
 .ds-inspect-glyph__frame {
   fill: none;
   stroke: color-mix(in srgb, var(--ink) 42%, transparent);
+  /* Scales with SVG `size` so lg/xl previews stay optically balanced */
   stroke-width: 1.5;
-  vector-effect: non-scaling-stroke;
 }
 
 .ds-inspect-glyph__frame--dashed {

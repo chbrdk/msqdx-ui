@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import {
   GridColumnGlyph,
   GridSpanGlyph,
+  INSPECT_GLYPH_SIZE,
   MediaFitGlyph,
   SizeModeGlyph,
   columnGlyphForPresetLabel,
@@ -43,7 +44,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Inspect diagrams tuned to Foundation Lucide icons (16px, ~1.5 stroke, soft ink fills). Accents use `--accent`. Compare with Icons via the Vs Icons story; switch the theme toolbar for light/dark.',
+          'Inspect diagrams tuned to Foundation Lucide icons (default 16px via INSPECT_GLYPH_SIZE.sm). Use md/lg/xl (24/32/48) for denser chrome, Storybook review, and docs tiles. Accents use `--accent`. Compare with Icons via Vs Icons; theme toolbar for light/dark.',
       },
     },
   },
@@ -56,10 +57,12 @@ function Tile({
   label,
   children,
   active,
+  minWidth = 48,
 }: {
   label: string
   children: React.ReactNode
   active?: boolean
+  minWidth?: number
 }) {
   return (
     <div
@@ -68,9 +71,9 @@ function Tile({
         display: 'inline-flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 4,
-        minWidth: 48,
-        padding: '6px 8px',
+        gap: 6,
+        minWidth,
+        padding: '8px 10px',
         borderRadius: 6,
         border: active
           ? '1px solid color-mix(in srgb, var(--accent) 55%, var(--line))'
@@ -84,6 +87,27 @@ function Tile({
     >
       {children}
       <span>{label}</span>
+    </div>
+  )
+}
+
+function SizeRow({
+  title,
+  size,
+  children,
+}: {
+  title: string
+  size: number
+  children: React.ReactNode
+}) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <Text role="meta">
+        {title} · {size}px
+      </Text>
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        {children}
+      </div>
     </div>
   )
 }
@@ -509,4 +533,238 @@ export const CatalogReserve: Story = {
       </div>
     </div>
   ),
+}
+
+/** Side-by-side size tokens for optical check when scaling. */
+export const SizeLadder: Story = {
+  name: 'Size ladder (16 → 48)',
+  render: () => {
+    const samples = [
+      { label: 'fill', node: (s: number) => <SizeModeGlyph id="fill" axis="width" size={s} /> },
+      { label: 'cover', node: (s: number) => <MediaFitGlyph id="cover" size={s} /> },
+      { label: 'cols-3', node: (s: number) => <GridColumnGlyph id="cols-3" size={s} /> },
+      { label: 'even', node: (s: number) => <DistributeGlyph id="even" size={s} /> },
+      { label: 'center', node: (s: number) => <NinePointGlyph id="center" size={s} /> },
+      { label: '16-9', node: (s: number) => <AspectRatioGlyph id="16-9" size={s} /> },
+      { label: 'grid', node: (s: number) => <DisplayModeGlyph id="grid" size={s} /> },
+      { label: 'hidden', node: (s: number) => <VisibilityGlyph id="hidden" size={s} /> },
+      { label: 'gap', node: (s: number) => <GapAxisGlyph id="both" size={s} /> },
+    ] as const
+
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 24, color: 'var(--ink)' }}>
+        {(
+          [
+            ['sm', INSPECT_GLYPH_SIZE.sm],
+            ['md', INSPECT_GLYPH_SIZE.md],
+            ['lg', INSPECT_GLYPH_SIZE.lg],
+            ['xl', INSPECT_GLYPH_SIZE.xl],
+          ] as const
+        ).map(([token, size]) => (
+          <SizeRow key={token} title={`INSPECT_GLYPH_SIZE.${token}`} size={size}>
+            {samples.map((sample) => (
+              <Tile key={sample.label} label={sample.label} minWidth={size + 24}>
+                {sample.node(size)}
+              </Tile>
+            ))}
+          </SizeRow>
+        ))}
+      </div>
+    )
+  },
+}
+
+/** Full catalog at xl — primary Storybook review surface. */
+export const Large: Story = {
+  name: 'Large (48px catalog)',
+  render: () => {
+    const s = INSPECT_GLYPH_SIZE.xl
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 20, color: 'var(--ink)' }}>
+        <SizeRow title="Size / fit / grid" size={s}>
+          {(['hug', 'fill', 'fixed'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <SizeModeGlyph id={id} axis="width" size={s} />
+            </Tile>
+          ))}
+          {(['cover', 'contain', 'fill'] as const).map((id) => (
+            <Tile key={`fit-${id}`} label={id} minWidth={72}>
+              <MediaFitGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          <Tile label="cols-3" minWidth={72}>
+            <GridColumnGlyph id="cols-3" size={s} />
+          </Tile>
+          <Tile label="span-2" minWidth={72}>
+            <GridSpanGlyph id="span-2" axis="col" size={s} />
+          </Tile>
+        </SizeRow>
+        <SizeRow title="Distribute / park / flow" size={s}>
+          <Tile label="packed" minWidth={72}>
+            <DistributeGlyph id="packed" size={s} />
+          </Tile>
+          <Tile label="even" minWidth={72}>
+            <DistributeGlyph id="even" size={s} />
+          </Tile>
+          {(['start', 'center', 'stretch'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <CellParkGlyph id={id} axis="h" size={s} />
+            </Tile>
+          ))}
+          <Tile label="row" minWidth={72}>
+            <FlowDirectionGlyph id="row" size={s} />
+          </Tile>
+          <Tile label="wrap" minWidth={72}>
+            <WrapGlyph id="wrap" size={s} />
+          </Tile>
+          <Tile label="dense" minWidth={72}>
+            <AutoFlowGlyph id="dense" size={s} />
+          </Tile>
+        </SizeRow>
+        <SizeRow title="Chrome / clip" size={s}>
+          {(['relative', 'absolute', 'sticky'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <PositionGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['hidden', 'scroll'] as const).map((id) => (
+            <Tile key={`o-${id}`} label={id} minWidth={72}>
+              <OverflowGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['solid', 'dashed', 'dotted'] as const).map((id) => (
+            <Tile key={`b-${id}`} label={id} minWidth={72}>
+              <BorderStyleGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          <Tile label="bg top" minWidth={72}>
+            <BgPositionGlyph id="top" size={s} />
+          </Tile>
+          <Tile label="trapezoid" minWidth={72}>
+            <ClipPresetGlyph id="trapezoid" size={s} />
+          </Tile>
+        </SizeRow>
+        <SizeRow title="Self / nine-point / text / aspect / gap" size={s}>
+          {(['auto', 'stretch'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <SelfParkGlyph id={id} axis="v" size={s} />
+            </Tile>
+          ))}
+          {(['top-left', 'center', 'bottom-right'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <NinePointGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['start', 'justify'] as const).map((id) => (
+            <Tile key={`ta-${id}`} label={id} minWidth={72}>
+              <TextAlignGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['free', '1-1', '16-9', '9-16'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <AspectRatioGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['both', 'row', 'column'] as const).map((id) => (
+            <Tile key={`g-${id}`} label={id} minWidth={72}>
+              <GapAxisGlyph id={id} size={s} />
+            </Tile>
+          ))}
+        </SizeRow>
+        <SizeRow title="Display" size={s}>
+          {(
+            [
+              'block',
+              'inline-block',
+              'flex',
+              'grid',
+              'table',
+              'list-item',
+              'contents',
+              'none',
+            ] as const
+          ).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <DisplayModeGlyph id={id} size={s} />
+            </Tile>
+          ))}
+        </SizeRow>
+        <SizeRow title="Catalog reserve" size={s}>
+          {(['visible', 'hidden', 'collapse'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <VisibilityGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['content-box', 'border-box'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <BoxSizingGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['none', 'left', 'right'] as const).map((id) => (
+            <Tile key={`f-${id}`} label={`float ${id}`} minWidth={72}>
+              <FloatGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['horizontal', 'vertical'] as const).map((id) => (
+            <Tile key={`w-${id}`} label={id} minWidth={72}>
+              <WritingModeGlyph id={id} size={s} />
+            </Tile>
+          ))}
+          {(['normal', 'nowrap', 'pre'] as const).map((id) => (
+            <Tile key={id} label={id} minWidth={72}>
+              <WhiteSpaceGlyph id={id} size={s} />
+            </Tile>
+          ))}
+        </SizeRow>
+      </div>
+    )
+  },
+}
+
+/** Same catalog at lg (32px) — segmented-control / chip scale. */
+export const LargeMd: Story = {
+  name: 'Large (32px catalog)',
+  render: () => {
+    const s = INSPECT_GLYPH_SIZE.lg
+    return (
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, color: 'var(--ink)' }}>
+        <Tile label="fill" minWidth={64}>
+          <SizeModeGlyph id="fill" size={s} />
+        </Tile>
+        <Tile label="cover" minWidth={64}>
+          <MediaFitGlyph id="cover" size={s} />
+        </Tile>
+        <Tile label="cols-3" minWidth={64}>
+          <GridColumnGlyph id="cols-3" size={s} />
+        </Tile>
+        <Tile label="even" minWidth={64}>
+          <DistributeGlyph id="even" size={s} />
+        </Tile>
+        <Tile label="center" minWidth={64}>
+          <NinePointGlyph id="center" size={s} />
+        </Tile>
+        <Tile label="16-9" minWidth={64}>
+          <AspectRatioGlyph id="16-9" size={s} />
+        </Tile>
+        <Tile label="grid" minWidth={64}>
+          <DisplayModeGlyph id="grid" size={s} />
+        </Tile>
+        <Tile label="sticky" minWidth={64}>
+          <PositionGlyph id="sticky" size={s} />
+        </Tile>
+        <Tile label="hidden" minWidth={64}>
+          <VisibilityGlyph id="hidden" size={s} />
+        </Tile>
+        <Tile label="border-box" minWidth={64}>
+          <BoxSizingGlyph id="border-box" size={s} />
+        </Tile>
+        <Tile label="gap both" minWidth={64}>
+          <GapAxisGlyph id="both" size={s} />
+        </Tile>
+        <Tile label="float left" minWidth={64}>
+          <FloatGlyph id="left" size={s} />
+        </Tile>
+      </div>
+    )
+  },
 }

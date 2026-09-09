@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest'
 import {
   GridColumnGlyph,
   GridSpanGlyph,
+  INSPECT_GLYPH_SIZE,
+  INSPECT_GLYPH_SIZE_DEFAULT,
   MediaFitGlyph,
   SizeModeGlyph,
   columnGlyphForPresetLabel,
@@ -54,6 +56,20 @@ describe('InspectLayoutGlyphs', () => {
     expect(svg?.getAttribute('width')).toBe('16')
     expect(container.innerHTML).not.toMatch(/#fff|#ffffff|#000/i)
     expect(container.querySelector('.ds-inspect-glyph__accent')).toBeTruthy()
+  })
+
+  it('scales via size prop and INSPECT_GLYPH_SIZE tokens', () => {
+    const { container } = render(
+      <SizeModeGlyph id="fill" axis="width" size={INSPECT_GLYPH_SIZE.xl} />,
+    )
+    const svg = container.querySelector('svg')
+    expect(svg?.getAttribute('width')).toBe('48')
+    expect(svg?.getAttribute('height')).toBe('48')
+    expect(svg?.getAttribute('viewBox')).toBe('0 0 16 16')
+    expect(INSPECT_GLYPH_SIZE.sm).toBe(16)
+    expect(INSPECT_GLYPH_SIZE.md).toBe(24)
+    expect(INSPECT_GLYPH_SIZE.lg).toBe(32)
+    expect(INSPECT_GLYPH_SIZE_DEFAULT).toBe(16)
   })
 
   it('renders media fit and grid glyphs', () => {
