@@ -28,7 +28,7 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 | SelfPark | `InspectLayoutGlyphsMore.tsx` | alignSelf / justifySelf |
 | NinePoint (`ObjectPosition` / `TransformOrigin`) | More | media + transform origin |
 | TextAlign | More | typography segmented |
-| AspectRatio | More | constraints segmented |
+| AspectRatio | More | CREATION constraints; VIDEON reframe / cut canvas |
 | GapAxis | More | CREATION gap expand + axis rows |
 | DisplayMode | More | display enum (when exposed) |
 

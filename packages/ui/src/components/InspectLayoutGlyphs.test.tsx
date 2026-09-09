@@ -29,6 +29,7 @@ import {
   ninePointWriteValue,
   selfParkGlyphId,
   textAlignGlyphId,
+  aspectRatioGlyphId,
 } from './InspectLayoutGlyphsMore'
 
 describe('InspectLayoutGlyphs', () => {
@@ -87,5 +88,7 @@ describe('InspectLayoutGlyphs', () => {
     expect(ninePointGlyphId('top left')).toBe('top-left')
     expect(ninePointWriteValue('bottom-right')).toBe('bottom right')
     expect(textAlignGlyphId('right')).toBe('end')
+    expect(aspectRatioGlyphId('9:16')).toBe('9-16')
+    expect(aspectRatioGlyphId('16:9')).toBe('16-9')
   })
 })

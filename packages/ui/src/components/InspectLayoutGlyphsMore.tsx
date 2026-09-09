@@ -356,14 +356,14 @@ export function textAlignGlyphId(value: string): TextAlignGlyphId {
 }
 
 export function aspectRatioGlyphId(value: string): AspectRatioGlyphId {
-  const v = value.replace(/\s+/g, '').replace('/', '-')
-  if (v === '1-1' || v === '1/1') return '1-1'
-  if (v.includes('21') && v.includes('9')) return '21-9'
-  if (v.includes('16') && v.includes('9')) return '16-9'
-  if (v.includes('4') && v.includes('3')) return '4-3'
-  if (v.includes('3') && v.includes('2')) return '3-2'
-  if (v.includes('9') && v.includes('16')) return '9-16'
-  if (!v || v === 'auto') return 'free'
+  const normalized = value.trim().toLowerCase().replace(/\s+/g, '').replace(/[:/]/g, '-')
+  if (normalized === '1-1') return '1-1'
+  if (normalized === '9-16') return '9-16'
+  if (normalized === '16-9') return '16-9'
+  if (normalized === '21-9') return '21-9'
+  if (normalized === '4-3') return '4-3'
+  if (normalized === '3-2') return '3-2'
+  if (!normalized || normalized === 'auto' || normalized === 'custom') return 'free'
   return 'free'
 }
 
