@@ -71,4 +71,4 @@ Do **not** replace the Lucide Align/Justify matrix with layout glyphs.
 | `INSPECT_GLYPH_SIZE.lg` | 32 | Segmented controls / chips |
 | `INSPECT_GLYPH_SIZE.xl` | 48 | Docs tiles / Storybook review |
 
-Pass as `<SizeModeGlyph id="fill" size={INSPECT_GLYPH_SIZE.xl} />`. Geometry stays 16×16 viewBox.
+Pass as `<SizeModeGlyph id="fill" size={INSPECT_GLYPH_SIZE.xl} />`. Geometry stays 16×16 viewBox; strokes stay hairline (`non-scaling-stroke`) so large tiles stay sharp.

@@ -44,7 +44,7 @@ const meta = {
     docs: {
       description: {
         component:
-          'Inspect diagrams tuned to Foundation Lucide icons (default 16px via INSPECT_GLYPH_SIZE.sm). Use md/lg/xl (24/32/48) for denser chrome, Storybook review, and docs tiles. Accents use `--accent`. Compare with Icons via Vs Icons; theme toolbar for light/dark.',
+          'Inspect diagrams tuned to Foundation Lucide icons (default 16px via INSPECT_GLYPH_SIZE.sm). Use md/lg/xl (24/32/48) for denser chrome, Storybook review, and docs tiles — geometry scales, strokes stay hairline. Accents use `--accent`. Compare with Icons via Vs Icons; theme toolbar for light/dark.',
       },
     },
   },
