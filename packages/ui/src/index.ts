@@ -169,18 +169,29 @@ export {
   IconSpaceAround,
   IconRows,
   IconColumns,
+  IconTableAddRow,
+  IconTableAddColumn,
+  IconDensityCompact,
+  IconDensityDefault,
+  IconDensityComfortable,
+  IconBordersNone,
+  IconBordersRow,
+  IconBordersAll,
   IconWrap,
   IconStretch,
   IconWidth,
   IconHeight,
   IconGap,
   IconPadding,
+  IconMargin,
   IconBox,
   IconPackage,
   IconCar,
   IconPaw,
   IconZap,
   IconType,
+  IconFontSize,
+  IconFontWeight,
   IconBold,
   IconItalic,
   IconUnderline,
@@ -640,13 +651,15 @@ export type {
   LayersPanelReorderDropPosition,
   LayersPanelSelectMods,
 } from './components/LayersPanel'
-export { TokenPicker } from './components/TokenPicker'
+export { TokenPicker, matchLiteralToTokenOption, optionMatchesLiteral, resolveBrowserPortalTarget } from './components/TokenPicker'
 export type {
   TokenPickerProps,
   TokenPickerOption,
   TokenPickerVariant,
   TokenPickerScope,
 } from './components/TokenPicker'
+export { SplitCraftMenu } from './components/SplitCraftMenu'
+export type { SplitCraftMenuProps } from './components/SplitCraftMenu'
 export { TokenPreview } from './components/TokenPreview'
 export type { TokenPreviewProps, TokenPreviewKind } from './components/TokenPreview'
 export { TokenKindGlyph, tokenKindGlyphId } from './components/TokenKindGlyph'

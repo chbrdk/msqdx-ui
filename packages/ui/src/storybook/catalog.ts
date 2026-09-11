@@ -182,6 +182,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'ComponentPalette', layer: 'Organisms', title: 'Organisms/ComponentPalette', stories: 'components/ComponentPalette.stories.tsx', mdx: 'components/ComponentPalette.mdx' },
   { id: 'LayersPanel', layer: 'Organisms', title: 'Organisms/LayersPanel', stories: 'components/LayersPanel.stories.tsx', mdx: 'components/LayersPanel.mdx' },
   { id: 'TokenPicker', layer: 'Organisms', title: 'Organisms/TokenPicker', stories: 'components/TokenPicker.stories.tsx', mdx: 'components/TokenPicker.mdx' },
+  { id: 'SplitCraftMenu', layer: 'Molecules', title: 'Molecules/SplitCraftMenu', stories: 'components/SplitCraftMenu.stories.tsx', mdx: 'components/SplitCraftMenu.mdx' },
   { id: 'TokenPreview', layer: 'Molecules', title: 'Molecules/TokenPreview', stories: 'components/TokenPreview.stories.tsx', mdx: 'components/TokenPreview.mdx' },
   { id: 'TokenKindGlyph', layer: 'Molecules', title: 'Molecules/TokenKindGlyph', stories: 'components/TokenKindGlyph.stories.tsx', mdx: 'components/TokenKindGlyph.mdx' },
   { id: 'EasingCurveEditor', layer: 'Molecules', title: 'Molecules/EasingCurveEditor', stories: 'components/EasingCurveEditor.stories.tsx', mdx: 'components/EasingCurveEditor.mdx' },

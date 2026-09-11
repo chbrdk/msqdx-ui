@@ -11,8 +11,8 @@ Status: `custom` | `brand`
 | Wave | Source | Contents |
 |------|--------|----------|
 | 1 | `UiIconsCore.tsx` | Chrome core |
-| 2 | `UiIconsWave2.tsx` | Typography, editor, status |
-| 3 | `UiIconsWave3.tsx` | Nav/org, media, layout props, effects |
+| 2 | `UiIconsWave2.tsx` | Typography (`IconType`/`IconText` A, `IconFontSize`, `IconFontWeight` thin A over thick A, Bold/Italic/…), editor, status |
+| 3 | `UiIconsWave3.tsx` | Nav/org, media, layout props (`IconGap`/`IconPadding`/`IconMargin`/`IconRadius`/`IconTableAdd*`/`IconDensity*`/`IconBorders*`), effects. Storybook: Box spacing · Table structure · Table segmented |
 | 4 | `UiIconsWave4.tsx` | Align / Justify matrix |
 | 5 | `UiIconsWave5.tsx` | Platform gaps |
 | 6 | `UiIconsWave6.tsx` | Aliases `IconHamburger`/`IconChat`; `IconMessageCircle`, `IconMessagePlus`, `IconBot`, `IconXCircle` |

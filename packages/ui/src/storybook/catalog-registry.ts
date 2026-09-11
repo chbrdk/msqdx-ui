@@ -116,6 +116,7 @@ import { BreakpointEditor } from '../components/BreakpointEditor'
 import { FontFamilyPicker } from '../components/FontFamilyPicker'
 import { GridEditor } from '../components/GridEditor'
 import { TokenPicker } from '../components/TokenPicker'
+import { SplitCraftMenu } from '../components/SplitCraftMenu'
 import { TokenPreview } from '../components/TokenPreview'
 import { Tooltip } from '../components/Tooltip'
 import { TopStatus } from '../components/TopStatus'
@@ -285,6 +286,7 @@ const CATALOG_COMPONENTS = {
   BreakpointEditor,
   FontFamilyPicker,
   TokenPicker,
+  SplitCraftMenu,
   TokenPreview,
   Tooltip,
   TopStatus,

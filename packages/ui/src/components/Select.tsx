@@ -297,6 +297,8 @@ export function Select({
         aria-activedescendant={activeDesc}
         aria-label={ariaLabel}
         disabled={disabled}
+        // Next App Router can disagree on `useId` between SSR and hydrate for linked apps.
+        suppressHydrationWarning
         onClick={() => (open ? close() : openMenu())}
         onKeyDown={onTriggerKeyDown}
       >

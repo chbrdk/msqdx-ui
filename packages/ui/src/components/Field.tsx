@@ -92,7 +92,7 @@ export function Field({
       )}
     >
       {label != null || icon != null ? (
-        <label className="ds-field-label" htmlFor={id}>
+        <label className="ds-field-label" htmlFor={id} suppressHydrationWarning>
           {icon != null ? (
             <span className="ds-field-icon" aria-hidden>
               {icon}

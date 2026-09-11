@@ -1,3 +1,4 @@
+import { StrictMode } from 'react'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
@@ -107,6 +108,7 @@ describe('Extended primitives', () => {
     const onClose = vi.fn()
     const closeFn = vi.fn(function (this: HTMLDialogElement) {
       this.removeAttribute('open')
+      this.dispatchEvent(new Event('close'))
     })
     HTMLDialogElement.prototype.close = closeFn
     HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
@@ -120,5 +122,40 @@ describe('Extended primitives', () => {
     expect(screen.getByRole('dialog')).toBeTruthy()
     unmount()
     expect(closeFn).toHaveBeenCalled()
+    // Programmatic cleanup close must not notify the host (Strict Mode / conditional mount).
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('Dialog conditional mount open stays open after Strict Mode remount', () => {
+    const onClose = vi.fn()
+    HTMLDialogElement.prototype.showModal = vi.fn(function (this: HTMLDialogElement) {
+      this.setAttribute('open', '')
+    })
+    HTMLDialogElement.prototype.close = vi.fn(function (this: HTMLDialogElement) {
+      this.removeAttribute('open')
+      this.dispatchEvent(new Event('close'))
+    })
+
+    function Host({ open }: { open: boolean }) {
+      if (!open) return null
+      return (
+        <Dialog open onClose={onClose} title="T">
+          Body
+        </Dialog>
+      )
+    }
+
+    const { rerender } = render(
+      <StrictMode>
+        <Host open={false} />
+      </StrictMode>,
+    )
+    rerender(
+      <StrictMode>
+        <Host open />
+      </StrictMode>,
+    )
+    expect(screen.getByRole('dialog')).toBeTruthy()
+    expect(onClose).not.toHaveBeenCalled()
   })
 })

@@ -34,6 +34,7 @@
 - InspectSection: `packages/ui/src/components/InspectSection.tsx` · spec `specs/domain/msqdx-ui-inspect-section.md` · Storybook `Molecules/InspectSection`
 - PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`
+- SplitCraftMenu: `packages/ui/src/components/SplitCraftMenu.tsx` · spec `specs/domain/msqdx-ui-split-craft-menu.md` · CREATION typography host `knowledge/hud-craft-token-menu.md` (creation-v3)
 - TokenPreview: `packages/ui/src/components/TokenPreview.tsx` · Storybook `Molecules/TokenPreview` · used by TokenPicker browser (P77)
 - TokenKindGlyph: `packages/ui/src/components/TokenKindGlyph.tsx` · Storybook `Molecules/TokenKindGlyph` · Token Studio kind metaphors
 - Inspect layout glyphs: `InspectLayoutGlyphs.tsx` + `Extra` + `More` · Storybook `Foundation/Inspect Layout Glyphs` · spec `specs/domain/msqdx-ui-inspect-layout-glyphs.md` · inventory `knowledge/glyph-library.md` · notes `knowledge/inspect-layout-glyphs.md`
@@ -92,7 +93,7 @@
 - Shared shell cutouts: `packages/ui/src/components/ShellCorners.tsx` · `knowledge/components/shell-corner-cutouts.md`
 
 - Field / forms specs: `specs/domain/msqdx-ui-field.md` · `specs/domain/msqdx-ui-forms.md`
-- Extended (Dialog / ConfirmDialog): `specs/domain/msqdx-ui-extended.md`
+- Extended (Dialog / ConfirmDialog): `specs/domain/msqdx-ui-extended.md` · Dialog lifecycle `knowledge/dialog-showmodal-lifecycle.md` · source `packages/ui/src/components/Dialog.tsx`
 - Field CSS: `packages/ui/src/css/field.css`
 - Forms knowledge: `knowledge/forms-edit-wave.md` · `knowledge/msqdx-ui-field.md`
 - AUDION pilot: `/Users/christoph.bordeck/Desktop/GITHUB/audion-v3`

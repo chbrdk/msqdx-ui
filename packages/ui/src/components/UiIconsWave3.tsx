@@ -187,6 +187,8 @@ export function IconWidth(props: IconProps) {
   return icon(
     props,
     <>
+      <path d="M3.25 4.25v7.5" className={`${S} ds-ui-icon__stroke--soft`} />
+      <path d="M12.75 4.25v7.5" className={`${S} ds-ui-icon__stroke--soft`} />
       <path d="M3.25 8h9.5" className={S} />
       <path d="M5.5 5.75 3.25 8 5.5 10.25" className={S} />
       <path d="M10.5 5.75 12.75 8 10.5 10.25" className={S} />
@@ -198,6 +200,8 @@ export function IconHeight(props: IconProps) {
   return icon(
     props,
     <>
+      <path d="M4.25 3.25h7.5" className={`${S} ds-ui-icon__stroke--soft`} />
+      <path d="M4.25 12.75h7.5" className={`${S} ds-ui-icon__stroke--soft`} />
       <path d="M8 3.25v9.5" className={S} />
       <path d="M5.75 5.5 8 3.25 10.25 5.5" className={S} />
       <path d="M5.75 10.5 8 12.75 10.25 10.5" className={S} />
@@ -209,21 +213,53 @@ export function IconGap(props: IconProps) {
   return icon(
     props,
     <>
-      <rect x="2.75" y="4" width="3.5" height="8" rx="0.75" className={F} />
-      <rect x="9.75" y="4" width="3.5" height="8" rx="0.75" className={F} />
-      <path d="M7 6.5v3" className={S} />
-      <path d="M6.25 7.25 7 6.5 7.75 7.25" className={S} />
-      <path d="M6.25 8.75 7 9.5 7.75 8.75" className={S} />
+      {/* Two columns + mid spacing marks — gap craft at HUD size */}
+      <path d="M2.75 3.5v9" className={S} />
+      <path d="M5.25 3.5v9" className={S} />
+      <path d="M10.75 3.5v9" className={S} />
+      <path d="M13.25 3.5v9" className={S} />
+      <path d="M6.5 8h3" className={S} />
+      <path d="M7.15 6.85 8 8l-.85 1.15" className={`${S} ds-ui-icon__stroke--soft`} />
+      <path d="M8.85 6.85 8 8l.85 1.15" className={`${S} ds-ui-icon__stroke--soft`} />
     </>,
   )
 }
 
+/** Inner spacing — solid outer frame, filled inset, ticks point inward. */
 export function IconPadding(props: IconProps) {
   return icon(
     props,
     <>
-      <rect x="2.75" y="2.75" width="10.5" height="10.5" rx="1.25" className={S} />
-      <rect x="5" y="5" width="6" height="6" rx="0.75" className="ds-ui-icon__stroke ds-ui-icon__stroke--soft" />
+      <rect x="2.5" y="2.5" width="11" height="11" rx="1.5" className={S} />
+      <rect x="5.5" y="5.5" width="5" height="5" rx="0.75" className={FS} />
+      {/* Inward ticks from frame toward content */}
+      <path d="M8 3.35v1.55" className={S} />
+      <path d="M8 11.1v1.55" className={S} />
+      <path d="M3.35 8h1.55" className={S} />
+      <path d="M11.1 8h1.55" className={S} />
+    </>,
+  )
+}
+
+/** Outer spacing — dashed ring, hollow content, ticks point outward. */
+export function IconMargin(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect
+        x="1.75"
+        y="1.75"
+        width="12.5"
+        height="12.5"
+        rx="1.25"
+        className={`${S} ds-ui-icon__stroke--dashed`}
+      />
+      <rect x="5" y="5" width="6" height="6" rx="0.75" className={S} />
+      {/* Outward ticks from content toward margin ring */}
+      <path d="M8 3.15v1.35" className={S} />
+      <path d="M8 11.5v1.35" className={S} />
+      <path d="M3.15 8h1.35" className={S} />
+      <path d="M11.5 8h1.35" className={S} />
     </>,
   )
 }
@@ -256,6 +292,112 @@ export function IconColumns(props: IconProps) {
       <rect x="3" y="3" width="2.75" height="10" rx="0.6" className={F} />
       <rect x="6.625" y="3" width="2.75" height="10" rx="0.6" className={F} />
       <rect x="10.25" y="3" width="2.75" height="10" rx="0.6" className={F} />
+    </>,
+  )
+}
+
+/** Append a table body row — grid + bottom highlight + plus. */
+export function IconTableAddRow(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect x="2.5" y="2.75" width="11" height="7.5" rx="1.1" className={S} />
+      <path
+        d="M2.5 5.5h11M2.5 8h11M6.5 2.75v7.5M9.5 2.75v7.5"
+        className={`${S} ds-ui-icon__stroke--soft`}
+      />
+      <path d="M8 11.15v2.6M6.7 12.45h2.6" className={S} />
+    </>,
+  )
+}
+
+/** Append a table column — grid + right highlight + plus. */
+export function IconTableAddColumn(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect x="2.5" y="2.75" width="7.5" height="10.5" rx="1.1" className={S} />
+      <path
+        d="M2.5 6.25h7.5M2.5 9.75h7.5M5.25 2.75v10.5"
+        className={`${S} ds-ui-icon__stroke--soft`}
+      />
+      <path d="M12.15 8h2.6M13.45 6.7v2.6" className={S} />
+    </>,
+  )
+}
+
+/** Table density — compact row rhythm (tight bars). */
+export function IconDensityCompact(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <path d="M3 4.25h10" className={S} />
+      <path d="M3 6.75h10" className={S} />
+      <path d="M3 9.25h10" className={S} />
+      <path d="M3 11.75h10" className={S} />
+    </>,
+  )
+}
+
+/** Table density — default row rhythm. */
+export function IconDensityDefault(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <path d="M3 4h10" className={S} />
+      <path d="M3 8h10" className={S} />
+      <path d="M3 12h10" className={S} />
+    </>,
+  )
+}
+
+/** Table density — comfortable row rhythm (wide bars). */
+export function IconDensityComfortable(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect x="3" y="3.25" width="10" height="2.5" rx="0.6" className={F} />
+      <rect x="3" y="6.75" width="10" height="2.5" rx="0.6" className={F} />
+      <rect x="3" y="10.25" width="10" height="2.5" rx="0.6" className={F} />
+    </>,
+  )
+}
+
+/** Table borders — none (soft empty frame). */
+export function IconBordersNone(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect
+        x="2.75"
+        y="2.75"
+        width="10.5"
+        height="10.5"
+        rx="1.1"
+        className={`${S} ds-ui-icon__stroke--soft`}
+      />
+    </>,
+  )
+}
+
+/** Table borders — row rules only. */
+export function IconBordersRow(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect x="2.75" y="2.75" width="10.5" height="10.5" rx="1.1" className={S} />
+      <path d="M2.75 8h10.5" className={S} />
+    </>,
+  )
+}
+
+/** Table borders — full cell grid. */
+export function IconBordersAll(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <rect x="2.75" y="2.75" width="10.5" height="10.5" rx="1.1" className={S} />
+      <path d="M2.75 8h10.5M8 2.75v10.5" className={S} />
     </>,
   )
 }
@@ -427,9 +569,9 @@ export function IconRadius(props: IconProps) {
   return icon(
     props,
     <>
-      <path d="M3.5 12.5V6.5A3 3 0 016.5 3.5h6" className={S} />
-      <circle cx="6.5" cy="6.5" r="1" className={FS} />
-      <path d="M6.5 6.5 10.5 10.5" className={S} />
+      {/* Sharp top-right + rounded bottom-left — radius craft */}
+      <path d="M3.5 3.5h5.5M12.5 3.5v5.5" className={`${S} ds-ui-icon__stroke--soft`} />
+      <path d="M3.5 3.5v6.5A2.5 2.5 0 006 12.5h6.5" className={S} />
     </>,
   )
 }

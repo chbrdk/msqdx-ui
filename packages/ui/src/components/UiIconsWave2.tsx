@@ -28,15 +28,32 @@ export function IconType(props: IconProps) {
   return icon(
     props,
     <>
-      <path d="M3.5 4.25h9" className={S} />
-      <path d="M8 4.25v8.5" className={S} />
-      <path d="M5.5 12.75h5" className={S} />
+      <path d="M3.25 12.75 8 3.5l4.75 9.25" className={S} />
+      <path d="M5.05 9.35h5.9" className={S} />
     </>,
   )
 }
 
+/** Font family — single A (same metaphor as IconType). */
 export function IconText(props: IconProps) {
   return <IconType {...props} />
+}
+
+/**
+ * Font size — small A + large A on one baseline.
+ * Scale contrast must read at 14px HUD chips.
+ */
+export function IconFontSize(props: IconProps) {
+  return icon(
+    props,
+    <>
+      <path d="M1.4 13.35h13.2" className={`${S} ds-ui-icon__stroke--soft`} />
+      <path d="M2.15 13.2 3.9 8.45 5.65 13.2" className={S} />
+      <path d="M2.85 11.4h2.1" className={S} />
+      <path d="M6.85 13.2 10.85 2.55 14.85 13.2" className={S} />
+      <path d="M8.35 9.15h5" className={S} />
+    </>,
+  )
 }
 
 export function IconBold(props: IconProps) {
@@ -45,6 +62,26 @@ export function IconBold(props: IconProps) {
     <>
       <path d="M4.5 3.5h4.2a2.6 2.6 0 010 5.2H4.5z" className={S} />
       <path d="M4.5 8.7h4.8a2.7 2.7 0 010 5.4H4.5z" className={S} />
+    </>,
+  )
+}
+
+/**
+ * Font weight — same-size A stack: solid thick A half-hidden behind,
+ * hairline A in front (thick A peeks clearly to the right).
+ */
+export function IconFontWeight(props: IconProps) {
+  return icon(
+    props,
+    <>
+      {/* behind: thick A — pushed right so the peek reads clearly */}
+      <path
+        d="M6.55 12.55 10.85 3.2 15.15 12.55h-1.7l-.52-1.8H11.8l-.52 1.8zm2.4-3.25h1.8L10.85 6.2z"
+        className={FS}
+      />
+      {/* front: thin A */}
+      <path d="M1.55 12.85 5.85 3.45l4.3 9.4" className={S} />
+      <path d="M3.25 9.4h5.2" className={S} />
     </>,
   )
 }

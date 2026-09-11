@@ -160,6 +160,9 @@ export function BrandCorner({
             aria-haspopup="menu"
             aria-expanded={menuOpen}
             aria-controls={panelId}
+            // Next + linked DS can disagree on `useId` between SSR and hydrate.
+            // Client ids win after hydrate; panel is closed on first paint.
+            suppressHydrationWarning
             onClick={toggleMenu}
             onKeyDown={onHeaderKeyDown}
           >

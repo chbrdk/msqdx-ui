@@ -33,6 +33,14 @@
 
 Further icons: **on-demand** when an app control needs them — audit app icon imports first.
 
+Typography HUD (2026-09-11): `IconType`/`IconText` = single A; `IconFontSize` = small+large A on a soft baseline; `IconFontWeight` = same-size stack (solid A half-hidden behind, hairline A in front). CREATION HUD chips render glyphs at 1.25rem.
+
+Box spacing HUD (2026-09-11): `IconPadding` = solid element frame + filled inset + **inward** ticks; `IconMargin` = **dashed** outer ring + hollow content + **outward** ticks; `IconGap` = sibling spacing bars. Storybook: Foundation/Icons → **Box spacing**.
+
+Table structure HUD (2026-09-11): `IconTableAddRow` = table grid + bottom plus; `IconTableAddColumn` = table grid + side plus. Storybook: Foundation/Icons → **Table structure**.
+
+Table segmented HUD Wave C (2026-09-11): density = `IconDensityCompact` / `IconDensityDefault` / `IconDensityComfortable`; borders = `IconBordersNone` / `IconBordersRow` / `IconBordersAll`. Storybook: Foundation/Icons → **Table segmented**.
+
 ## Layout glyph add-ons
 
 | Export | IDs |

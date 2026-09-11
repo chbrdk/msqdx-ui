@@ -42,20 +42,84 @@ export type TokenPickerOption = {
   category?: string
 }
 
+function normalizeLiteralCompare(raw: string): string {
+  return raw.trim().toLowerCase().replace(/\s+/g, '')
+}
+
+/** True when a free literal equals an option's display / sample fields. */
+export function optionMatchesLiteral(
+  opt: TokenPickerOption,
+  literal: string,
+  previewKind: TokenPreviewKind = 'auto',
+): boolean {
+  const raw = literal.trim()
+  if (!raw) return false
+  const hex =
+    previewKind === 'color' || previewKind === 'auto' ? normalizeHex(raw) : ''
+  const norm = normalizeLiteralCompare(raw)
+  if (hex && opt.preview) {
+    const optHex = normalizeHex(opt.preview)
+    if (optHex && optHex === hex) return true
+  }
+  if (opt.preview && normalizeLiteralCompare(opt.preview) === norm) return true
+  if (opt.valueLabel && normalizeLiteralCompare(opt.valueLabel) === norm) return true
+  if (opt.fontPreview && normalizeLiteralCompare(opt.fontPreview) === norm) return true
+  // Font rows: role label (e.g. Body) only when this option is a type sample.
+  if (opt.fontPreview && opt.label && normalizeLiteralCompare(opt.label) === norm) return true
+  return false
+}
+
+/**
+ * Find a catalog option whose resolved preview / valueLabel / font sample equals a free literal.
+ * Colors compare via normalizeHex; other kinds via trimmed case-insensitive equality.
+ */
+export function matchLiteralToTokenOption(
+  options: TokenPickerOption[],
+  literal: string,
+  previewKind: TokenPreviewKind = 'auto',
+): TokenPickerOption | undefined {
+  const raw = literal.trim()
+  if (!raw) return undefined
+  // Prefer synthetic literal paths (gf: / sz: / wt:) over Brandion roles with the same sample.
+  const synthetic = options.find(
+    (opt) =>
+      (opt.path.startsWith('gf:') ||
+        opt.path.startsWith('sz:') ||
+        opt.path.startsWith('wt:')) &&
+      optionMatchesLiteral(opt, raw, previewKind),
+  )
+  if (synthetic) return synthetic
+  for (const opt of options) {
+    if (optionMatchesLiteral(opt, raw, previewKind)) return opt
+  }
+  return undefined
+}
+
 function optionStripLabel(opt: TokenPickerOption): string {
   const name = opt.label ?? opt.path
   if (opt.valueLabel) return `${opt.valueLabel} · ${name}`
   return name
 }
 
+type OptionRowLayout = 'columns' | 'swatch' | 'lead'
+
+function optionRowLayout(
+  opt: TokenPickerOption,
+  previewKind: TokenPreviewKind,
+): OptionRowLayout {
+  if (previewKind === 'type' || opt.fontPreview || opt.sampleStyle) return 'lead'
+  if (opt.valueLabel) return 'columns'
+  return 'swatch'
+}
+
 function OptionRowContent({
   opt,
   previewKind,
-  showColumns,
+  layout,
 }: {
   opt: TokenPickerOption
   previewKind: TokenPreviewKind
-  showColumns: boolean
+  layout: OptionRowLayout
 }) {
   const name = opt.label ?? opt.path
   const preview =
@@ -63,10 +127,32 @@ function OptionRowContent({
       <TokenPreview kind={previewKind} value={opt.preview} size="sm" />
     ) : null
 
-  if (!showColumns) {
+  if (layout === 'lead') {
     return (
       <>
-        {preview}
+        <span
+          className={cx(
+            'ds-token-picker__path',
+            'ds-token-picker__path--lead',
+            (opt.fontPreview || opt.sampleStyle) && 'ds-token-picker__path--font',
+          )}
+          style={optionTextStyle(opt)}
+        >
+          {name}
+        </span>
+        {opt.valueLabel ? (
+          <span className="ds-token-picker__value">{opt.valueLabel}</span>
+        ) : null}
+      </>
+    )
+  }
+
+  if (layout === 'swatch') {
+    return (
+      <>
+        <span className="ds-token-picker__preview-slot" aria-hidden>
+          {preview}
+        </span>
         <span
           className={cx(
             'ds-token-picker__path',
@@ -74,7 +160,7 @@ function OptionRowContent({
           )}
           style={optionTextStyle(opt)}
         >
-          {optionStripLabel(opt)}
+          {name}
         </span>
       </>
     )
@@ -168,6 +254,15 @@ export type TokenPickerProps = {
   onPromoteLiteral?: () => void
   /** Accessible name for the promote control (defaults to “Save as token”). */
   promoteLiteralLabel?: string
+  /** Leading list/browser promote row label (default “Add your own token”). */
+  listPromoteLabel?: string
+  /**
+   * Sticky “Current …” row above the option list (default true).
+   * Set false when the host already shows the active value (e.g. HUD menu head).
+   */
+  showActiveHeader?: boolean
+  /** When true with `compact` + `browser`, open the browser on mount. */
+  defaultOpen?: boolean
   /**
    * When the search query is empty, cap how many options render (large catalogs).
    * Searching shows the full filtered set.
@@ -277,6 +372,9 @@ export function TokenPicker({
   literalTestId,
   onPromoteLiteral,
   promoteLiteralLabel = 'Save as token',
+  listPromoteLabel = 'Add your own token',
+  showActiveHeader = true,
+  defaultOpen = false,
   emptyQueryCap,
   browserPortalTarget,
   ...rest
@@ -290,6 +388,11 @@ export function TokenPicker({
   const showPromote = Boolean(
     allowLiteral && onPromoteLiteral && !literalReadOnly && !value && String(literalValue).trim(),
   )
+  const activeDisplay = value
+    ? displayText
+    : String(literalValue).trim()
+      ? String(literalValue).trim()
+      : emptyLabel
   const colorEditor = Boolean(allowLiteral && previewKind === 'color')
   const colorFillCss = (() => {
     if (!colorEditor) return ''
@@ -322,7 +425,7 @@ export function TokenPicker({
   const showClear = Boolean(onClear && (value || (allowLiteral && literalValue)))
   const compact = variant === 'compact'
   const useBrowser = compact && browser
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(() => Boolean(defaultOpen && compact && browser))
   const [query, setQuery] = useState('')
   const [activeIndex, setActiveIndex] = useState(0)
   const [scopeInternal, setScopeInternal] = useState(scopes?.[0]?.id ?? 'suggested')
@@ -347,6 +450,20 @@ export function TokenPicker({
   const triggerRef = useRef<HTMLButtonElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
+  /** Skip strip blur-commit while an option pick is in flight (mousedown→click / unmount). */
+  const pickingRef = useRef(false)
+
+  const isOptionSelected = useCallback(
+    (opt: TokenPickerOption) => {
+      if (value === opt.path) return true
+      // Unbound literal that matches a sample (e.g. Google `gf:` face) stays highlighted.
+      if (!value && allowLiteral && optionMatchesLiteral(opt, literalValue, previewKind)) {
+        return true
+      }
+      return false
+    },
+    [value, allowLiteral, literalValue, previewKind],
+  )
 
   const activeScope = scopeProp ?? scopeInternal
 
@@ -575,6 +692,7 @@ export function TokenPicker({
   }
 
   const pick = (path: string | null) => {
+    pickingRef.current = true
     if (path == null) onClear?.()
     else {
       onChange?.(path)
@@ -584,7 +702,33 @@ export function TokenPicker({
       setOpen(false)
       setQuery('')
     }
+    // After React commit/unmount blur — queueMicrotask is too early and lets blur overwrite the pick.
+    window.setTimeout(() => {
+      pickingRef.current = false
+    }, 0)
   }
+
+  const onOptionMouseDown = (e: ReactMouseEvent) => {
+    // Keep strip input from blurring before click — blur would recommit the old value.
+    e.preventDefault()
+  }
+
+  const commitLiteral = useCallback(
+    (raw: string) => {
+      const matched = matchLiteralToTokenOption(options, raw, previewKind)
+      if (matched) {
+        onChange?.(matched.path)
+        pushRecent(matched.path)
+        if (compact) {
+          setOpen(false)
+          setQuery('')
+        }
+        return
+      }
+      onLiteralChange?.(raw)
+    },
+    [options, previewKind, onChange, onLiteralChange, pushRecent, compact],
+  )
 
   const onListKeyDown = (e: ReactKeyboardEvent) => {
     if (!visibleOptions.length) return
@@ -615,6 +759,41 @@ export function TokenPicker({
       previewKind === 'shadow' ||
       previewKind === 'type')
 
+  const activeHeader = showActiveHeader ? (
+    <div className="ds-token-picker__active" data-testid="token-picker-active">
+      <span className="ds-token-picker__active-label">Current</span>
+      <span className="ds-token-picker__active-value">{activeDisplay}</span>
+      {showPromote ? (
+        <button
+          type="button"
+          className="ds-token-picker__promote ds-token-picker__promote--inline"
+          aria-label={promoteLiteralLabel}
+          title={promoteLiteralLabel}
+          data-testid="token-picker-active-promote"
+          onClick={() => onPromoteLiteral?.()}
+        >
+          +
+        </button>
+      ) : null}
+    </div>
+  ) : null
+
+  const listPromoteRow = showPromote ? (
+    <button
+      type="button"
+      role="option"
+      aria-selected={false}
+      className="ds-token-picker__option ds-token-picker__option--promote"
+      data-testid="token-picker-list-promote"
+      onClick={() => onPromoteLiteral?.()}
+    >
+      <span className="ds-token-picker__promote-glyph" aria-hidden>
+        +
+      </span>
+      <span className="ds-token-picker__path">{listPromoteLabel}</span>
+    </button>
+  ) : null
+
   const flatList = (
     <ul
       className="ds-token-picker__list"
@@ -622,13 +801,19 @@ export function TokenPicker({
       aria-label={ariaLabel}
       hidden={compact && !open}
     >
+      {(open || !compact) && activeHeader ? <li className="ds-token-picker__active-wrap">{activeHeader}</li> : null}
+      {listPromoteRow ? <li>{listPromoteRow}</li> : null}
       {allowNone ? (
         <li>
           <button
             type="button"
             role="option"
-            aria-selected={!value}
-            className={cx('ds-token-picker__option', !value && 'ds-token-picker__option--selected')}
+            aria-selected={!value && !String(literalValue).trim()}
+            className={cx(
+              'ds-token-picker__option',
+              !value && !String(literalValue).trim() && 'ds-token-picker__option--selected',
+            )}
+            onMouseDown={onOptionMouseDown}
             onClick={() => pick(null)}
           >
             <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
@@ -637,7 +822,7 @@ export function TokenPicker({
         </li>
       ) : null}
       {options.map((opt) => {
-        const selected = value === opt.path
+        const selected = isOptionSelected(opt)
         return (
           <li key={opt.path}>
             <button
@@ -648,6 +833,7 @@ export function TokenPicker({
                 'ds-token-picker__option',
                 selected && 'ds-token-picker__option--selected',
               )}
+              onMouseDown={onOptionMouseDown}
               onClick={() => pick(opt.path)}
             >
               {opt.preview ? (
@@ -719,6 +905,7 @@ export function TokenPicker({
                   key={p}
                   type="button"
                   className="ds-token-picker__recent-chip"
+                  onMouseDown={onOptionMouseDown}
                   onClick={() => pick(p)}
                 >
                   {opt.preview && previewKind === 'color' ? (
@@ -737,12 +924,15 @@ export function TokenPicker({
         role="listbox"
         aria-label={ariaLabel}
       >
+        {activeHeader}
+        {listPromoteRow}
         {filtered.length === 0 ? (
           <p className="ds-token-picker__empty-msg">No matching tokens</p>
         ) : (
           visibleOptions.map((opt, i) => {
-            const selected = value === opt.path
+            const selected = isOptionSelected(opt)
             const highlight = i === activeIndex
+            const layout = optionRowLayout(opt, previewKind)
             return (
               <button
                 key={opt.path}
@@ -752,14 +942,17 @@ export function TokenPicker({
                 aria-label={optionStripLabel(opt)}
                 className={cx(
                   'ds-token-picker__option',
-                  'ds-token-picker__option--columns',
+                  layout === 'columns' && 'ds-token-picker__option--columns',
+                  layout === 'swatch' && 'ds-token-picker__option--swatch',
+                  layout === 'lead' && 'ds-token-picker__option--lead',
                   selected && 'ds-token-picker__option--selected',
                   highlight && 'ds-token-picker__option--highlight',
                 )}
+                onMouseDown={onOptionMouseDown}
                 onClick={() => pick(opt.path)}
                 onMouseEnter={() => setActiveIndex(i)}
               >
-                <OptionRowContent opt={opt} previewKind={previewKind} showColumns />
+                <OptionRowContent opt={opt} previewKind={previewKind} layout={layout} />
               </button>
             )
           })
@@ -775,11 +968,12 @@ export function TokenPicker({
           <button
             type="button"
             role="option"
-            aria-selected={!value}
+            aria-selected={!value && !String(literalValue).trim()}
             className={cx(
               'ds-token-picker__option',
-              !value && 'ds-token-picker__option--selected',
+              !value && !String(literalValue).trim() && 'ds-token-picker__option--selected',
             )}
+            onMouseDown={onOptionMouseDown}
             onClick={() => pick(null)}
           >
             <span className="ds-token-picker__swatch ds-token-picker__swatch--empty" aria-hidden />
@@ -843,7 +1037,7 @@ export function TokenPicker({
                     embedded
                     showTrigger={false}
                     aria-label={`${label} color`}
-                    onChange={(hex) => onLiteralChange?.(hex)}
+                    onChange={(hex) => commitLiteral(hex)}
                   />
                 </aside>
                 <div className="ds-token-picker__browser-tokens">{browserTokens}</div>
@@ -975,9 +1169,20 @@ export function TokenPicker({
               }}
               onChange={(e) => setLiteralDraft(e.target.value)}
               onBlur={(e) => {
+                if (pickingRef.current) {
+                  setLiteralDraft(null)
+                  return
+                }
+                const related = e.relatedTarget as Node | null
+                if (related && rootRef.current?.contains(related)) {
+                  setLiteralDraft(null)
+                  return
+                }
                 const raw = e.currentTarget.value
                 setLiteralDraft(null)
-                onLiteralChange?.(raw)
+                // Focus+blur without edits (or unmount after pick) must not rewrite the bound value.
+                if (raw === stripInputValue) return
+                commitLiteral(raw)
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -1006,7 +1211,7 @@ export function TokenPicker({
                 open={standaloneColorOpen}
                 onOpenChange={setStandaloneColorOpen}
                 aria-label={`${label} color`}
-                onChange={(hex) => onLiteralChange?.(hex)}
+                onChange={(hex) => commitLiteral(hex)}
               />
             ) : null}
           </>

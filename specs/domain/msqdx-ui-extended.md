@@ -1,8 +1,8 @@
 # MSQ DX v2 — Extended primitives (complete the DS bar)
 
-**Status:** Accepted — 2026-07-28 · Amended 2026-07-29 (`ConfirmDialog`)  
+**Status:** Accepted — 2026-07-28 · Amended 2026-07-29 (`ConfirmDialog`) · Amended 2026-09-11 (`Dialog` quiet programmatic close)  
 **ADR:** 0028 §20  
-**Knowledge:** `knowledge/msqdx-ui-completeness.md`  
+**Knowledge:** `knowledge/msqdx-ui-completeness.md` · `knowledge/dialog-showmodal-lifecycle.md`  
 **Implements:** Divider, Checkbox, Switch, Tabs, Skeleton, Spinner, Tooltip, Dialog, ConfirmDialog under `packages/ui/src/components/` · CSS `css/extended.css` (+ forms in `field.css`)
 
 ## Goals
@@ -28,7 +28,7 @@
 | `Skeleton` | pulse placeholder (honors reduced-motion) |
 | `Spinner` | compact busy indicator |
 | `Tooltip` | hover/focus tip; portal + fixed placement (tight above, flip below only when needed); sentence case |
-| `Dialog` | native `<dialog>` modal shell |
+| `Dialog` | native `<dialog>` modal shell · effect cleanup MUST `close()` to clear top-layer, but MUST NOT call host `onClose` for that programmatic close (Strict Mode / conditional mount race) |
 | `ConfirmDialog` | Dialog + cancel/confirm actions · `msqdx-ui-forms.md` |
 | `Avatar` / `Toast` / `DataTable` | Wave E — `msqdx-ui-feedback-data.md` |
 

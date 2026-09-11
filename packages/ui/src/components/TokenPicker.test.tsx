@@ -3,7 +3,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { TokenPicker } from './TokenPicker'
+import { TokenPicker, matchLiteralToTokenOption } from './TokenPicker'
 
 afterEach(() => {
   cleanup()
@@ -427,8 +427,50 @@ describe('TokenPicker', () => {
       expect(option.querySelector('.ds-token-picker__path')).toHaveTextContent('padding.sm')
       const css = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '../css/components.css'), 'utf8')
       expect(css).toContain('.ds-token-picker__option--columns')
-      expect(css).toContain('grid-template-columns: 1rem 4.75rem minmax(0, 1fr)')
+      expect(css).toContain('grid-template-columns: 1.25rem 4.5rem minmax(0, 1fr)')
       expect(css).toContain('align-content: start')
+    })
+
+    it('leads type/font rows with the label (no empty value column)', () => {
+      render(
+        <TokenPicker
+          label="Font"
+          browser
+          options={[
+            {
+              path: 'gf:DM Sans',
+              label: 'DM Sans',
+              category: 'google',
+              fontPreview: 'DM Sans',
+            },
+          ]}
+          value={null}
+          scopes={[{ id: 'all', label: 'All' }]}
+          previewKind="type"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const option = screen.getByRole('option', { name: 'DM Sans' })
+      expect(option).toHaveClass('ds-token-picker__option--lead')
+      expect(option).not.toHaveClass('ds-token-picker__option--columns')
+      expect(option.querySelector('.ds-token-picker__path--lead')).toHaveTextContent('DM Sans')
+    })
+
+    it('uses swatch+path rows for color without valueLabel', () => {
+      render(
+        <TokenPicker
+          label="Color"
+          browser
+          options={[{ path: 'color.primary', label: 'Primary', preview: '#112233', category: 'color' }]}
+          value={null}
+          scopes={[{ id: 'all', label: 'All' }]}
+          previewKind="color"
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      const option = screen.getByRole('option', { name: 'Primary' })
+      expect(option).toHaveClass('ds-token-picker__option--swatch')
+      expect(option).not.toHaveClass('ds-token-picker__option--columns')
     })
 
     it('exposes resize handles and grows width on drag', () => {
@@ -477,7 +519,7 @@ describe('TokenPicker', () => {
       expect(screen.getByRole('option', { name: /space.md/ })).toBeInTheDocument()
     })
 
-    it('color options use the same columnar list as other kinds', () => {
+    it('color options with valueLabel keep columnar rows', () => {
       const onChange = vi.fn()
       render(
         <TokenPicker
@@ -551,6 +593,162 @@ describe('TokenPicker', () => {
       fireEvent.click(screen.getByTestId('token-picker-trigger'))
       const browser = screen.getByTestId('token-picker-browser')
       expect(browser.parentElement?.classList.contains('ds-dialog')).toBe(true)
+    })
+
+    it('shows Current header and list promote for unbound literal', () => {
+      const onPromote = vi.fn()
+      render(
+        <TokenPicker
+          label="Fill"
+          browser
+          allowLiteral
+          previewKind="color"
+          options={[{ path: 'color.accent', label: 'accent', preview: '#224455', category: 'color' }]}
+          value={null}
+          literalValue="#ff0000"
+          onPromoteLiteral={onPromote}
+          listPromoteLabel="Add your own token"
+          scopes={[{ id: 'all', label: 'All' }]}
+        />,
+      )
+      fireEvent.click(screen.getByTestId('token-picker-trigger'))
+      expect(screen.getByTestId('token-picker-active')).toHaveTextContent('#ff0000')
+      fireEvent.click(screen.getByTestId('token-picker-list-promote'))
+      expect(onPromote).toHaveBeenCalled()
+    })
+
+    it('hides Current header when showActiveHeader is false', () => {
+      render(
+        <TokenPicker
+          allowLiteral
+          options={[{ path: 'color.accent', preview: '#f00' }]}
+          value="color.accent"
+          variant="list"
+          showActiveHeader={false}
+        />,
+      )
+      expect(screen.queryByTestId('token-picker-active')).toBeNull()
+    })
+  })
+
+  describe('literal match', () => {
+    it('matchLiteralToTokenOption matches hex preview', () => {
+      const hit = matchLiteralToTokenOption(
+        [{ path: 'color.accent', preview: '#224455' }],
+        '#224455',
+        'color',
+      )
+      expect(hit?.path).toBe('color.accent')
+    })
+
+    it('matchLiteralToTokenOption matches fontPreview (Google faces)', () => {
+      const hit = matchLiteralToTokenOption(
+        [
+          { path: 'typography.body.family', label: 'Body', fontPreview: 'Noto Sans JP' },
+          { path: 'gf:Inter', label: 'Inter', fontPreview: 'Inter', category: 'google' },
+        ],
+        'Inter',
+        'type',
+      )
+      expect(hit?.path).toBe('gf:Inter')
+    })
+
+    it('blur binds matching literal via onChange instead of onLiteralChange', () => {
+      const onChange = vi.fn()
+      const onLiteralChange = vi.fn()
+      render(
+        <TokenPicker
+          label="Fill"
+          allowLiteral
+          previewKind="color"
+          options={[{ path: 'color.accent', label: 'accent', preview: '#224455' }]}
+          value={null}
+          literalValue=""
+          onChange={onChange}
+          onLiteralChange={onLiteralChange}
+          variant="list"
+        />,
+      )
+      const input = screen.getByLabelText('Fill')
+      fireEvent.focus(input)
+      fireEvent.change(input, { target: { value: '#224455' } })
+      fireEvent.blur(input)
+      expect(onChange).toHaveBeenCalledWith('color.accent')
+      expect(onLiteralChange).not.toHaveBeenCalled()
+    })
+
+    it('unbound font literal keeps Google option selected', () => {
+      render(
+        <TokenPicker
+          allowLiteral
+          previewKind="type"
+          options={[
+            { path: 'typography.body.family', label: 'Body', fontPreview: 'Noto Sans JP' },
+            { path: 'gf:Inter', label: 'Inter', fontPreview: 'Inter' },
+          ]}
+          value={null}
+          literalValue="Inter"
+          variant="list"
+        />,
+      )
+      const inter = screen.getByRole('option', { name: /^Inter$/ })
+      expect(inter).toHaveAttribute('aria-selected', 'true')
+      const body = screen.getByRole('option', { name: /^Body$/ })
+      expect(body).toHaveAttribute('aria-selected', 'false')
+    })
+
+    it('picking an option after focusing the strip does not recommit the old literal', () => {
+      const onChange = vi.fn()
+      const onLiteralChange = vi.fn()
+      render(
+        <TokenPicker
+          label="Font"
+          allowLiteral
+          previewKind="type"
+          options={[
+            { path: 'typography.body.family', label: 'Body', fontPreview: 'Noto Sans JP' },
+            { path: 'gf:Inter', label: 'Inter', fontPreview: 'Inter' },
+          ]}
+          value="typography.body.family"
+          literalValue=""
+          onChange={onChange}
+          onLiteralChange={onLiteralChange}
+          variant="list"
+        />,
+      )
+      const input = screen.getByLabelText('Font')
+      fireEvent.focus(input)
+      const inter = screen.getByRole('option', { name: /^Inter$/ })
+      fireEvent.mouseDown(inter)
+      fireEvent.click(inter)
+      expect(onChange).toHaveBeenCalledWith('gf:Inter')
+      expect(onLiteralChange).not.toHaveBeenCalled()
+    })
+
+    it('blur without edits does not recommit the bound strip label', () => {
+      const onChange = vi.fn()
+      const onLiteralChange = vi.fn()
+      render(
+        <TokenPicker
+          label="Size"
+          allowLiteral
+          previewKind="type"
+          options={[
+            { path: 'typography.body.family', label: 'Body', preview: '0.78rem' },
+            { path: 'sz:16px', label: '16px' },
+          ]}
+          value="typography.body.family"
+          literalValue=""
+          onChange={onChange}
+          onLiteralChange={onLiteralChange}
+          variant="list"
+        />,
+      )
+      const input = screen.getByLabelText('Size')
+      fireEvent.focus(input)
+      fireEvent.blur(input)
+      expect(onChange).not.toHaveBeenCalled()
+      expect(onLiteralChange).not.toHaveBeenCalled()
     })
   })
 })

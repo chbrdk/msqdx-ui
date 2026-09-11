@@ -57,7 +57,10 @@ Compact control to **bind a property to a token path**. Default mode: values are
 | `emptyQueryCap` | When search is empty, cap visible options (large catalogs); typing shows full filter |
 | `browserPortalTarget` | Optional portal mount for browser mode. Default: nearest `<dialog>` ancestor, else `document.body` (keeps browser above native modal top layer). |
 | `onPromoteLiteral` | Optional Plus control when unbound literal is set (app owns Brandion create/bind) |
-| `promoteLiteralLabel` | Accessible label for promote (default `Save as token`) |
+| `promoteLiteralLabel` | Accessible label for strip `+` (default `Save as token`) |
+| `listPromoteLabel` | Label for the leading list/browser promote row (default `Add your own token`) |
+| `defaultOpen` | When true with `compact` + `browser`, open the browser on mount |
+| `matchLiteralToTokenOption` | **Exported helper** — find an option whose `preview` / `valueLabel` equals a literal (hex-normalized for color) |
 
 ### Color editor (hybrid + `previewKind === 'color'`)
 
@@ -101,7 +104,11 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
    - **Hybrid + color + browser:** one combined floating panel (color editor | token list); swatch and browse both open it.
 3. **Option surface**
    - **compact (default, `browser=false`):** flat list popover from the strip.
-   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, then a **columnar list** for every scope/kind (preview · `valueLabel` · name). Panel size is fixed across scopes (default 300×380; resizable via E/S/SE; clamps ~240–720); list body scrolls inside (`flex: 1 1 0`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
+   - **compact + `browser`:** portaled floating panel — header (grip + `contextTitle`), search, scope tabs, Recent chip row, then a **unified option list** (shared min-height / vertical padding). Row layouts:
+     - **`columns`** — when `valueLabel` is set (preview · value · name)
+     - **`swatch`** — color/length without valueLabel (preview · name)
+     - **`lead`** — type/font (`previewKind="type"` or `fontPreview` / `sampleStyle`): label flush left in the face, optional value on the right
+   - Search + list-cap / empty messages use compact type (`0.625rem`). Panel size is fixed across scopes (default 300×380; resizable via E/S/SE; clamps ~240–720); list body scrolls inside (`flex: 1 1 0`). Header is pointer-draggable; Escape closes; Arrow/Enter navigate/select.
    - **list:** always visible under the strip (Storybook / debug).
 
 ### Cycle behaviour (`allowCycle`)
@@ -117,12 +124,31 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 - Scope `all` → all `options`.
 - Recent: picking a path prepends it via `onRecentPathsChange`; Recent chips pick without leaving browser.
 
+### Active value + promote in list (2026-09-11)
+
+WENN the option surface is open (flat list or browser) AND `showActiveHeader` is not `false` (default true), DANN MUST it show a sticky **Current** header with the bound token label or unbound `literalValue` (else `emptyLabel`).
+
+WENN the host already shows the active value (e.g. CREATION HUD menu head), DANN MAY set `showActiveHeader={false}` so the list does not duplicate **Current**.
+
+WENN `showPromote` (unbound non-empty literal + `onPromoteLiteral`), DANN MUST the list/browser also show a leading **Add your own token** row (`listPromoteLabel`) that calls `onPromoteLiteral` — in addition to the strip `+`.
+
+WENN the designer commits a literal (strip blur / Enter, or color-editor pick) AND `matchLiteralToTokenOption(options, literal)` finds a match, DANN MUST TokenPicker call `onChange(path)` (bind) instead of `onLiteralChange`. Else keep `onLiteralChange` and show promote when unbound.
+
+**Literal↔option match (2026-09-11):** Match `preview` / `valueLabel` (colors via `normalizeHex`), plus `fontPreview` and font-row `label` when `fontPreview` is set (Google faces / type samples).
+
+WENN the designer commits a literal (strip blur / Enter, or color-editor pick) AND the strip value is **unchanged** from the current bound/literal display, DANN MUST TokenPicker skip commit (no `onChange` / `onLiteralChange`).
+
+WENN an option is picked, DANN MUST strip blur during the same gesture (including popover unmount) be ignored via pick-in-flight guard (cleared on `setTimeout(0)`, not `queueMicrotask`).
+
+**Unbound selection:** WENN `value` is empty AND `allowLiteral` AND the literal matches an option sample, DANN that option MUST stay `aria-selected` (Google font picks must not look “reset”).
+
 ## Rules
 
 - `onChange` MUST only emit `option.path` strings present in `options`.
 - Clear MUST go through `onClear` (not `onChange('')`).
 - Free-text CSS only when `allowLiteral` — via `onLiteralChange`, never as a fake token path.
 - Browser search filters display only — does not invent paths.
+- Literal→token match MUST prefer exact `preview` / `valueLabel` (color via `normalizeHex`), then `fontPreview` / font `label`; MUST NOT invent paths.
 
 ## Accessibility
 
@@ -135,7 +161,7 @@ Kind-aware chip used inside browser options / strip: color swatch, spacing bar, 
 ## Acceptance
 
 1. Stories: Default, WithClear, AllowNone, DenseList, WithCycle, FontFamily, **Browser**, **BrowserColorList**, **WithLiteral**.
-2. Tests: select path; clear; none; cycle; compact popover; browser search/scope/pick; color columnar list; keyboard; drag header present; empty strip shows `emptyLabel`; with `allowLiteral`: typing fires `onLiteralChange`, pick still fires `onChange`, default mode still has no free-text input.
+2. Tests: select path; clear; none; cycle; compact popover; browser search/scope/pick; color columnar list; keyboard; drag header present; empty strip shows `emptyLabel`; with `allowLiteral`: typing fires `onLiteralChange`, pick still fires `onChange`, default mode still has no free-text input; literal matching existing preview binds via `onChange`; list promote row when unbound literal; Current header present when list open.
 3. Consuming apps import `TokenPicker` / `TokenPreview` / `TokenKindGlyph` from `@msqdx/ui`.
 
 ## TokenKindGlyph (studio chrome)
