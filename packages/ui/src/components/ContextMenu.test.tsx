@@ -95,4 +95,17 @@ describe('ContextMenu', () => {
     expect(screen.getByRole('separator')).toBeInTheDocument()
     expect(screen.getByRole('menuitem', { name: 'Infos' })).toBeInTheDocument()
   })
+
+  it('forwards optional item testId', () => {
+    render(
+      <ContextMenu
+        open
+        x={0}
+        y={0}
+        onClose={() => undefined}
+        items={[{ id: 'go', label: 'Go', testId: 'cm-go', onSelect: vi.fn() }]}
+      />,
+    )
+    expect(screen.getByTestId('cm-go')).toHaveAttribute('role', 'menuitem')
+  })
 })

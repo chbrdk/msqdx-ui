@@ -22,6 +22,8 @@ type ContextMenuItem = {
   danger?: boolean
   /** Optional leading icon (app supplies `@msqdx/ui` Icon*). */
   icon?: ReactNode
+  /** Optional `data-testid` on the menuitem button (e.g. editor topbar menus). */
+  testId?: string
   /** Hairline rule before this row. */
   separator?: boolean
   /** Non-interactive group label (uses `label`; skips keyboard activation). */
