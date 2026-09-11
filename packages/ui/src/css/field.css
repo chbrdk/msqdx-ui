@@ -344,6 +344,13 @@
   box-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 12%, transparent);
 }
 
+/* Portaled menu — escapes overflow:hidden / overflow-x:auto ancestors (e.g. canvas HUD). */
+.ds-select-menu--portal {
+  position: fixed;
+  min-width: 0;
+  max-width: min(18rem, calc(100vw - 1rem));
+}
+
 .ds-select-option {
   display: block;
   margin: 0;

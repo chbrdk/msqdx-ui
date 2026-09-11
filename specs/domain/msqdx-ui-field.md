@@ -41,6 +41,7 @@
 
 - Trigger: `role="combobox"` · `aria-haspopup="listbox"` · `aria-expanded` · `aria-controls` · `aria-activedescendant` when open
 - Popup: `role="listbox"` · options `role="option"` · `aria-selected`
+- Menu **portals to `document.body`** with `position: fixed` (class `ds-select-menu--portal`) so overflow ancestors (toolbars, rails, HUD) cannot clip it; opens above when space below is tight.
 - Keyboard: Enter/Space/↓ open · ↑/↓ move · Enter/Space choose · Esc close · Home/End
 - Pointer: click outside closes; choose closes
 - **No** native `<select>` in product filter/form dropdowns
