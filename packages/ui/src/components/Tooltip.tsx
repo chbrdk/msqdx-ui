@@ -38,6 +38,11 @@ function measureSize(el: HTMLElement): { width: number; height: number } {
   return { width, height }
 }
 
+function placementEqual(a: Placement | null, b: Placement): boolean {
+  if (!a) return false
+  return a.top === b.top && a.left === b.left && a.width === b.width
+}
+
 function computePlacement(
   anchor: DOMRect,
   tipW: number,
@@ -80,12 +85,15 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
   const anchorRef = useRef<HTMLSpanElement>(null)
   const bubbleRef = useRef<HTMLSpanElement>(null)
   const [placement, setPlacement] = useState<Placement | null>(null)
+  const placementRef = useRef<Placement | null>(null)
+  const rafRef = useRef<number | null>(null)
 
   function show() {
     setOpen(true)
   }
   function hide() {
     setOpen(false)
+    placementRef.current = null
     setPlacement(null)
   }
 
@@ -109,7 +117,17 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
     const second = measureSize(bubble)
     next = computePlacement(anchor, second.width || next.width, second.height || first.height, vw, vh)
 
+    if (placementEqual(placementRef.current, next)) return
+    placementRef.current = next
     setPlacement(next)
+  }
+
+  function schedulePlace() {
+    if (rafRef.current != null) return
+    rafRef.current = requestAnimationFrame(() => {
+      rafRef.current = null
+      place()
+    })
   }
 
   useLayoutEffect(() => {
@@ -119,12 +137,15 @@ export function Tooltip({ content, children, className, ...rest }: TooltipProps)
   useLayoutEffect(() => {
     if (!open) return
     place()
-    const raf = requestAnimationFrame(() => place())
-    const onReposition = () => place()
-    window.addEventListener('scroll', onReposition, true)
-    window.addEventListener('resize', onReposition)
+    schedulePlace()
+    const onReposition = () => schedulePlace()
+    window.addEventListener('scroll', onReposition, { capture: true, passive: true })
+    window.addEventListener('resize', onReposition, { passive: true })
     return () => {
-      cancelAnimationFrame(raf)
+      if (rafRef.current != null) {
+        cancelAnimationFrame(rafRef.current)
+        rafRef.current = null
+      }
       window.removeEventListener('scroll', onReposition, true)
       window.removeEventListener('resize', onReposition)
     }

@@ -27,7 +27,7 @@
 | `Tabs` | tablist + panels (controlled) |
 | `Skeleton` | pulse placeholder (honors reduced-motion) |
 | `Spinner` | compact busy indicator |
-| `Tooltip` | hover/focus tip; portal + fixed placement (tight above, flip below only when needed); sentence case |
+| `Tooltip` | hover/focus tip; portal + fixed placement (tight above, flip below only when needed); sentence case; **while open**, scroll/resize reposition MUST be `passive` + rAF-coalesced (no sync layout thrash per scroll event) |
 | `Dialog` | native `<dialog>` modal shell · effect cleanup MUST `close()` to clear top-layer, but MUST NOT call host `onClose` for that programmatic close (Strict Mode / conditional mount race) |
 | `ConfirmDialog` | Dialog + cancel/confirm actions · `msqdx-ui-forms.md` |
 | `Avatar` / `Toast` / `DataTable` | Wave E — `msqdx-ui-feedback-data.md` |
