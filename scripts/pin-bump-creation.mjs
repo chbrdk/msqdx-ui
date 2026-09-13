@@ -25,7 +25,7 @@ export function bumpCreationPin({ dockerfile, pathsTs, sha }) {
   if (!DOCKER_PIN_RE.test(dockerPrev)) {
     throw new Error(`Dockerfile missing ARG MSQDX_UI_REF=<sha>: ${dockerfile}`)
   }
-  const dockerNext = dockerPrev.replace(DOCKER_PIN_RE, `$1${next}`)
+  const dockerNext = dockerPrev.replace(new RegExp(DOCKER_PIN_RE.source, 'gim'), `$1${next}`)
   const pathsPrev = readFileSync(pathsTs, 'utf8')
   if (!PATHS_PIN_RE.test(pathsPrev)) {
     throw new Error(`paths.ts missing msqdxUiRefDefault SHA: ${pathsTs}`)
