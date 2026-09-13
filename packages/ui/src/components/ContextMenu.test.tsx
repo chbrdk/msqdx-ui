@@ -34,10 +34,28 @@ describe('ContextMenu', () => {
       />,
     )
     const menu = screen.getByRole('menu')
+    expect(menu).toHaveClass('ds-context-menu--portal')
+    expect(menu).toHaveAttribute('data-testid', 'ds-context-menu-portal')
+    expect(document.body.contains(menu)).toBe(true)
     expect(menu).toHaveStyle({ left: '40px', top: '60px' })
     fireEvent.click(screen.getByRole('menuitem', { name: 'Go' }))
     expect(onSelect).toHaveBeenCalledOnce()
     expect(onClose).toHaveBeenCalledOnce()
+  })
+
+  it('ignores outside close when pressing the anchor trigger', () => {
+    const onClose = vi.fn()
+    const anchor = document.createElement('button')
+    document.body.appendChild(anchor)
+    const anchorRef = { current: anchor }
+    render(
+      <ContextMenu open x={0} y={0} onClose={onClose} items={items()} anchorRef={anchorRef} />,
+    )
+    fireEvent.mouseDown(anchor)
+    expect(onClose).not.toHaveBeenCalled()
+    fireEvent.mouseDown(document.body)
+    expect(onClose).toHaveBeenCalled()
+    anchor.remove()
   })
 
   it('closes on Escape and outside click', () => {

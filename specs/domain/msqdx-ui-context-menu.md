@@ -40,14 +40,19 @@ type ContextMenuProps = {
   /** Accessible name for the menu. */
   label?: string
   className?: string
+  /**
+   * Optional trigger element. Outside-close MUST ignore presses inside it
+   * so icon toggles do not race open → close.
+   */
+  anchorRef?: RefObject<HTMLElement | null>
 }
 ```
 
-Controlled only. Portal-free: `position: fixed` at `(x, y)`. WHEN `open` becomes true THEN focus the first enabled **action** item (skip `section` rows).
+Controlled only. **MUST** portal to `document.body` with `position: fixed` at `(x, y)` (clamp into the viewport) so ancestor `transform` / `backdrop-filter` cannot retarget coordinates — same pattern as Select / Tooltip. WHEN `open` becomes true THEN focus the first enabled **action** item (skip `section` rows).
 
 ## Behaviour
 
-- Escape and outside pointer down → `onClose`
+- Escape and outside pointer down → `onClose` (outside MUST ignore the optional `anchorRef` target)
 - ArrowUp / ArrowDown move focus among enabled action items; Enter activates
 - Selecting an enabled action item runs `onSelect` then `onClose`
 - Empty `items` → render nothing even if `open`
@@ -57,7 +62,7 @@ Controlled only. Portal-free: `position: fixed` at `(x, y)`. WHEN `open` becomes
 
 ## Visual
 
-- Classes: `.ds-context-menu`, `.ds-context-menu-item`, modifiers `--danger`, `--disabled`
+- Classes: `.ds-context-menu`, `.ds-context-menu--portal` (body mount), `.ds-context-menu-item`, modifiers `--danger`, `--disabled`
 - Icon slot: `.ds-context-menu-item__icon` (leading, `currentColor`)
 - Section: `.ds-context-menu-section`
 - Separator: `.ds-context-menu-separator`

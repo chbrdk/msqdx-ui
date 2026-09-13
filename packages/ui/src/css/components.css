@@ -1299,6 +1299,11 @@
   box-shadow: 0 10px 28px color-mix(in srgb, var(--ink) 10%, transparent);
 }
 
+/* Body portal — escapes ancestor transform / backdrop-filter containing blocks. */
+.ds-context-menu--portal {
+  z-index: 200;
+}
+
 .ds-context-menu-row {
   display: grid;
 }

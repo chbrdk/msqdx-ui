@@ -3,10 +3,14 @@
 import {
   useEffect,
   useId,
+  useLayoutEffect,
   useRef,
+  useState,
   type KeyboardEvent as ReactKeyboardEvent,
   type ReactNode,
+  type RefObject,
 } from 'react'
+import { createPortal } from 'react-dom'
 
 export type ContextMenuItem = {
   id: string
@@ -34,6 +38,11 @@ export type ContextMenuProps = {
   /** Accessible name for the menu. */
   label?: string
   className?: string
+  /**
+   * Optional trigger / anchor element. Outside-close ignores presses inside it
+   * so icon toggles (topbar menus) do not race open → close.
+   */
+  anchorRef?: RefObject<HTMLElement | null>
 }
 
 function cx(...parts: Array<string | false | null | undefined>): string {
@@ -44,9 +53,30 @@ function isActionItem(item: ContextMenuItem): boolean {
   return item.section !== true
 }
 
+function clampToViewport(
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  pad = 8,
+): { left: number; top: number } {
+  const vw = typeof window !== 'undefined' ? window.innerWidth : x + width
+  const vh = typeof window !== 'undefined' ? window.innerHeight : y + height
+  const maxLeft = Math.max(pad, vw - width - pad)
+  const maxTop = Math.max(pad, vh - height - pad)
+  return {
+    left: Math.min(Math.max(pad, x), maxLeft),
+    top: Math.min(Math.max(pad, y), maxTop),
+  }
+}
+
 /**
  * Controlled pointer-positioned action menu.
  * Spec: specs/domain/msqdx-ui-context-menu.md
+ *
+ * Portals to `document.body` with `position: fixed` so ancestor `transform` /
+ * `backdrop-filter` (e.g. Creation editor topbar trail) cannot retarget fixed
+ * coordinates — same pattern as Select / Tooltip.
  */
 export function ContextMenu({
   open,
@@ -56,10 +86,21 @@ export function ContextMenu({
   items,
   label = 'Context menu',
   className,
+  anchorRef,
 }: ContextMenuProps) {
   const menuId = useId()
   const rootRef = useRef<HTMLDivElement>(null)
   const itemRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const [pos, setPos] = useState({ left: x, top: y })
+
+  useLayoutEffect(() => {
+    if (!open) return
+    setPos({ left: x, top: y })
+    const el = rootRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    setPos(clampToViewport(x, y, rect.width, rect.height))
+  }, [open, x, y, items])
 
   useEffect(() => {
     if (!open) return
@@ -79,7 +120,10 @@ export function ContextMenu({
       }
     }
     function onPointer(event: MouseEvent) {
-      if (!rootRef.current?.contains(event.target as Node)) onClose()
+      const target = event.target as Node
+      if (rootRef.current?.contains(target)) return
+      if (anchorRef?.current?.contains(target)) return
+      onClose()
     }
     window.addEventListener('keydown', onKey)
     window.addEventListener('mousedown', onPointer)
@@ -87,9 +131,10 @@ export function ContextMenu({
       window.removeEventListener('keydown', onKey)
       window.removeEventListener('mousedown', onPointer)
     }
-  }, [open, items, onClose])
+  }, [open, items, onClose, anchorRef])
 
   if (!open || items.length === 0) return null
+  if (typeof document === 'undefined') return null
 
   function focusEnabled(delta: number) {
     const enabled = items
@@ -98,8 +143,8 @@ export function ContextMenu({
     if (enabled.length === 0) return
     const active = document.activeElement
     const current = itemRefs.current.findIndex((el) => el === active)
-    const pos = enabled.indexOf(current)
-    const nextPos = pos < 0 ? 0 : (pos + delta + enabled.length) % enabled.length
+    const posIdx = enabled.indexOf(current)
+    const nextPos = posIdx < 0 ? 0 : (posIdx + delta + enabled.length) % enabled.length
     itemRefs.current[enabled[nextPos]]?.focus()
   }
 
@@ -126,14 +171,15 @@ export function ContextMenu({
     }
   }
 
-  return (
+  return createPortal(
     <div
       ref={rootRef}
       id={menuId}
       role="menu"
       aria-label={label}
-      className={cx('ds-context-menu', className)}
-      style={{ left: x, top: y }}
+      className={cx('ds-context-menu', 'ds-context-menu--portal', className)}
+      data-testid="ds-context-menu-portal"
+      style={{ left: pos.left, top: pos.top }}
       onKeyDown={onMenuKeyDown}
     >
       {items.map((item, index) => (
@@ -176,6 +222,7 @@ export function ContextMenu({
           )}
         </div>
       ))}
-    </div>
+    </div>,
+    document.body,
   )
 }
