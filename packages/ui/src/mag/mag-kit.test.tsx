@@ -9,6 +9,8 @@ import { printMagColors } from '../print/tokens'
 import { PRINT_MAG_TWINS } from '../magazine/twins'
 import * as Mag from './index'
 import { MagChip, MagChipRow } from './MagChip'
+import { MagCallout } from './MagCallout'
+import { MagSteps } from './MagSteps'
 import { MagCover } from './MagCover'
 import { MagPage } from './MagPage'
 import { MagRankedList } from './MagRankedList'
@@ -96,7 +98,22 @@ describe('Mag PDF kit smoke', () => {
         <MagPage footerTitle="mag-kit-smoke">
           <MagChipRow>
             <MagChip>Smoke</MagChip>
+            <MagChip tone="muted">muted</MagChip>
+            <MagChip tone="accent">accent</MagChip>
+            <MagChip tone="solid">solid</MagChip>
           </MagChipRow>
+          <MagCallout variant="wash" label="Hinweis" body="Wash callout smoke." />
+          <MagCallout variant="emphasize" body="Emphasize callout smoke." />
+          <MagCallout variant="quiet" body="Quiet callout smoke." />
+          <MagSteps
+            emphasisIndex={2}
+            steps={[
+              { label: 'Audit' },
+              { label: 'Cluster' },
+              { label: 'Prioritize', detail: 'Rank' },
+              { label: 'Ship' },
+            ]}
+          />
           <MagCover
             eyebrow="Quick Check"
             title="Magazin kit"
@@ -161,6 +178,11 @@ describe('Mag PDF kit smoke', () => {
             headStyle={{ textAlign: 'center' }}
             cellStyle={{ textAlign: 'center', fontSize: 12 }}
             gap={10}
+          />
+          <MagTable
+            columns={['Metric', 'Now', 'EUR']}
+            columnAlign={['left', 'left', 'right']}
+            rows={[['GEO', 72, '1.240']]}
           />
         </MagPage>
       </Document>,

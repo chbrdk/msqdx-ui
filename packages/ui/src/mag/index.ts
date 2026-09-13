@@ -32,7 +32,15 @@ export { MagLedger, type MagLedgerItem } from './MagLedger'
 export { MagRankedList, type MagRankedItem, type MagRankedListTones } from './MagRankedList'
 export { MagTraitBars, type MagTrait } from './MagTraitBars'
 export { MagTable } from './MagTable'
+export type { PrintColumnAlign } from '../magazine/column-align'
+export {
+  normalizePrintColumnAlign,
+  normalizePrintColumnAlignList,
+  PRINT_COLUMN_ALIGNS,
+} from '../magazine/column-align'
 export { MagChip, MagChipRow } from './MagChip'
+export type { PrintChipTone } from '../magazine/chip-tone'
+export { normalizePrintChipTone, PRINT_CHIP_TONES } from '../magazine/chip-tone'
 export {
   MagPersonaCard,
   type MagPersonaCardModel,
@@ -41,6 +49,20 @@ export {
 export { MagPersonaGrid } from './MagPersonaGrid'
 export { MagTwoColumn } from './MagTwoColumn'
 export { MagPullQuote } from './MagPullQuote'
+export { MagCallout } from './MagCallout'
+export { MagSteps } from './MagSteps'
+export type { MagStepItem } from './MagSteps'
+export type { PrintStepsOrientation } from '../magazine/steps'
+export {
+  normalizePrintStepsOrientation,
+  normalizePrintStepsEmphasisIndex,
+  PRINT_STEPS_ORIENTATIONS,
+} from '../magazine/steps'
+export type { PrintCalloutVariant } from '../magazine/callout-variant'
+export {
+  normalizePrintCalloutVariant,
+  PRINT_CALLOUT_VARIANTS,
+} from '../magazine/callout-variant'
 export {
   registerMagazinePdfFonts,
   registerMagazinePdfFontFromSrc,

@@ -36,9 +36,11 @@ Same matrix as `knowledge/print-magazine-twins.md` (`Print/X` ↔ `MagX`). Chang
 
 `applyMagTheme` / `getMagTheme` / `MagThemeProvider` — module-scoped theme for sync PDF renders (no `React.createContext`, so Next.js API routes can import `@msqdx/ui/mag`). Apps map Brandion packs → color overrides; Mag primitives stay Brandion-agnostic. Reset with `applyMagTheme(null)` after `renderToBuffer`.
 
-## Instance tones (P84) · layout/type (P86)
+## Instance tones (P84) · layout/type (P86) · report primitives (P92 plan)
 
 Document theme stays pack-level. Per-module inspect paint (CREATION) MAY pass optional tones into Mag primitives that expose them — e.g. `MagRankedList` `tones` / `MagRankedItem.color` — without making Mag Brandion-aware. Box model (padding/margin/background) stays an app-side `View` wrap.
+
+**P92:** Print report primitives wave — Phase A–E **shipped** (`PrintChip.tone`, `PrintCallout`/`MagCallout`, `PrintTable.columnAlign`, `PrintSteps`/`MagSteps` + Creation/Plexon playbooks). Spec: `specs/domain/msqdx-ui-print-report-primitives.md` · knowledge `knowledge/print-report-primitives-wave.md`.
 
 **P86:** Mag primitives MAY accept optional typography overrides (`labelStyle` / `titleStyle` / `bodyStyle` / per-item `labelStyle`) so apps can forward inspect fontSize / weight / textAlign. Stack/Grid gap and align remain app-side wraps. Folio / column chrome stay Mag kit defaults.
 

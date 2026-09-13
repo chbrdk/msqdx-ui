@@ -82,6 +82,8 @@ describe('catalogCompleteness', () => {
       'PrintChapter',
       'PrintCover',
       'PrintPullQuote',
+      'PrintCallout',
+      'PrintSteps',
       'PrintScoreRing',
       'PrintChip',
       'PrintChipRow',

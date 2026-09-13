@@ -102,6 +102,50 @@
   background: var(--print-accent);
 }
 
+/* P92 — PrintCallout (report wash band; not PullQuote) */
+.msqdx-print-callout {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0.75rem 0 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.msqdx-print-callout__label {
+  margin: 0 0 0.35rem;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--print-muted);
+}
+
+.msqdx-print-callout__body {
+  margin: 0;
+  font-size: var(--print-type-body);
+  line-height: 1.55;
+  color: inherit;
+}
+
+.msqdx-print-callout--wash {
+  background: var(--print-wash);
+  color: var(--print-ink);
+  font-weight: 600;
+}
+
+.msqdx-print-callout--emphasize {
+  background: var(--print-wash);
+  border-left: 3px solid var(--print-accent);
+  color: var(--print-ink);
+  font-weight: 700;
+}
+
+.msqdx-print-callout--quiet {
+  background: transparent;
+  border: 1px solid var(--print-line);
+  color: var(--print-muted);
+  font-weight: 400;
+}
+
 .msqdx-print-kpi-row {
   display: flex;
   flex-wrap: wrap;
@@ -358,6 +402,28 @@
   border: 1px solid var(--print-line);
   font-size: 0.6rem;
   color: var(--print-ink);
+  background: transparent;
+  box-sizing: border-box;
+}
+
+.msqdx-print-chip--muted {
+  border-color: transparent;
+  background: var(--print-wash);
+  color: var(--print-muted);
+}
+
+.msqdx-print-chip--accent {
+  border-color: var(--print-accent);
+  background: var(--print-wash);
+  color: var(--print-accent-ink);
+  font-weight: 600;
+}
+
+.msqdx-print-chip--solid {
+  border-color: transparent;
+  background: var(--print-accent);
+  color: var(--print-paper);
+  font-weight: 600;
 }
 
 .msqdx-print-traits {
@@ -443,6 +509,89 @@
   color: var(--print-ink-soft);
   vertical-align: top;
   overflow-wrap: anywhere;
+}
+
+/* P92 — PrintSteps (linear process; not SiteStack diagrams) */
+.msqdx-print-steps {
+  list-style: none;
+  margin: 0.75rem 0 1.15rem;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.msqdx-print-steps--horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.msqdx-print-steps--vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.msqdx-print-steps__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  min-width: 0;
+  flex: 1 1 8rem;
+  max-width: 100%;
+  padding: 0.45rem 0.5rem;
+  box-sizing: border-box;
+}
+
+.msqdx-print-steps--vertical .msqdx-print-steps__item {
+  flex: 0 0 auto;
+}
+
+.msqdx-print-steps__item--emphasis {
+  background: var(--print-wash);
+  border-left: 3px solid var(--print-accent);
+}
+
+.msqdx-print-steps__badge {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.55rem;
+  height: 1.55rem;
+  padding: 0 0.25rem;
+  border: 1px solid var(--print-line);
+  border-radius: 999px;
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--print-ink);
+  background: var(--print-paper);
+}
+
+.msqdx-print-steps__item--emphasis .msqdx-print-steps__badge {
+  background: var(--print-accent);
+  border-color: var(--print-accent);
+  color: var(--print-paper);
+}
+
+.msqdx-print-steps__copy {
+  min-width: 0;
+}
+
+.msqdx-print-steps__label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--print-ink);
+  line-height: 1.35;
+}
+
+.msqdx-print-steps__detail {
+  margin: 0.2rem 0 0;
+  font-size: 0.62rem;
+  color: var(--print-muted);
+  line-height: 1.4;
 }
 
 .msqdx-print-dist-grid {

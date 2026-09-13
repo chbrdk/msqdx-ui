@@ -600,6 +600,8 @@ export {
   PrintLedger,
   PrintTwoColumn,
   PrintPullQuote,
+  PrintCallout,
+  PrintSteps,
   PrintChip,
   PrintChipRow,
   PrintTraitBars,
@@ -607,8 +609,31 @@ export {
   PrintPersonaGrid,
   PrintTable,
 } from './print/PrintPrimitives'
-export type { PrintDonutSlice, PrintPersona } from './print/PrintPrimitives'
+export type {
+  PrintDonutSlice,
+  PrintPersona,
+  PrintChipTone,
+  PrintCalloutVariant,
+  PrintColumnAlign,
+  PrintStepsOrientation,
+  PrintStepItem,
+} from './print/PrintPrimitives'
 export { printMagColors } from './print/tokens'
+export { normalizePrintChipTone, PRINT_CHIP_TONES } from './magazine/chip-tone'
+export {
+  normalizePrintCalloutVariant,
+  PRINT_CALLOUT_VARIANTS,
+} from './magazine/callout-variant'
+export {
+  normalizePrintColumnAlign,
+  normalizePrintColumnAlignList,
+  PRINT_COLUMN_ALIGNS,
+} from './magazine/column-align'
+export {
+  normalizePrintStepsOrientation,
+  normalizePrintStepsEmphasisIndex,
+  PRINT_STEPS_ORIENTATIONS,
+} from './magazine/steps'
 export { Stack } from './components/Stack'
 export type { StackProps } from './components/Stack'
 export { Badge } from './components/Badge'

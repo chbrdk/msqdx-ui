@@ -15,6 +15,8 @@ Stand: 2026-08-14 (P78 · **P80b/c** · **P82d**)
 | Print/RankedList | MagRankedList (1 / 2 cols / compact) |
 | Print/TwoColumn | MagTwoColumn |
 | Print/PullQuote | MagPullQuote |
+| Print/Callout | MagCallout |
+| Print/Steps | MagSteps |
 | Print/PersonaCard | MagPersonaCard |
 | Print/PersonaGrid | MagPersonaGrid |
 | Print/TraitBars | MagTraitBars |

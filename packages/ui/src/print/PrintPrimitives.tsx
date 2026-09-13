@@ -5,6 +5,43 @@
 
 import type { CSSProperties, ReactNode } from 'react'
 import { printMagColors } from './tokens'
+import {
+  normalizePrintChipTone,
+  type PrintChipTone,
+} from '../magazine/chip-tone'
+import {
+  normalizePrintCalloutVariant,
+  type PrintCalloutVariant,
+} from '../magazine/callout-variant'
+import {
+  normalizePrintColumnAlignList,
+  type PrintColumnAlign,
+} from '../magazine/column-align'
+import {
+  normalizePrintStepsEmphasisIndex,
+  normalizePrintStepsOrientation,
+  type PrintStepsOrientation,
+} from '../magazine/steps'
+
+export type { PrintChipTone } from '../magazine/chip-tone'
+export { normalizePrintChipTone, PRINT_CHIP_TONES } from '../magazine/chip-tone'
+export type { PrintCalloutVariant } from '../magazine/callout-variant'
+export {
+  normalizePrintCalloutVariant,
+  PRINT_CALLOUT_VARIANTS,
+} from '../magazine/callout-variant'
+export type { PrintColumnAlign } from '../magazine/column-align'
+export {
+  normalizePrintColumnAlign,
+  normalizePrintColumnAlignList,
+  PRINT_COLUMN_ALIGNS,
+} from '../magazine/column-align'
+export type { PrintStepsOrientation } from '../magazine/steps'
+export {
+  normalizePrintStepsOrientation,
+  normalizePrintStepsEmphasisIndex,
+  PRINT_STEPS_ORIENTATIONS,
+} from '../magazine/steps'
 
 export function PrintPage({
   children,
@@ -61,6 +98,29 @@ export function PrintPullQuote({ label, body }: { label?: string; body: string }
           {body}
         </p>
       </div>
+    </aside>
+  )
+}
+
+/** P92 — report wash / emphasis band (not an attributed pull-quote). */
+export function PrintCallout({
+  label,
+  children,
+  variant,
+}: {
+  label?: ReactNode
+  children: ReactNode
+  /** wash | emphasize | quiet */
+  variant?: PrintCalloutVariant
+}) {
+  const resolved = normalizePrintCalloutVariant(variant)
+  return (
+    <aside
+      className={`msqdx-print-callout msqdx-print-callout--${resolved}`}
+      data-variant={resolved}
+    >
+      {label ? <p className="msqdx-print-callout__label">{label}</p> : null}
+      <div className="msqdx-print-callout__body">{children}</div>
     </aside>
   )
 }
@@ -289,8 +349,24 @@ export function PrintLedger({
   )
 }
 
-export function PrintChip({ children }: { children: ReactNode }) {
-  return <span className="msqdx-print-chip">{children}</span>
+export function PrintChip({
+  children,
+  tone,
+}: {
+  children: ReactNode
+  /** P92 — default | muted | accent | solid */
+  tone?: PrintChipTone
+}) {
+  const resolved = normalizePrintChipTone(tone)
+  const className =
+    resolved === 'default'
+      ? 'msqdx-print-chip'
+      : `msqdx-print-chip msqdx-print-chip--${resolved}`
+  return (
+    <span className={className} data-tone={resolved}>
+      {children}
+    </span>
+  )
 }
 
 export function PrintChipRow({ children }: { children: ReactNode }) {
@@ -419,19 +495,80 @@ export function PrintPersonaGrid({ personas }: { personas: PrintPersona[] }) {
   )
 }
 
+export type PrintStepItem = {
+  label: string
+  detail?: string
+}
+
+/** P92 — linear numbered process (no branching / SVG diagrams). */
+export function PrintSteps({
+  steps,
+  orientation,
+  emphasisIndex,
+}: {
+  steps: PrintStepItem[]
+  orientation?: PrintStepsOrientation
+  /** 0-based; out of range → no emphasis */
+  emphasisIndex?: number
+}) {
+  const resolved = normalizePrintStepsOrientation(orientation)
+  const emphasis = normalizePrintStepsEmphasisIndex(emphasisIndex, steps.length)
+  return (
+    <ol
+      className={
+        resolved === 'vertical'
+          ? 'msqdx-print-steps msqdx-print-steps--vertical'
+          : 'msqdx-print-steps msqdx-print-steps--horizontal'
+      }
+      data-orientation={resolved}
+    >
+      {steps.map((step, i) => {
+        const on = emphasis === i
+        return (
+          <li
+            key={`${step.label}-${i}`}
+            className={
+              on
+                ? 'msqdx-print-steps__item msqdx-print-steps__item--emphasis'
+                : 'msqdx-print-steps__item'
+            }
+            data-emphasis={on ? 'true' : undefined}
+          >
+            <span className="msqdx-print-steps__badge" aria-hidden>
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div className="msqdx-print-steps__copy">
+              <p className="msqdx-print-steps__label">{step.label}</p>
+              {step.detail ? (
+                <p className="msqdx-print-steps__detail">{step.detail}</p>
+              ) : null}
+            </div>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
 export function PrintTable({
   columns,
   rows,
+  columnAlign,
 }: {
   columns: string[]
   rows: Array<Array<string | number | null>>
+  /** P92 — per-column text align; shorter lists pad with left */
+  columnAlign?: PrintColumnAlign[] | string
 }) {
+  const aligns = normalizePrintColumnAlignList(columnAlign, columns.length)
   return (
     <table className="msqdx-print-table">
       <thead>
         <tr>
-          {columns.map((c) => (
-            <th key={c}>{c}</th>
+          {columns.map((c, ci) => (
+            <th key={c} style={{ textAlign: aligns[ci] ?? 'left' }}>
+              {c}
+            </th>
           ))}
         </tr>
       </thead>
@@ -439,7 +576,9 @@ export function PrintTable({
         {rows.map((row, ri) => (
           <tr key={ri}>
             {columns.map((_, ci) => (
-              <td key={ci}>{row[ci] == null || row[ci] === '' ? '–' : String(row[ci])}</td>
+              <td key={ci} style={{ textAlign: aligns[ci] ?? 'left' }}>
+                {row[ci] == null || row[ci] === '' ? '–' : String(row[ci])}
+              </td>
             ))}
           </tr>
         ))}

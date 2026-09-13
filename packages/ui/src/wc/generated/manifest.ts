@@ -114,6 +114,8 @@ export const WC_MANIFEST = [
   { catalogId: "PrintRankedList", tagName: "msqdx-print-ranked-list", layer: "Print", title: "Print/RankedList" },
   { catalogId: "PrintTwoColumn", tagName: "msqdx-print-two-column", layer: "Print", title: "Print/TwoColumn" },
   { catalogId: "PrintPullQuote", tagName: "msqdx-print-pull-quote", layer: "Print", title: "Print/PullQuote" },
+  { catalogId: "PrintCallout", tagName: "msqdx-print-callout", layer: "Print", title: "Print/Callout" },
+  { catalogId: "PrintSteps", tagName: "msqdx-print-steps", layer: "Print", title: "Print/Steps" },
   { catalogId: "PrintPersonaGrid", tagName: "msqdx-print-persona-grid", layer: "Print", title: "Print/PersonaGrid" },
   { catalogId: "PrintTraitBars", tagName: "msqdx-print-trait-bars", layer: "Print", title: "Print/TraitBars" },
   { catalogId: "PrintTable", tagName: "msqdx-print-table", layer: "Print", title: "Print/Table" },

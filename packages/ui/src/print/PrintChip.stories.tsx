@@ -20,3 +20,17 @@ export const Default: Story = {
     </PrintPage>
   ),
 }
+
+/** P92 — all PrintChipTone values for HTML ↔ Mag parity smoke. */
+export const Tones: Story = {
+  render: () => (
+    <PrintPage>
+      <PrintChipRow>
+        <PrintChip tone="default">default</PrintChip>
+        <PrintChip tone="muted">muted</PrintChip>
+        <PrintChip tone="accent">accent</PrintChip>
+        <PrintChip tone="solid">solid</PrintChip>
+      </PrintChipRow>
+    </PrintPage>
+  ),
+}

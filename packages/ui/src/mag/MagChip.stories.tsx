@@ -11,7 +11,8 @@ function MagChipDocs() {
         <code>MagThemeProvider</code> when set; else DS <code>magColors</code>.
       </p>
       <p>
-        Visual preview: Storybook <code>Print/Chip</code>.
+        Visual preview: Storybook <code>Print/Chip</code> (incl. <code>Tones</code>).
+        PDF prop: <code>tone</code> — <code>default | muted | accent | solid</code> (P92).
       </p>
     </div>
   )

@@ -23,3 +23,19 @@ export const Default: Story = {
     </PrintPage>
   ),
 }
+
+/** P92 — numeric column right-aligned via columnAlign. */
+export const ColumnAlign: Story = {
+  render: () => (
+    <PrintPage>
+      <PrintTable
+        columns={['Metric', 'Now', 'EUR']}
+        columnAlign={['left', 'left', 'right']}
+        rows={[
+          ['GEO', 72, '1.240'],
+          ['Pages', 8, '320'],
+        ]}
+      />
+    </PrintPage>
+  ),
+}

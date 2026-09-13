@@ -156,6 +156,8 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'PrintRankedList', layer: 'Print', title: 'Print/RankedList', stories: 'print/PrintRankedList.stories.tsx', mdx: 'print/PrintRankedList.mdx' },
   { id: 'PrintTwoColumn', layer: 'Print', title: 'Print/TwoColumn', stories: 'print/PrintTwoColumn.stories.tsx', mdx: 'print/PrintTwoColumn.mdx' },
   { id: 'PrintPullQuote', layer: 'Print', title: 'Print/PullQuote', stories: 'print/PrintPullQuote.stories.tsx', mdx: 'print/PrintPullQuote.mdx' },
+  { id: 'PrintCallout', layer: 'Print', title: 'Print/Callout', stories: 'print/PrintCallout.stories.tsx', mdx: 'print/PrintCallout.mdx' },
+  { id: 'PrintSteps', layer: 'Print', title: 'Print/Steps', stories: 'print/PrintSteps.stories.tsx', mdx: 'print/PrintSteps.mdx' },
   { id: 'PrintPersonaGrid', layer: 'Print', title: 'Print/PersonaGrid', stories: 'print/PrintPersonaGrid.stories.tsx', mdx: 'print/PrintPersonaGrid.mdx' },
   { id: 'PrintTraitBars', layer: 'Print', title: 'Print/TraitBars', stories: 'print/PrintTraitBars.stories.tsx', mdx: 'print/PrintTraitBars.mdx' },
   { id: 'PrintTable', layer: 'Print', title: 'Print/Table', stories: 'print/PrintTable.stories.tsx', mdx: 'print/PrintTable.mdx' },
@@ -234,6 +236,8 @@ const MAG_PRINT_EXPORT: Record<string, string> = {
   MagPage: 'PrintPage',
   MagCover: 'PrintCover',
   MagChip: 'PrintChip',
+  MagCallout: 'PrintCallout',
+  MagSteps: 'PrintSteps',
 }
 
 export function catalogInsert(entry: CatalogEntry): CatalogInsert {

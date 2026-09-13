@@ -27,6 +27,8 @@ export const PRINT_MAG_TWINS: readonly PrintMagTwin[] = [
   { printStory: 'RankedList', magExport: 'MagRankedList', printExport: 'PrintRankedList' },
   { printStory: 'TwoColumn', magExport: 'MagTwoColumn', printExport: 'PrintTwoColumn' },
   { printStory: 'PullQuote', magExport: 'MagPullQuote', printExport: 'PrintPullQuote' },
+  { printStory: 'Callout', magExport: 'MagCallout', printExport: 'PrintCallout' },
+  { printStory: 'Steps', magExport: 'MagSteps', printExport: 'PrintSteps' },
   { printStory: 'PersonaCard', magExport: 'MagPersonaCard', printExport: 'PrintPersonaCard' },
   { printStory: 'PersonaGrid', magExport: 'MagPersonaGrid', printExport: 'PrintPersonaGrid' },
   { printStory: 'TraitBars', magExport: 'MagTraitBars', printExport: 'PrintTraitBars' },

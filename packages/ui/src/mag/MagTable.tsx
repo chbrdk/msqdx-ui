@@ -1,5 +1,11 @@
 import { Text, View } from '@react-pdf/renderer'
 import { useMagTheme } from './MagTheme'
+import {
+  normalizePrintColumnAlignList,
+  type PrintColumnAlign,
+} from '../magazine/column-align'
+
+export type { PrintColumnAlign }
 
 type MagTableProps = {
   columns: string[]
@@ -10,6 +16,8 @@ type MagTableProps = {
   cellStyle?: Record<string, string | number>
   /** Optional per-cell body styles [row][col]. */
   cellStyles?: Array<Array<Record<string, string | number> | undefined>>
+  /** P92 — per-column align when cell/head textAlign unset. */
+  columnAlign?: PrintColumnAlign[] | string
   /** Row vertical rhythm in pt (inspect gap). */
   gap?: number
   /**
@@ -50,6 +58,7 @@ export function MagTable({
   headStyle,
   cellStyle,
   cellStyles,
+  columnAlign,
   gap,
   fit = 'stretch',
 }: MagTableProps) {
@@ -57,6 +66,7 @@ export function MagTable({
   const hug = fit === 'hug'
   const width = hug ? undefined : `${100 / Math.max(columns.length, 1)}%`
   const rowPad = gap != null ? { paddingVertical: Math.max(2, gap / 2) } : undefined
+  const colAligns = normalizePrintColumnAlignList(columnAlign, columns.length)
   const headAlign = cellAlignItems(headStyle)
   const bodyAlign = cellAlignItems(cellStyle)
   // Hug must override kit `width: '100%'` on header/row bands or alignSelf cannot park the block.
@@ -66,33 +76,49 @@ export function MagTable({
   return (
     <View style={hug ? undefined : { width: '100%' }}>
       <View style={[styles.tableHeader, hugBand]}>
-        {columns.map((col) => (
-          <View
-            key={col}
-            style={[
-              hug
-                ? { paddingRight: 12, flexShrink: 0 }
-                : { width, paddingRight: 4, minWidth: 0 },
-              headAlign ? { alignItems: headAlign } : undefined,
-            ]}
-          >
-            <Text
+        {columns.map((col, ci) => {
+          const colTa = colAligns[ci]
+          const align =
+            headAlign ?? (colTa ? cellAlignItems({ textAlign: colTa }) : undefined)
+          const headTextStyle =
+            colTa && !textAlignOf(headStyle) ? { textAlign: colTa } : undefined
+          return (
+            <View
+              key={col}
               style={[
-                styles.tableHeadCell,
-                hug ? { width: 'auto', maxWidth: undefined } : CELL_TEXT_STRETCH,
-                headStyle,
+                hug
+                  ? { paddingRight: 12, flexShrink: 0 }
+                  : { width, paddingRight: 4, minWidth: 0 },
+                align ? { alignItems: align } : undefined,
               ]}
             >
-              {col}
-            </Text>
-          </View>
-        ))}
+              <Text
+                style={[
+                  styles.tableHeadCell,
+                  hug ? { width: 'auto', maxWidth: undefined } : CELL_TEXT_STRETCH,
+                  headStyle,
+                  headTextStyle,
+                ]}
+              >
+                {col}
+              </Text>
+            </View>
+          )
+        })}
       </View>
       {rows.map((row, ri) => (
         <View key={ri} style={[styles.tableRow, hugBand, rowPad]} wrap={false}>
           {columns.map((_, ci) => {
             const perCell = cellStyles?.[ri]?.[ci]
-            const align = cellAlignItems(perCell) ?? bodyAlign
+            const colTa = colAligns[ci]
+            const align =
+              cellAlignItems(perCell) ??
+              (colTa ? cellAlignItems({ textAlign: colTa }) : undefined) ??
+              bodyAlign
+            const colTextStyle =
+              colTa && !textAlignOf(perCell) && !textAlignOf(cellStyle)
+                ? { textAlign: colTa }
+                : undefined
             return (
               <View
                 key={ci}
@@ -108,6 +134,7 @@ export function MagTable({
                     styles.tableCell,
                     hug ? { width: 'auto', maxWidth: undefined } : CELL_TEXT_STRETCH,
                     cellStyle,
+                    colTextStyle,
                     perCell,
                   ]}
                 >
