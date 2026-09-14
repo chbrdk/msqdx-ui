@@ -120,4 +120,32 @@ describe('ExpressionField', () => {
     })
     expect(onChange).toHaveBeenCalledWith('A B{{ scan.scores.accessibility }}')
   })
+
+  it('picks a suggestion via the chevron listbox', () => {
+    const onChange = vi.fn()
+    const { unmount } = render(
+      <ExpressionField
+        label="Value"
+        value=""
+        onChange={onChange}
+        suggestions={[
+          { value: 'kpi:kpi-hired', label: 'Hired' },
+          { value: 'kpi:kpi-apps', label: 'Applications' },
+        ]}
+      />
+    )
+    fireEvent.click(screen.getByTestId('expression-field-pick'))
+    expect(screen.getByTestId('expression-field-suggestions')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('option', { name: 'Hired' }))
+    expect(onChange).toHaveBeenCalledWith('kpi:kpi-hired')
+    unmount()
+  })
+
+  it('hides the pick control when suggestions are omitted', () => {
+    const { container, unmount } = render(
+      <ExpressionField label="Path" value="" onChange={() => {}} />
+    )
+    expect(container.querySelector('[data-testid="expression-field-pick"]')).toBeNull()
+    unmount()
+  })
 })

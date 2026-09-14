@@ -1578,6 +1578,10 @@
   outline: 2px solid color-mix(in srgb, var(--accent, #2563eb) 45%, transparent);
   outline-offset: 1px;
 }
+.ds-expression-field-input-wrap--has-suggestions {
+  display: flex;
+  align-items: stretch;
+}
 .ds-expression-field-mirror {
   position: absolute;
   inset: 0;
@@ -1630,6 +1634,39 @@
 .ds-expression-field-input--chip-overlay {
   color: transparent;
   caret-color: var(--ink);
+}
+.ds-expression-field-input--with-pick {
+  padding-right: 2rem;
+  flex: 1;
+  min-width: 0;
+}
+.ds-expression-field-pick {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.85rem;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-left: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0.75;
+}
+.ds-expression-field-pick:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--ink) 4%, transparent);
+}
+.ds-expression-field-pick:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--ink) 25%, transparent);
+  outline-offset: -2px;
 }
 .ds-expression-field-input:focus-visible {
   outline: none;

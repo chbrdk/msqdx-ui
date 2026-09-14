@@ -30,3 +30,22 @@ export const Interactive: Story = {
     )
   },
 }
+
+export const WithSuggestions: Story = {
+  render: function WithSuggestionsRender() {
+    const [value, setValue] = useState('kpi:kpi-hired')
+    return (
+      <ExpressionField
+        label="Value"
+        value={value}
+        onChange={setValue}
+        placeholder="Drop a KPI or pick from the list"
+        suggestions={[
+          { value: 'kpi:kpi-hired', label: 'Hired' },
+          { value: 'kpi:kpi-apps', label: 'Applications' },
+          { value: 'kpi:kpi-fill', label: 'Fill rate' },
+        ]}
+      />
+    )
+  },
+}

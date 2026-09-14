@@ -1,7 +1,26 @@
 'use client'
 
-import { useMemo, useRef, useState, type DragEvent, type InputHTMLAttributes } from 'react'
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type DragEvent,
+  type InputHTMLAttributes,
+  type KeyboardEvent,
+} from 'react'
+import { createPortal } from 'react-dom'
+import { IconChevronDown } from './icons'
 import { SCHEMA_TREE_PATH_MIME } from './SchemaTree'
+
+export type ExpressionSuggestion = {
+  value: string
+  label: string
+}
 
 export type ExpressionFieldProps = {
   label?: string
@@ -14,6 +33,11 @@ export type ExpressionFieldProps = {
   onFocusField?: () => void
   /** Insert a path dragged from SchemaTree (defaults to `{{ path }}`). */
   onDropPath?: (path: string) => void
+  /**
+   * Optional flat pick list (chevron). Picking calls `onChange(option.value)`.
+   * No typeahead / fuzzy search in v1.
+   */
+  suggestions?: ExpressionSuggestion[]
 } & Omit<
   InputHTMLAttributes<HTMLInputElement>,
   'className' | 'value' | 'onChange' | 'disabled' | 'placeholder'
@@ -111,6 +135,12 @@ function ExpressionMirror({ value }: { value: string }) {
   )
 }
 
+const MENU_MAX_H = 224
+
+function suggestionOptionId(listId: string, index: number): string {
+  return `${listId}-sug-${index}`
+}
+
 /**
  * Path / {{ expression }} parameter field with inline expression chips.
  * Spec: specs/domain/msqdx-ui-expression-field.md
@@ -125,17 +155,165 @@ export function ExpressionField({
   className,
   onFocusField,
   onDropPath,
+  suggestions,
   id,
   ...rest
 }: ExpressionFieldProps) {
+  const autoId = useId()
   const inputId = id ?? (label ? `expr-${label.replace(/\s+/g, '-').toLowerCase()}` : undefined)
+  const listId = `${inputId ?? autoId}-suggestions`
   const inputRef = useRef<HTMLInputElement | null>(null)
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const pickRef = useRef<HTMLButtonElement | null>(null)
+  const menuRef = useRef<HTMLUListElement | null>(null)
   const selectionRef = useRef<{ start: number; end: number } | null>(null)
   const [dropActive, setDropActive] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuStyle, setMenuStyle] = useState<CSSProperties>({})
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const suggestionList = suggestions ?? []
+  const hasSuggestions = suggestionList.length > 0 && !disabled
+  const selectedIndex = useMemo(
+    () => suggestionList.findIndex((s) => s.value === value),
+    [suggestionList, value]
+  )
+
   const hasExpressions = useMemo(
     () => parseExpressionSegments(value).some((s) => s.type === 'expression'),
     [value]
   )
+
+  const closeMenu = useCallback(() => setMenuOpen(false), [])
+
+  const pickSuggestion = useCallback(
+    (next: string) => {
+      onFocusField?.()
+      onChange(next)
+      setMenuOpen(false)
+    },
+    [onChange, onFocusField]
+  )
+
+  const updateMenuPosition = useCallback(() => {
+    const anchor = wrapRef.current
+    if (!anchor) return
+    const rect = anchor.getBoundingClientRect()
+    const spaceBelow = window.innerHeight - rect.bottom
+    const spaceAbove = rect.top
+    const openAbove = spaceBelow < Math.min(MENU_MAX_H, 180) && spaceAbove > spaceBelow
+    const width = Math.max(rect.width, 160)
+    const left = Math.min(rect.left, Math.max(8, window.innerWidth - width - 8))
+    if (openAbove) {
+      setMenuStyle({
+        position: 'fixed',
+        left,
+        width,
+        bottom: window.innerHeight - rect.top + 4,
+        top: 'auto',
+        maxHeight: Math.min(MENU_MAX_H, Math.max(80, spaceAbove - 12)),
+        zIndex: 1000,
+      })
+    } else {
+      setMenuStyle({
+        position: 'fixed',
+        left,
+        width,
+        top: rect.bottom + 4,
+        bottom: 'auto',
+        maxHeight: Math.min(MENU_MAX_H, Math.max(80, spaceBelow - 12)),
+        zIndex: 1000,
+      })
+    }
+  }, [])
+
+  const openMenu = useCallback(() => {
+    if (!hasSuggestions) return
+    setActiveIndex(selectedIndex >= 0 ? selectedIndex : 0)
+    setMenuOpen(true)
+  }, [hasSuggestions, selectedIndex])
+
+  useLayoutEffect(() => {
+    if (!menuOpen) return
+    updateMenuPosition()
+  }, [menuOpen, updateMenuPosition, suggestionList.length])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    function onReposition() {
+      updateMenuPosition()
+    }
+    window.addEventListener('resize', onReposition)
+    window.addEventListener('scroll', onReposition, true)
+    return () => {
+      window.removeEventListener('resize', onReposition)
+      window.removeEventListener('scroll', onReposition, true)
+    }
+  }, [menuOpen, updateMenuPosition])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    function onDocPointer(e: MouseEvent) {
+      const t = e.target as Node
+      if (wrapRef.current?.contains(t)) return
+      if (menuRef.current?.contains(t)) return
+      closeMenu()
+    }
+    document.addEventListener('mousedown', onDocPointer)
+    return () => document.removeEventListener('mousedown', onDocPointer)
+  }, [menuOpen, closeMenu])
+
+  useEffect(() => {
+    if (!menuOpen) return
+    function onKey(e: globalThis.KeyboardEvent) {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        closeMenu()
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [menuOpen, closeMenu])
+
+  useEffect(() => () => setMenuOpen(false), [])
+
+  function moveActive(delta: number) {
+    if (!suggestionList.length) return
+    setActiveIndex((prev) => (prev + delta + suggestionList.length) % suggestionList.length)
+  }
+
+  function onPickKeyDown(e: KeyboardEvent<HTMLButtonElement>) {
+    if (!hasSuggestions) return
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        if (!menuOpen) openMenu()
+        else moveActive(1)
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        if (!menuOpen) openMenu()
+        else moveActive(-1)
+        break
+      case 'Enter':
+      case ' ':
+        e.preventDefault()
+        if (!menuOpen) openMenu()
+        else {
+          const opt = suggestionList[activeIndex]
+          if (opt) pickSuggestion(opt.value)
+        }
+        break
+      case 'Escape':
+        if (menuOpen) {
+          e.preventDefault()
+          closeMenu()
+        }
+        break
+      default:
+        break
+    }
+  }
 
   const readDroppedPath = (event: DragEvent): string | null => {
     const path =
@@ -191,6 +369,52 @@ export function ExpressionField({
     onChange(next)
   }
 
+  const activeDesc =
+    menuOpen && suggestionList[activeIndex]
+      ? suggestionOptionId(listId, activeIndex)
+      : undefined
+
+  const menu =
+    menuOpen && typeof document !== 'undefined'
+      ? createPortal(
+          <ul
+            ref={menuRef}
+            id={listId}
+            className="ds-select-menu ds-select-menu--portal"
+            role="listbox"
+            tabIndex={-1}
+            style={menuStyle}
+            data-testid="expression-field-suggestions"
+          >
+            {suggestionList.map((opt, i) => {
+              const selectedOpt = opt.value === value
+              const active = i === activeIndex
+              return (
+                <li
+                  key={opt.value}
+                  id={suggestionOptionId(listId, i)}
+                  role="option"
+                  aria-selected={selectedOpt}
+                  className={cx(
+                    'ds-select-option',
+                    selectedOpt && 'ds-select-option--selected',
+                    active && 'ds-select-option--active'
+                  )}
+                  onMouseEnter={() => setActiveIndex(i)}
+                  onMouseDown={(e) => {
+                    e.preventDefault()
+                  }}
+                  onClick={() => pickSuggestion(opt.value)}
+                >
+                  {opt.label}
+                </li>
+              )
+            })}
+          </ul>,
+          document.body
+        )
+      : null
+
   return (
     <div className={cx('ds-expression-field', className)}>
       {label ? (
@@ -199,10 +423,12 @@ export function ExpressionField({
         </label>
       ) : null}
       <div
+        ref={wrapRef}
         className={cx(
           'ds-expression-field-input-wrap',
           hasExpressions && 'ds-expression-field-input-wrap--has-expr',
-          dropActive && 'ds-expression-field-input-wrap--drop-target'
+          dropActive && 'ds-expression-field-input-wrap--drop-target',
+          hasSuggestions && 'ds-expression-field-input-wrap--has-suggestions'
         )}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -215,7 +441,8 @@ export function ExpressionField({
           type="text"
           className={cx(
             'ds-expression-field-input',
-            hasExpressions && 'ds-expression-field-input--chip-overlay'
+            hasExpressions && 'ds-expression-field-input--chip-overlay',
+            hasSuggestions && 'ds-expression-field-input--with-pick'
           )}
           value={value}
           disabled={disabled}
@@ -240,7 +467,29 @@ export function ExpressionField({
             }
           }}
         />
+        {hasSuggestions ? (
+          <button
+            ref={pickRef}
+            type="button"
+            className="ds-expression-field-pick"
+            aria-label="Pick suggestion"
+            aria-haspopup="listbox"
+            aria-expanded={menuOpen}
+            aria-controls={menuOpen ? listId : undefined}
+            aria-activedescendant={activeDesc}
+            data-testid="expression-field-pick"
+            disabled={disabled}
+            onClick={() => {
+              if (menuOpen) closeMenu()
+              else openMenu()
+            }}
+            onKeyDown={onPickKeyDown}
+          >
+            <IconChevronDown size={16} aria-hidden />
+          </button>
+        ) : null}
       </div>
+      {menu}
       {hint ? <p className="ds-expression-field-hint">{hint}</p> : null}
     </div>
   )

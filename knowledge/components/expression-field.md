@@ -1,8 +1,12 @@
 # ExpressionField
 
-Scaffolded as a molecules primitive in `msqdx-ui`.
+Molecules primitive for path / `{{ expression }}` parameters.
 
-## Follow-up
+## Usage
 
-- Capture usage examples once the primitive ships in a consuming app.
-- Note migrations or API decisions here.
+- Free-text + SchemaTree drag-drop
+- Optional `suggestions` — chevron pick list (human labels → path values); used by METRON dashboard bind wells
+
+## Related
+
+`specs/domain/msqdx-ui-expression-field.md` · METRON `dashboard-field-wells.md`
