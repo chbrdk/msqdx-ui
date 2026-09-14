@@ -30,8 +30,9 @@ type ChartProps = {
 
 ## Presentation
 
-- SVG bars/line with optional **category tick labels** under each point
-- Visible **legend table** (label + value) — not screen-reader-only; interactive rows when `onPointClick` is set
+- SVG bars/line with **compact** category ticks and value labels (`fontSize` in SVG user units — not CSS px — so labels stay proportional)
+- `formatChartValue` trims floats (`52.936…` → `52.94`)
+- Visible **legend table** (label + value); interactive when `onPointClick` is set
 - Tooltips via SVG `<title>` on marks
 
 ## Accessibility

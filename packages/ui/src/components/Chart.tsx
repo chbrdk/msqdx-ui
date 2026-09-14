@@ -17,6 +17,8 @@ export type ChartProps = {
   onPointClick?: (point: ChartPoint, index: number) => void
   /** Category ticks under the plot (default true). */
   showTicks?: boolean
+  /** Numeric labels above bars/points (default true, kept compact). */
+  showValueLabels?: boolean
   className?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'title'>
 
@@ -24,8 +26,17 @@ function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
-function defaultFormat(n: number): string {
-  return Number.isFinite(n) ? String(n) : '—'
+/** Compact human numbers — never dump raw float strings into the plot. */
+export function formatChartValue(n: number): string {
+  if (!Number.isFinite(n)) return '—'
+  const abs = Math.abs(n)
+  if (Number.isInteger(n) || Math.abs(n - Math.round(n)) < 1e-9) {
+    return String(Math.round(n))
+  }
+  if (abs >= 100) return n.toFixed(1)
+  if (abs >= 10) return n.toFixed(1)
+  if (abs >= 1) return n.toFixed(2)
+  return n.toFixed(2)
 }
 
 function truncateLabel(label: string, max = 12): string {
@@ -39,26 +50,29 @@ export function Chart({
   variant = 'bar',
   data,
   title,
-  height = 200,
-  valueFormatter = defaultFormat,
+  height = 220,
+  valueFormatter = formatChartValue,
   onPointClick,
   showTicks = true,
+  showValueLabels = true,
   className,
   ...rest
 }: ChartProps) {
   const safe = Array.isArray(data) ? data.filter((d) => d && typeof d.value === 'number') : []
   const max = Math.max(1, ...safe.map((d) => d.value))
-  const padX = 10
-  const padTop = 16
-  const tickBand = showTicks ? 36 : 10
-  const plotW = 360
-  const plotH = Math.max(100, height)
+  const padX = 12
+  const padTop = showValueLabels ? 18 : 10
+  const tickBand = showTicks ? 42 : 12
+  const plotW = 400
+  const plotH = Math.max(120, height)
   const innerW = plotW - padX * 2
-  const innerH = Math.max(48, plotH - padTop - tickBand)
+  const innerH = Math.max(56, plotH - padTop - tickBand)
   const n = Math.max(1, safe.length)
   const slot = innerW / n
   const interactive = typeof onPointClick === 'function'
-  const tickMax = Math.max(4, Math.min(14, Math.floor(slot / 5.5)))
+  const tickMax = Math.max(5, Math.min(16, Math.floor(slot / 6)))
+  const valueFont = 7
+  const tickFont = 6.5
   const summary =
     title ||
     (safe.length
@@ -88,7 +102,7 @@ export function Chart({
         {variant === 'bar'
           ? safe.map((point, i) => {
               const h = (point.value / max) * innerH
-              const w = Math.max(6, slot * 0.62)
+              const w = Math.max(8, slot * 0.58)
               const x = padX + i * slot + (slot - w) / 2
               const y = padTop + innerH - h
               const cx = x + w / 2
@@ -128,12 +142,13 @@ export function Chart({
                   >
                     <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
                   </rect>
-                  {point.value > 0 ? (
+                  {showValueLabels && point.value > 0 ? (
                     <text
                       className="ds-chart__value-label"
                       x={cx}
-                      y={Math.max(10, y - 4)}
+                      y={Math.max(valueFont + 2, y - 3)}
                       textAnchor="middle"
+                      fontSize={valueFont}
                     >
                       {valueFormatter(point.value)}
                     </text>
@@ -142,8 +157,9 @@ export function Chart({
                     <text
                       className="ds-chart__tick"
                       x={cx}
-                      y={padTop + innerH + 14}
+                      y={padTop + innerH + 12}
                       textAnchor="middle"
+                      fontSize={tickFont}
                     >
                       {truncateLabel(point.label, tickMax)}
                     </text>
@@ -195,15 +211,27 @@ export function Chart({
                       : undefined
                   }
                 >
-                  <circle className="ds-chart__dot" cx={x} cy={y} r={interactive ? 5 : 3}>
+                  <circle className="ds-chart__dot" cx={x} cy={y} r={interactive ? 4 : 2.5}>
                     <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
                   </circle>
+                  {showValueLabels && point.value > 0 ? (
+                    <text
+                      className="ds-chart__value-label"
+                      x={x}
+                      y={Math.max(valueFont + 2, y - 6)}
+                      textAnchor="middle"
+                      fontSize={valueFont}
+                    >
+                      {valueFormatter(point.value)}
+                    </text>
+                  ) : null}
                   {showTicks ? (
                     <text
                       className="ds-chart__tick"
                       x={x}
-                      y={padTop + innerH + 14}
+                      y={padTop + innerH + 12}
                       textAnchor="middle"
+                      fontSize={tickFont}
                     >
                       {truncateLabel(point.label, tickMax)}
                     </text>

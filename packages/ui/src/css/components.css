@@ -4716,12 +4716,12 @@ button.ds-marker-canvas__marker:focus-visible {
 }
 .ds-chart__tick,
 .ds-chart__value-label {
-  fill: color-mix(in oklab, var(--fg, #eee) 72%, transparent);
-  font-size: 9px;
+  fill: color-mix(in oklab, var(--fg, #eee) 70%, transparent);
+  /* font-size comes from SVG fontSize (user units) so labels scale with the plot */
 }
 .ds-chart__value-label {
-  fill: var(--fg, #eee);
-  font-weight: 600;
+  fill: color-mix(in oklab, var(--fg, #eee) 88%, transparent);
+  font-weight: 500;
 }
 .ds-chart__table {
   width: 100%;

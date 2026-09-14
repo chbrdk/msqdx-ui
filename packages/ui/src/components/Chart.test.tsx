@@ -1,6 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Chart } from './Chart'
+import { Chart, formatChartValue } from './Chart'
+
+describe('formatChartValue', () => {
+  it('keeps integers clean and trims long floats', () => {
+    expect(formatChartValue(72)).toBe('72')
+    expect(formatChartValue(52.936614583333345)).toBe('52.9')
+    expect(formatChartValue(0.125)).toBe('0.13')
+  })
+})
 
 describe('Chart', () => {
   it('renders visible legend labels and value ticks', () => {
@@ -36,7 +44,7 @@ describe('Chart', () => {
     expect(document.querySelectorAll('.ds-chart__dot')).toHaveLength(2)
   })
 
-  it('invokes onPointClick from legend row', () => {
+  it('invokes onPointClick from bar group', () => {
     const onPointClick = vi.fn()
     const { container } = render(
       <Chart
