@@ -2,10 +2,14 @@
 
 Layer: `molecules`
 
-Scaffolded via `pnpm ds:add Chart --layer molecules`.
+Magazine SVG chart for Collection analytics. Spec: `specs/domain/msqdx-ui-chart.md`.
 
-## Next steps
+## Variants
 
-- Align API with `specs/domain/msqdx-ui-chart.md`
-- Replace the scaffold markup with the final primitive implementation
-- Add meaningful stories and assertions
+`bar` · `bar_horizontal` · `line` · `area` · `scatter` · `pie` · `donut` · `funnel`
+
+Single-series `ChartPoint[]` only. Interactive clicks via `onPointClick`.
+
+## Accessibility
+
+SVG `role="img"` plus a screen-reader data table (`ds-chart__table`).

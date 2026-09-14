@@ -4702,14 +4702,31 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-chart__bar {
   fill: var(--chart-accent, var(--accent, #c4a35a));
 }
+.ds-chart__line {
+  stroke: var(--chart-accent, var(--accent, #c4a35a));
+  stroke-width: 2;
+  fill: none;
+}
 .ds-chart--interactive .ds-chart__bar:hover,
 .ds-chart--interactive .ds-chart__dot:hover {
   opacity: 0.85;
   outline: 2px solid color-mix(in oklab, var(--accent, #c4a35a) 55%, transparent);
 }
-.ds-chart__line {
-  stroke: var(--chart-accent, var(--accent, #c4a35a));
-  stroke-width: 2;
+.ds-chart__area {
+  fill: color-mix(in oklab, var(--chart-accent, var(--accent, #c4a35a)) 28%, transparent);
+  stroke: none;
+}
+.ds-chart__slice {
+  stroke: color-mix(in oklab, var(--bg0, #111) 55%, transparent);
+  stroke-width: 1;
+}
+.ds-chart__funnel {
+  opacity: 0.92;
+}
+.ds-chart--interactive .ds-chart__slice:hover,
+.ds-chart--interactive .ds-chart__funnel:hover {
+  opacity: 0.85;
+  outline: 2px solid color-mix(in oklab, var(--accent, #c4a35a) 55%, transparent);
 }
 .ds-chart__dot {
   fill: var(--chart-ok, var(--ok, #6a9b7a));

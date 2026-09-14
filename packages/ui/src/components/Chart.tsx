@@ -1,23 +1,33 @@
 'use client'
 
-import type { HTMLAttributes } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 export type ChartPoint = {
   label: string
   value: number
 }
 
+export const CHART_VARIANTS = [
+  'bar',
+  'bar_horizontal',
+  'line',
+  'area',
+  'scatter',
+  'pie',
+  'donut',
+  'funnel',
+] as const
+
+export type ChartVariant = (typeof CHART_VARIANTS)[number]
+
 export type ChartProps = {
-  variant?: 'bar' | 'line'
+  variant?: ChartVariant
   data: ChartPoint[]
   title?: string
   height?: number
   valueFormatter?: (n: number) => string
-  /** Optional point activation (cross-filter / drill). */
   onPointClick?: (point: ChartPoint, index: number) => void
-  /** Category ticks under the plot (default true). */
   showTicks?: boolean
-  /** Numeric labels above bars/points (default true, kept compact). */
   showValueLabels?: boolean
   className?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'title'>
@@ -26,7 +36,6 @@ function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
 }
 
-/** Compact human numbers — never dump raw float strings into the plot. */
 export function formatChartValue(n: number): string {
   if (!Number.isFinite(n)) return '—'
   const abs = Math.abs(n)
@@ -39,13 +48,105 @@ export function formatChartValue(n: number): string {
   return n.toFixed(2)
 }
 
+export function isChartVariant(v: string | null | undefined): v is ChartVariant {
+  return Boolean(v && (CHART_VARIANTS as readonly string[]).includes(v))
+}
+
 function truncateLabel(label: string, max = 12): string {
   const t = label.trim()
   if (t.length <= max) return t
   return `${t.slice(0, Math.max(1, max - 1))}…`
 }
 
-/** Domain-free bar/line chart — specs/domain/msqdx-ui-chart.md */
+function sliceFill(i: number): string {
+  const tones = [
+    'var(--chart-accent, var(--accent, #c4a35a))',
+    'var(--chart-ok, var(--ok, #6a9b7a))',
+    'color-mix(in oklab, var(--chart-accent, var(--accent, #c4a35a)) 70%, white)',
+    'color-mix(in oklab, var(--chart-ok, var(--ok, #6a9b7a)) 65%, white)',
+    'color-mix(in oklab, var(--fg, #eee) 35%, var(--chart-accent, #c4a35a))',
+    'color-mix(in oklab, var(--chart-accent, #c4a35a) 45%, var(--bg0, #111))',
+  ]
+  return tones[i % tones.length]!
+}
+
+function polar(cx: number, cy: number, r: number, angle: number) {
+  return {
+    x: cx + r * Math.cos(angle),
+    y: cy + r * Math.sin(angle),
+  }
+}
+
+function donutSlicePath(
+  cx: number,
+  cy: number,
+  rOuter: number,
+  rInner: number,
+  start: number,
+  end: number,
+): string {
+  const large = end - start > Math.PI ? 1 : 0
+  const o0 = polar(cx, cy, rOuter, start)
+  const o1 = polar(cx, cy, rOuter, end)
+  const i1 = polar(cx, cy, rInner, end)
+  const i0 = polar(cx, cy, rInner, start)
+  if (rInner <= 0) {
+    return [
+      `M ${cx} ${cy}`,
+      `L ${o0.x} ${o0.y}`,
+      `A ${rOuter} ${rOuter} 0 ${large} 1 ${o1.x} ${o1.y}`,
+      'Z',
+    ].join(' ')
+  }
+  return [
+    `M ${o0.x} ${o0.y}`,
+    `A ${rOuter} ${rOuter} 0 ${large} 1 ${o1.x} ${o1.y}`,
+    `L ${i1.x} ${i1.y}`,
+    `A ${rInner} ${rInner} 0 ${large} 0 ${i0.x} ${i0.y}`,
+    'Z',
+  ].join(' ')
+}
+
+type MarkProps = {
+  point: ChartPoint
+  index: number
+  interactive: boolean
+  onPointClick?: (point: ChartPoint, index: number) => void
+  children: ReactNode
+}
+
+function Mark({ point, index, interactive, onPointClick, children }: MarkProps) {
+  return (
+    <g
+      className="ds-chart__point"
+      role={interactive ? 'button' : undefined}
+      tabIndex={interactive ? 0 : undefined}
+      style={interactive ? { cursor: 'pointer' } : undefined}
+      onClick={
+        interactive
+          ? (e) => {
+              e.stopPropagation()
+              onPointClick?.(point, index)
+            }
+          : undefined
+      }
+      onKeyDown={
+        interactive
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                onPointClick?.(point, index)
+              }
+            }
+          : undefined
+      }
+    >
+      {children}
+    </g>
+  )
+}
+
+/** Domain-free chart family — specs/domain/msqdx-ui-chart.md */
 export function Chart({
   variant = 'bar',
   data,
@@ -60,17 +161,24 @@ export function Chart({
 }: ChartProps) {
   const safe = Array.isArray(data) ? data.filter((d) => d && typeof d.value === 'number') : []
   const max = Math.max(1, ...safe.map((d) => d.value))
+  const total = safe.reduce((s, p) => s + Math.max(0, p.value), 0) || 1
   const padX = 12
-  const padTop = showValueLabels ? 18 : 10
-  const tickBand = showTicks ? 42 : 12
+  const isRadial = variant === 'pie' || variant === 'donut'
+  const isFunnel = variant === 'funnel'
+  const isHBar = variant === 'bar_horizontal'
+  const padTop = showValueLabels && !isRadial ? 18 : 10
+  const tickBand = showTicks && !isRadial && !isFunnel ? 42 : isFunnel ? 8 : 12
   const plotW = 400
   const plotH = Math.max(120, height)
   const innerW = plotW - padX * 2
+  const labelCol = isHBar ? 72 : 0
+  const plotLeft = padX + labelCol
+  const plotInnerW = innerW - labelCol
   const innerH = Math.max(56, plotH - padTop - tickBand)
   const n = Math.max(1, safe.length)
-  const slot = innerW / n
+  const slot = (isHBar ? innerH : plotInnerW) / n
   const interactive = typeof onPointClick === 'function'
-  const tickMax = Math.max(5, Math.min(16, Math.floor(slot / 6)))
+  const tickMax = Math.max(5, Math.min(16, Math.floor((isHBar ? 70 : plotInnerW / n) / 6)))
   const valueFont = 7
   const tickFont = 6.5
   const summary =
@@ -78,6 +186,12 @@ export function Chart({
     (safe.length
       ? `Chart with ${safe.length} values from ${valueFormatter(safe[0].value)} to ${valueFormatter(safe[safe.length - 1].value)}`
       : 'Empty chart')
+
+  const linePoints = safe.map((point, i) => {
+    const x = plotLeft + i * (plotInnerW / n) + plotInnerW / n / 2
+    const y = padTop + innerH - (point.value / max) * innerH
+    return { point, i, x, y }
+  })
 
   return (
     <div
@@ -92,54 +206,32 @@ export function Chart({
         aria-label={summary}
         height={height}
       >
-        <line
-          className="ds-chart__grid"
-          x1={padX}
-          x2={plotW - padX}
-          y1={padTop + innerH}
-          y2={padTop + innerH}
-        />
+        {!isRadial ? (
+          <line
+            className="ds-chart__grid"
+            x1={plotLeft}
+            x2={plotW - padX}
+            y1={padTop + innerH}
+            y2={padTop + innerH}
+          />
+        ) : null}
+
         {variant === 'bar'
           ? safe.map((point, i) => {
               const h = (point.value / max) * innerH
-              const w = Math.max(8, slot * 0.58)
-              const x = padX + i * slot + (slot - w) / 2
+              const w = Math.max(8, (plotInnerW / n) * 0.58)
+              const x = plotLeft + i * (plotInnerW / n) + ((plotInnerW / n) - w) / 2
               const y = padTop + innerH - h
               const cx = x + w / 2
               return (
-                <g
+                <Mark
                   key={`${point.label}-${i}`}
-                  className="ds-chart__point"
-                  role={interactive ? 'button' : undefined}
-                  tabIndex={interactive ? 0 : undefined}
-                  style={interactive ? { cursor: 'pointer' } : undefined}
-                  onClick={
-                    interactive
-                      ? (e) => {
-                          e.stopPropagation()
-                          onPointClick?.(point, i)
-                        }
-                      : undefined
-                  }
-                  onKeyDown={
-                    interactive
-                      ? (e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            onPointClick?.(point, i)
-                          }
-                        }
-                      : undefined
-                  }
+                  point={point}
+                  index={i}
+                  interactive={interactive}
+                  onPointClick={onPointClick}
                 >
-                  <rect
-                    className="ds-chart__bar"
-                    x={x}
-                    y={y}
-                    width={w}
-                    height={Math.max(2, h)}
-                    rx={2}
-                  >
+                  <rect className="ds-chart__bar" x={x} y={y} width={w} height={Math.max(2, h)} rx={2}>
                     <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
                   </rect>
                   {showValueLabels && point.value > 0 ? (
@@ -164,79 +256,204 @@ export function Chart({
                       {truncateLabel(point.label, tickMax)}
                     </text>
                   ) : null}
-                </g>
+                </Mark>
               )
             })
           : null}
-        {variant === 'line' && safe.length > 0 ? (
-          <polyline
-            className="ds-chart__line"
-            fill="none"
-            points={safe
-              .map((point, i) => {
-                const x = padX + i * slot + slot / 2
-                const y = padTop + innerH - (point.value / max) * innerH
-                return `${x},${y}`
-              })
-              .join(' ')}
-          />
-        ) : null}
-        {variant === 'line'
+
+        {variant === 'bar_horizontal'
           ? safe.map((point, i) => {
-              const x = padX + i * slot + slot / 2
-              const y = padTop + innerH - (point.value / max) * innerH
+              const barH = Math.max(6, slot * 0.55)
+              const y = padTop + i * slot + (slot - barH) / 2
+              const w = Math.max(2, (point.value / max) * plotInnerW)
               return (
-                <g
+                <Mark
                   key={`${point.label}-${i}`}
-                  className="ds-chart__point"
-                  role={interactive ? 'button' : undefined}
-                  tabIndex={interactive ? 0 : undefined}
-                  style={interactive ? { cursor: 'pointer' } : undefined}
-                  onClick={
-                    interactive
-                      ? (e) => {
-                          e.stopPropagation()
-                          onPointClick?.(point, i)
-                        }
-                      : undefined
-                  }
-                  onKeyDown={
-                    interactive
-                      ? (e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault()
-                            onPointClick?.(point, i)
-                          }
-                        }
-                      : undefined
-                  }
+                  point={point}
+                  index={i}
+                  interactive={interactive}
+                  onPointClick={onPointClick}
                 >
-                  <circle className="ds-chart__dot" cx={x} cy={y} r={interactive ? 4 : 2.5}>
+                  <text
+                    className="ds-chart__tick"
+                    x={padX}
+                    y={y + barH / 2 + 2}
+                    textAnchor="start"
+                    fontSize={tickFont}
+                  >
+                    {truncateLabel(point.label, 10)}
+                  </text>
+                  <rect
+                    className="ds-chart__bar"
+                    x={plotLeft}
+                    y={y}
+                    width={w}
+                    height={barH}
+                    rx={2}
+                  >
                     <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
-                  </circle>
-                  {showValueLabels && point.value > 0 ? (
+                  </rect>
+                  {showValueLabels ? (
                     <text
                       className="ds-chart__value-label"
-                      x={x}
-                      y={Math.max(valueFont + 2, y - 6)}
-                      textAnchor="middle"
+                      x={plotLeft + w + 4}
+                      y={y + barH / 2 + 2}
+                      textAnchor="start"
                       fontSize={valueFont}
                     >
                       {valueFormatter(point.value)}
                     </text>
                   ) : null}
-                  {showTicks ? (
-                    <text
-                      className="ds-chart__tick"
-                      x={x}
-                      y={padTop + innerH + 12}
-                      textAnchor="middle"
-                      fontSize={tickFont}
+                </Mark>
+              )
+            })
+          : null}
+
+        {variant === 'area' && linePoints.length > 0 ? (
+          <polygon
+            className="ds-chart__area"
+            points={[
+              `${linePoints[0]!.x},${padTop + innerH}`,
+              ...linePoints.map((p) => `${p.x},${p.y}`),
+              `${linePoints[linePoints.length - 1]!.x},${padTop + innerH}`,
+            ].join(' ')}
+          />
+        ) : null}
+
+        {(variant === 'line' || variant === 'area') && linePoints.length > 0 ? (
+          <polyline
+            className="ds-chart__line"
+            fill="none"
+            points={linePoints.map((p) => `${p.x},${p.y}`).join(' ')}
+          />
+        ) : null}
+
+        {variant === 'line' || variant === 'area' || variant === 'scatter'
+          ? linePoints.map(({ point, i, x, y }) => (
+              <Mark
+                key={`${point.label}-${i}`}
+                point={point}
+                index={i}
+                interactive={interactive}
+                onPointClick={onPointClick}
+              >
+                <circle
+                  className="ds-chart__dot"
+                  cx={x}
+                  cy={y}
+                  r={interactive || variant === 'scatter' ? 4 : 2.5}
+                >
+                  <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
+                </circle>
+                {showValueLabels && point.value > 0 ? (
+                  <text
+                    className="ds-chart__value-label"
+                    x={x}
+                    y={Math.max(valueFont + 2, y - 6)}
+                    textAnchor="middle"
+                    fontSize={valueFont}
+                  >
+                    {valueFormatter(point.value)}
+                  </text>
+                ) : null}
+                {showTicks && variant !== 'scatter' ? (
+                  <text
+                    className="ds-chart__tick"
+                    x={x}
+                    y={padTop + innerH + 12}
+                    textAnchor="middle"
+                    fontSize={tickFont}
+                  >
+                    {truncateLabel(point.label, tickMax)}
+                  </text>
+                ) : null}
+              </Mark>
+            ))
+          : null}
+
+        {isRadial
+          ? (() => {
+              const cx = plotW / 2
+              const cy = plotH / 2
+              const rOuter = Math.min(plotW, plotH) * 0.36
+              const rInner = variant === 'donut' ? rOuter * 0.55 : 0
+              let angle = -Math.PI / 2
+              return safe.map((point, i) => {
+                const sweep = (Math.max(0, point.value) / total) * Math.PI * 2
+                const start = angle
+                const end = angle + Math.max(sweep, 0.001)
+                angle = end
+                const mid = (start + end) / 2
+                const labelR = rOuter * (variant === 'donut' ? 0.78 : 0.62)
+                const lp = polar(cx, cy, labelR, mid)
+                return (
+                  <Mark
+                    key={`${point.label}-${i}`}
+                    point={point}
+                    index={i}
+                    interactive={interactive}
+                    onPointClick={onPointClick}
+                  >
+                    <path
+                      className="ds-chart__slice"
+                      d={donutSlicePath(cx, cy, rOuter, rInner, start, end)}
+                      fill={sliceFill(i)}
                     >
-                      {truncateLabel(point.label, tickMax)}
-                    </text>
-                  ) : null}
-                </g>
+                      <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
+                    </path>
+                    {showValueLabels && sweep > 0.2 ? (
+                      <text
+                        className="ds-chart__value-label"
+                        x={lp.x}
+                        y={lp.y}
+                        textAnchor="middle"
+                        fontSize={valueFont}
+                      >
+                        {valueFormatter(point.value)}
+                      </text>
+                    ) : null}
+                  </Mark>
+                )
+              })
+            })()
+          : null}
+
+        {isFunnel
+          ? safe.map((point, i) => {
+              const rowH = Math.max(14, (innerH - 8) / n)
+              const y = padTop + i * rowH
+              const widthRatio = Math.max(0.12, point.value / max)
+              const w = plotInnerW * widthRatio
+              const x = plotLeft + (plotInnerW - w) / 2
+              return (
+                <Mark
+                  key={`${point.label}-${i}`}
+                  point={point}
+                  index={i}
+                  interactive={interactive}
+                  onPointClick={onPointClick}
+                >
+                  <rect
+                    className="ds-chart__funnel"
+                    x={x}
+                    y={y}
+                    width={w}
+                    height={rowH * 0.78}
+                    rx={3}
+                    fill={sliceFill(i)}
+                  >
+                    <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
+                  </rect>
+                  <text
+                    className="ds-chart__tick"
+                    x={plotW / 2}
+                    y={y + rowH * 0.45}
+                    textAnchor="middle"
+                    fontSize={tickFont}
+                  >
+                    {truncateLabel(point.label, 18)} · {valueFormatter(point.value)}
+                  </text>
+                </Mark>
               )
             })
           : null}

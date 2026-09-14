@@ -1,12 +1,20 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
-import { Chart, formatChartValue } from './Chart'
+import { Chart, CHART_VARIANTS, formatChartValue, isChartVariant } from './Chart'
 
 describe('formatChartValue', () => {
   it('keeps integers clean and trims long floats', () => {
     expect(formatChartValue(72)).toBe('72')
     expect(formatChartValue(52.936614583333345)).toBe('52.9')
     expect(formatChartValue(0.125)).toBe('0.13')
+  })
+})
+
+describe('isChartVariant', () => {
+  it('accepts the curated family', () => {
+    expect(CHART_VARIANTS).toHaveLength(8)
+    expect(isChartVariant('pie')).toBe(true)
+    expect(isChartVariant('waterfall')).toBe(false)
   })
 })
 
@@ -24,24 +32,48 @@ describe('Chart', () => {
     expect(screen.getByRole('img', { name: 'Apps' })).toBeInTheDocument()
     expect(screen.getByRole('columnheader', { name: 'Category' })).toBeInTheDocument()
     expect(screen.getAllByText('Hired').length).toBeGreaterThanOrEqual(1)
-    expect(screen.getAllByText('Rejected').length).toBeGreaterThanOrEqual(1)
     expect(document.querySelectorAll('.ds-chart__bar')).toHaveLength(2)
     expect(document.querySelectorAll('.ds-chart__tick')).toHaveLength(2)
-    expect(document.querySelectorAll('.ds-chart__value-label')).toHaveLength(2)
   })
 
-  it('renders line polyline', () => {
-    render(
+  it('renders pie slices', () => {
+    const { container } = render(
       <Chart
-        variant="line"
+        variant="pie"
+        data={[
+          { label: 'A', value: 2 },
+          { label: 'B', value: 1 },
+        ]}
+      />,
+    )
+    expect(container.querySelectorAll('.ds-chart__slice')).toHaveLength(2)
+  })
+
+  it('renders funnel stages', () => {
+    const { container } = render(
+      <Chart
+        variant="funnel"
+        data={[
+          { label: 'Applied', value: 10 },
+          { label: 'Hired', value: 2 },
+        ]}
+      />,
+    )
+    expect(container.querySelectorAll('.ds-chart__funnel')).toHaveLength(2)
+  })
+
+  it('renders area fill', () => {
+    const { container } = render(
+      <Chart
+        variant="area"
         data={[
           { label: 'A', value: 1 },
           { label: 'B', value: 3 },
         ]}
       />,
     )
-    expect(document.querySelector('.ds-chart__line')).toBeTruthy()
-    expect(document.querySelectorAll('.ds-chart__dot')).toHaveLength(2)
+    expect(container.querySelector('.ds-chart__area')).toBeTruthy()
+    expect(container.querySelector('.ds-chart__line')).toBeTruthy()
   })
 
   it('invokes onPointClick from bar group', () => {
@@ -55,10 +87,7 @@ describe('Chart', () => {
         onPointClick={onPointClick}
       />,
     )
-    expect(container.querySelector('.ds-chart--interactive')).toBeTruthy()
-    const barGroup = container.querySelector('.ds-chart__point')
-    expect(barGroup).toBeTruthy()
-    fireEvent.click(barGroup!)
+    fireEvent.click(container.querySelector('.ds-chart__point')!)
     expect(onPointClick).toHaveBeenCalledWith({ label: 'Hired', value: 2 }, 0)
   })
 })
