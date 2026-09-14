@@ -148,6 +148,9 @@ import { TimelineRuler } from '../components/TimelineRuler'
 import { TimelineTrack } from '../components/TimelineTrack'
 import { TimelineClip } from '../components/TimelineClip'
 import { Waveform } from '../components/Waveform'
+import { Chart } from '../components/Chart'
+import { Gauge } from '../components/Gauge'
+import { WidgetGrid } from '../components/WidgetGrid'
 import {
   CATALOG,
   catalogComponentName,
@@ -303,6 +306,9 @@ const CATALOG_COMPONENTS = {
   TimelineTrack,
   TimelineClip,
   Waveform,
+  Chart,
+  Gauge,
+  WidgetGrid,
 } as unknown as Record<string, CatalogComponent>
 
 export {

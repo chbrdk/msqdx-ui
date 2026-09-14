@@ -1,0 +1,41 @@
+# MSQDX UI — WidgetGrid
+
+**Status:** Accepted — 2026-09-14  
+**Layer:** Organisms  
+**Implements:** `packages/ui/src/components/WidgetGrid.tsx`  
+**Consumers:** METRON Wave 6 dashboard layout
+
+## Purpose
+
+Constrained **responsive widget layout** (CSS grid, not freeform canvas). Children are opaque widgets (Chart, Gauge, Panel, MetricChip tiles).
+
+## API
+
+```ts
+type WidgetGridProps = {
+  columns?: 2 | 3 | 4 | 6 | 12 // default 12
+  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg'
+  children?: ReactNode
+  className?: string
+}
+
+type WidgetGridItemProps = {
+  colSpan?: number // default 4
+  rowSpan?: number // default 1
+  children?: ReactNode
+  className?: string
+}
+```
+
+Compound: `WidgetGrid.Item`.
+
+## Non-goals
+
+- Drag/resize editor (later; GridEditor already exists for design tools)
+- Absolute/freeform canvas parity with Power BI
+
+## Acceptance
+
+1. Stories: Default 12-col with spans  
+2. Unit tests place items with col/row span CSS vars  
+3. Exported from `@msqdx/ui`
