@@ -44,7 +44,7 @@ describe('Chart', () => {
         onPointClick={onPointClick}
       />,
     )
-    const bars = document.querySelectorAll('.ds-chart__bar')
+    const bars = document.querySelectorAll('.ds-chart__point')
     fireEvent.click(bars[0]!)
     expect(onPointClick).toHaveBeenCalledWith({ label: 'Hired', value: 2 }, 0)
   })

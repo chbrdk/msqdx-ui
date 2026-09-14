@@ -81,14 +81,9 @@ export function Chart({
               const x = padX + i * slot + (slot - w) / 2
               const y = padY + innerH - h
               return (
-                <rect
+                <g
                   key={`${point.label}-${i}`}
-                  className="ds-chart__bar"
-                  x={x}
-                  y={y}
-                  width={w}
-                  height={Math.max(1, h)}
-                  rx={2}
+                  className="ds-chart__point"
                   role={interactive ? 'button' : undefined}
                   tabIndex={interactive ? 0 : undefined}
                   style={interactive ? { cursor: 'pointer' } : undefined}
@@ -111,8 +106,17 @@ export function Chart({
                       : undefined
                   }
                 >
-                  <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
-                </rect>
+                  <rect
+                    className="ds-chart__bar"
+                    x={x}
+                    y={y}
+                    width={w}
+                    height={Math.max(1, h)}
+                    rx={2}
+                  >
+                    <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
+                  </rect>
+                </g>
               )
             })
           : null}
@@ -134,12 +138,9 @@ export function Chart({
               const x = padX + i * slot + slot / 2
               const y = padY + innerH - (point.value / max) * innerH
               return (
-                <circle
+                <g
                   key={`${point.label}-${i}`}
-                  className="ds-chart__dot"
-                  cx={x}
-                  cy={y}
-                  r={interactive ? 5 : 3}
+                  className="ds-chart__point"
                   role={interactive ? 'button' : undefined}
                   tabIndex={interactive ? 0 : undefined}
                   style={interactive ? { cursor: 'pointer' } : undefined}
@@ -162,8 +163,10 @@ export function Chart({
                       : undefined
                   }
                 >
-                  <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
-                </circle>
+                  <circle className="ds-chart__dot" cx={x} cy={y} r={interactive ? 5 : 3}>
+                    <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
+                  </circle>
+                </g>
               )
             })
           : null}
