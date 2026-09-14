@@ -49,7 +49,7 @@ export function FlowBoardStage({
             {viewport}
           </div>
         ) : null}
-        {overlays}
+        {overlays ? <div className="msqdx-flow-board-overlays">{overlays}</div> : null}
         {children}
       </div>
     </div>
