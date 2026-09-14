@@ -13,6 +13,8 @@ export type ChartProps = {
   title?: string
   height?: number
   valueFormatter?: (n: number) => string
+  /** Optional point activation (cross-filter / drill). */
+  onPointClick?: (point: ChartPoint, index: number) => void
   className?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'title'>
 
@@ -31,6 +33,7 @@ export function Chart({
   title,
   height = 180,
   valueFormatter = defaultFormat,
+  onPointClick,
   className,
   ...rest
 }: ChartProps) {
@@ -44,6 +47,7 @@ export function Chart({
   const innerH = plotH - padY * 2
   const n = Math.max(1, safe.length)
   const slot = innerW / n
+  const interactive = typeof onPointClick === 'function'
   const summary =
     title ||
     (safe.length
@@ -51,7 +55,10 @@ export function Chart({
       : 'Empty chart')
 
   return (
-    <div className={cx('ds-chart', `ds-chart--${variant}`, className)} {...rest}>
+    <div
+      className={cx('ds-chart', `ds-chart--${variant}`, interactive && 'ds-chart--interactive', className)}
+      {...rest}
+    >
       {title ? <div className="ds-chart__title">{title}</div> : null}
       <svg
         className="ds-chart__svg"
@@ -82,6 +89,27 @@ export function Chart({
                   width={w}
                   height={Math.max(1, h)}
                   rx={2}
+                  role={interactive ? 'button' : undefined}
+                  tabIndex={interactive ? 0 : undefined}
+                  style={interactive ? { cursor: 'pointer' } : undefined}
+                  onClick={
+                    interactive
+                      ? (e) => {
+                          e.stopPropagation()
+                          onPointClick?.(point, i)
+                        }
+                      : undefined
+                  }
+                  onKeyDown={
+                    interactive
+                      ? (e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            onPointClick?.(point, i)
+                          }
+                        }
+                      : undefined
+                  }
                 >
                   <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
                 </rect>
@@ -111,7 +139,28 @@ export function Chart({
                   className="ds-chart__dot"
                   cx={x}
                   cy={y}
-                  r={3}
+                  r={interactive ? 5 : 3}
+                  role={interactive ? 'button' : undefined}
+                  tabIndex={interactive ? 0 : undefined}
+                  style={interactive ? { cursor: 'pointer' } : undefined}
+                  onClick={
+                    interactive
+                      ? (e) => {
+                          e.stopPropagation()
+                          onPointClick?.(point, i)
+                        }
+                      : undefined
+                  }
+                  onKeyDown={
+                    interactive
+                      ? (e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault()
+                            onPointClick?.(point, i)
+                          }
+                        }
+                      : undefined
+                  }
                 >
                   <title>{`${point.label}: ${valueFormatter(point.value)}`}</title>
                 </circle>
@@ -123,7 +172,18 @@ export function Chart({
         <caption>{summary}</caption>
         <tbody>
           {safe.map((point, i) => (
-            <tr key={`${point.label}-${i}`}>
+            <tr
+              key={`${point.label}-${i}`}
+              className={interactive ? 'ds-chart__row--interactive' : undefined}
+              onClick={
+                interactive
+                  ? (e) => {
+                      e.stopPropagation()
+                      onPointClick?.(point, i)
+                    }
+                  : undefined
+              }
+            >
               <th scope="row">{point.label}</th>
               <td>{valueFormatter(point.value)}</td>
             </tr>

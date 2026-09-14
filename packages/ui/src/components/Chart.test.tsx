@@ -1,5 +1,5 @@
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { fireEvent, render, screen } from '@testing-library/react'
+import { describe, expect, it, vi } from 'vitest'
 import { Chart } from './Chart'
 
 describe('Chart', () => {
@@ -31,5 +31,21 @@ describe('Chart', () => {
     )
     expect(document.querySelector('.ds-chart__line')).toBeTruthy()
     expect(document.querySelectorAll('.ds-chart__dot')).toHaveLength(2)
+  })
+
+  it('invokes onPointClick for interactive bars', () => {
+    const onPointClick = vi.fn()
+    render(
+      <Chart
+        data={[
+          { label: 'Hired', value: 2 },
+          { label: 'Rejected', value: 1 },
+        ]}
+        onPointClick={onPointClick}
+      />,
+    )
+    const bars = document.querySelectorAll('.ds-chart__bar')
+    fireEvent.click(bars[0]!)
+    expect(onPointClick).toHaveBeenCalledWith({ label: 'Hired', value: 2 }, 0)
   })
 })
