@@ -3,20 +3,23 @@ import { describe, expect, it, vi } from 'vitest'
 import { Chart } from './Chart'
 
 describe('Chart', () => {
-  it('renders bar chart with accessible table fallback', () => {
+  it('renders visible legend labels and value ticks', () => {
     render(
       <Chart
         title="Apps"
         data={[
-          { label: 'A', value: 2 },
-          { label: 'B', value: 5 },
+          { label: 'Hired', value: 2 },
+          { label: 'Rejected', value: 5 },
         ]}
       />,
     )
     expect(screen.getByRole('img', { name: 'Apps' })).toBeInTheDocument()
-    expect(screen.getByText('A')).toBeInTheDocument()
-    expect(screen.getByText('5')).toBeInTheDocument()
+    expect(screen.getByRole('columnheader', { name: 'Category' })).toBeInTheDocument()
+    expect(screen.getAllByText('Hired').length).toBeGreaterThanOrEqual(1)
+    expect(screen.getAllByText('Rejected').length).toBeGreaterThanOrEqual(1)
     expect(document.querySelectorAll('.ds-chart__bar')).toHaveLength(2)
+    expect(document.querySelectorAll('.ds-chart__tick')).toHaveLength(2)
+    expect(document.querySelectorAll('.ds-chart__value-label')).toHaveLength(2)
   })
 
   it('renders line polyline', () => {
@@ -33,9 +36,9 @@ describe('Chart', () => {
     expect(document.querySelectorAll('.ds-chart__dot')).toHaveLength(2)
   })
 
-  it('invokes onPointClick for interactive points', () => {
+  it('invokes onPointClick from legend row', () => {
     const onPointClick = vi.fn()
-    render(
+    const { container } = render(
       <Chart
         data={[
           { label: 'Hired', value: 2 },
@@ -44,10 +47,10 @@ describe('Chart', () => {
         onPointClick={onPointClick}
       />,
     )
-    expect(document.querySelector('.ds-chart--interactive')).toBeTruthy()
-    const row = screen.getByText('Hired').closest('tr')
-    expect(row).toBeTruthy()
-    fireEvent.click(row!)
+    expect(container.querySelector('.ds-chart--interactive')).toBeTruthy()
+    const barGroup = container.querySelector('.ds-chart__point')
+    expect(barGroup).toBeTruthy()
+    fireEvent.click(barGroup!)
     expect(onPointClick).toHaveBeenCalledWith({ label: 'Hired', value: 2 }, 0)
   })
 })
