@@ -10,6 +10,8 @@ export type LabTileProps = {
   meta?: ReactNode
   unit?: ReactNode
   tone?: LabTileTone
+  /** Highlight current / selected tile (e.g. sibling device). */
+  active?: boolean
   className?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children' | 'title'>
 
@@ -33,6 +35,7 @@ export function LabTile({
   meta,
   unit,
   tone = 'neutral',
+  active = false,
   className,
   ...rest
 }: LabTileProps) {
@@ -40,6 +43,7 @@ export function LabTile({
     <div
       className={cx('ds-lab-tile', className)}
       data-tone={tone === 'neutral' ? undefined : tone}
+      data-active={active ? 'true' : undefined}
       {...rest}
     >
       <strong className="ds-lab-tile__v">

@@ -4948,6 +4948,10 @@ button.ds-marker-canvas__marker:focus-visible {
   text-underline-offset: 0.18em;
 }
 
+.ds-lab-tile[data-active='true'] {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent, var(--ink)) 35%, transparent);
+}
+
 @media (max-width: 720px) {
   .ds-lab-tile-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));

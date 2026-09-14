@@ -12,6 +12,11 @@ describe('LabTile', () => {
     expect(document.querySelector('.ds-lab-tile')?.getAttribute('data-tone')).toBe('pos')
   })
 
+  it('marks active tiles', () => {
+    const { container } = render(<LabTile label="Device" value="72" active />)
+    expect(container.querySelector('.ds-lab-tile')?.getAttribute('data-active')).toBe('true')
+  })
+
   it('LabTileStrip lays out children', () => {
     const { container } = render(
       <LabTileStrip columns={2}>
