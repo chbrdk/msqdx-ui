@@ -1,6 +1,6 @@
 'use client'
 
-import type { HTMLAttributes, ReactNode } from 'react'
+import { useState, type HTMLAttributes, type ReactNode } from 'react'
 
 export type ChartPoint = {
   label: string
@@ -111,17 +111,34 @@ type MarkProps = {
   point: ChartPoint
   index: number
   interactive: boolean
+  hoverState: 'active' | 'dim' | null
+  onHoverChange: (index: number | null) => void
   onPointClick?: (point: ChartPoint, index: number) => void
   children: ReactNode
 }
 
-function Mark({ point, index, interactive, onPointClick, children }: MarkProps) {
+function Mark({
+  point,
+  index,
+  interactive,
+  hoverState,
+  onHoverChange,
+  onPointClick,
+  children,
+}: MarkProps) {
   return (
     <g
-      className="ds-chart__point"
+      className={cx(
+        'ds-chart__point',
+        hoverState === 'active' && 'ds-chart__point--active',
+        hoverState === 'dim' && 'ds-chart__point--dim',
+      )}
+      data-index={index}
       role={interactive ? 'button' : undefined}
       tabIndex={interactive ? 0 : undefined}
       style={interactive ? { cursor: 'pointer' } : undefined}
+      onMouseEnter={() => onHoverChange(index)}
+      onMouseLeave={() => onHoverChange(null)}
       onClick={
         interactive
           ? (e) => {
@@ -146,6 +163,11 @@ function Mark({ point, index, interactive, onPointClick, children }: MarkProps) 
   )
 }
 
+function pointHoverState(hoveredIndex: number | null, index: number): 'active' | 'dim' | null {
+  if (hoveredIndex == null) return null
+  return hoveredIndex === index ? 'active' : 'dim'
+}
+
 /** Domain-free chart family — specs/domain/msqdx-ui-chart.md */
 export function Chart({
   variant = 'bar',
@@ -159,6 +181,7 @@ export function Chart({
   className,
   ...rest
 }: ChartProps) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const safe = Array.isArray(data) ? data.filter((d) => d && typeof d.value === 'number') : []
   const max = Math.max(1, ...safe.map((d) => d.value))
   const total = safe.reduce((s, p) => s + Math.max(0, p.value), 0) || 1
@@ -166,7 +189,7 @@ export function Chart({
   const isRadial = variant === 'pie' || variant === 'donut'
   const isFunnel = variant === 'funnel'
   const isHBar = variant === 'bar_horizontal'
-  const padTop = showValueLabels && !isRadial ? 18 : 10
+  const padTop = showValueLabels && !isRadial ? 20 : 10
   const tickBand = showTicks && !isRadial && !isFunnel ? 42 : isFunnel ? 8 : 12
   const plotW = 400
   const plotH = Math.max(120, height)
@@ -179,7 +202,7 @@ export function Chart({
   const slot = (isHBar ? innerH : plotInnerW) / n
   const interactive = typeof onPointClick === 'function'
   const tickMax = Math.max(5, Math.min(16, Math.floor((isHBar ? 70 : plotInnerW / n) / 6)))
-  const valueFont = 7
+  const valueFont = 9
   const tickFont = 6.5
   const summary =
     title ||
@@ -195,7 +218,14 @@ export function Chart({
 
   return (
     <div
-      className={cx('ds-chart', `ds-chart--${variant}`, interactive && 'ds-chart--interactive', className)}
+      className={cx(
+        'ds-chart',
+        `ds-chart--${variant}`,
+        interactive && 'ds-chart--interactive',
+        hoveredIndex != null && 'ds-chart--hovering',
+        className,
+      )}
+      data-hover-index={hoveredIndex == null ? undefined : String(hoveredIndex)}
       {...rest}
     >
       {title ? <div className="ds-chart__title">{title}</div> : null}
@@ -229,6 +259,8 @@ export function Chart({
                   point={point}
                   index={i}
                   interactive={interactive}
+                  hoverState={pointHoverState(hoveredIndex, i)}
+                  onHoverChange={setHoveredIndex}
                   onPointClick={onPointClick}
                 >
                   <rect className="ds-chart__bar" x={x} y={y} width={w} height={Math.max(2, h)} rx={2}>
@@ -272,6 +304,8 @@ export function Chart({
                   point={point}
                   index={i}
                   interactive={interactive}
+                  hoverState={pointHoverState(hoveredIndex, i)}
+                  onHoverChange={setHoveredIndex}
                   onPointClick={onPointClick}
                 >
                   <text
@@ -335,6 +369,8 @@ export function Chart({
                 point={point}
                 index={i}
                 interactive={interactive}
+                hoverState={pointHoverState(hoveredIndex, i)}
+                onHoverChange={setHoveredIndex}
                 onPointClick={onPointClick}
               >
                 <circle
@@ -392,6 +428,8 @@ export function Chart({
                     point={point}
                     index={i}
                     interactive={interactive}
+                    hoverState={pointHoverState(hoveredIndex, i)}
+                    onHoverChange={setHoveredIndex}
                     onPointClick={onPointClick}
                   >
                     <path
@@ -431,6 +469,8 @@ export function Chart({
                   point={point}
                   index={i}
                   interactive={interactive}
+                  hoverState={pointHoverState(hoveredIndex, i)}
+                  onHoverChange={setHoveredIndex}
                   onPointClick={onPointClick}
                 >
                   <rect
@@ -467,23 +507,34 @@ export function Chart({
           </tr>
         </thead>
         <tbody>
-          {safe.map((point, i) => (
-            <tr
-              key={`${point.label}-${i}`}
-              className={interactive ? 'ds-chart__row--interactive' : undefined}
-              onClick={
-                interactive
-                  ? (e) => {
-                      e.stopPropagation()
-                      onPointClick?.(point, i)
-                    }
-                  : undefined
-              }
-            >
-              <th scope="row">{point.label}</th>
-              <td>{valueFormatter(point.value)}</td>
-            </tr>
-          ))}
+          {safe.map((point, i) => {
+            const hover = pointHoverState(hoveredIndex, i)
+            return (
+              <tr
+                key={`${point.label}-${i}`}
+                data-index={i}
+                className={cx(
+                  'ds-chart__row',
+                  interactive && 'ds-chart__row--interactive',
+                  hover === 'active' && 'ds-chart__row--active',
+                  hover === 'dim' && 'ds-chart__row--dim',
+                )}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={
+                  interactive
+                    ? (e) => {
+                        e.stopPropagation()
+                        onPointClick?.(point, i)
+                      }
+                    : undefined
+                }
+              >
+                <th scope="row">{point.label}</th>
+                <td>{valueFormatter(point.value)}</td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

@@ -41,6 +41,12 @@ describe('Panel', () => {
       /\.ds-panel\.ds-panel--editorial[\s\S]*?border-radius:\s*0/,
     )
     expect(primitivesCss).toMatch(
+      /\.ds-panel\.ds-panel--card[\s\S]*?border-radius:\s*0/,
+    )
+    expect(primitivesCss).toMatch(
+      /\.ds-panel\.ds-panel--card[\s\S]*?background:\s*transparent/,
+    )
+    expect(primitivesCss).toMatch(
       /\.ds-panel\.ds-panel--default[\s\S]*?background:\s*var\(--surface-2\)/,
     )
     // Legacy alias must not reintroduce soft wash boxes

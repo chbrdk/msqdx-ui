@@ -55,8 +55,10 @@ Still one `ChartPoint[]` binding — no multi-series / dual-axis yet.
 ## Presentation
 
 - Compact SVG ticks / value labels where the geometry allows  
+- Legend table: category labels regular weight; values larger + light weight  
+- Hover sync: table row ↔ chart mark (`--active` / `--dim`)  
 - `formatChartValue` trims floats  
-- Visible legend table (label + value); interactive when `onPointClick` is set  
+- Interactive clicks when `onPointClick` is set  
 
 ## Non-goals
 
@@ -67,5 +69,5 @@ Still one `ChartPoint[]` binding — no multi-series / dual-axis yet.
 ## Acceptance
 
 1. Stories for each variant + Empty  
-2. Unit tests cover bar, pie, funnel marks + legend + `onPointClick`  
+2. Unit tests cover bar, pie, funnel marks + legend + `onPointClick` + linked hover  
 3. Exported from `@msqdx/ui`

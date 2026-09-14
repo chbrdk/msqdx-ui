@@ -90,4 +90,38 @@ describe('Chart', () => {
     fireEvent.click(container.querySelector('.ds-chart__point')!)
     expect(onPointClick).toHaveBeenCalledWith({ label: 'Hired', value: 2 }, 0)
   })
+
+  it('links legend hover to chart mark highlight', () => {
+    const { container } = render(
+      <Chart
+        data={[
+          { label: 'Hired', value: 2 },
+          { label: 'Rejected', value: 1 },
+        ]}
+      />,
+    )
+    const rows = container.querySelectorAll('.ds-chart__row')
+    expect(rows).toHaveLength(2)
+    fireEvent.mouseEnter(rows[1]!)
+    expect(container.querySelector('.ds-chart')?.getAttribute('data-hover-index')).toBe('1')
+    expect(container.querySelectorAll('.ds-chart__point--active')).toHaveLength(1)
+    expect(container.querySelectorAll('.ds-chart__point--dim')).toHaveLength(1)
+    expect(rows[1]?.classList.contains('ds-chart__row--active')).toBe(true)
+    fireEvent.mouseLeave(rows[1]!)
+    expect(container.querySelector('.ds-chart')?.getAttribute('data-hover-index')).toBeNull()
+  })
+
+  it('links chart mark hover to legend row', () => {
+    const { container } = render(
+      <Chart
+        data={[
+          { label: 'Hired', value: 2 },
+          { label: 'Rejected', value: 1 },
+        ]}
+      />,
+    )
+    const points = container.querySelectorAll('.ds-chart__point')
+    fireEvent.mouseEnter(points[0]!)
+    expect(container.querySelector('.ds-chart__row--active')?.textContent).toContain('Hired')
+  })
 })

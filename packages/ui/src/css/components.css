@@ -4712,6 +4712,16 @@ button.ds-marker-canvas__marker:focus-visible {
   opacity: 0.85;
   outline: 2px solid color-mix(in oklab, var(--accent, #c4a35a) 55%, transparent);
 }
+.ds-chart__point--dim {
+  opacity: 0.32;
+}
+.ds-chart__point--active .ds-chart__bar,
+.ds-chart__point--active .ds-chart__dot,
+.ds-chart__point--active .ds-chart__slice,
+.ds-chart__point--active .ds-chart__funnel {
+  opacity: 1;
+  outline: 2px solid color-mix(in oklab, var(--accent, #c4a35a) 55%, transparent);
+}
 .ds-chart__area {
   fill: color-mix(in oklab, var(--chart-accent, var(--accent, #c4a35a)) 28%, transparent);
   stroke: none;
@@ -4734,16 +4744,18 @@ button.ds-marker-canvas__marker:focus-visible {
 .ds-chart__tick,
 .ds-chart__value-label {
   fill: color-mix(in oklab, var(--fg, #eee) 70%, transparent);
+  font-weight: 300;
   /* font-size comes from SVG fontSize (user units) so labels scale with the plot */
 }
 .ds-chart__value-label {
   fill: color-mix(in oklab, var(--fg, #eee) 88%, transparent);
-  font-weight: 500;
+  font-weight: 300;
 }
 .ds-chart__table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.8125rem;
+  font-weight: 400;
 }
 .ds-chart__caption {
   position: absolute;
@@ -4760,6 +4772,7 @@ button.ds-marker-canvas__marker:focus-visible {
   padding: 0.35rem 0.45rem;
   text-align: left;
   font-size: 0.7rem;
+  font-weight: 400;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: color-mix(in oklab, var(--fg, #eee) 55%, transparent);
@@ -4776,14 +4789,25 @@ button.ds-marker-canvas__marker:focus-visible {
   font-variant-numeric: tabular-nums;
 }
 .ds-chart__table th[scope='row'] {
-  font-weight: 500;
+  font-weight: 400;
   text-align: left;
+  color: color-mix(in oklab, var(--fg, #eee) 78%, transparent);
+}
+.ds-chart__table td {
+  font-size: 1.05rem;
+  font-weight: 300;
+  letter-spacing: 0.01em;
+  color: color-mix(in oklab, var(--fg, #eee) 92%, transparent);
 }
 .ds-chart__row--interactive {
   cursor: pointer;
 }
-.ds-chart__row--interactive:hover {
+.ds-chart__row--interactive:hover,
+.ds-chart__row--active {
   background: color-mix(in oklab, var(--accent, #c4a35a) 12%, transparent);
+}
+.ds-chart__row--dim {
+  opacity: 0.42;
 }
 
 /* Gauge */

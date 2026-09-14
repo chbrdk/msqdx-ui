@@ -1,8 +1,13 @@
 # Chart
 
-Scaffolded as a molecules primitive in `msqdx-ui`.
+Domain-free categorical chart family (`bar` / `hbar` / `line` / `area` / `scatter` / `pie` / `donut` / `funnel`).
 
-## Follow-up
+## Presentation notes (2026-09-14)
 
-- Capture usage examples once the primitive ships in a consuming app.
-- Note migrations or API decisions here.
+- Legend category text: regular weight (not bold)
+- Legend values: larger + light weight
+- Hover links legend row ↔ SVG mark (`ds-chart__point--active` / `--dim`, `ds-chart__row--*`)
+
+## Spec
+
+`specs/domain/msqdx-ui-chart.md`
