@@ -200,6 +200,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'TimelineClip', layer: 'Molecules', title: 'Molecules/TimelineClip', stories: 'components/TimelineClip.stories.tsx', mdx: 'components/TimelineClip.mdx' },
   { id: 'Waveform', layer: 'Molecules', title: 'Molecules/Waveform', stories: 'components/Waveform.stories.tsx', mdx: 'components/Waveform.mdx' },
   { id: 'Chart', layer: 'Molecules', title: 'Molecules/Chart', stories: 'components/Chart.stories.tsx', mdx: 'components/Chart.mdx' },
+  { id: 'LabTile', layer: 'Molecules', title: 'Molecules/LabTile', stories: 'components/LabTile.stories.tsx', mdx: 'components/LabTile.mdx' },
   { id: 'Gauge', layer: 'Molecules', title: 'Molecules/Gauge', stories: 'components/Gauge.stories.tsx', mdx: 'components/Gauge.mdx' },
   { id: 'WidgetGrid', layer: 'Organisms', title: 'Organisms/WidgetGrid', stories: 'components/WidgetGrid.stories.tsx', mdx: 'components/WidgetGrid.mdx' },
 ]

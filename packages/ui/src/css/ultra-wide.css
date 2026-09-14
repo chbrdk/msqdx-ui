@@ -197,25 +197,25 @@
 .kpi-card {
   padding: 0.9rem 1rem;
   border: 1px solid var(--line);
-  border-radius: var(--radius-panel);
-  background: var(--surface-2);
+  border-radius: var(--radius-tile, var(--radius-panel));
+  background: color-mix(in oklab, var(--surface-2, var(--surface, #151515)) 92%, transparent);
 }
 
 .kpi-label {
   margin: 0 0 0.35rem;
-  font-size: 0.7rem;
+  font-size: var(--type-xs, 0.65rem);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   color: var(--muted);
 }
 
 .kpi-value {
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.65rem;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display, var(--font-body));
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: var(--weight-light, 300);
+  letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
-  line-height: 1.1;
+  line-height: 1;
 }
 

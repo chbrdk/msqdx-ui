@@ -4324,8 +4324,8 @@ button.ds-marker-canvas__marker:focus-visible {
   justify-content: flex-end;
   gap: var(--space-3, 0.75rem);
   padding: clamp(3.5rem, 8vw, 5.5rem) 1.25rem 1.15rem;
-  border-radius: 0;
-  background: transparent;
+  border-radius: var(--radius-tile, var(--radius-panel));
+  background: color-mix(in oklab, var(--surface-2, var(--surface, #151515)) 88%, transparent);
   transition:
     border-color var(--motion-hover, 160ms) ease,
     background var(--motion-hover, 160ms) ease;
@@ -4871,4 +4871,87 @@ button.ds-marker-canvas__marker:focus-visible {
     grid-column: span 1;
   }
 }
+
+/* LabTile — soft Collection value cards (Checks / Quickscan / KPI) */
+.ds-lab-tile-strip {
+  display: grid;
+  grid-template-columns: repeat(var(--ds-lab-cols, 4), minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ds-lab-tile {
+  display: grid;
+  grid-template-areas:
+    'value'
+    'key'
+    'meta';
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 1rem 1.05rem 1.15rem;
+  border: 1px solid color-mix(in oklab, var(--line, var(--border, #444)) 70%, transparent);
+  border-radius: var(--radius-tile, 0.85rem);
+  background: color-mix(in oklab, var(--surface-2, var(--surface, #151515)) 92%, transparent);
+}
+
+.ds-lab-tile__v {
+  grid-area: value;
+  font-family: var(--font-display, var(--font-body));
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: var(--weight-light, 300);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink, var(--fg));
+}
+
+.ds-lab-tile__unit {
+  margin-left: 0.05em;
+  font-size: 0.45em;
+  font-weight: var(--weight-regular, 400);
+  letter-spacing: 0;
+  opacity: 0.72;
+}
+
+.ds-lab-tile__k {
+  grid-area: key;
+  font-size: var(--type-xs, 0.65rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.ds-lab-tile__m {
+  grid-area: meta;
+  font-size: var(--type-xs, 0.75rem);
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.ds-lab-tile[data-tone='pos'] .ds-lab-tile__v {
+  text-decoration: underline;
+  text-decoration-color: var(--ok, #7dcea0);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.ds-lab-tile[data-tone='low'] .ds-lab-tile__v {
+  text-decoration: underline;
+  text-decoration-color: var(--warn, #c9a227);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.ds-lab-tile[data-tone='neg'] .ds-lab-tile__v {
+  text-decoration: underline;
+  text-decoration-color: var(--danger, #d46a6a);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+@media (max-width: 720px) {
+  .ds-lab-tile-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 

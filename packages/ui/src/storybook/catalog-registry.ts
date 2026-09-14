@@ -73,6 +73,7 @@ import { InspectSection } from '../components/InspectSection'
 import { InspectTabs } from '../components/InspectTabs'
 import { JsonTree } from '../components/JsonTree'
 import { KpiStrip } from '../components/KpiStrip'
+import { LabTile } from '../components/LabTile'
 import { LayersPanel } from '../components/LayersPanel'
 import { Lede } from '../components/Lede'
 import { Link } from '../components/Link'
@@ -232,6 +233,7 @@ const CATALOG_COMPONENTS = {
   InspectTabs,
   JsonTree,
   KpiStrip,
+  LabTile,
   LayersPanel,
   Lede,
   Link,

@@ -38,13 +38,13 @@
   box-shadow: none;
 }
 
-/* Collection / index tile — square hairline, no wash */
+/* Collection / index tile — soft rounded hairline card */
 .ds-panel.ds-panel--card {
   margin-top: 0;
   padding: 1rem 1.05rem 1.15rem;
   border: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
+  border-radius: var(--radius-tile, var(--radius-panel));
+  background: color-mix(in oklab, var(--surface-2, var(--surface, #151515)) 92%, transparent);
   box-shadow: none;
   display: flex;
   flex-direction: column;

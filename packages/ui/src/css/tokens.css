@@ -11,6 +11,7 @@
   --radius-sm: 2px;
   --radius-md: 6px;
   --radius-panel: 12px;
+  --radius-tile: 0.85rem;
   --radius-pill: 999px;
   --radius-sheet: 1.75rem;
   /* Font stacks (faces) — size scale uses --type-* below */
