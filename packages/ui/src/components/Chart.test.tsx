@@ -33,7 +33,7 @@ describe('Chart', () => {
     expect(document.querySelectorAll('.ds-chart__dot')).toHaveLength(2)
   })
 
-  it('invokes onPointClick for interactive bars', () => {
+  it('invokes onPointClick for interactive points', () => {
     const onPointClick = vi.fn()
     render(
       <Chart
@@ -44,8 +44,10 @@ describe('Chart', () => {
         onPointClick={onPointClick}
       />,
     )
-    const bars = document.querySelectorAll('.ds-chart__point')
-    fireEvent.click(bars[0]!)
+    expect(document.querySelector('.ds-chart--interactive')).toBeTruthy()
+    const row = screen.getByText('Hired').closest('tr')
+    expect(row).toBeTruthy()
+    fireEvent.click(row!)
     expect(onPointClick).toHaveBeenCalledWith({ label: 'Hired', value: 2 }, 0)
   })
 })
