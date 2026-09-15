@@ -1578,9 +1578,8 @@
   outline: 2px solid color-mix(in srgb, var(--accent, #2563eb) 45%, transparent);
   outline-offset: 1px;
 }
-.ds-expression-field-input-wrap--has-suggestions {
-  display: flex;
-  align-items: stretch;
+.ds-expression-field-input-wrap--has-suggestions .ds-expression-field-mirror {
+  padding-right: 2rem;
 }
 .ds-expression-field-mirror {
   position: absolute;

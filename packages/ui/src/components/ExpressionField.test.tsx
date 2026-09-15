@@ -121,9 +121,37 @@ describe('ExpressionField', () => {
     expect(onChange).toHaveBeenCalledWith('A B{{ scan.scores.accessibility }}')
   })
 
+  it('does not mirror plain text (avoids double-paint over the input)', () => {
+    const { container, unmount } = render(
+      <ExpressionField label="Category" value="Application Status" onChange={() => {}} />
+    )
+    expect(container.querySelector('.ds-expression-field-mirror')).toBeNull()
+    expect(screen.getByLabelText('Category')).not.toHaveClass(
+      'ds-expression-field-input--chip-overlay'
+    )
+    unmount()
+  })
+
+  it('shows the matched suggestion label without duplicating input ink', () => {
+    const { container, unmount } = render(
+      <ExpressionField
+        label="Value"
+        value="kpi:kpi-hired"
+        onChange={() => {}}
+        suggestions={[
+          { value: 'kpi:kpi-hired', label: 'Hired' },
+          { value: 'kpi:kpi-apps', label: 'Applications' },
+        ]}
+      />
+    )
+    expect(container.querySelector('.ds-expression-field-mirror')?.textContent).toBe('Hired')
+    expect(screen.getByLabelText('Value')).toHaveClass('ds-expression-field-input--chip-overlay')
+    unmount()
+  })
+
   it('picks a suggestion via the chevron listbox', () => {
     const onChange = vi.fn()
-    const { unmount } = render(
+    const { unmount, getByTestId } = render(
       <ExpressionField
         label="Value"
         value=""
@@ -134,7 +162,7 @@ describe('ExpressionField', () => {
         ]}
       />
     )
-    fireEvent.click(screen.getByTestId('expression-field-pick'))
+    fireEvent.click(getByTestId('expression-field-pick'))
     expect(screen.getByTestId('expression-field-suggestions')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('option', { name: 'Hired' }))
     expect(onChange).toHaveBeenCalledWith('kpi:kpi-hired')

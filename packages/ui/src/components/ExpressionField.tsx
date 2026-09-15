@@ -114,23 +114,22 @@ function ExpressionMirror({ value }: { value: string }) {
   const segments = useMemo(() => parseExpressionSegments(value), [value])
   const hasExpressions = segments.some((s) => s.type === 'expression')
 
-  if (!value) return null
+  // Only chip-paint real expressions — plain text must not duplicate the input layer.
+  if (!value || !hasExpressions) return null
 
   return (
     <div className="ds-expression-field-mirror" aria-hidden>
-      {hasExpressions
-        ? segments.map((seg, i) =>
-            seg.type === 'expression' ? (
-              <span key={`${seg.raw}-${i}`} className="ds-expression-chip">
-                {seg.value || '…'}
-              </span>
-            ) : (
-              <span key={`t-${i}`} className="ds-expression-field-mirror-text">
-                {seg.value}
-              </span>
-            )
-          )
-        : value}
+      {segments.map((seg, i) =>
+        seg.type === 'expression' ? (
+          <span key={`${seg.raw}-${i}`} className="ds-expression-chip">
+            {seg.value || '…'}
+          </span>
+        ) : (
+          <span key={`t-${i}`} className="ds-expression-field-mirror-text">
+            {seg.value}
+          </span>
+        )
+      )}
     </div>
   )
 }
@@ -183,6 +182,12 @@ export function ExpressionField({
     () => parseExpressionSegments(value).some((s) => s.type === 'expression'),
     [value]
   )
+
+  /** Matched suggestion label — avoid double-painting input + mirror for plain paths. */
+  const matchedSuggestionLabel =
+    !hasExpressions && selectedIndex >= 0 ? suggestionList[selectedIndex]!.label : null
+
+  const useChipOverlay = hasExpressions || Boolean(matchedSuggestionLabel)
 
   const closeMenu = useCallback(() => setMenuOpen(false), [])
 
@@ -426,7 +431,7 @@ export function ExpressionField({
         ref={wrapRef}
         className={cx(
           'ds-expression-field-input-wrap',
-          hasExpressions && 'ds-expression-field-input-wrap--has-expr',
+          useChipOverlay && 'ds-expression-field-input-wrap--has-expr',
           dropActive && 'ds-expression-field-input-wrap--drop-target',
           hasSuggestions && 'ds-expression-field-input-wrap--has-suggestions'
         )}
@@ -434,14 +439,19 @@ export function ExpressionField({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
-        <ExpressionMirror value={value} />
+        {hasExpressions ? <ExpressionMirror value={value} /> : null}
+        {matchedSuggestionLabel ? (
+          <div className="ds-expression-field-mirror" aria-hidden>
+            <span className="ds-expression-field-mirror-text">{matchedSuggestionLabel}</span>
+          </div>
+        ) : null}
         <input
           ref={inputRef}
           id={inputId}
           type="text"
           className={cx(
             'ds-expression-field-input',
-            hasExpressions && 'ds-expression-field-input--chip-overlay',
+            useChipOverlay && 'ds-expression-field-input--chip-overlay',
             hasSuggestions && 'ds-expression-field-input--with-pick'
           )}
           value={value}
