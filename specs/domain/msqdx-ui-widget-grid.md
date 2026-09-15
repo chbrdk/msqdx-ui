@@ -31,8 +31,14 @@ Compound: `WidgetGrid.Item`.
 
 ## Non-goals
 
-- Drag/resize editor (later; GridEditor already exists for design tools)
 - Absolute/freeform canvas parity with Power BI
+
+## Edit chrome (deferred upstream)
+
+METRON owns on-canvas slot underlay, tile reorder, and resize handles in the app
+(`metron-v3` `dashboard-canvas` + `grid-layout-edit.ts`). Upstream into `WidgetGrid`
+edit mode is a follow-up once that UX is stable — do not block Metron on DS churn.
+`GridEditor` remains page metrics for design tools, not dashboard tiles.
 
 ## Acceptance
 
