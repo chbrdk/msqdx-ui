@@ -26,4 +26,9 @@ describe('PropertyInspector', () => {
     expect(screen.getByRole('heading', { name: 'Layout' })).toBeInTheDocument()
     expect(screen.getByText('gap')).toBeInTheDocument()
   })
+
+  it('exposes ds-inspect-density for shared Field chrome', () => {
+    const { container } = render(<PropertyInspector title="Inspector" />)
+    expect(container.querySelector('.ds-property-inspector.ds-inspect-density')).toBeTruthy()
+  })
 })

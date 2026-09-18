@@ -24,7 +24,7 @@ export function PropertyInspector({
   const empty = children == null || (Array.isArray(children) && children.length === 0)
   return (
     <aside
-      className={cx('ds-property-inspector', className)}
+      className={cx('ds-property-inspector', 'ds-inspect-density', className)}
       aria-label={ariaLabel}
       {...rest}
     >

@@ -33,6 +33,7 @@
 - InspectTabs: `packages/ui/src/components/InspectTabs.tsx` · spec `specs/domain/msqdx-ui-inspect-tabs.md` · Storybook `Molecules/InspectTabs`
 - InspectSection: `packages/ui/src/components/InspectSection.tsx` · spec `specs/domain/msqdx-ui-inspect-section.md` · Storybook `Molecules/InspectSection`
 - PropertyInspector: `packages/ui/src/components/PropertyInspector.tsx` · spec `specs/domain/msqdx-ui-property-inspector.md`
+- Inspect Field density class (`ds-inspect-density`): `knowledge/inspect-density-class.md` · CSS in `packages/ui/src/css/components.css` · reused by CREATION Chart studio
 - TokenPicker: `packages/ui/src/components/TokenPicker.tsx` · spec `specs/domain/msqdx-ui-token-picker.md`
 - SplitCraftMenu: `packages/ui/src/components/SplitCraftMenu.tsx` · spec `specs/domain/msqdx-ui-split-craft-menu.md` · CREATION typography host `knowledge/hud-craft-token-menu.md` (creation-v3)
 - TokenPreview: `packages/ui/src/components/TokenPreview.tsx` · Storybook `Molecules/TokenPreview` · used by TokenPicker browser (P77)

@@ -2615,40 +2615,53 @@ button.ds-marker-canvas__marker:focus-visible {
   gap: 0.28rem;
 }
 
-/* Inspect rail: magazine Field labels are too loud for a design tool. */
-.ds-property-inspector .ds-field {
+/* Inspect density: quieter Field labels + full-width controls (PropertyInspector + Chart studio). */
+.ds-inspect-density .ds-field {
   width: 100%;
   gap: 0.12rem;
   align-items: stretch;
 }
-.ds-property-inspector .ds-field-label {
+.ds-inspect-density .ds-field-label {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.25rem;
   text-transform: none;
   letter-spacing: 0;
   color: var(--muted);
   font-size: 0.6875rem;
   font-weight: 500;
+  white-space: nowrap;
 }
-.ds-property-inspector .ds-input,
-.ds-property-inspector .ds-select-trigger {
+.ds-inspect-density .ds-field-icon {
+  color: currentColor;
+}
+.ds-inspect-density .ds-input,
+.ds-inspect-density .ds-select-trigger {
   min-height: 1.5rem;
   font-size: 0.75rem;
   width: 100%;
   letter-spacing: 0;
 }
-.ds-property-inspector .ds-select {
+.ds-inspect-density .ds-select {
   display: block;
   width: 100%;
   max-width: none;
 }
-.ds-property-inspector .ds-select-trigger {
+.ds-inspect-density .ds-select-trigger {
   width: 100%;
   min-width: 0;
   max-width: none;
 }
-.ds-property-inspector .ds-select-value {
+.ds-inspect-density .ds-select-value {
   flex: 1;
   min-width: 0;
   color: var(--ink);
+}
+.ds-inspect-density .ds-token-picker__label {
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 /* ComponentPalette */
