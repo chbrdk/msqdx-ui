@@ -2,12 +2,14 @@
 
 Layer: `molecules`
 
-Soft Collection value card for Checks, Quickscan, and dashboard metrics.
+Soft Collection value card for Checks, Quickscan, and wave metrics.
 
-Spec: `specs/domain/msqdx-ui-lab-tile.md`
+Spec: `specs/domain/msqdx-ui-lab-tile.md` · Language map: `knowledge/metric-languages.md`
 
 ## Layout
 
 Value (display) → label (uppercase micro) → optional meta. Tone underline on the value for `pos` / `low` / `neg`.
 
 Use `LabTileStrip` for a gap grid of tiles (rounded cards, not hairline columns).
+
+Magazine dashboard KPIs use **`KpiMetric`** inside sharp joined `Panel` cards — not LabTile.

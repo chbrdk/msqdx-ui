@@ -26,8 +26,9 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 }
 
 /**
- * Soft Collection value card — Checks / Quickscan / dashboard metrics.
+ * Soft Collection value card — Checks / Quickscan / wave metrics.
  * Spec: specs/domain/msqdx-ui-lab-tile.md
+ * Magazine dashboard KPIs → KpiMetric (shell-free).
  */
 export function LabTile({
   label,

@@ -42,3 +42,23 @@ export const Default: Story = {
     </WidgetGrid>
   ),
 }
+
+export const Joined: Story = {
+  render: () => (
+    <WidgetGrid columns={12} joined>
+      <WidgetGrid.Item colSpan={4}>
+        <Panel variant="card" data-row-start="true">
+          KPI A
+        </Panel>
+      </WidgetGrid.Item>
+      <WidgetGrid.Item colSpan={4}>
+        <Panel variant="card">KPI B</Panel>
+      </WidgetGrid.Item>
+      <WidgetGrid.Item colSpan={4}>
+        <Panel variant="card" data-row-end="true" data-last-row="true">
+          KPI C
+        </Panel>
+      </WidgetGrid.Item>
+    </WidgetGrid>
+  ),
+}

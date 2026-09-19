@@ -3,6 +3,8 @@ import type { CSSProperties, HTMLAttributes, ReactNode } from 'react'
 export type WidgetGridProps = {
   columns?: 2 | 3 | 4 | 6 | 12
   gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg'
+  /** Magazine joined board — hairline chrome on nested Panel cards. */
+  joined?: boolean
   children?: ReactNode
   className?: string
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'>
@@ -22,14 +24,21 @@ function cx(...parts: Array<string | false | null | undefined>): string {
 export function WidgetGrid({
   columns = 12,
   gap = 'md',
+  joined = false,
   children,
   className,
   style,
   ...rest
 }: WidgetGridProps) {
+  const effectiveGap = joined ? 'none' : gap
   return (
     <div
-      className={cx('ds-widget-grid', `ds-widget-grid--gap-${gap}`, className)}
+      className={cx(
+        'ds-widget-grid',
+        `ds-widget-grid--gap-${effectiveGap}`,
+        joined && 'ds-widget-grid--joined',
+        className,
+      )}
       style={
         {
           ...style,
@@ -37,6 +46,7 @@ export function WidgetGrid({
         } as CSSProperties
       }
       data-columns={columns}
+      data-joined={joined ? 'true' : undefined}
       {...rest}
     >
       {children}

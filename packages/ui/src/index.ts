@@ -785,10 +785,16 @@ export { Chart, CHART_VARIANTS, formatChartValue, isChartVariant } from './compo
 export type { ChartProps, ChartPoint, ChartVariant } from './components/Chart'
 export { LabTile, LabTileStrip } from './components/LabTile'
 export type { LabTileProps, LabTileStripProps, LabTileTone } from './components/LabTile'
+export { KpiMetric } from './components/KpiMetric'
+export type { KpiMetricProps, KpiMetricDensity } from './components/KpiMetric'
 export { Gauge } from './components/Gauge'
 export type { GaugeProps, GaugeTone } from './components/Gauge'
 export { WidgetGrid } from './components/WidgetGrid'
 export type { WidgetGridProps, WidgetGridItemProps } from './components/WidgetGrid'
+export {
+  layoutJoinedBoardEdges,
+} from './lib/layout-joined-board-edges'
+export type { JoinedBoardEdge } from './lib/layout-joined-board-edges'
 export { CATALOG, VIEWPORT_CRITICAL, CATALOG_LAYER_ORDER } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer, CatalogInsert } from './storybook/catalog'
 export {

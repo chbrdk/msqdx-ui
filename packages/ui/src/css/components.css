@@ -4936,6 +4936,30 @@ button.ds-marker-canvas__marker:focus-visible {
   grid-row: span var(--ds-widget-row-span, 1);
   min-width: 0;
 }
+
+/* Joined magazine board: internal hairlines only (no outer frame). */
+.ds-widget-grid--joined {
+  gap: 0;
+  border: 0;
+}
+.ds-widget-grid--joined .ds-panel--card {
+  margin: 0;
+  border: 0;
+  border-right: 1px solid var(--line, var(--border, #444));
+  border-bottom: 1px solid var(--line, var(--border, #444));
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  height: 100%;
+  min-height: 100%;
+}
+.ds-widget-grid--joined .ds-panel--card[data-row-end='true'] {
+  border-right: 0;
+}
+.ds-widget-grid--joined .ds-panel--card[data-last-row='true'] {
+  border-bottom: 0;
+}
+
 @media (max-width: 720px) {
   .ds-widget-grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -4945,7 +4969,52 @@ button.ds-marker-canvas__marker:focus-visible {
   }
 }
 
-/* LabTile — soft Collection value cards (Checks / Quickscan / KPI) */
+/* KpiMetric — shell-free magazine KPI readout */
+.ds-kpi-metric {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.ds-kpi-metric__label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-xs, 0.6875rem);
+  font-weight: var(--weight-regular, 400);
+  letter-spacing: var(--track-meta, 0.04em);
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.2;
+}
+.ds-kpi-metric__value {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-display, var(--font-body));
+  font-size: 1.85rem;
+  font-weight: 300;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.ds-kpi-metric--hero .ds-kpi-metric__value {
+  font-size: clamp(2.35rem, 4vw, 3rem);
+  line-height: 1.05;
+}
+.ds-kpi-metric__unit {
+  margin-left: 0.2rem;
+  font-size: 0.55em;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+.ds-kpi-metric__meta {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-xs, 0.6875rem);
+  color: var(--muted);
+  line-height: 1.25;
+}
+
+/* LabTile — soft Collection value cards (Checks / Quickscan) */
 .ds-lab-tile-strip {
   display: grid;
   grid-template-columns: repeat(var(--ds-lab-cols, 4), minmax(0, 1fr));
