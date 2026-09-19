@@ -783,6 +783,12 @@ export { Waveform } from './components/Waveform'
 export type { WaveformProps } from './components/Waveform'
 export { Chart, CHART_VARIANTS, formatChartValue, isChartVariant } from './components/Chart'
 export type { ChartProps, ChartPoint, ChartVariant } from './components/Chart'
+export { SeriesChart, collectSeriesLabels } from './components/SeriesChart'
+export type {
+  SeriesChartProps,
+  SeriesChartPoint,
+  SeriesChartSeries,
+} from './components/SeriesChart'
 export { LabTile, LabTileStrip } from './components/LabTile'
 export type { LabTileProps, LabTileStripProps, LabTileTone } from './components/LabTile'
 export { KpiMetric } from './components/KpiMetric'

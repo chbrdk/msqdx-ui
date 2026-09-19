@@ -4848,6 +4848,74 @@ button.ds-marker-canvas__marker:focus-visible {
   letter-spacing: 0.01em;
   color: color-mix(in oklab, var(--fg, #eee) 92%, transparent);
 }
+
+/* SeriesChart */
+.ds-series-chart {
+  display: grid;
+  gap: 0.65rem;
+  color: var(--fg);
+}
+.ds-series-chart__title {
+  font-size: var(--type-sm, 0.875rem);
+  color: var(--muted);
+}
+.ds-series-chart__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.ds-series-chart__grid {
+  stroke: var(--chart-grid, rgba(232, 239, 233, 0.16));
+  stroke-width: 1;
+}
+.ds-series-chart__line {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.ds-series-chart__series--dim {
+  opacity: 0.28;
+}
+.ds-series-chart__series--active {
+  opacity: 1;
+}
+.ds-series-chart__tick {
+  fill: color-mix(in oklab, var(--fg, #eee) 70%, transparent);
+  font-size: 7px;
+  font-weight: 300;
+}
+.ds-series-chart__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.ds-series-chart__legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  cursor: default;
+}
+.ds-series-chart__legend-item--dim {
+  opacity: 0.4;
+}
+.ds-series-chart__legend-item--active {
+  opacity: 1;
+}
+.ds-series-chart__swatch {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.ds-series-chart__legend-label {
+  color: color-mix(in oklab, var(--fg, #eee) 88%, transparent);
+}
+
 .ds-chart__row--interactive {
   cursor: pointer;
 }

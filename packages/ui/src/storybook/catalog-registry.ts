@@ -151,6 +151,7 @@ import { TimelineTrack } from '../components/TimelineTrack'
 import { TimelineClip } from '../components/TimelineClip'
 import { Waveform } from '../components/Waveform'
 import { Chart } from '../components/Chart'
+import { SeriesChart } from '../components/SeriesChart'
 import { Gauge } from '../components/Gauge'
 import { WidgetGrid } from '../components/WidgetGrid'
 import {
@@ -311,6 +312,7 @@ const CATALOG_COMPONENTS = {
   TimelineClip,
   Waveform,
   Chart,
+  SeriesChart,
   Gauge,
   WidgetGrid,
 } as unknown as Record<string, CatalogComponent>
