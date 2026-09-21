@@ -12,7 +12,7 @@ function EmailPreview({ html }: { html: string }) {
     <iframe
       title="MSQDX email preview"
       srcDoc={html}
-      style={{ width: '100%', minHeight: 720, border: '1px solid #d4d2d2', borderRadius: 8 }}
+      style={{ width: '100%', minHeight: 780, border: '1px solid #d4d2d2', borderRadius: 8 }}
     />
   )
 }

@@ -820,5 +820,8 @@ export {
   emailMetaRow,
   emailMetaTable,
   renderMsqdxEmailDocument,
+  MSQDX_EMAIL_LOGO_MARK_URL,
+  MSQDX_EMAIL_LOGO_WORDMARK_URL,
+  URL_MSQDX_SITE,
 } from './email'
 export type { MsqdxEmailPalette, MsqdxEmailDocumentInput } from './email'

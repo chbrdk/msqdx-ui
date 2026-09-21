@@ -7,6 +7,9 @@
 - Pipeline status CSS: `--status-*` on `:root, [data-theme='msqdx']` in `packages/ui/src/css/tokens.css` (SoT TS `packages/ui/src/tokens/status.ts` `msqdxStatus`). Creation Promote path `color.status.pipeline.category_queued` → `var(--status-category-queued)`
 - DS deposit as Brandion guideline / Plexon Collection (program **DS-DEPOSIT**, D0–**D7** + **D5** consume map landed 2026-08-14): canonical `brandion-v3/knowledge/ds-tokens-as-plexon-project.md` · path map `brandion-v3/knowledge/ds-deposit-path-map.md` · D5 map `knowledge/ds-deposit-component-semantic-map.json` · human `knowledge/ds-deposit-component-semantic-map.md` · DTCG mirrors `packages/ui-tokens/deposit/msq-dx-deposit.dtcg.json` + `msq-dx-deposit-light.dtcg.json` (Brandion import SoT remains `brandion-v3/packs/…`) · drift CI `pnpm test:ds-deposit-drift` · operator `brandion-v3/knowledge/ds-deposit-d6-operator.md` · D3a light twin · brand colors `knowledge/msqdx-brand-colors.md`
 - HTML email shell (transactional, table+inline): spec `specs/domain/msqdx-ui-email.md` · knowledge `knowledge/email.md` · `packages/ui/src/email/` (`renderMsqdxEmailDocument`) · Storybook `Foundations/EmailShell`
+- Email logo mark PNG: `packages/ui/src/email/assets/msqdx-mark.png` · hosted `MSQDX_EMAIL_LOGO_MARK_URL` = `https://cdn.jsdelivr.net/gh/chbrdk/msqdx-ui@main/packages/ui/src/email/assets/msqdx-mark.png` (never `*.plygrnd.tech`)
+- Email wordmark PNG: `packages/ui/src/email/assets/msqdx-wordmark.png` · `MSQDX_EMAIL_LOGO_WORDMARK_URL` · source SVG from Storyblok corporate site asset
+- Corporate site: `URL_MSQDX_SITE` = `https://www.msqdx.com/en`
 
 - Storybook preview (loads `src/styles.css` + theme toolbar): `packages/ui/.storybook/preview.tsx`
 - Storybook focus shim (10.5 Illegal invocation): `packages/ui/.storybook/restoreNativeFocus.ts`

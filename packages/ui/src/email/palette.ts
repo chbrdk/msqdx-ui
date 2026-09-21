@@ -6,14 +6,23 @@ import { msqdxBrand } from '../tokens/brand'
 import { msqdxLight } from '../tokens/colors'
 
 export const msqdxEmailPalette = {
+  /** Outer page wash */
   canvas: msqdxBrand.neutral,
-  card: msqdxLight.bg1,
+  /** Card surface */
+  card: msqdxBrand.white,
   ink: msqdxLight.ink,
   muted: msqdxLight.muted,
   accent: msqdxBrand.orange,
   accentContrast: msqdxBrand.white,
-  line: 'rgba(15, 23, 42, 0.12)',
-  codeSurface: '#fff7f3',
+  /** Soft rule */
+  line: '#e8e4db',
+  /** Stronger hairline under header */
+  lineStrong: '#d9d4c8',
+  /** Code / OTP well */
+  codeSurface: '#fff5f0',
+  codeBorder: '#ffd4c4',
+  /** Subtle header wash behind logo lockup */
+  headerWash: '#fbfaf7',
   ok: msqdxBrand.green,
   font:
     "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
