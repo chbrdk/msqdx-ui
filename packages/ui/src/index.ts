@@ -812,3 +812,13 @@ export {
 } from './storybook/catalog-registry'
 export { Card } from './components/Card'
 export type { CardProps } from './components/Card'
+export {
+  msqdxEmailPalette,
+  emailParagraph,
+  emailCodePanel,
+  emailButton,
+  emailMetaRow,
+  emailMetaTable,
+  renderMsqdxEmailDocument,
+} from './email'
+export type { MsqdxEmailPalette, MsqdxEmailDocumentInput } from './email'
