@@ -801,6 +801,8 @@ export {
   layoutJoinedBoardEdges,
 } from './lib/layout-joined-board-edges'
 export type { JoinedBoardEdge } from './lib/layout-joined-board-edges'
+export { RadarChart, radarGridRing, radarPolygon, radarVertex } from './components/RadarChart'
+export type { RadarChartProps } from './components/RadarChart'
 export { CATALOG, VIEWPORT_CRITICAL, CATALOG_LAYER_ORDER } from './storybook/catalog'
 export type { CatalogEntry, CatalogLayer, CatalogInsert } from './storybook/catalog'
 export {

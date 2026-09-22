@@ -3,7 +3,7 @@
 **Status:** Accepted — 2026-09-14 (chart family)  
 **Layer:** Molecules  
 **Implements:** `packages/ui/src/components/Chart.tsx`  
-**Consumers:** METRON dashboards (and future suite analytics)
+**Consumers:** METRON dashboards and CREATION compositions (fixture/authoring via editor palette — not live KPI evaluate)
 
 ## Purpose
 
@@ -51,6 +51,8 @@ type ChartProps = {
 | `funnel` | Decreasing stage bars (top → bottom) |
 
 Still one `ChartPoint[]` binding — no multi-series / dual-axis yet.
+
+For polar / spider profiles use sibling molecule [`RadarChart`](msqdx-ui-radar-chart.md) (not a Chart variant).
 
 ## Presentation
 

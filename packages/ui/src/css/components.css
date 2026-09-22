@@ -5168,4 +5168,32 @@ button.ds-marker-canvas__marker:focus-visible {
   }
 }
 
+/* RadarChart — polar score profile (uses briefing-radar SVG tokens) */
+.ds-radar-chart {
+  position: relative;
+}
 
+.ds-radar-chart__title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  text-align: center;
+}
+
+.ds-radar-chart__hit {
+  fill: transparent;
+  stroke: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.ds-radar-chart__hit:focus-visible {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+.ds-radar-chart__label--click {
+  cursor: pointer;
+}

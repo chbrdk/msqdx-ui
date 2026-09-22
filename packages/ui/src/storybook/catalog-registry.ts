@@ -154,6 +154,7 @@ import { Chart } from '../components/Chart'
 import { SeriesChart } from '../components/SeriesChart'
 import { Gauge } from '../components/Gauge'
 import { WidgetGrid } from '../components/WidgetGrid'
+import { RadarChart } from '../components/RadarChart'
 import {
   CATALOG,
   catalogComponentName,
@@ -315,6 +316,7 @@ const CATALOG_COMPONENTS = {
   SeriesChart,
   Gauge,
   WidgetGrid,
+  RadarChart,
 } as unknown as Record<string, CatalogComponent>
 
 export {

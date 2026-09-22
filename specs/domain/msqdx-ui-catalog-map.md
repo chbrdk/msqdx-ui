@@ -66,6 +66,7 @@ Paths are relative to `apps/web-ui/src/`.
 | RankedRow | Molecules/RankedRow | design-system/components/RankedRow.stories.tsx | design-system/components/RankedRow.mdx |
 | CategoryBars | Molecules/CategoryBars | viz/CategoryBars.stories.tsx | viz/CategoryBars.mdx |
 | ScoreRadarChart | Molecules/ScoreRadarChart | viz/ScoreRadarChart.stories.tsx | viz/ScoreRadarChart.mdx |
+| RadarChart | Molecules/RadarChart | packages/ui/src/components/RadarChart.stories.tsx | packages/ui/src/components/RadarChart.mdx |
 | CitationScoreBars | Molecules/CitationScoreBars | viz/CitationScoreBars.stories.tsx | viz/CitationScoreBars.mdx |
 | StatusStackBar | Molecules/StatusStackBar | viz/StatusStackBar.stories.tsx | viz/StatusStackBar.mdx |
 | DimensionStrip | Molecules/DimensionStrip | viz/DimensionStrip.stories.tsx | viz/DimensionStrip.mdx |

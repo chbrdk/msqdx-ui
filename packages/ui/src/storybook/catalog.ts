@@ -205,6 +205,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'KpiMetric', layer: 'Molecules', title: 'Molecules/KpiMetric', stories: 'components/KpiMetric.stories.tsx', mdx: 'components/KpiMetric.mdx' },
   { id: 'Gauge', layer: 'Molecules', title: 'Molecules/Gauge', stories: 'components/Gauge.stories.tsx', mdx: 'components/Gauge.mdx' },
   { id: 'WidgetGrid', layer: 'Organisms', title: 'Organisms/WidgetGrid', stories: 'components/WidgetGrid.stories.tsx', mdx: 'components/WidgetGrid.mdx' },
+  { id: 'RadarChart', layer: 'Molecules', title: 'Molecules/RadarChart', stories: 'components/RadarChart.stories.tsx', mdx: 'components/RadarChart.mdx' },
 ]
 
 export const VIEWPORT_CRITICAL = CATALOG.filter((e) => e.viewportCritical)
