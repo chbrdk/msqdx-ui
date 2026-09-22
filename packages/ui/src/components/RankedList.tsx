@@ -1,4 +1,4 @@
-import type { ComponentType, KeyboardEvent, ReactNode } from 'react'
+import type { ComponentType, HTMLAttributes, KeyboardEvent, ReactNode } from 'react'
 
 function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
@@ -13,12 +13,12 @@ export type RankedListProps = {
   children: ReactNode
   hint?: ReactNode
   className?: string
-}
+} & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'children'>
 
 /** Ranked list shell — specs/domain/msqdx-ui-ranked-list.md */
-export function RankedList({ children, hint, className }: RankedListProps) {
+export function RankedList({ children, hint, className, ...rest }: RankedListProps) {
   return (
-    <div className={cx('ds-rank-block', 'category-rank-block', className)}>
+    <div className={cx('ds-rank-block', 'category-rank-block', className)} {...rest}>
       {hint ? <div className="ds-rank-hint">{hint}</div> : null}
       <ul className="ds-rank category-rank">{children}</ul>
     </div>
@@ -38,7 +38,7 @@ export type RankedRowProps = {
   active?: boolean
   onActivate?: () => void
   className?: string
-}
+} & Omit<HTMLAttributes<HTMLLIElement>, 'className' | 'children'>
 
 export function RankedRow({
   index,
@@ -51,6 +51,7 @@ export function RankedRow({
   active = false,
   onActivate,
   className,
+  ...rest
 }: RankedRowProps) {
   const interactive = typeof onActivate === 'function' || Boolean(href)
   const showTrack = barPct != null && Number.isFinite(barPct)
@@ -99,7 +100,11 @@ export function RankedRow({
   }
 
   return (
-    <li className={cx('ds-rank-item', className)} data-active={active ? 'true' : undefined}>
+    <li
+      {...rest}
+      className={cx('ds-rank-item', className)}
+      data-active={active ? 'true' : undefined}
+    >
       {href ? (
         LinkComponent ? (
           <LinkComponent href={href} className={rowClass} aria-current={active ? 'page' : undefined}>
