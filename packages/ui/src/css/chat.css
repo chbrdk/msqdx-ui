@@ -413,6 +413,41 @@
   color: color-mix(in srgb, var(--ink) 88%, var(--muted));
 }
 
+.chat-answer-table-wrap {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chat-answer-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.chat-answer-table th,
+.chat-answer-table td {
+  padding: 0.4rem 0.55rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.chat-answer-table th {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--section-title);
+  border-bottom-color: color-mix(in srgb, var(--line) 70%, var(--ink));
+}
+
+.chat-answer-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
 .chat-citations {
   margin-top: 0.35rem;
   padding-top: 0.75rem;
