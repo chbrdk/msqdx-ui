@@ -4716,6 +4716,18 @@ button.ds-collection-hub-card--create:disabled:focus-visible .ds-collection-hub-
   text-underline-offset: 0.12em;
 }
 
+.ds-collection-hub-list-meta {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--type-sm, 0.875rem);
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.ds-collection-hub-list-meta [data-status] {
+  text-transform: lowercase;
+}
+
 .ds-collection-hub-list-row__trail {
   display: inline-flex;
   flex-wrap: nowrap;
