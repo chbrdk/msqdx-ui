@@ -515,6 +515,11 @@ export { EntityCard } from './components/EntityCard'
 export type { EntityCardProps } from './components/EntityCard'
 export { HubIndexCard } from './components/HubIndexCard'
 export type { HubIndexCardProps } from './components/HubIndexCard'
+export { CollectionHubCard, CollectionHubMetric } from './components/CollectionHubCard'
+export type {
+  CollectionHubCardProps,
+  CollectionHubMetricProps,
+} from './components/CollectionHubCard'
 export { HubIndexLayoutSwitch } from './components/HubIndexLayoutSwitch'
 export type {
   HubIndexLayout,

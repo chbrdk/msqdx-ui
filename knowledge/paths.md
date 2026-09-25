@@ -143,3 +143,5 @@
   - Plexon board: `https://plexon-v3.projects-a.plygrnd.tech/projects/{id}/flows/{flowId}` (`URL_PLEXON_V3`)
 - Consumers: Audion UX Test Flow board · Plexon Collection Test Flow board
 - Parity checklist: node cards, FloatingPanel docks, inspector sections, run strip — one magazine family; domain (Testen / journey / Soft-Q / Checkion) stays in apps
+
+- CollectionHubCard (Brandion magazine Collection tiles): spec `specs/domain/msqdx-ui-collection-hub-card.md` · `packages/ui/src/components/CollectionHubCard.tsx` · CSS `.ds-collection-hub-*` in `packages/ui/src/css/components.css` · Storybook `Molecules/CollectionHubCard` · knowledge `knowledge/collection-hub-card.md`

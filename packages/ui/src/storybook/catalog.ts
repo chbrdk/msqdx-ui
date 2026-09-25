@@ -127,6 +127,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'BreakpointSwitcher', layer: 'Molecules', title: 'Molecules/BreakpointSwitcher', stories: 'components/BreakpointSwitcher.stories.tsx', mdx: 'components/BreakpointSwitcher.mdx' },
   { id: 'EntityCard', layer: 'Molecules', title: 'Molecules/EntityCard', stories: 'components/EntityCard.stories.tsx', mdx: 'components/EntityCard.mdx' },
   { id: 'HubIndexCard', layer: 'Molecules', title: 'Molecules/HubIndexCard', stories: 'components/HubIndexCard.stories.tsx', mdx: 'components/HubIndexCard.mdx' },
+  { id: 'CollectionHubCard', layer: 'Molecules', title: 'Molecules/CollectionHubCard', stories: 'components/CollectionHubCard.stories.tsx', mdx: 'components/CollectionHubCard.mdx' },
   { id: 'HubIndexLayoutSwitch', layer: 'Molecules', title: 'Molecules/HubIndexLayoutSwitch', stories: 'components/HubIndexLayoutSwitch.stories.tsx', mdx: 'components/HubIndexLayoutSwitch.mdx' },
   { id: 'AddTile', layer: 'Atoms', title: 'Atoms/AddTile', stories: 'components/AddTile.stories.tsx', mdx: 'components/AddTile.mdx' },
   { id: 'SwatchStrip', layer: 'Atoms', title: 'Atoms/SwatchStrip', stories: 'components/SwatchStrip.stories.tsx', mdx: 'components/SwatchStrip.mdx' },
@@ -227,6 +228,8 @@ const DOCS_IDS = new Set([
   'MagOverview',
   'ChatCatalog',
   'BrandionTokenStudio',
+  'InspectLayoutGlyphs',
+  'TokenKindGlyph',
 ])
 
 const TEMPLATE_IDS = new Set(['PrintQuickCheck'])

@@ -46,6 +46,7 @@ import { DivergingBarList } from '../components/DivergingBar'
 import { EmptyState, LoadingText } from '../components/LoadingText'
 import { EntityCard } from '../components/EntityCard'
 import { HubIndexCard } from '../components/HubIndexCard'
+import { CollectionHubCard } from '../components/CollectionHubCard'
 import { HubIndexLayoutSwitch } from '../components/HubIndexLayoutSwitch'
 import { EventFooter } from '../components/EventFooter'
 import { ExpressionField } from '../components/ExpressionField'
@@ -223,6 +224,7 @@ const CATALOG_COMPONENTS = {
   Flyout,
   FormSection,
   HubIndexCard,
+  CollectionHubCard,
   HubIndexLayoutSwitch,
   Grid,
   Heading,

@@ -87,6 +87,7 @@ export const WC_MANIFEST = [
   { catalogId: "BreakpointSwitcher", tagName: "msqdx-breakpoint-switcher", layer: "Molecules", title: "Molecules/BreakpointSwitcher" },
   { catalogId: "EntityCard", tagName: "msqdx-entity-card", layer: "Molecules", title: "Molecules/EntityCard" },
   { catalogId: "HubIndexCard", tagName: "msqdx-hub-index-card", layer: "Molecules", title: "Molecules/HubIndexCard" },
+  { catalogId: "CollectionHubCard", tagName: "msqdx-collection-hub-card", layer: "Molecules", title: "Molecules/CollectionHubCard" },
   { catalogId: "HubIndexLayoutSwitch", tagName: "msqdx-hub-index-layout-switch", layer: "Molecules", title: "Molecules/HubIndexLayoutSwitch" },
   { catalogId: "AddTile", tagName: "msqdx-add-tile", layer: "Atoms", title: "Atoms/AddTile" },
   { catalogId: "SwatchStrip", tagName: "msqdx-swatch-strip", layer: "Atoms", title: "Atoms/SwatchStrip" },
@@ -163,4 +164,5 @@ export const WC_MANIFEST = [
   { catalogId: "KpiMetric", tagName: "msqdx-kpi-metric", layer: "Molecules", title: "Molecules/KpiMetric" },
   { catalogId: "Gauge", tagName: "msqdx-gauge", layer: "Molecules", title: "Molecules/Gauge" },
   { catalogId: "WidgetGrid", tagName: "msqdx-widget-grid", layer: "Organisms", title: "Organisms/WidgetGrid" },
+  { catalogId: "RadarChart", tagName: "msqdx-radar-chart", layer: "Molecules", title: "Molecules/RadarChart" },
 ] satisfies WcManifestEntry[]
