@@ -194,7 +194,7 @@ export function Chart({
   const plotW = 400
   const plotH = Math.max(120, height)
   const innerW = plotW - padX * 2
-  const labelCol = isHBar ? 72 : 0
+  const labelCol = isHBar ? 108 : 0
   const plotLeft = padX + labelCol
   const plotInnerW = innerW - labelCol
   const innerH = Math.max(56, plotH - padTop - tickBand)
@@ -202,8 +202,8 @@ export function Chart({
   const slot = (isHBar ? innerH : plotInnerW) / n
   const interactive = typeof onPointClick === 'function'
   const tickMax = Math.max(5, Math.min(16, Math.floor((isHBar ? 70 : plotInnerW / n) / 6)))
-  const valueFont = 9
-  const tickFont = 6.5
+  /** Layout gap for value labels in SVG user units (font size is CSS-fixed on `.ds-chart__*`). */
+  const valueLabelGap = 14
   const summary =
     title ||
     (safe.length
@@ -270,9 +270,8 @@ export function Chart({
                     <text
                       className="ds-chart__value-label"
                       x={cx}
-                      y={Math.max(valueFont + 2, y - 3)}
+                      y={Math.max(valueLabelGap, y - 3)}
                       textAnchor="middle"
-                      fontSize={valueFont}
                     >
                       {valueFormatter(point.value)}
                     </text>
@@ -283,7 +282,6 @@ export function Chart({
                       x={cx}
                       y={padTop + innerH + 12}
                       textAnchor="middle"
-                      fontSize={tickFont}
                     >
                       {truncateLabel(point.label, tickMax)}
                     </text>
@@ -313,7 +311,6 @@ export function Chart({
                     x={padX}
                     y={y + barH / 2 + 2}
                     textAnchor="start"
-                    fontSize={tickFont}
                   >
                     {truncateLabel(point.label, 10)}
                   </text>
@@ -333,7 +330,6 @@ export function Chart({
                       x={plotLeft + w + 4}
                       y={y + barH / 2 + 2}
                       textAnchor="start"
-                      fontSize={valueFont}
                     >
                       {valueFormatter(point.value)}
                     </text>
@@ -385,9 +381,8 @@ export function Chart({
                   <text
                     className="ds-chart__value-label"
                     x={x}
-                    y={Math.max(valueFont + 2, y - 6)}
+                    y={Math.max(valueLabelGap, y - 6)}
                     textAnchor="middle"
-                    fontSize={valueFont}
                   >
                     {valueFormatter(point.value)}
                   </text>
@@ -398,7 +393,6 @@ export function Chart({
                     x={x}
                     y={padTop + innerH + 12}
                     textAnchor="middle"
-                    fontSize={tickFont}
                   >
                     {truncateLabel(point.label, tickMax)}
                   </text>
@@ -445,7 +439,6 @@ export function Chart({
                         x={lp.x}
                         y={lp.y}
                         textAnchor="middle"
-                        fontSize={valueFont}
                       >
                         {valueFormatter(point.value)}
                       </text>
@@ -489,7 +482,6 @@ export function Chart({
                     x={plotW / 2}
                     y={y + rowH * 0.45}
                     textAnchor="middle"
-                    fontSize={tickFont}
                   >
                     {truncateLabel(point.label, 18)} · {valueFormatter(point.value)}
                   </text>

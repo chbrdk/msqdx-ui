@@ -5120,13 +5120,15 @@ button.ds-collection-hub-card--create:disabled:focus-visible .ds-collection-hub-
 }
 .ds-chart__tick,
 .ds-chart__value-label {
-  fill: color-mix(in oklab, var(--fg, #eee) 70%, transparent);
-  font-weight: 300;
-  /* font-size comes from SVG fontSize (user units) so labels scale with the plot */
+  fill: color-mix(in oklab, var(--fg, #eee) 78%, transparent);
+  font-weight: var(--weight-regular, 400);
+  /* Fixed screen type — do not use SVG user-unit fontSize (scales unreadably). */
+  font-size: var(--type-sm, 0.75rem);
 }
 .ds-chart__value-label {
-  fill: color-mix(in oklab, var(--fg, #eee) 88%, transparent);
-  font-weight: 300;
+  fill: color-mix(in oklab, var(--fg, #eee) 92%, transparent);
+  font-weight: var(--weight-light, 300);
+  font-size: var(--type-sm, 0.75rem);
 }
 .ds-chart__table {
   width: 100%;
@@ -5208,9 +5210,9 @@ button.ds-collection-hub-card--create:disabled:focus-visible .ds-collection-hub-
   opacity: 1;
 }
 .ds-series-chart__tick {
-  fill: color-mix(in oklab, var(--fg, #eee) 70%, transparent);
-  font-size: 7px;
-  font-weight: 300;
+  fill: color-mix(in oklab, var(--fg, #eee) 78%, transparent);
+  font-size: var(--type-sm, 0.75rem);
+  font-weight: var(--weight-regular, 400);
 }
 .ds-series-chart__legend {
   list-style: none;

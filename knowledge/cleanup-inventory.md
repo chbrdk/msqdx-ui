@@ -15,7 +15,7 @@ Focus this pass: stale `creation-*-bump.md` operator notes, dual token/type arti
 | `knowledge/creation-inspect-chrome-e9-bump.md` | reshape | Inbound: `paths.md` L31, E10 prior link | TokenPicker compact wave; chain-only after E10/E11. |
 | `knowledge/creation-inspect-chrome-e10-bump.md` | reshape | Inbound: `paths.md` L32, E11 prior; **obsolete** lucide narrative vs `specs/domain/msqdx-ui-icon-language.md` | Documents lucide lockfile/icon slots — contradicts current Wave icon policy. Rewrite or archive when consolidating bumps. |
 | `knowledge/creation-inspect-chrome-e11-bump.md` | defer | **Not** listed in `paths.md`; only E10 back-link | Latest inspect chain entry (lucide-era). Add to consolidated doc or one `paths.md` line after reshape; not `drop_safe` until consumer pins documented elsewhere. |
-| `knowledge/creation-layers-panel-multi-bump.md` | drop_safe | No `paths.md` entry; only self + E8 prior ref; creation-v3 owns mirror note in file body | P63 multi-select wave. Safe after Gatekeeper confirms creation-v3 `knowledge/paths.md` holds pin SSOT (not msqdx-ui wave files). |
+| `knowledge/creation-layers-panel-multi-bump.md` | drop_safe **done** 2026-09-26 | No `paths.md` entry; creation-v3 owns mirror | Purged; pin SSOT remains in creation-v3. |
 | `knowledge/ds-keep-mapping.md` | reshape | `paths.md` L24; `packages/ui/src/ds-keep-mapping.test.ts`; keep-drop “may still be historical” | Zaoly 70-tag → `@msqdx/ui` table (2026-08-12). SoT is now `catalog.ts` + specs; mapping still useful for tag aliases but `ds-icon` row cites lucide — update or supersede with catalog gap list, then downgrade to reference-only. |
 | `knowledge/ds-deposit-component-semantic-map.json` | keep | `pnpm test:ds-deposit-drift`; `ds-deposit-semantic-map.test.ts`; many `*.mdx` “Tokens consumed” | Local mirror of Brandion canonical JSON (`canonical` field in JSON). Dual artifact is intentional for drift CI — do not drop without moving drift to brandion-only checkout in CI. |
 | `knowledge/ds-deposit-component-semantic-map.md` | keep | Same as JSON; cited from component MDX | Human view of D5 map; not obsolete vs Brandion SSOT. |
@@ -36,6 +36,6 @@ Focus this pass: stale `creation-*-bump.md` operator notes, dual token/type arti
 | keep | 5 |
 | reshape | 10 |
 | defer | 3 |
-| drop_safe | 1 (conditional on creation-v3 pin SSOT) |
+| drop_safe | 0 remaining (multi-bump done Welle 2b) |
 
-Gatekeeper: promote `creation-layers-panel-multi-bump.md` to `suite-cleanup-drop-safe.md` only after creation-v3 path check; do **not** batch-delete bump chain until `paths.md` + consolidated doc land.
+Bump chain (E7–E11) stays **reshape** until consolidated pin doc lands.

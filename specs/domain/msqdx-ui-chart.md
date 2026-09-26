@@ -56,7 +56,7 @@ For polar / spider profiles use sibling molecule [`RadarChart`](msqdx-ui-radar-c
 
 ## Presentation
 
-- Compact SVG ticks / value labels where the geometry allows  
+- Tick and value labels use **fixed CSS type** (`--type-sm` / rem) on `.ds-chart__tick` / `.ds-chart__value-label` — not SVG user-unit `fontSize` (those scale unreadably with the viewBox)
 - Legend table: category labels regular weight; values larger + light weight  
 - Hover sync: table row ↔ chart mark (`--active` / `--dim`)  
 - `formatChartValue` trims floats  
