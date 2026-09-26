@@ -38,4 +38,5 @@ Focus this pass: stale `creation-*-bump.md` operator notes, dual token/type arti
 | defer | 3 |
 | drop_safe | 0 remaining (multi-bump done Welle 2b) |
 
-Bump chain (E7–E11) stays **reshape** until consolidated pin doc lands.
+Bump chain (E7–E11) stays **reshape** until consolidated pin doc lands.  
+**Querschnitt 2026-09-26:** multi-bump already done (Welle 2b); no further bump drops this wave.
