@@ -36,3 +36,17 @@ export const WithoutHairline: Story = {
     </div>
   ),
 }
+
+/** Crowded DE labels — Open must stay clickable (no neighbor overflow). */
+export const CrowdedGermanLabels: Story = {
+  render: () => (
+    <div style={{ width: '22rem', border: '1px solid var(--line)', padding: '1rem' }}>
+      <CardActions>
+        <Button variant="ghost">Öffnen</Button>
+        <Button variant="ghost">Bearbeiten</Button>
+        <Button variant="ghost">Archivieren</Button>
+        <Button variant="ghost">Zu Plexon syncen</Button>
+      </CardActions>
+    </div>
+  ),
+}

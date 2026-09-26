@@ -1116,10 +1116,12 @@
 }
 
 /* CardActions — equal-width magazine action row (specs/domain/msqdx-ui-card-actions.md)
-   Parent must be column flex + full grid-cell height; margin-top:auto pins the footer. */
+   Parent must be column flex + full grid-cell height; margin-top:auto pins the footer.
+   Basis + wrap + clip: long labels (Öffnen/Bearbeiten/Archivieren) must not overflow
+   onto neighbors and steal clicks (later siblings paint on top). */
 .ds-card-actions {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 0.65rem;
   width: 100%;
@@ -1133,16 +1135,28 @@
 }
 
 .ds-card-actions > * {
-  flex: 1 1 0;
+  flex: 1 1 6.75rem;
   min-width: 0;
+  max-width: 100%;
   display: flex;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
   text-decoration: none;
 }
 
 .ds-card-actions .ds-btn {
   flex: 1 1 auto;
   width: 100%;
+  min-width: 0;
   justify-content: center;
+  overflow: hidden;
+}
+
+.ds-card-actions .ds-btn__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* InfoTip — ghost IconInfo + Tooltip (specs/domain/msqdx-ui-infotip.md) */
@@ -4730,11 +4744,30 @@ button.ds-collection-hub-card--create:disabled:focus-visible .ds-collection-hub-
 
 .ds-collection-hub-list-row__trail {
   display: inline-flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.65rem 0.85rem;
+  gap: 0.45rem 0.65rem;
   justify-content: flex-end;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: min(100%, 28rem);
+}
+
+.ds-collection-hub-list-row__trail > * {
+  position: relative;
+  z-index: 0;
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+.ds-collection-hub-list-row__trail .ds-btn {
+  overflow: hidden;
+}
+
+.ds-collection-hub-list-row__trail .ds-btn__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ds-collection-hub-list-create {

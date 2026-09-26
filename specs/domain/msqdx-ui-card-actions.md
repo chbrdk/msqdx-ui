@@ -36,7 +36,8 @@ Equal-width action row for magazine / collection cards (Open · Edit · Delete, 
 ## CSS
 
 - Public: `.ds-card-actions`, `.ds-card-actions--hairline`
-- Direct children get `flex: 1`; nested `.ds-btn` fills the child width
+- Direct children get `flex: 1 1 6.75rem` (equal grow, wrap when labels do not fit)
+- Nested / child `.ds-btn` fills the slot; labels ellipsize — **no overflow onto neighbors** (click steal)
 - Magazine button chrome: square corners, compact type, letter-spacing
 - `margin-top: auto` pins the row to the bottom when the card is a column flex container filling equal grid-cell height (main content above grows / free space sits above actions)
 
@@ -47,6 +48,7 @@ Consuming magazine tiles must:
 1. Use a column flex card (`display: flex; flex-direction: column`) with `height: 100%` (or equivalent fill of a stretched grid item).
 2. Let grid items stretch (`align-items: stretch`, CSS Grid default).
 3. Place `CardActions` as the last flex child so `margin-top: auto` aligns action rows across the row.
+4. Prefer `Button href` or `Link` + `buttonClassName` — do not nest `<button>` inside `<a>` / `<Link>`.
 
 ## Acceptance
 
@@ -54,3 +56,4 @@ Consuming magazine tiles must:
 2. Plexon / Checkion collection cards consume `CardActions` (no divergent equal-flex copies).
 3. Hairline language matches existing magazine tiles when `hairline` is on.
 4. Action rows align across a grid row when sibling cards have unequal content height above.
+5. Crowded footers (4+ German labels on a ~22rem card): each action keeps its own hit target — Open is not covered by Edit.

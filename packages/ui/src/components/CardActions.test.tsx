@@ -37,4 +37,20 @@ describe('CardActions', () => {
     )
     expect(container.querySelector('.ds-card-actions')).toBeTruthy()
   })
+
+  it('keeps wrap + basis classes so crowded labels do not crush slots', () => {
+    const { container } = render(
+      <CardActions>
+        <Button variant="ghost">Öffnen</Button>
+        <Button variant="ghost">Bearbeiten</Button>
+        <Button variant="ghost">Archivieren</Button>
+        <Button variant="ghost">Zu Plexon syncen</Button>
+      </CardActions>,
+    )
+    const row = container.querySelector('.ds-card-actions')
+    expect(row?.children).toHaveLength(4)
+    for (const child of Array.from(row?.children ?? [])) {
+      expect(child).toHaveClass('ds-btn')
+    }
+  })
 })
