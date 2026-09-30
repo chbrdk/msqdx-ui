@@ -2629,6 +2629,77 @@ button.ds-marker-canvas__marker:focus-visible {
   gap: 0.28rem;
 }
 
+/* FieldWell — dashboard bind slots (msqdx-ui-field-well.md) */
+.ds-field-well-stack {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+.ds-field-well {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  width: 100%;
+}
+.ds-field-well__role {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.ds-field-well__body {
+  width: 100%;
+  min-height: 2.1rem;
+  border-bottom: 1px solid color-mix(in oklab, var(--line) 85%, transparent);
+  transition:
+    border-color 0.12s ease,
+    background-color 0.12s ease;
+}
+.ds-field-well--empty .ds-field-well__body {
+  border-bottom-style: dashed;
+  border-bottom-color: color-mix(in oklab, var(--line) 55%, transparent);
+}
+.ds-field-well--bound .ds-field-well__body {
+  border-bottom-style: solid;
+}
+.ds-field-well--drop-active .ds-field-well__body {
+  border-bottom-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
+}
+.ds-field-well__hint {
+  margin: 0;
+}
+.ds-field-well .ds-field,
+.ds-field-well .ds-expression-field {
+  width: 100%;
+  max-width: none;
+}
+.ds-field-well .ds-expression-field-label {
+  display: none;
+}
+.ds-field-well .ds-expression-field-input-wrap,
+.ds-field-well .ds-expression-field-input,
+.ds-field-well .ds-input,
+.ds-field-well .ds-select-trigger {
+  width: 100%;
+  max-width: none;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  min-height: 2.35rem;
+  padding-inline: 0.15rem;
+}
+.ds-field-well .ds-expression-field-input-wrap {
+  border-bottom: none;
+}
+.ds-field-well .ds-expression-field-input-wrap:focus-within {
+  outline: none;
+  box-shadow: none;
+}
+
 /* Inspect density: quieter Field labels + full-width controls (PropertyInspector + Chart studio). */
 .ds-inspect-density .ds-field {
   width: 100%;

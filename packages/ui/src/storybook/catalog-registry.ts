@@ -51,6 +51,7 @@ import { HubIndexLayoutSwitch } from '../components/HubIndexLayoutSwitch'
 import { EventFooter } from '../components/EventFooter'
 import { ExpressionField } from '../components/ExpressionField'
 import { Field } from '../components/Field'
+import { FieldWell } from '../components/FieldWell'
 import { FilterRow } from '../components/FilterRow'
 import { FloatingPanel } from '../components/FloatingPanel'
 import { FlowBoardPalette } from '../components/FlowBoardPalette'
@@ -212,6 +213,7 @@ const CATALOG_COMPONENTS = {
   EventFooter,
   ExpressionField,
   Field,
+  FieldWell,
   FilterRow,
   FloatingPanel,
   FlowBoardPalette,

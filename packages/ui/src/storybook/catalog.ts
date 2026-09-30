@@ -65,6 +65,7 @@ export const CATALOG: CatalogEntry[] = [
   { id: 'PageTitle', layer: 'Atoms', title: 'Atoms/PageTitle', stories: 'components/PageTitle.stories.tsx', mdx: 'components/PageTitle.mdx' },
   // Molecules
   { id: 'Field', layer: 'Molecules', title: 'Molecules/Field', stories: 'components/Field.stories.tsx', mdx: 'components/Field.mdx', viewportCritical: true },
+  { id: 'FieldWell', layer: 'Molecules', title: 'Molecules/FieldWell', stories: 'components/FieldWell.stories.tsx', mdx: 'components/FieldWell.mdx' },
   { id: 'TagInput', layer: 'Molecules', title: 'Molecules/TagInput', stories: 'components/TagInput.stories.tsx', mdx: 'components/TagInput.mdx' },
   { id: 'Alert', layer: 'Molecules', title: 'Molecules/Alert', stories: 'components/Alert.stories.tsx', mdx: 'components/Alert.mdx' },
   { id: 'Toast', layer: 'Molecules', title: 'Molecules/Toast', stories: 'components/Toast.stories.tsx', mdx: 'components/Toast.mdx' },
