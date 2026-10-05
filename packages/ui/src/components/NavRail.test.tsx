@@ -62,6 +62,24 @@ describe('NavRail', () => {
     expect(rail).toHaveAttribute('data-edge', 'left')
   })
 
+  it('forwards data-help-anchor for suite walkthroughs', () => {
+    render(
+      <NavRail
+        dockable={false}
+        defaultDockEdge="left"
+        items={[
+          {
+            id: 'projects',
+            label: 'Projects',
+            href: '/projects',
+            dataHelpAnchor: 'nav-projects',
+          },
+        ]}
+      />,
+    )
+    expect(document.querySelector('[data-help-anchor="nav-projects"]')).toBeTruthy()
+  })
+
   it('locks to bottom compact dock when viewport matches compact media', async () => {
     const mq = {
       matches: true,

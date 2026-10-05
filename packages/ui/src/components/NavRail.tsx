@@ -20,6 +20,8 @@ export type NavRailItem = {
   disabled?: boolean
   title?: string
   ariaLabel?: string
+  /** Suite Help walkthrough anchor (`[data-help-anchor=…]`). */
+  dataHelpAnchor?: string
   onClick?: MouseEventHandler<HTMLElement>
 }
 
@@ -75,6 +77,11 @@ function RailItem({
     </>
   )
 
+  const helpAnchor =
+    item.dataHelpAnchor && item.dataHelpAnchor.trim()
+      ? { 'data-help-anchor': item.dataHelpAnchor.trim() }
+      : undefined
+
   if (item.href && !item.disabled) {
     if (LinkComponent) {
       return (
@@ -83,6 +90,7 @@ function RailItem({
           className={className}
           title={item.title ?? item.label}
           aria-label={item.ariaLabel ?? item.label}
+          {...helpAnchor}
         >
           {content}
         </LinkComponent>
@@ -95,6 +103,7 @@ function RailItem({
         className={className}
         title={item.title ?? item.label}
         aria-label={item.ariaLabel ?? item.label}
+        {...helpAnchor}
       >
         {content}
       </a>
@@ -109,6 +118,7 @@ function RailItem({
         title={item.title ?? item.label}
         aria-label={item.ariaLabel ?? item.label}
         onClick={item.onClick}
+        {...helpAnchor}
       >
         {content}
       </button>
@@ -121,6 +131,7 @@ function RailItem({
       title={item.title ?? item.label}
       aria-label={item.ariaLabel ?? item.label}
       aria-disabled={item.disabled ? 'true' : undefined}
+      {...helpAnchor}
     >
       {content}
     </span>
